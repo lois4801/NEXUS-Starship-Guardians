@@ -3,6 +3,7 @@
 import secrets
 import sqlite3
 from typing import Any
+
 from fastapi import Depends, FastAPI, Header, HTTPException
 
 from .config import Settings

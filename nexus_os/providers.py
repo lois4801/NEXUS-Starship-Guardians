@@ -2,9 +2,11 @@
 
 import json
 import re
+
 import httpx
+
 from .config import Settings
-from .models import Action, AGENT_PROFILES, ProjectCreate
+from .models import AGENT_PROFILES, Action, ProjectCreate
 from .tools import TOOL_DESCRIPTIONS
 
 
@@ -22,7 +24,7 @@ class DemoProvider:
                 return Action(type="final", answer=f"Tool result: {json.dumps(last['result'], ensure_ascii=False)}")
             if last.get("type") == "tool_error":
                 return Action(type="final", answer=f"Tool failed: {last['error']}")
-        expr = re.fullmatch(r"\s*(?:calculate|compute)\s+(.+?)\s*\??\s*", goal, re.I)
+        expr = re.fullmatch(r"\s*(?:calculate|compute)\s+(.+?)\s*\??\s*", goal, re.IGNORECASE)
         if expr and "calculator" in available:
             return Action(type="tool", tool="calculator", arguments={"expression": expr.group(1)})
         if goal.strip().lower() in ("what time is it?", "utc now") and "utc_now" in available:

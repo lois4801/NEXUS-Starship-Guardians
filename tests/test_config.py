@@ -1,4 +1,5 @@
 import pytest
+
 from nexus_os.config import Settings
 
 

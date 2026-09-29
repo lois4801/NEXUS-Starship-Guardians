@@ -1,6 +1,7 @@
 """Register a separate tenant for Lucio or Ember, using the admin key."""
 import os
 import sys
+
 import httpx
 
 project_id = sys.argv[1] if len(sys.argv) > 1 else "lucio-dev"

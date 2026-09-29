@@ -77,7 +77,6 @@ def test_duplicate_project_rejected(api):
 def test_notes_are_project_scoped(api):
     lucio = add_project(api, "lucio", tools=["project_note"])
     ember = add_project(api, "ember", tools=["project_note"])
-    api.app.state  # smoke test attached app
     # Demo intentionally doesn't propose writes; create a pending approval by overriding provider in tests.
     from nexus_os import orchestrator as orch
     from nexus_os.models import Action

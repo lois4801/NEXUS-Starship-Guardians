@@ -1,6 +1,7 @@
 """Versioned API data contracts."""
 
 from typing import Any, Literal
+
 from pydantic import BaseModel, Field
 
 AgentId = Literal["general", "builder", "research"]

@@ -1,8 +1,8 @@
 """Small, strictly allowlisted tool registry. No arbitrary Python or shell execution."""
 
 import ast
-from datetime import datetime, timezone
 import operator
+from datetime import UTC, datetime
 from typing import Any
 
 from .storage import Store
@@ -59,7 +59,7 @@ def run_tool(name: str, args: dict[str, Any], project_id: str, store: Store) -> 
         except (SyntaxError, ValueError, ArithmeticError, OverflowError) as exc:
             raise ToolError(f"Invalid arithmetic: {exc}") from exc
     if name == "utc_now":
-        return {"utc": datetime.now(timezone.utc).isoformat()}
+        return {"utc": datetime.now(UTC).isoformat()}
     if name == "project_note":
         content = args.get("content")
         if not isinstance(content, str) or not 1 <= len(content) <= 3000:

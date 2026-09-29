@@ -1,7 +1,7 @@
 """Bounded agent loop with durable event trace and explicit approval for write tools."""
 
 import threading
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from .config import Settings
@@ -19,7 +19,7 @@ class Orchestrator:
 
     @staticmethod
     def event(run: dict[str, Any], typ: str, **details: Any) -> None:
-        run["events"].append({"type": typ, "at": datetime.now(timezone.utc).isoformat(), **details})
+        run["events"].append({"type": typ, "at": datetime.now(UTC).isoformat(), **details})
 
     def advance(self, run_id: str, approved: bool | None = None) -> dict[str, Any]:
         with self.lock:

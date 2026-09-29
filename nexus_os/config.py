@@ -1,7 +1,7 @@
 """Environment-based server configuration; secrets are never stored in source control."""
 
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
 from urllib.parse import urlsplit
 
 
