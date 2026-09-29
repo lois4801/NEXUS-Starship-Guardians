@@ -1,0 +1,10 @@
+{
+  "name": "@nexus-agentic-os/client",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TypeScript integration client for NEXUS Agentic OS",
+  "type": "module",
+  "main": "src/client.ts",
+  "exports": {".": "./src/client.ts"},
+  "engines": {"node": ">=18"}
+}

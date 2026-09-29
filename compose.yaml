@@ -1,0 +1,14 @@
+services:
+  nexus:
+    build: .
+    env_file: .env
+    environment:
+      NEXUS_DB_PATH: /srv/nexus/data/nexus.db
+      # To reach Ollama running on the Docker host, use host.docker.internal.
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - nexus_data:/srv/nexus/data
+    restart: unless-stopped
+volumes:
+  nexus_data:
