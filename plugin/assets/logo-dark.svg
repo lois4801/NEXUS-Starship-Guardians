@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="NEXUS project routing and approval gate">
+<rect x="0" y="0" width="128" height="128" rx="28" fill="#F6F3EB"/>
+<g fill="none" stroke="#325A5F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+<path d="M23 29h24l17 19"/><path d="M23 64h24"/><path d="M23 99h24l17-19"/>
+<path d="M81 64h24"/>
+</g>
+<path d="M64 41l23 23-23 23-23-23z" fill="#926923"/>
+<path d="M59 64l4 4 9-10" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

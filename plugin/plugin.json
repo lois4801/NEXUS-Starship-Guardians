@@ -1,0 +1,40 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "nexus-agentic-os",
+  "version": "0.1.0",
+  "description": "Scoped project setup, agent-run operation, approval review and integration guidance for private NEXUS Agentic OS.",
+  "repository": "https://github.com/lois4801/NEXUS-Agentic-OS",
+  "keywords": [
+    "agents",
+    "orchestration",
+    "developer-tools",
+    "integrations"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "NEXUS Agentic OS",
+        "shortDescription": "Manage scoped agent workflows",
+        "longDescription": "Plan and operate a privately hosted NEXUS Agentic OS development instance. Guides separate project registration, bounded agent runs and approval review, secure server-side integration, and readiness checks. Bundles a small optional CLI for invoking an existing authorized NEXUS endpoint when the host provides Python and network access. No server, model, or NEXUS account is included; the plugin cannot connect without your own running instance and securely configured project key. NEXUS v0.1 is a development starter, not a live coding, repository editing, deployment, or web-research service.",
+        "developerName": "NEXUS Agentic OS",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Plan isolated NEXUS projects and tool permissions",
+          "Run and inspect existing NEXUS agent tasks when connected",
+          "Review write approvals before execution",
+          "Design server-side Lucio and Ember integration",
+          "Audit development readiness and tenant isolation"
+        ],
+        "defaultPrompt": [
+          "Help me configure separate NEXUS projects for Lucio and Ember.",
+          "Inspect my NEXUS run and explain any pending approvals.",
+          "Plan and test a secure NEXUS adapter for my app."
+        ],
+        "brandColor": "#27324A",
+        "brandColorDark": "#D6AE68",
+        "logo": "./assets/logo-light.svg",
+        "composerIcon": "./assets/icon.svg"
+      }
+    }
+  }
+}
