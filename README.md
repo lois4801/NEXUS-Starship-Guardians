@@ -63,26 +63,26 @@ python -m venv .venv
 pip install -e '.[dev]'
 ```
 
-> The repository slug and legacy Python/package identifiers remain unchanged temporarily for compatibility. The product name is **Nexus Starship Guardians** and the autonomous specialist role is **Guardian**.
+> The GitHub repository URL is still the existing repository address. The canonical product and package name is **Nexus Starship Guardians**.
 
 Install/run the portable helper:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\install.ps1
-.\.venv\Scripts\nexus-portable.exe doctor
+.\.venv\Scripts\nexus-guardians.exe doctor
 ```
 
 Use an API-key-free local Ollama model:
 
 ```powershell
 ollama pull llama3.2
-.\.venv\Scripts\nexus-portable.exe ask --provider ollama --model llama3.2 "Design a feature plan"
+.\.venv\Scripts\nexus-guardians.exe ask --provider ollama --model llama3.2 "Design a feature plan"
 ```
 
 Use Guardian swarm mode:
 
 ```powershell
-.\.venv\Scripts\nexus-portable.exe swarm `
+.\.venv\Scripts\nexus-guardians.exe swarm `
   --provider ollama `
   --model llama3.2 `
   --guardians 24 `
@@ -92,7 +92,7 @@ Use Guardian swarm mode:
 For large decomposable work:
 
 ```powershell
-.\.venv\Scripts\nexus-portable.exe swarm `
+.\.venv\Scripts\nexus-guardians.exe swarm `
   --provider ollama `
   --model llama3.2 `
   --guardians 200 `
@@ -137,4 +137,4 @@ ruff check nexus_os tests examples
 3. **v0.3:** MCP gateway, PostgreSQL, event streaming, resumable distributed queues, scoped skills/Guardian packs, model evaluation, and budget routing.
 4. **v1.0:** verified Lucio and Ember integrations, tenancy/security audit, observability, migrations, release, and rollback playbooks.
 
-See `docs/BRANDING.md`, `docs/ARCHITECTURE.md`, `docs/INTEGRATION.md`, `docs/PORTABLE_LLM_RUNTIME.md`, `docs/MULTI_AGENT_SWARM.md`, `docs/EXECUTION_SWARM.md`, and `docs/PARALLEL_CODING.md`.
+See `docs/BRANDING.md`, `docs/ARCHITECTURE.md`, `docs/INTEGRATION.md`, `docs/PORTABLE_LLM_RUNTIME.md`, `docs/MULTI_GUARDIAN_SWARM.md`, `docs/EXECUTION_SWARM.md`, and `docs/PARALLEL_CODING.md`.
