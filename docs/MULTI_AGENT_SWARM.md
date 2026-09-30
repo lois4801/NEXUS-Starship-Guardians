@@ -31,9 +31,15 @@ For an authenticated coding CLI adapter, configure `NEXUS_LLM_COMMAND` as docume
 5. Successful outputs are compacted into a bounded evidence payload.
 6. A lead orchestrator synthesizes the work, resolves conflicts, removes duplication, orders dependencies, and defines verification gates.
 
-## Important operating rule
+## Recommended team sizing
 
-`--agents 200` means **200 collaborating logical specialists**, not 200 unrestricted simultaneous shell processes. This distinction is intentional. More agents are not automatically faster for small tasks; large teams are most useful for broad builds, audits, migrations, testing matrices, research and independent verification. Start with 12-32 for normal development and scale toward 200 for genuinely decomposable work.
+- Small fix or review: 4-12 agents.
+- Feature build: 12-32 agents.
+- Cross-stack feature or migration: 24-64 agents.
+- Large audit, broad refactor, multi-system integration, or release review: 50-120 agents.
+- Full 200-agent mode: reserve for large, highly decomposable missions where independent specialist perspectives materially help.
+
+The scheduler supports 200 agents, but it does not assume that 200 is always faster. For small tasks, coordination overhead can dominate. NEXUS should use the smallest team that covers the required specialties and verification needs.
 
 ## Safety and execution
 
