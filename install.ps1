@@ -12,5 +12,5 @@ if (-not (Test-Path ".venv")) {
 & .\.venv\Scripts\python.exe -m pip install -e ".[dev]"
 
 Write-Host "Nexus Starship Guardians installed."
-Write-Host "Run: .\.venv\Scripts\nexus-portable.exe doctor"
-Write-Host "API-free local example: .\.venv\Scripts\nexus-portable.exe ask --provider ollama --model llama3.2 'Hello from Nexus Starship Guardians'"
+Write-Host "Run: .\.venv\Scripts\nexus-guardians.exe doctor"
+Write-Host "API-free local example: .\.venv\Scripts\nexus-guardians.exe ask --provider ollama --model llama3.2 'Hello from Nexus Starship Guardians'"
