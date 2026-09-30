@@ -1,125 +1,141 @@
-# NEXUS Agentic OS · v0.1.0
+# Nexus Starship Guardians · v0.3-dev
 
-**One reusable agent runtime; separate permissions and agent packs for Lucio AI Platform, Ember, and future applications.** This repository is independent of your application repositories. It is a **tested development starter**, not a claim of a production-ready autonomous app builder.
+**A reusable Guardian engineering runtime for Lucio AI Platform, Ember, Nexus Code, and future applications.** Nexus Starship Guardians coordinates bounded Guardian teams, verified execution, learning memory, evaluation, regression protection, adaptive routing, and increasingly distributed work.
 
-## Delivered in v0.1
+## Current capabilities
 
-- FastAPI REST API with Swagger UI (`/docs`), health endpoint and independently registered projects.
-- Strong, randomly generated per-project API keys (only their SHA-256 hashes are stored), a separate admin token, and enforcement of tenant isolation on every protected endpoint.
-- Project-specific enabled agents (`general`, `builder`, `research`), allowed tools, model provider and execution budgets.
-- Bounded orchestration loop, durable SQLite run traces, explicit approval before writing project notes, denied-tool checks and recoverable pending approvals.
-- Fully offline deterministic `demo` provider with a **real calculator** and UTC tool. This intentionally does **not** pretend to design apps, browse or write code.
-- OpenAI-compatible `/v1/chat/completions` provider, configurable for local Ollama or a supported hosted endpoint. Requires a real model service and appropriate permissions.
-- Python and server-side TypeScript SDKs, Docker, Docker Compose, examples and CI tests.
-
-**Not yet implemented:** GitHub repository editing, terminal sandbox, full MCP client/server, external web research, app deployment, model-cost router, durable distributed queue, Postgres, or Kubernetes. Plan these as subsequent integrations; never expose arbitrary shell or tenant-wide credentials to models.
+- FastAPI REST API with project-scoped authentication and approval gates.
+- Portable local/CLI runtime for Ollama and authenticated coding/chat CLIs.
+- Adaptive swarm coordination for **1–200 logical Guardians** with bounded physical concurrency.
+- Canonical **30-Guardian Artificial Architecture team**.
+- Cross-run learning through episodic memory, reflection, evidence, and relevant-lesson retrieval.
+- Isolated Git worktrees, parallel coding coordination, structured file editing, and automatic diff review.
+- Browser/API/unit verification, bounded auto-repair, SHA-256 evidence bundles, and safe rebase/conflict handling.
+- **Guardian Intelligence Lab** for fixed-corpus baseline/candidate evaluation.
+- **Multi-Judge Evaluation** with deterministic, Guardian, alternate-model, and evidence judge types.
+- **Promotion Gate** that blocks pass-rate regressions, insufficient score gains, critical regressions, and optional cost/latency overruns.
+- **Failure Taxonomy + Automatic Regression Corpus** so verified failures can become deduplicated future evaluation cases.
+- **Guardian Capability Registry + Adaptive Router** using capability/tool requirements and historical quality/reliability/cost/latency evidence.
+- **Strategy Tournament** for comparing models, prompts, team structures, routing strategies, and repair policies on the same corpus.
+- Durable SQLite queue for local development plus a **PostgreSQL distributed lease-queue foundation** using `FOR UPDATE SKIP LOCKED`, worker leases, heartbeats, retries, and expired-lease recovery.
+- GitHub-rendered architecture/process Mermaid diagrams and a permanent engineering learnings/retrospective log.
 
 ## Architecture
 
-```text
-Lucio AI ──┐
-Ember ─────┼─> [NEXUS API / project key] -> [project permissions]
-Future ───┘                                  |
-                                             v
-                 [selected agent profile] -> [bounded orchestrator]
-                                              |     |
-                                              |     +-> SQLite run history
-                                              v
-                                    [configured model provider]
-                                              |
-                                    [allowlisted action proposal]
-                                              |
-                          [approval for writes] -> [real tool call]
+```mermaid
+flowchart TD
+    A[Nexus Starship Guardians] --> B[Mission Command]
+    B --> C[Mission Classifier]
+    C --> D[Capability Map]
+    D --> E[Guardian Registry]
+    E --> F[Adaptive Router]
+    F --> G[Models]
+    F --> H[Guardians]
+    F --> I[Tools]
+    G --> J[Execution Planner]
+    H --> J
+    I --> J
+    J --> K[Dependency-Aware DAG]
+    K --> L[Isolated Worktrees]
+    L --> M[Parallel Build Guardians]
+    M --> N[Diff Review]
+    N --> O[Verification Grid]
+    O --> P[Auto Repair]
+    P --> Q[Evidence Bundle]
+    Q --> R[Multi-Judge Evaluation]
+    R --> S[Failure Taxonomy]
+    S --> T[Regression Corpus]
+    T --> U[Learning Memory]
+    U --> V[Strategy Tournament]
+    V --> W[Promotion Gate]
+    W --> X[Release]
 ```
 
-Each app gets its **own project key, enabled agents, tool allowlist and run history**. The central service never needs to merge the applications' existing Git histories.
+Full visuals: [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md) and [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md).
 
-## Quick start — local smoke test (no paid API required)
+## Quick start
 
 ```bash
-# Python 3.11+
-git clone https://github.com/lois4801/NEXUS-Agentic-OS.git
-cd NEXUS-Agentic-OS
+git clone https://github.com/lois4801/NEXUS-Starship-Guardians.git
+cd NEXUS-Starship-Guardians
 python -m venv .venv
-# PowerShell:
-.\.venv\Scripts\Activate.ps1
+# PowerShell: .\.venv\Scripts\Activate.ps1
 # macOS/Linux: source .venv/bin/activate
 pip install -e '.[dev]'
-# Set a secure admin token; PowerShell:
-$env:NEXUS_ADMIN_TOKEN = python -c "import secrets; print(secrets.token_urlsafe(40))"
-# macOS/Linux alternative: export NEXUS_ADMIN_TOKEN=$(python -c 'import secrets; print(secrets.token_urlsafe(40))')
-uvicorn nexus_os.api:app --host 127.0.0.1 --port 8000 --workers 1
 ```
-
-In another PowerShell window, set **the same admin token**, or set it in an ignored local `.env` file and load it securely. Then register a project:
 
 ```powershell
-$headers = @{ Authorization = "Bearer $env:NEXUS_ADMIN_TOKEN" }
-$project = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/v1/projects `
-  -Headers $headers -ContentType 'application/json' `
-  -Body '{"project_id":"lucio-dev","display_name":"Lucio development","agents":["general","builder"],"allowed_tools":["calculator","utc_now"],"provider":"demo"}'
-# SAVE $project.api_key somewhere secure — it is displayed only once.
-$keyHeaders = @{ Authorization = "Bearer $($project.api_key)" }
-Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/v1/projects/lucio-dev/runs `
-  -Headers $keyHeaders -ContentType 'application/json' `
-  -Body '{"goal":"calculate 12 * 7", "agent":"general"}'
+powershell -ExecutionPolicy Bypass -File .\install.ps1
+.\.venv\Scripts\nexus-guardians.exe doctor
 ```
 
-The result should contain `status: completed`, a `tool_result` event with `84`, and a `final` event. Register `ember-dev` separately to give Ember a different API key and tool permissions. API documentation is at [localhost:8000/docs](http://127.0.0.1:8000/docs) when running locally.
+Example Guardian swarm:
 
-### Python SDK
-
-```python
-from nexus_os.client import NexusClient
-with NexusClient("http://127.0.0.1:8000", "YOUR_PROJECT_API_KEY") as nexus:
-    result = nexus.create_run("lucio-dev", "calculate 12 * 7")
-    print(result["answer"])
+```powershell
+.\.venv\Scripts\nexus-guardians.exe swarm `
+  --provider ollama `
+  --model llama3.2 `
+  --guardians 30 `
+  "Build, review, test, repair, evaluate, and document this feature"
 ```
 
-### TypeScript SDK (server-side ONLY)
+A 200-Guardian mission means up to 200 collaborating logical specialists, not 200 unrestricted shell processes.
 
-```typescript
-import { NexusClient } from './sdk/typescript/src/client';
-const nexus = new NexusClient(process.env.NEXUS_URL!, process.env.NEXUS_PROJECT_KEY!);
-const result = await nexus.createRun('ember-dev', 'calculate 12 * 7');
-console.log(result.answer);
-```
+## Learning and evaluation
 
-Use this SDK only from your own backend / server action; NEVER ship API keys to a browser/mobile client.
+Automatic Guardian learning means **memory + reflection + evaluation**, not live production weight mutation. High-quality verified episodes can later be curated for offline SFT/LoRA; a candidate model or strategy should then beat the fixed evaluation baseline before promotion.
 
-## Configure Ollama for real model-driven planning
+The Guardian Intelligence Lab compares candidates on pass rate, score, critical regressions, cost, and latency. Deterministic/evidence failures cannot be hidden by a high semantic score.
 
-Ollama exposes an OpenAI-compatible chat completions endpoint at `/v1/chat/completions`. Install Ollama, pull a suitable model (`ollama pull llama3.2`), and set:
+## Adaptive routing
 
-```dotenv
-NEXUS_MODEL_BASE_URL=http://localhost:11434/v1
-NEXUS_MODEL_NAME=llama3.2
-NEXUS_MODEL_API_KEY=
-```
+`GuardianRegistry` records capabilities, tool access, success rate, quality, cost, and latency. `AdaptiveGuardianRouter` chooses a bounded team from explicit `MissionRequirements` and reports missing capabilities rather than pretending a team is sufficient.
 
-Register a new project with `"provider":"openai_compatible"`. The model can propose actions from that project's allowlisted tools; outputs are validated and tool use is recorded. This is a starter JSON-action protocol, not a guarantee that every local model will follow instructions reliably. If NEXUS itself runs in Docker and Ollama runs on your host, use `http://host.docker.internal:11434/v1` and enable Docker host mapping as needed on Linux.
+Historical performance never grants new tool permissions.
 
-## Approvals, security and operating limits
+## Distributed execution
 
-`project_note` is a **write** tool and will always return `pending_approval` when proposed; the owning project's API key (or admin token) calls `POST /v1/runs/{run_id}/approval` with `{"approved":true}` or `false`. No model can bypass the fixed server-side approval rule. New tools must explicitly declare their approval classification before release.
+`PostgresGuardianQueue` implements the PostgreSQL multi-worker contract: queued jobs, `SKIP LOCKED` claims, leases, heartbeats, bounded retries, completion/failure transitions, and expired-lease recovery. The adapter uses an injected DB-API compatible connection factory.
 
-Before public deployment, add TLS, a reverse proxy, rate limiting, production-grade secret management, centralized audit logging, PostgreSQL, a durable queue and per-tenant execution quotas. SQLite and the in-process lock are intended for a single process only. Run only one Uvicorn worker. Do **not** expose `NEXUS_DEV_MODE=true` publicly. Avoid storing model/API keys in run events, user prompts or GitHub.
+**Verification boundary:** unit tests validate queue policy/SQL structure, but CI does not yet launch a live PostgreSQL service. Concurrent database integration tests remain the next production gate.
+
+## Default repository update standard
+
+Every meaningful Nexus Starship Guardians change should update the applicable repository evidence:
+
+1. code;
+2. automated tests;
+3. documentation;
+4. architecture/process visuals;
+5. learnings/retrospective;
+6. change log and CI/verification status.
 
 ## Quality gates
 
 ```bash
 pip install -e '.[dev]'
-NEXUS_DEV_MODE=true pytest -q
 ruff check nexus_os tests examples
+NEXUS_DEV_MODE=true pytest -q
 ```
 
-CI runs both checks on push and pull request. Offline tests cover authentication, tenant isolation, real calculator execution, bogus tool rejection, approval and denial, and deliberate demo limitations. Integration tests against a **real** Ollama/hosted model and existing Lucio/Ember repositories remain a separate acceptance gate.
+## Key documentation
+
+- [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md)
+- [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md)
+- [`docs/GUARDIAN_INTELLIGENCE_LAB.md`](docs/GUARDIAN_INTELLIGENCE_LAB.md)
+- [`docs/MULTI_JUDGE_EVALUATION.md`](docs/MULTI_JUDGE_EVALUATION.md)
+- [`docs/REGRESSION_CORPUS.md`](docs/REGRESSION_CORPUS.md)
+- [`docs/GUARDIAN_REGISTRY.md`](docs/GUARDIAN_REGISTRY.md)
+- [`docs/ADAPTIVE_ROUTING.md`](docs/ADAPTIVE_ROUTING.md)
+- [`docs/DISTRIBUTED_EXECUTION.md`](docs/DISTRIBUTED_EXECUTION.md)
+- [`docs/SELF_LEARNING_GUARDIANS.md`](docs/SELF_LEARNING_GUARDIANS.md)
+- [`docs/LEARNINGS_AND_RETROSPECTIVE.md`](docs/LEARNINGS_AND_RETROSPECTIVE.md)
+- [`docs/CHANGELOG_INTERNAL.md`](docs/CHANGELOG_INTERNAL.md)
 
 ## Roadmap
 
-1. **v0.1 (this release):** secure starter, offline demo, local LLM adapter, Python/TypeScript clients and CI.
-2. **v0.2:** authenticated GitHub adapter, sandboxed coding worker, tests with evidence, job cancellation and resumable background queue.
-3. **v0.3:** MCP tool gateway, PostgreSQL, event streaming, scoped skills/agent packs, model evaluation and budget router.
-4. **v1.0:** verified Lucio and Ember integrations, tenancy security audit, observability, migrations, release and rollback playbooks.
-
-See `docs/ARCHITECTURE.md` and `docs/INTEGRATION.md` for deeper design and phased app-specific integration instructions.
+1. **Foundation:** secure project runtime, provider adapters, SDKs, CI.
+2. **Execution + Learning:** 30/200-Guardian coordination, worktrees, verification, repair, evidence, cross-run learning.
+3. **Intelligence + Routing (current):** multi-judge evaluation, regression corpus, promotion gates, strategy tournament, Guardian registry, adaptive routing, PostgreSQL distributed queue foundation.
+4. **Production verification:** live PostgreSQL concurrency CI, persistent registry metrics, automatic failure-to-regression wiring, alternate-model judge adapters, Mission Classifier, OpenTelemetry and queue observability.
+5. **v1.0:** verified Lucio/Ember/Nexus Code integrations, security/tenancy audit, governed release/rollback automation, and curated offline model-improvement pipeline.

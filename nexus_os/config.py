@@ -13,6 +13,8 @@ class Settings:
     model_api_key: str
     model_name: str
     dev_mode: bool
+    learning_path: str = "./data/guardian_learning.jsonl"
+    evaluation_path: str = "./data/guardian_evaluations.jsonl"
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -25,7 +27,8 @@ class Settings:
         url = os.getenv("NEXUS_MODEL_BASE_URL", "http://localhost:11434/v1").rstrip("/")
         parsed = urlsplit(url)
         if parsed.scheme != "https" and not (
-            parsed.scheme == "http" and parsed.hostname in {"localhost", "127.0.0.1", "::1", "host.docker.internal"}
+            parsed.scheme == "http"
+            and parsed.hostname in {"localhost", "127.0.0.1", "::1", "host.docker.internal"}
         ):
             raise RuntimeError("Model endpoint must be HTTPS or an explicit local HTTP endpoint")
         if parsed.username or parsed.password or not parsed.hostname:
@@ -37,4 +40,8 @@ class Settings:
             model_api_key=os.getenv("NEXUS_MODEL_API_KEY", ""),
             model_name=os.getenv("NEXUS_MODEL_NAME", "llama3.2"),
             dev_mode=dev,
+            learning_path=os.getenv("NEXUS_LEARNING_PATH", "./data/guardian_learning.jsonl"),
+            evaluation_path=os.getenv(
+                "NEXUS_EVALUATION_PATH", "./data/guardian_evaluations.jsonl"
+            ),
         )
