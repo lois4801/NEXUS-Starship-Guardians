@@ -55,7 +55,7 @@ class EvidenceBundle:
         path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
     @classmethod
-    def read(cls, path: Path) -> "EvidenceBundle":
+    def read(cls, path: Path) -> EvidenceBundle:
         payload = json.loads(path.read_text(encoding="utf-8"))
         bundle = cls(
             bundle_id=payload["bundle_id"],
