@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import asyncio
 import os
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
-from typing import Awaitable, Callable
 
 MAX_SWARM_AGENTS = 200
 DEFAULT_PARALLELISM = max(2, min(16, (os.cpu_count() or 4) * 2))
@@ -98,7 +98,7 @@ class SwarmCoordinator:
                 try:
                     output = await worker(spec, goal)
                     return AgentResult(spec.agent_id, spec.role, output)
-                except Exception as exc:  # isolate one agent failure from the swarm
+                except Exception as exc:  # noqa: BLE001 - isolate one worker from the swarm
                     return AgentResult(
                         spec.agent_id,
                         spec.role,
