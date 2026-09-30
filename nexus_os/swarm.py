@@ -6,7 +6,6 @@ from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 
 MAX_SWARM_GUARDIANS = 200
-MAX_SWARM_AGENTS = MAX_SWARM_GUARDIANS  # compatibility alias
 DEFAULT_PARALLELISM = max(2, min(16, (os.cpu_count() or 4) * 2))
 
 ROLE_FAMILIES = (
@@ -26,11 +25,6 @@ class GuardianSpec:
     role: str
     objective: str
 
-    @property
-    def agent_id(self) -> str:
-        """Compatibility alias for integrations written before Guardian terminology."""
-        return self.guardian_id
-
 
 @dataclass(slots=True)
 class GuardianResult:
@@ -39,16 +33,6 @@ class GuardianResult:
     output: str
     ok: bool = True
     error: str | None = None
-
-    @property
-    def agent_id(self) -> str:
-        """Compatibility alias for integrations written before Guardian terminology."""
-        return self.guardian_id
-
-
-# Backward-compatible Python aliases. New code should use GuardianSpec/GuardianResult.
-AgentSpec = GuardianSpec
-AgentResult = GuardianResult
 
 
 @dataclass(slots=True)
@@ -59,14 +43,6 @@ class SwarmReport:
     max_parallel: int
     results: list[GuardianResult] = field(default_factory=list)
     synthesis: str | None = None
-
-    @property
-    def requested_agents(self) -> int:
-        return self.requested_guardians
-
-    @property
-    def active_agents(self) -> int:
-        return self.active_guardians
 
 
 Worker = Callable[[GuardianSpec, str], Awaitable[str]]
