@@ -41,6 +41,10 @@ For an authenticated coding CLI adapter, configure `NEXUS_LLM_COMMAND` as docume
 
 The scheduler supports 200 agents, but it does not assume that 200 is always faster. For small tasks, coordination overhead can dominate. NEXUS should use the smallest team that covers the required specialties and verification needs.
 
+## Execution contract
+
+The current swarm layer is a reasoning and coordination engine. It can fan out provider/model calls and synthesize the results. It does not yet grant 200 agents independent write access to GitHub, the filesystem, terminals, deployments, or databases. Those state-changing capabilities belong behind the existing NEXUS permissions and approvals and are planned for the sandbox/tool-worker phase.
+
 ## Safety and execution
 
 The swarm coordinator performs reasoning/model calls only. State-changing tools should continue through NEXUS approval and tool-policy boundaries. Do not give every specialist unrestricted filesystem, shell, deployment, credential or cross-project access.
