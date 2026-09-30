@@ -52,11 +52,17 @@ def decide_promotion(
     if not policy.allow_critical_regression and candidate.critical_failures > baseline.critical_failures:
         reasons.append("candidate introduced a critical regression")
 
-    if policy.maximum_cost_ratio is not None and baseline.cost > 0:
-        if candidate.cost / baseline.cost > policy.maximum_cost_ratio:
-            reasons.append("candidate cost exceeds the configured ratio")
-    if policy.maximum_latency_ratio is not None and baseline.latency_seconds > 0:
-        if candidate.latency_seconds / baseline.latency_seconds > policy.maximum_latency_ratio:
-            reasons.append("candidate latency exceeds the configured ratio")
+    if (
+        policy.maximum_cost_ratio is not None
+        and baseline.cost > 0
+        and candidate.cost / baseline.cost > policy.maximum_cost_ratio
+    ):
+        reasons.append("candidate cost exceeds the configured ratio")
+    if (
+        policy.maximum_latency_ratio is not None
+        and baseline.latency_seconds > 0
+        and candidate.latency_seconds / baseline.latency_seconds > policy.maximum_latency_ratio
+    ):
+        reasons.append("candidate latency exceeds the configured ratio")
 
     return PromotionDecision(promote=not reasons, reasons=reasons)
