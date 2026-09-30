@@ -1,51 +1,85 @@
-# Figma 1st Designs Vault — Revision Policy
+# Figma 1st Designs Vault — Live Update Policy
 
-Current baseline: `FIGMA_VAULT_V1.0`
+Canonical vault label: `FIGMA_VAULT_V1.0`
 
-## Naming rule
+## Operating model
 
-GitHub and Supabase must always use the exact same revision label.
+`FIGMA_VAULT_V1.0` is now the live canonical vault. We will update and overwrite the canonical files and Supabase records as the designs are improved.
 
-Revision sequence:
-- `FIGMA_VAULT_V1.0` — immutable first baseline
-- `FIGMA_VAULT_V1.1` — next additive update
-- `FIGMA_VAULT_V1.2` — next additive update
-- continue sequentially for catalog/metadata/preservation updates
-- use `FIGMA_VAULT_V2.0` only for a major vault-architecture or production-generation change
+The rule is simple:
 
-## Preservation rules
+**Stage → Build → Test → Verify → Update Canonical GitHub → Sync Canonical Supabase → Verify Again**
 
-1. Never overwrite or delete a prior revision snapshot.
-2. Every new update creates a new revision folder in GitHub and a matching revision row/snapshot in Supabase.
-3. Project names, Figma file keys, page names, node IDs, scene names, and prototype URLs must remain identical across GitHub and Supabase.
-4. Binary assets keep the same logical project/revision names in Supabase Storage.
-5. Original Figma references remain preserved even after improved Lucio versions are created.
-6. Unknown or unavailable assets must be marked pending, not assumed archived.
-7. Each revision must record counts for projects, pages, scenes, assets, and versions.
+Nothing replaces the canonical vault until the proposed change has passed its required checks.
 
-## GitHub canonical paths
+## Source-of-truth rules
 
-Current mirror root:
-`archives/figma-1st-designs-vault/`
+1. GitHub and Supabase must use the same project names, Figma file keys, page names, node IDs, scene names, prototype references, asset names, and canonical vault label.
+2. The canonical label remains `FIGMA_VAULT_V1.0` while this design vault evolves continuously.
+3. Canonical files may be overwritten only after the candidate update is verified working.
+4. GitHub commit history is the rollback/history mechanism for text, manifests, specifications, and production code.
+5. Supabase stores the current verified metadata and binary/media assets under matching logical names.
+6. Original Figma references remain recorded even when the website implementation is improved.
+7. Unknown, missing, or unverified cinematic behavior must be marked pending rather than guessed.
+8. Never publish an update as working until functional checks, responsive checks, and cinematic/motion checks pass where applicable.
 
-Immutable snapshots:
-`archives/figma-1st-designs-vault/revisions/<REVISION_LABEL>/`
+## Canonical GitHub paths
 
-## Supabase canonical locations
+Repository: `lois4801/NEXUS-Agentic-OS`
+Branch: `archive/figma-1st-designs-vault-v1`
+Vault root: `archives/figma-1st-designs-vault/`
+
+Canonical files include:
+- `README.md`
+- `VAULT_MANIFEST.json`
+- `SCENES.json`
+- `PRESERVATION_STATUS.md`
+- `CURRENT_REVISION.json`
+- `REVISION_LOG.md`
+- `REVISION_POLICY.md`
+- future website source, motion specifications, tests, and reconstruction code
+
+The existing `revisions/FIGMA_VAULT_V1.0/` folder is retained as the original baseline reference, but routine future work updates the canonical files at the vault root instead of creating a new revision folder for every change.
+
+## Canonical Supabase locations
 
 Project: `Websites`
 Schema: `figma_vault`
 Private bucket: `figma-1st-designs-vault`
+Canonical label: `FIGMA_VAULT_V1.0`
 
-Revision labels in Supabase must match the GitHub folder name exactly.
+Supabase project/page/scene/asset records are updated only after validation. The canonical `FIGMA_VAULT_V1.0` snapshot may then be refreshed to match the verified GitHub state.
+
+## Required validation before overwrite
+
+For each website/design change, check as applicable:
+- source/build completes without errors
+- page renders correctly
+- desktop layout works
+- tablet layout works
+- mobile layout works
+- navigation and CTAs work
+- images/video assets load
+- cinematic scroll sequence works
+- prototype-equivalent states are represented correctly
+- animations work forward and backward where intended
+- reduced-motion fallback works
+- no major console/runtime errors
+- no broken links/assets
+- performance is acceptable for the current development stage
 
 ## Update procedure
 
-For every future vault change:
-1. Determine next revision label.
-2. Scan/import new Figma information.
-3. Update Supabase project/page/scene/asset records.
-4. Create immutable Supabase revision snapshot.
-5. Create matching GitHub revision folder and snapshot files.
-6. Update `CURRENT_REVISION.json` and `REVISION_LOG.md`.
-7. Verify GitHub and Supabase counts/names match before declaring the revision complete.
+1. Inspect the current canonical source.
+2. Build the proposed improvement in a staging/work area or isolated branch/state.
+3. Run the applicable validation checks.
+4. Fix failures and repeat tests until passing.
+5. Overwrite/update the canonical GitHub files only after passing.
+6. Update the matching Supabase metadata/media using the same names.
+7. Refresh the canonical Supabase snapshot for `FIGMA_VAULT_V1.0`.
+8. Re-read/verify both GitHub and Supabase to confirm they match.
+9. Add a dated entry to `REVISION_LOG.md` describing what changed and what was tested.
+
+## Rollback
+
+If a later update causes a problem, restore the previous verified GitHub commit and resync the corresponding canonical Supabase records/assets.
