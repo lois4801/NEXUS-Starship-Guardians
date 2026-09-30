@@ -1,19 +1,24 @@
-# Nexus Starship Guardians · v0.1.0
+# Nexus Starship Guardians · v0.2-dev
 
 **One reusable Guardian runtime; separate permissions and Guardian packs for Lucio AI Platform, Ember, and future applications.** This repository is independent of your application repositories. It is a tested development starter, not a claim of a production-ready autonomous app builder.
 
-## Delivered in v0.1
+## Current capabilities
 
 - FastAPI REST API with Swagger UI (`/docs`), health endpoint and independently registered projects.
 - Strong, randomly generated per-project API keys, a separate admin token, and tenant-isolation enforcement.
 - Project-specific enabled Guardians, allowed tools, model provider, and execution budgets.
-- Bounded orchestration with durable run traces, approval gates, denied-tool checks, and recoverable pending approvals.
-- Fully offline deterministic `demo` provider with a real calculator and UTC tool.
-- OpenAI-compatible provider configurable for local Ollama or supported hosted endpoints.
 - Portable local/CLI runtime for Ollama and user-authenticated coding/chat CLIs.
 - Adaptive Guardian swarm coordinator supporting **1–200 logical Guardians per mission** with bounded physical concurrency, isolated failures, evidence compaction, and lead-Guardian synthesis.
+- Canonical **30-Guardian Artificial Architecture team** spanning command, learning, code quality, source control, verification, execution, repair, and operations.
+- Automatic cross-run Guardian learning through episodic memory, reflection, evaluation evidence, and relevant-lesson retrieval.
 - Dependency-aware Execution Swarm with approval gates, verification hooks, restricted process workers, and failure propagation.
 - Isolated Git worktree manager and parallel coding coordinator for per-task branches/workspaces.
+- Automatic deterministic diff review for merge markers, possible secrets, TLS bypass, unfinished markers, and oversized diffs.
+- Safe Git rebase/conflict detection with conflict enumeration and abort support; no blind auto-resolution.
+- Browser and API verification workers.
+- Durable SQLite job queue with bounded retries and interrupted-job recovery.
+- Provenance-tracked SHA-256 evidence bundles.
+- Verified bounded auto-repair loop that records verification evidence and automatically learns from every configured run.
 - Authenticated GitHub CLI adapter for draft PR creation and CI-check inspection.
 - Structured file-edit worker with workspace containment and stale-file protection.
 - Python and server-side TypeScript SDKs, Docker, Docker Compose, examples, docs, and CI tests.
@@ -28,11 +33,15 @@ Lucio AI / Ember / Future Apps
             |
       Mission Analyzer
             |
+   30-Guardian Architecture Team
+            |
      Guardian Swarm Planner
             |
     1..200 Guardians
             |
-   Lead synthesis/evidence
+  prior lessons + evidence
+            |
+   Lead synthesis / critique
             |
    Dependency-aware DAG
             |
@@ -40,9 +49,15 @@ Lucio AI / Ember / Future Apps
        /       |       \
  coding A   coding B   coding C
        \       |       /
-       tests / review
+   diff review / rebase safety
             |
-      verified commits
+ browser + API + unit tests
+            |
+     verified auto-repair
+            |
+      evidence bundle
+            |
+     reflection + memory
             |
        draft GitHub PRs
             |
@@ -85,8 +100,8 @@ Use Guardian swarm mode:
 .\.venv\Scripts\nexus-guardians.exe swarm `
   --provider ollama `
   --model llama3.2 `
-  --guardians 24 `
-  "Build, review, test, and document this feature"
+  --guardians 30 `
+  "Build, review, test, repair, and document this feature"
 ```
 
 For large decomposable work:
@@ -102,19 +117,37 @@ For large decomposable work:
 
 A 200-Guardian mission means up to 200 collaborating logical specialists, not 200 unrestricted simultaneous shell processes.
 
-## Parallel coding
+## Automatic Guardian learning
 
-Nexus Starship Guardians includes the first parallel coding layer:
+Every portable swarm run now:
+
+1. retrieves relevant lessons from prior missions;
+2. injects those lessons into Guardian context;
+3. runs the Guardian swarm and lead synthesis;
+4. records reliability/evidence for the run;
+5. asks a Reflection Guardian for one reusable lesson;
+6. stores the episode + lesson for future missions.
+
+Default memory path: `.nexus/guardian_learning.jsonl`. Override it with `NEXUS_LEARNING_PATH`.
+
+This is **memory + reflection + evaluation**, not live self-modification of model weights. `JsonlLearningStore.export_sft_pairs()` can prepare high-scoring episodes for a separate curated offline SFT/LoRA pipeline.
+
+## Parallel coding and verified repair
+
+Nexus Starship Guardians includes:
 
 - one Git branch/worktree per writable task (`nsg/task-<id>`)
 - bounded parallel coding-Guardian runs
-- workspace containment
-- no shell evaluation of model output
-- dependency-aware execution
-- verification hooks
+- structured file editing with stale-file protection
+- deterministic diff review before promotion
+- safe rebase/conflict detection
+- browser/API/test verification workers
+- bounded verified repair loops
+- durable resumable jobs
+- SHA-256 evidence bundles
 - authenticated `gh`-based draft PR publishing
 
-See `docs/PARALLEL_CODING.md` and `docs/EXECUTION_SWARM.md`.
+See `docs/PARALLEL_CODING.md`, `docs/EXECUTION_SWARM.md`, and `docs/SELF_LEARNING_GUARDIANS.md`.
 
 ## Security boundaries
 
@@ -133,8 +166,8 @@ ruff check nexus_os tests examples
 ## Roadmap
 
 1. **v0.1 foundation:** secure starter, offline/local model runtime, SDKs, CI.
-2. **v0.2 Execution Swarm:** adaptive 200-Guardian coordination, isolated Git worktrees, bounded coding workers, verification, CI, and PR generation.
-3. **v0.3:** MCP gateway, PostgreSQL, event streaming, resumable distributed queues, scoped skills/Guardian packs, model evaluation, and budget routing.
-4. **v1.0:** verified Lucio and Ember integrations, tenancy/security audit, observability, migrations, release, and rollback playbooks.
+2. **v0.2 Execution + Learning Swarm:** adaptive 200-Guardian coordination, 30-Guardian architecture team, isolated Git worktrees, automatic diff review, safe rebase handling, browser/API verification, resumable jobs, evidence bundles, verified auto-repair, and automatic cross-run learning.
+3. **v0.3:** PostgreSQL/distributed queue backend, MCP gateway, richer evaluation lab, failure taxonomy dashboard, cost routing, and production observability.
+4. **v1.0:** verified Lucio and Ember integrations, tenancy/security audit, release automation, rollback playbooks, and governed offline model-improvement pipeline.
 
-See `docs/BRANDING.md`, `docs/ARCHITECTURE.md`, `docs/INTEGRATION.md`, `docs/PORTABLE_LLM_RUNTIME.md`, `docs/MULTI_GUARDIAN_SWARM.md`, `docs/EXECUTION_SWARM.md`, and `docs/PARALLEL_CODING.md`.
+See `docs/BRANDING.md`, `docs/ARCHITECTURE.md`, `docs/INTEGRATION.md`, `docs/PORTABLE_LLM_RUNTIME.md`, `docs/MULTI_GUARDIAN_SWARM.md`, `docs/EXECUTION_SWARM.md`, `docs/PARALLEL_CODING.md`, and `docs/SELF_LEARNING_GUARDIANS.md`.
