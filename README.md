@@ -59,12 +59,14 @@ $env:NEXUS_ADMIN_TOKEN = python -c "import secrets; print(secrets.token_urlsafe(
 uvicorn nexus_os.api:app --host 127.0.0.1 --port 8000 --workers 1
 ```
 
-In another PowerShell window, set **the same admin token**, or set it in an ignored local `.env` file and load it securely. Then register a project:
+In another PowerShell window, set **the same admin token**, then register a project:
 
 ```powershell
 $headers = @{ Authorization = "Bearer $env:NEXUS_ADMIN_TOKEN" }
-$project = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/v1/projects/lucio-dev `
-  -Headers $headers -ContentType 'application/json'
+$project = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/v1/projects `
+  -Headers $headers -ContentType 'application/json' `
+  -Body '{"project_id":"lucio-dev","display_name":"Lucio development","agents":["general","builder"],"allowed_tools":["calculator","utc_now"],"provider":"demo"}'
+# SAVE $project.api_key somewhere secure — it is displayed only once.
 ```
 
 Use the existing API and SDK examples in this repository for scoped project runs and approvals.
