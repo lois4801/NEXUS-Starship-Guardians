@@ -11,6 +11,8 @@
 - Adaptive Guardian swarm coordinator supporting **1–200 logical Guardians per mission** with bounded physical concurrency, isolated failures, evidence compaction, and lead-Guardian synthesis.
 - Canonical **30-Guardian Artificial Architecture team** spanning command, learning, code quality, source control, verification, execution, repair, and operations.
 - Automatic cross-run Guardian learning through episodic memory, reflection, evaluation evidence, and relevant-lesson retrieval.
+- Server-wide learning recorder so terminal API runs feed the same Guardian learning system, explicitly scored as execution reliability rather than semantic answer quality.
+- **Synthetic Evaluation Lab** with provenance-tracked evaluation cases, deterministic acceptance judging, failure taxonomy, baseline-vs-candidate comparison, and promotion gates that block critical regressions.
 - Dependency-aware Execution Swarm with approval gates, verification hooks, restricted process workers, and failure propagation.
 - Isolated Git worktree manager and parallel coding coordinator for per-task branches/workspaces.
 - Automatic deterministic diff review for merge markers, possible secrets, TLS bypass, unfinished markers, and oversized diffs.
@@ -58,6 +60,12 @@ Lucio AI / Ember / Future Apps
       evidence bundle
             |
      reflection + memory
+            |
+   Synthetic Evaluation Lab
+       /              \
+ baseline           candidate
+       \              /
+       promotion gates
             |
        draft GitHub PRs
             |
@@ -128,9 +136,17 @@ Every portable swarm run now:
 5. asks a Reflection Guardian for one reusable lesson;
 6. stores the episode + lesson for future missions.
 
-Default memory path: `.nexus/guardian_learning.jsonl`. Override it with `NEXUS_LEARNING_PATH`.
+The REST/server execution path also records terminal run outcomes into the shared learning store. Those server scores are labeled `execution-reliability`; they are not treated as proof that an answer is semantically correct.
+
+Default memory path: `.nexus/guardian_learning.jsonl` for the portable CLI and `./data/guardian_learning.jsonl` for the server. Override with `NEXUS_LEARNING_PATH`.
 
 This is **memory + reflection + evaluation**, not live self-modification of model weights. `JsonlLearningStore.export_sft_pairs()` can prepare high-scoring episodes for a separate curated offline SFT/LoRA pipeline.
+
+## Synthetic Evaluation Lab
+
+The lab compares baseline and candidate Guardian/model/configuration runs on provenance-tracked synthetic and regression cases. A candidate is promoted only when configured gates pass, including no critical regressions, minimum pass rate, no pass-rate regression versus baseline, and the required score delta.
+
+Evaluation reports are stored as append-only JSONL. Set `NEXUS_EVALUATION_PATH` to choose the server-side evaluation store. See `docs/SYNTHETIC_EVALUATION_LAB.md`.
 
 ## Parallel coding and verified repair
 
@@ -166,8 +182,8 @@ ruff check nexus_os tests examples
 ## Roadmap
 
 1. **v0.1 foundation:** secure starter, offline/local model runtime, SDKs, CI.
-2. **v0.2 Execution + Learning Swarm:** adaptive 200-Guardian coordination, 30-Guardian architecture team, isolated Git worktrees, automatic diff review, safe rebase handling, browser/API verification, resumable jobs, evidence bundles, verified auto-repair, and automatic cross-run learning.
-3. **v0.3:** PostgreSQL/distributed queue backend, MCP gateway, richer evaluation lab, failure taxonomy dashboard, cost routing, and production observability.
+2. **v0.2 Execution + Learning Swarm:** adaptive 200-Guardian coordination, 30-Guardian architecture team, isolated Git worktrees, automatic diff review, safe rebase handling, browser/API verification, resumable jobs, evidence bundles, verified auto-repair, automatic cross-run learning, server-wide learning, and baseline-gated synthetic evaluation.
+3. **v0.3:** PostgreSQL/distributed queue backend, MCP gateway, multi-judge evaluation, failure-taxonomy dashboard, automatic regression-case curation, cost routing, and production observability.
 4. **v1.0:** verified Lucio and Ember integrations, tenancy/security audit, release automation, rollback playbooks, and governed offline model-improvement pipeline.
 
-See `docs/BRANDING.md`, `docs/ARCHITECTURE.md`, `docs/INTEGRATION.md`, `docs/PORTABLE_LLM_RUNTIME.md`, `docs/MULTI_GUARDIAN_SWARM.md`, `docs/EXECUTION_SWARM.md`, `docs/PARALLEL_CODING.md`, and `docs/SELF_LEARNING_GUARDIANS.md`.
+See `docs/BRANDING.md`, `docs/ARCHITECTURE.md`, `docs/INTEGRATION.md`, `docs/PORTABLE_LLM_RUNTIME.md`, `docs/MULTI_GUARDIAN_SWARM.md`, `docs/EXECUTION_SWARM.md`, `docs/PARALLEL_CODING.md`, `docs/SELF_LEARNING_GUARDIANS.md`, and `docs/SYNTHETIC_EVALUATION_LAB.md`.
