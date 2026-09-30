@@ -10,6 +10,7 @@
 - Bounded orchestration loop, durable SQLite run traces, explicit approval before writing project notes, denied-tool checks and recoverable pending approvals.
 - Fully offline deterministic `demo` provider with a **real calculator** and UTC tool. This intentionally does **not** pretend to design apps, browse or write code.
 - OpenAI-compatible `/v1/chat/completions` provider, configurable for local Ollama or a supported hosted endpoint. Requires a real model service and appropriate permissions.
+- Portable local/CLI runtime for using Ollama and user-authenticated coding/chat CLIs without requiring a paid API in the NEXUS core.
 - Python and server-side TypeScript SDKs, Docker, Docker Compose, examples and CI tests.
 
 **Not yet implemented:** GitHub repository editing, terminal sandbox, full MCP client/server, external web research, app deployment, model-cost router, durable distributed queue, Postgres, or Kubernetes. Plan these as subsequent integrations; never expose arbitrary shell or tenant-wide credentials to models.
@@ -87,6 +88,31 @@ console.log(result.answer);
 
 Use this SDK only from your own backend / server action; NEVER ship API keys to a browser/mobile client.
 
+## Portable LLM runtime
+
+Install the repo and detect which local/coding assistants are available:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install.ps1
+.\.venv\Scripts\nexus-portable.exe doctor
+```
+
+Use an API-key-free local Ollama model:
+
+```powershell
+ollama pull llama3.2
+.\.venv\Scripts\nexus-portable.exe ask --provider ollama --model llama3.2 "Design a feature plan"
+```
+
+Or bridge a coding/chat CLI that is already installed and authenticated on the laptop:
+
+```powershell
+$env:NEXUS_LLM_COMMAND='["codex","exec","-"]'
+.\.venv\Scripts\nexus-portable.exe ask --provider cli --model codex "Review this repository"
+```
+
+NEXUS does not bypass provider authentication. Local models can run without provider API keys; hosted model tools remain responsible for their own login, subscription, license, and terms. See `docs/PORTABLE_LLM_RUNTIME.md`.
+
 ## Configure Ollama for real model-driven planning
 
 Ollama exposes an OpenAI-compatible chat completions endpoint at `/v1/chat/completions`. Install Ollama, pull a suitable model (`ollama pull llama3.2`), and set:
@@ -113,7 +139,7 @@ NEXUS_DEV_MODE=true pytest -q
 ruff check nexus_os tests examples
 ```
 
-CI runs both checks on push and pull request. Offline tests cover authentication, tenant isolation, real calculator execution, bogus tool rejection, approval and denial, and deliberate demo limitations. Integration tests against a **real** Ollama/hosted model and existing Lucio/Ember repositories remain a separate acceptance gate.
+CI runs both checks on push and pull request. Offline tests cover authentication, tenant isolation, real calculator execution, bogus tool rejection, approval and denial, deliberate demo limitations, and portable-provider registry checks. Integration tests against a **real** Ollama/hosted model and existing Lucio/Ember repositories remain a separate acceptance gate.
 
 ## Roadmap
 
@@ -122,4 +148,4 @@ CI runs both checks on push and pull request. Offline tests cover authentication
 3. **v0.3:** MCP tool gateway, PostgreSQL, event streaming, scoped skills/agent packs, model evaluation and budget router.
 4. **v1.0:** verified Lucio and Ember integrations, tenancy security audit, observability, migrations, release and rollback playbooks.
 
-See `docs/ARCHITECTURE.md` and `docs/INTEGRATION.md` for deeper design and phased app-specific integration instructions.
+See `docs/ARCHITECTURE.md`, `docs/INTEGRATION.md`, and `docs/PORTABLE_LLM_RUNTIME.md` for deeper design and phased integration instructions.
