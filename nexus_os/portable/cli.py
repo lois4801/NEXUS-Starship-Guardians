@@ -3,9 +3,12 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import os
 import shutil
 import sys
+from pathlib import Path
 
+from nexus_os.learning_memory import GuardianLearningEngine, JsonlLearningStore
 from nexus_os.swarm import (
     DEFAULT_PARALLELISM,
     MAX_SWARM_GUARDIANS,
@@ -37,12 +40,17 @@ async def _run_swarm(
 ) -> int:
     provider = build_provider(provider_name, model)
     coordinator = SwarmCoordinator(max_parallel=max_parallel)
+    memory_path = Path(os.environ.get("NEXUS_LEARNING_PATH", ".nexus/guardian_learning.jsonl"))
+    learning = GuardianLearningEngine(JsonlLearningStore(memory_path))
+    prior_lessons = learning.context_for(goal)
 
     async def worker(spec, mission: str) -> str:
         prompt = (
             "You are one Guardian in a coordinated Nexus Starship Guardians team.\n"
             f"Guardian ID: {spec.guardian_id}\nRole: {spec.role}\n"
-            f"Mission: {mission}\nAssignment: {spec.objective}\n"
+            f"Mission: {mission}\nAssignment: {spec.objective}\n\n"
+            "Relevant lessons learned from prior missions:\n"
+            f"{prior_lessons}\n\n"
             "Return concise, actionable work product for the lead Guardian."
         )
         result = await asyncio.to_thread(provider.generate, prompt)
@@ -62,14 +70,48 @@ async def _run_swarm(
 
     report = await coordinator.run(goal, guardians, worker, synthesize)
     failures = sum(1 for result in report.results if not result.ok)
+    successes = report.active_guardians - failures
+    reliability_score = 10.0 * successes / report.active_guardians
+
+    reflection = ""
+    if report.synthesis:
+        reflection_prompt = (
+            "You are the Reflection Guardian for Nexus Starship Guardians. Distill exactly one "
+            "reusable lesson from this mission for future similar work. Focus on process, architecture, "
+            "verification, or failure prevention. Do not claim the model changed its own weights.\n\n"
+            f"MISSION:\n{goal}\n\nFINAL SYNTHESIS:\n{report.synthesis}\n\n"
+            f"GUARDIAN RELIABILITY SCORE: {reliability_score:.2f}/10\n"
+        )
+        reflected = await asyncio.to_thread(provider.generate, reflection_prompt)
+        reflection = reflected.text.strip()
+        learning.learn_from_run(
+            task=goal,
+            deliverable=report.synthesis,
+            score=reliability_score,
+            critique=(
+                f"{failures} Guardian calls failed; {successes} completed successfully."
+                if failures
+                else "All Guardian calls completed successfully."
+            ),
+            rounds=1,
+            distilled_lesson=reflection,
+            metadata={
+                "provider": provider_name,
+                "model": model or "",
+                "requested_guardians": str(report.requested_guardians),
+            },
+        )
+
     print(
         json.dumps(
             {
                 "requested_guardians": report.requested_guardians,
                 "active_guardians": report.active_guardians,
                 "max_parallel": report.max_parallel,
-                "successful_guardians": report.active_guardians - failures,
+                "successful_guardians": successes,
                 "failed_guardians": failures,
+                "learning_memory": str(memory_path),
+                "reliability_score": round(reliability_score, 2),
             },
             indent=2,
         )
@@ -77,12 +119,15 @@ async def _run_swarm(
     if report.synthesis:
         print("\n=== NEXUS STARSHIP GUARDIANS SWARM SYNTHESIS ===\n")
         print(report.synthesis)
+    if reflection:
+        print("\n=== LEARNED LESSON ===\n")
+        print(reflection)
     return 0 if failures < report.active_guardians else 1
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        prog="nexus-portable",
+        prog="nexus-guardians",
         description="Nexus Starship Guardians portable runtime",
     )
     sub = parser.add_subparsers(dest="command", required=True)
