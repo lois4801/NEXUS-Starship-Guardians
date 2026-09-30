@@ -11,5 +11,5 @@ fi
 .venv/bin/python -m pip install -e '.[dev]'
 
 echo "Nexus Starship Guardians installed."
-echo "Run: .venv/bin/nexus-portable doctor"
-echo "API-free local example: .venv/bin/nexus-portable ask --provider ollama --model llama3.2 'Hello from Nexus Starship Guardians'"
+echo "Run: .venv/bin/nexus-guardians doctor"
+echo "API-free local example: .venv/bin/nexus-guardians ask --provider ollama --model llama3.2 'Hello from Nexus Starship Guardians'"
