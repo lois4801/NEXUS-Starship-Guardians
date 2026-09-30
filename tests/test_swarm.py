@@ -2,13 +2,19 @@ import asyncio
 
 import pytest
 
-from nexus_os.swarm import MAX_SWARM_AGENTS, SwarmCoordinator, build_team, compact_evidence
+from nexus_os.swarm import (
+    MAX_SWARM_GUARDIANS,
+    GuardianResult,
+    SwarmCoordinator,
+    build_team,
+    compact_evidence,
+)
 
 
-def test_build_team_supports_200_agents():
-    team = build_team("build the app", MAX_SWARM_AGENTS)
+def test_build_team_supports_200_guardians():
+    team = build_team("build the app", MAX_SWARM_GUARDIANS)
     assert len(team) == 200
-    assert len({agent.agent_id for agent in team}) == 200
+    assert len({guardian.guardian_id for guardian in team}) == 200
 
 
 def test_build_team_rejects_invalid_size():
@@ -18,7 +24,7 @@ def test_build_team_rejects_invalid_size():
         build_team("x", 201)
 
 
-def test_swarm_runs_all_agents_and_synthesizes():
+def test_swarm_runs_all_guardians_and_synthesizes():
     async def scenario():
         coordinator = SwarmCoordinator(max_parallel=4)
 
@@ -30,7 +36,7 @@ def test_swarm_runs_all_agents_and_synthesizes():
             return f"{goal}:{len(results)}"
 
         report = await coordinator.run("ship", 25, worker, synth)
-        assert report.active_agents == 25
+        assert report.active_guardians == 25
         assert len(report.results) == 25
         assert report.synthesis == "ship:25"
         assert all(item.ok for item in report.results)
@@ -38,12 +44,12 @@ def test_swarm_runs_all_agents_and_synthesizes():
     asyncio.run(scenario())
 
 
-def test_swarm_isolates_agent_failure():
+def test_swarm_isolates_guardian_failure():
     async def scenario():
         coordinator = SwarmCoordinator(max_parallel=3)
 
         async def worker(spec, goal):
-            if spec.agent_id.endswith("-01") and spec.role == "backend":
+            if spec.guardian_id.endswith("-01") and spec.role == "backend":
                 raise RuntimeError("boom")
             return goal
 
@@ -55,12 +61,10 @@ def test_swarm_isolates_agent_failure():
 
 
 def test_compact_evidence_omits_failures_and_bounds_payload():
-    from nexus_os.swarm import AgentResult
-
     results = [
-        AgentResult("a", "qa", "useful"),
-        AgentResult("b", "debug", "", ok=False, error="failed"),
-        AgentResult("c", "security", "important"),
+        GuardianResult("a", "qa", "useful"),
+        GuardianResult("b", "debug", "", ok=False, error="failed"),
+        GuardianResult("c", "security", "important"),
     ]
     text = compact_evidence(results, max_chars=1000)
     assert "useful" in text
