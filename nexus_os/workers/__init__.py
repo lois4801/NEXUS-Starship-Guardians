@@ -1,4 +1,4 @@
-"""Restricted execution workers for NEXUS Agentic OS."""
+"""Restricted execution workers for Nexus Starship Guardians."""
 
 from .local_process import LocalProcessWorker, ProcessPolicy
 
