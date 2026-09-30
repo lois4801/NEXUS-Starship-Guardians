@@ -2,9 +2,9 @@
 
 ## FIGMA_VAULT_V1.0
 
-Status: baseline locked
+Status: live canonical vault
 
-Scope preserved:
+Initial scope preserved:
 - 9 Figma source projects
 - 86 catalogued pages
 - 56 GRIGOLETTO templates
@@ -29,4 +29,18 @@ Pending binary preservation:
 - exact prototype playback recordings
 - full-page visual captures
 
-Revision rule: this baseline is immutable. Future updates must use the next matching revision label in both GitHub and Supabase.
+### Policy update — live verified overwrite model
+
+The vault now uses a test-before-overwrite workflow rather than creating a new numbered revision for every routine update.
+
+Workflow:
+`stage → build → test → verify → update canonical GitHub → sync canonical Supabase → verify sync`
+
+`FIGMA_VAULT_V1.0` remains the canonical vault label. Canonical files and Supabase records may be updated/overwritten only after the proposed change passes all applicable tests. Git commit history provides rollback for repository content. The original `revisions/FIGMA_VAULT_V1.0/` snapshot remains preserved as the initial baseline reference.
+
+Every future update should append a dated change entry here describing:
+- what changed
+- which website/design was affected
+- what tests were run
+- whether the update passed
+- what GitHub/Supabase records were synchronized
