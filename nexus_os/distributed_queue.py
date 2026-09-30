@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import json
 import time
+import typing
 import uuid
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Protocol
 
 
 POSTGRES_QUEUE_DDL = """
@@ -59,7 +59,7 @@ RETURNING jobs.job_id, jobs.mission_id, jobs.payload, jobs.attempts,
 class DistributedJob:
     job_id: str
     mission_id: str
-    payload: dict[str, Any]
+    payload: dict[str, typing.Any]
     attempts: int
     max_attempts: int
     lease_expires_at: float | None = None
@@ -75,12 +75,17 @@ class LeasePolicy:
             raise ValueError("invalid lease policy")
 
 
-class Cursor(Protocol):
-    def execute(self, query: str, params: tuple[Any, ...] = ()) -> Any: ...
-    def fetchone(self) -> Any: ...
+class Cursor(typing.Protocol):
+    def execute(
+        self,
+        query: str,
+        params: tuple[typing.Any, ...] = (),
+    ) -> typing.Any: ...
+
+    def fetchone(self) -> typing.Any: ...
 
 
-class Connection(Protocol):
+class Connection(typing.Protocol):
     def cursor(self) -> Cursor: ...
     def commit(self) -> None: ...
     def rollback(self) -> None: ...
@@ -109,7 +114,7 @@ class PostgresGuardianQueue:
     def enqueue(
         self,
         mission_id: str,
-        payload: dict[str, Any],
+        payload: dict[str, typing.Any],
         *,
         max_attempts: int = 3,
         available_at: float | None = None,
@@ -188,7 +193,7 @@ class PostgresGuardianQueue:
             (now, expires, now, job_id, worker_id),
         )
 
-    def complete(self, job_id: str, worker_id: str, result: dict[str, Any]) -> None:
+    def complete(self, job_id: str, worker_id: str, result: dict[str, typing.Any]) -> None:
         now = time.time()
         self._mutate(
             """
@@ -240,7 +245,7 @@ class PostgresGuardianQueue:
             (now, now, now),
         )
 
-    def _mutate(self, query: str, params: tuple[Any, ...]) -> None:
+    def _mutate(self, query: str, params: tuple[typing.Any, ...]) -> None:
         connection = self.connection_factory()
         try:
             cursor = connection.cursor()
