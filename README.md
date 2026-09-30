@@ -121,6 +121,8 @@ For a broad decomposable mission, NEXUS can coordinate the full 200-agent logica
 
 A 200-agent mission does **not** mean 200 unrestricted simultaneous processes. The scheduler separates logical team size from physical concurrency to avoid exhausting RAM/VRAM or making a workstation slower. Specialists cover architecture, frontend, backend, APIs, database, security, DevOps, QA, testing, debugging, performance, UX, accessibility, research, evidence, product, integration, release, observability, data, AI engineering, code review, migrations, CI/CD, compliance, and related roles. A lead orchestrator synthesizes their work into one dependency-aware result. See `docs/MULTI_AGENT_SWARM.md`.
 
+The practical objective is not "always use 200"; it is "use up to 200 when the work decomposes cleanly, and use fewer agents when that will finish faster."
+
 ## Configure Ollama for real model-driven planning
 
 Ollama exposes an OpenAI-compatible chat completions endpoint at `/v1/chat/completions`. Install Ollama, pull a suitable model (`ollama pull llama3.2`), and set:
