@@ -1,17 +1,17 @@
 # Nexus Starship Guardians · v0.1.0
 
-**One reusable Sentinel runtime; separate permissions and Sentinel packs for Lucio AI Platform, Ember, and future applications.** This repository is independent of your application repositories. It is a tested development starter, not a claim of a production-ready autonomous app builder.
+**One reusable Guardian runtime; separate permissions and Guardian packs for Lucio AI Platform, Ember, and future applications.** This repository is independent of your application repositories. It is a tested development starter, not a claim of a production-ready autonomous app builder.
 
 ## Delivered in v0.1
 
 - FastAPI REST API with Swagger UI (`/docs`), health endpoint and independently registered projects.
 - Strong, randomly generated per-project API keys, a separate admin token, and tenant-isolation enforcement.
-- Project-specific enabled Sentinels, allowed tools, model provider, and execution budgets.
+- Project-specific enabled Guardians, allowed tools, model provider, and execution budgets.
 - Bounded orchestration with durable run traces, approval gates, denied-tool checks, and recoverable pending approvals.
 - Fully offline deterministic `demo` provider with a real calculator and UTC tool.
 - OpenAI-compatible provider configurable for local Ollama or supported hosted endpoints.
 - Portable local/CLI runtime for Ollama and user-authenticated coding/chat CLIs.
-- Adaptive Sentinel swarm coordinator supporting **1–200 logical Sentinels per mission** with bounded physical concurrency, isolated failures, evidence compaction, and lead-Sentinel synthesis.
+- Adaptive Guardian swarm coordinator supporting **1–200 logical Guardians per mission** with bounded physical concurrency, isolated failures, evidence compaction, and lead-Guardian synthesis.
 - Dependency-aware Execution Swarm with approval gates, verification hooks, restricted process workers, and failure propagation.
 - Isolated Git worktree manager and parallel coding coordinator for per-task branches/workspaces.
 - Authenticated GitHub CLI adapter for draft PR creation and CI-check inspection.
@@ -28,9 +28,9 @@ Lucio AI / Ember / Future Apps
             |
       Mission Analyzer
             |
-     Sentinel Swarm Planner
+     Guardian Swarm Planner
             |
-    1..200 Sentinels
+    1..200 Guardians
             |
    Lead synthesis/evidence
             |
@@ -63,7 +63,7 @@ python -m venv .venv
 pip install -e '.[dev]'
 ```
 
-> The repository slug and legacy Python/package identifiers remain unchanged temporarily for compatibility. The product name is **Nexus Starship Guardians** and the autonomous specialist role is **Sentinel**.
+> The repository slug and legacy Python/package identifiers remain unchanged temporarily for compatibility. The product name is **Nexus Starship Guardians** and the autonomous specialist role is **Guardian**.
 
 Install/run the portable helper:
 
@@ -79,13 +79,13 @@ ollama pull llama3.2
 .\.venv\Scripts\nexus-portable.exe ask --provider ollama --model llama3.2 "Design a feature plan"
 ```
 
-Use Sentinel swarm mode:
+Use Guardian swarm mode:
 
 ```powershell
 .\.venv\Scripts\nexus-portable.exe swarm `
   --provider ollama `
   --model llama3.2 `
-  --sentinels 24 `
+  --guardians 24 `
   "Build, review, test, and document this feature"
 ```
 
@@ -95,19 +95,19 @@ For large decomposable work:
 .\.venv\Scripts\nexus-portable.exe swarm `
   --provider ollama `
   --model llama3.2 `
-  --sentinels 200 `
+  --guardians 200 `
   --max-parallel 8 `
   "Audit and prepare this application for production"
 ```
 
-A 200-Sentinel mission means up to 200 collaborating logical specialists, not 200 unrestricted simultaneous shell processes.
+A 200-Guardian mission means up to 200 collaborating logical specialists, not 200 unrestricted simultaneous shell processes.
 
 ## Parallel coding
 
 Nexus Starship Guardians includes the first parallel coding layer:
 
 - one Git branch/worktree per writable task (`nsg/task-<id>`)
-- bounded parallel coding-Sentinel runs
+- bounded parallel coding-Guardian runs
 - workspace containment
 - no shell evaluation of model output
 - dependency-aware execution
@@ -133,8 +133,8 @@ ruff check nexus_os tests examples
 ## Roadmap
 
 1. **v0.1 foundation:** secure starter, offline/local model runtime, SDKs, CI.
-2. **v0.2 Execution Swarm:** adaptive 200-Sentinel coordination, isolated Git worktrees, bounded coding workers, verification, CI, and PR generation.
-3. **v0.3:** MCP gateway, PostgreSQL, event streaming, resumable distributed queues, scoped skills/Sentinel packs, model evaluation, and budget routing.
+2. **v0.2 Execution Swarm:** adaptive 200-Guardian coordination, isolated Git worktrees, bounded coding workers, verification, CI, and PR generation.
+3. **v0.3:** MCP gateway, PostgreSQL, event streaming, resumable distributed queues, scoped skills/Guardian packs, model evaluation, and budget routing.
 4. **v1.0:** verified Lucio and Ember integrations, tenancy/security audit, observability, migrations, release, and rollback playbooks.
 
 See `docs/BRANDING.md`, `docs/ARCHITECTURE.md`, `docs/INTEGRATION.md`, `docs/PORTABLE_LLM_RUNTIME.md`, `docs/MULTI_AGENT_SWARM.md`, `docs/EXECUTION_SWARM.md`, and `docs/PARALLEL_CODING.md`.
