@@ -20,7 +20,7 @@ class WorktreeError(RuntimeError):
 
 
 class WorktreeManager:
-    """Create isolated task worktrees using git argv execution only."""
+    """Create isolated Nexus Starship Guardians task worktrees using git argv execution only."""
 
     def __init__(self, repo_root: Path, workspace_root: Path):
         self.repo_root = repo_root.resolve()
@@ -50,7 +50,7 @@ class WorktreeManager:
 
     def create(self, task_id: str, *, base_ref: str = "HEAD") -> WorktreeLease:
         task_id = self._safe(task_id)
-        branch = f"nua/task-{task_id}"
+        branch = f"nsg/task-{task_id}"
         target = (self.workspace_root / task_id).resolve()
         if self.workspace_root not in target.parents:
             raise WorktreeError("Worktree target escaped workspace root")
