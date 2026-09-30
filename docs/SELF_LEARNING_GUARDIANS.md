@@ -30,7 +30,43 @@ MISSION
   -> next mission retrieves relevant lessons
 ```
 
-The portable `swarm` command performs this memory/reflection cycle automatically. Set `NEXUS_LEARNING_PATH` to move the append-only JSONL learning store; the default is `.nexus/guardian_learning.jsonl`.
+The portable `swarm` command performs this memory/reflection cycle automatically. The REST/server path also records terminal outcomes into the same Guardian learning system so provider, tool, policy, max-step, and execution failures are not discarded.
+
+## Two score types
+
+Nexus keeps two concepts separate:
+
+1. **execution reliability** — did the runtime complete without provider, policy, tool, timeout, or max-step failure?
+2. **semantic quality** — was the answer or implementation actually correct, complete, safe, and useful?
+
+Server terminal runs may generate execution-reliability scores. Those scores must never be treated as proof of semantic answer quality.
+
+Semantic quality belongs to the Synthetic Evaluation Lab, which compares candidates against a fixed baseline using provenance-tracked synthetic and regression cases.
+
+## Synthetic Evaluation Lab and promotion gate
+
+A changed Guardian prompt, routing rule, model, strategy, tool policy, or offline fine-tuned adapter is treated as a **candidate**. It is not promoted merely because it is newer.
+
+Promotion requires configured evidence, including:
+
+- no critical regression;
+- minimum candidate pass rate;
+- no pass-rate regression against baseline;
+- candidate average score meeting the configured baseline delta.
+
+`SyntheticEvaluationLab` stores append-only evaluation reports with task provenance, scores, critiques, failure categories, pass rates, and critical failures. Deterministic acceptance tests should remain in the suite even when semantic model judges are added, so one judge model cannot redefine success by itself.
+
+Initial failure taxonomy:
+
+- correctness
+- completeness
+- safety
+- tool-use
+- regression
+- reliability
+- unknown
+
+See `docs/SYNTHETIC_EVALUATION_LAB.md`.
 
 ## Verified repair
 
@@ -77,6 +113,14 @@ For distributed production deployment, migrate this interface to PostgreSQL/Redi
 
 `EvidenceBundle` stores provenance-tracked text evidence with SHA-256 digests. Verification, diff review, test output, repair reflection, and release evidence can be attached to one mission bundle. The digest detects accidental or unauthorized evidence mutation after capture.
 
+## Memory locations
+
+- portable default: `.nexus/guardian_learning.jsonl`
+- server default: `./data/guardian_learning.jsonl`
+- server evaluation reports: `./data/guardian_evaluations.jsonl`
+
+Use `NEXUS_LEARNING_PATH` and `NEXUS_EVALUATION_PATH` to override the server paths.
+
 ## Offline improvement pipeline
 
 `JsonlLearningStore.export_sft_pairs()` exports high-scoring mission pairs for later curation. Do not automatically fine-tune or promote a model from raw production traces. Recommended promotion flow:
@@ -88,7 +132,8 @@ high-scoring verified episodes
   -> offline SFT/LoRA
   -> fixed evaluation suite
   -> compare against current baseline
-  -> promote only if better and safe
+  -> promotion gate
+  -> human-approved promotion only if better and safe
 ```
 
 ## Operating rule
