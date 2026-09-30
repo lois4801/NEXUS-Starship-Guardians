@@ -1,0 +1,16 @@
+$ErrorActionPreference = "Stop"
+
+if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
+  throw "Python 3.11+ is required and was not found on PATH."
+}
+
+if (-not (Test-Path ".venv")) {
+  python -m venv .venv
+}
+
+& .\.venv\Scripts\python.exe -m pip install --upgrade pip
+& .\.venv\Scripts\python.exe -m pip install -e ".[dev]"
+
+Write-Host "NEXUS Agentic OS installed."
+Write-Host "Run: .\.venv\Scripts\nexus-portable.exe doctor"
+Write-Host "API-free local example: .\.venv\Scripts\nexus-portable.exe ask --provider ollama --model llama3.2 'Hello from NEXUS'"
