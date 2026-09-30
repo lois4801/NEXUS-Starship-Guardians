@@ -1,4 +1,9 @@
-from nexus_os.evaluation_lab import EvaluationCase, EvaluationOutcome, EvaluationRun, GuardianIntelligenceLab
+from nexus_os.evaluation_lab import (
+    EvaluationCase,
+    EvaluationOutcome,
+    EvaluationRun,
+    GuardianIntelligenceLab,
+)
 from nexus_os.strategy_tournament import StrategyTournament
 
 
