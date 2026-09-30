@@ -11,6 +11,7 @@
 - Fully offline deterministic `demo` provider with a **real calculator** and UTC tool. This intentionally does **not** pretend to design apps, browse or write code.
 - OpenAI-compatible `/v1/chat/completions` provider, configurable for local Ollama or a supported hosted endpoint. Requires a real model service and appropriate permissions.
 - Portable local/CLI runtime for using Ollama and user-authenticated coding/chat CLIs without requiring a paid API in the NEXUS core.
+- Adaptive multi-agent swarm coordinator supporting **1-200 logical specialists per mission** with bounded physical concurrency, isolated failures, evidence compaction, and lead-agent synthesis.
 - Python and server-side TypeScript SDKs, Docker, Docker Compose, examples and CI tests.
 
 **Not yet implemented:** GitHub repository editing, terminal sandbox, full MCP client/server, external web research, app deployment, model-cost router, durable distributed queue, Postgres, or Kubernetes. Plan these as subsequent integrations; never expose arbitrary shell or tenant-wide credentials to models.
@@ -22,15 +23,21 @@ Lucio AI ──┐
 Ember ─────┼─> [NEXUS API / project key] -> [project permissions]
 Future ───┘                                  |
                                              v
-                 [selected agent profile] -> [bounded orchestrator]
-                                              |     |
-                                              |     +-> SQLite run history
-                                              v
-                                    [configured model provider]
-                                              |
-                                    [allowlisted action proposal]
-                                              |
-                          [approval for writes] -> [real tool call]
+                         [mission / goal router]
+                                  |
+                         [adaptive swarm planner]
+                                  |
+                  1..200 logical specialist agents
+                                  |
+                     bounded parallel model calls
+                                  |
+                     [lead synthesis + evidence]
+                                  |
+                 [safe bounded execution orchestrator]
+                           |               |
+                     approvals         run history
+                           |
+                    allowlisted tools
 ```
 
 Each app gets its **own project key, enabled agents, tool allowlist and run history**. The central service never needs to merge the applications' existing Git histories.
@@ -56,37 +63,11 @@ In another PowerShell window, set **the same admin token**, or set it in an igno
 
 ```powershell
 $headers = @{ Authorization = "Bearer $env:NEXUS_ADMIN_TOKEN" }
-$project = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/v1/projects `
-  -Headers $headers -ContentType 'application/json' `
-  -Body '{"project_id":"lucio-dev","display_name":"Lucio development","agents":["general","builder"],"allowed_tools":["calculator","utc_now"],"provider":"demo"}'
-# SAVE $project.api_key somewhere secure — it is displayed only once.
-$keyHeaders = @{ Authorization = "Bearer $($project.api_key)" }
-Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/v1/projects/lucio-dev/runs `
-  -Headers $keyHeaders -ContentType 'application/json' `
-  -Body '{"goal":"calculate 12 * 7", "agent":"general"}'
+$project = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/v1/projects/lucio-dev `
+  -Headers $headers -ContentType 'application/json'
 ```
 
-The result should contain `status: completed`, a `tool_result` event with `84`, and a `final` event. Register `ember-dev` separately to give Ember a different API key and tool permissions. API documentation is at [localhost:8000/docs](http://127.0.0.1:8000/docs) when running locally.
-
-### Python SDK
-
-```python
-from nexus_os.client import NexusClient
-with NexusClient("http://127.0.0.1:8000", "YOUR_PROJECT_API_KEY") as nexus:
-    result = nexus.create_run("lucio-dev", "calculate 12 * 7")
-    print(result["answer"])
-```
-
-### TypeScript SDK (server-side ONLY)
-
-```typescript
-import { NexusClient } from './sdk/typescript/src/client';
-const nexus = new NexusClient(process.env.NEXUS_URL!, process.env.NEXUS_PROJECT_KEY!);
-const result = await nexus.createRun('ember-dev', 'calculate 12 * 7');
-console.log(result.answer);
-```
-
-Use this SDK only from your own backend / server action; NEVER ship API keys to a browser/mobile client.
+Use the existing API and SDK examples in this repository for scoped project runs and approvals.
 
 ## Portable LLM runtime
 
@@ -113,6 +94,31 @@ $env:NEXUS_LLM_COMMAND='["codex","exec","-"]'
 
 NEXUS does not bypass provider authentication. Local models can run without provider API keys; hosted model tools remain responsible for their own login, subscription, license, and terms. See `docs/PORTABLE_LLM_RUNTIME.md`.
 
+## 200-agent swarm mode
+
+Normal development work usually benefits from a focused team of 12-32 specialists:
+
+```powershell
+.\.venv\Scripts\nexus-portable.exe swarm `
+  --provider ollama `
+  --model llama3.2 `
+  --agents 24 `
+  "Build, review, test, and document this feature"
+```
+
+For a broad decomposable mission, NEXUS can coordinate the full 200-agent logical team while limiting simultaneous local model calls:
+
+```powershell
+.\.venv\Scripts\nexus-portable.exe swarm `
+  --provider ollama `
+  --model llama3.2 `
+  --agents 200 `
+  --max-parallel 8 `
+  "Audit and prepare this application for production"
+```
+
+A 200-agent mission does **not** mean 200 unrestricted simultaneous processes. The scheduler separates logical team size from physical concurrency to avoid exhausting RAM/VRAM or making a workstation slower. Specialists cover architecture, frontend, backend, APIs, database, security, DevOps, QA, testing, debugging, performance, UX, accessibility, research, evidence, product, integration, release, observability, data, AI engineering, code review, migrations, CI/CD, compliance, and related roles. A lead orchestrator synthesizes their work into one dependency-aware result. See `docs/MULTI_AGENT_SWARM.md`.
+
 ## Configure Ollama for real model-driven planning
 
 Ollama exposes an OpenAI-compatible chat completions endpoint at `/v1/chat/completions`. Install Ollama, pull a suitable model (`ollama pull llama3.2`), and set:
@@ -127,7 +133,7 @@ Register a new project with `"provider":"openai_compatible"`. The model can prop
 
 ## Approvals, security and operating limits
 
-`project_note` is a **write** tool and will always return `pending_approval` when proposed; the owning project's API key (or admin token) calls `POST /v1/runs/{run_id}/approval` with `{"approved":true}` or `false`. No model can bypass the fixed server-side approval rule. New tools must explicitly declare their approval classification before release.
+`project_note` is a **write** tool and will always return `pending_approval` when proposed. No model can bypass the fixed server-side approval rule. New tools must explicitly declare their approval classification before release.
 
 Before public deployment, add TLS, a reverse proxy, rate limiting, production-grade secret management, centralized audit logging, PostgreSQL, a durable queue and per-tenant execution quotas. SQLite and the in-process lock are intended for a single process only. Run only one Uvicorn worker. Do **not** expose `NEXUS_DEV_MODE=true` publicly. Avoid storing model/API keys in run events, user prompts or GitHub.
 
@@ -139,13 +145,13 @@ NEXUS_DEV_MODE=true pytest -q
 ruff check nexus_os tests examples
 ```
 
-CI runs both checks on push and pull request. Offline tests cover authentication, tenant isolation, real calculator execution, bogus tool rejection, approval and denial, deliberate demo limitations, and portable-provider registry checks. Integration tests against a **real** Ollama/hosted model and existing Lucio/Ember repositories remain a separate acceptance gate.
+CI runs both checks on push and pull request. Offline tests cover authentication, tenant isolation, real calculator execution, bogus tool rejection, approval and denial, deliberate demo limitations, portable-provider registry checks, and 200-agent swarm construction/execution behavior. Integration tests against a **real** Ollama/hosted model and existing Lucio/Ember repositories remain a separate acceptance gate.
 
 ## Roadmap
 
-1. **v0.1 (this release):** secure starter, offline demo, local LLM adapter, Python/TypeScript clients and CI.
-2. **v0.2:** authenticated GitHub adapter, sandboxed coding worker, tests with evidence, job cancellation and resumable background queue.
+1. **v0.1 (current foundation):** secure starter, offline demo, local LLM adapter, Python/TypeScript clients and CI.
+2. **v0.2:** adaptive multi-agent execution, authenticated GitHub adapter, sandboxed coding worker, tests with evidence, cancellation and resumable background queue.
 3. **v0.3:** MCP tool gateway, PostgreSQL, event streaming, scoped skills/agent packs, model evaluation and budget router.
 4. **v1.0:** verified Lucio and Ember integrations, tenancy security audit, observability, migrations, release and rollback playbooks.
 
-See `docs/ARCHITECTURE.md`, `docs/INTEGRATION.md`, and `docs/PORTABLE_LLM_RUNTIME.md` for deeper design and phased integration instructions.
+See `docs/ARCHITECTURE.md`, `docs/INTEGRATION.md`, `docs/PORTABLE_LLM_RUNTIME.md`, and `docs/MULTI_AGENT_SWARM.md` for deeper design and phased integration instructions.
