@@ -21,7 +21,7 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
     learning = GuardianLearningEngine(JsonlLearningStore(Path(settings.learning_path)))
     learning_recorder = ServerLearningRecorder(learning)
     orchestrator = Orchestrator(store, settings, learning_recorder=learning_recorder)
-    app = FastAPI(title="Nexus Starship Guardians", version="0.2.0", docs_url="/docs")
+    app = FastAPI(title="Nexus Starship Guardians", version="0.3.0-dev", docs_url="/docs")
 
     def authenticate(authorization: str | None = Header(default=None)) -> str:
         if not authorization or not authorization.startswith("Bearer "):
@@ -51,7 +51,7 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
     def health():
         return {
             "status": "ok",
-            "version": "0.2.0",
+            "version": "0.3.0-dev",
             "mode": "dev" if settings.dev_mode else "configured",
             "learning": "enabled",
         }
