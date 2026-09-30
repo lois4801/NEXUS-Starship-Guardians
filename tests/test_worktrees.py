@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from nexus_os.execution.worktrees import WorktreeError, WorktreeManager
+from nexus_os.coding_worktrees import WorktreeError, WorktreeManager
 
 
 def test_rejects_unsafe_task_id(tmp_path: Path):
