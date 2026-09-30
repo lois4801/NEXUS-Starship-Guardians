@@ -10,6 +10,6 @@ fi
 .venv/bin/python -m pip install --upgrade pip
 .venv/bin/python -m pip install -e '.[dev]'
 
-echo "NEXUS Agentic OS installed."
+echo "Nexus Starship Guardians installed."
 echo "Run: .venv/bin/nexus-portable doctor"
-echo "API-free local example: .venv/bin/nexus-portable ask --provider ollama --model llama3.2 'Hello from NEXUS'"
+echo "API-free local example: .venv/bin/nexus-portable ask --provider ollama --model llama3.2 'Hello from Nexus Starship Guardians'"
