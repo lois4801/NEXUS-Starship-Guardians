@@ -55,6 +55,31 @@ $env:NEXUS_LLM_COMMAND='["codex","exec","-"]'
 
 Exact CLI flags can change between tool versions. Run the target tool's own help command before configuring it.
 
+## Multi-agent swarm
+
+The same portable provider can power a coordinated NEXUS swarm of up to 200 logical specialists:
+
+```powershell
+.\.venv\Scripts\nexus-portable.exe swarm `
+  --provider ollama `
+  --model llama3.2 `
+  --agents 24 `
+  "Build, review, test, and document this feature"
+```
+
+For broad jobs, increase logical team size while keeping physical concurrency appropriate for the machine:
+
+```powershell
+.\.venv\Scripts\nexus-portable.exe swarm `
+  --provider ollama `
+  --model llama3.2 `
+  --agents 200 `
+  --max-parallel 8 `
+  "Audit and prepare this application for production"
+```
+
+A 200-agent mission is 200 collaborating logical specialists, not 200 unrestricted simultaneous shell/model processes. See `MULTI_AGENT_SWARM.md` for scheduling and safety details.
+
 ## Adapter contract
 
 Every portable provider implements:
