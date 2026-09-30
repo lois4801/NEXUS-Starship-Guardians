@@ -81,7 +81,10 @@ async def _run_swarm(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog="nexus-portable", description="Nexus Starship Guardians portable runtime")
+    parser = argparse.ArgumentParser(
+        prog="nexus-portable",
+        description="Nexus Starship Guardians portable runtime",
+    )
     sub = parser.add_subparsers(dest="command", required=True)
 
     sub.add_parser("providers", help="List built-in portable providers")
@@ -101,13 +104,6 @@ def main() -> int:
         default=24,
         choices=range(1, MAX_SWARM_GUARDIANS + 1),
         help="Number of logical Guardians to coordinate",
-    )
-    swarm.add_argument(
-        "--agents",
-        dest="guardians",
-        type=int,
-        choices=range(1, MAX_SWARM_GUARDIANS + 1),
-        help=argparse.SUPPRESS,
     )
     swarm.add_argument("--max-parallel", type=int, default=DEFAULT_PARALLELISM)
     swarm.add_argument("goal", nargs="+")
