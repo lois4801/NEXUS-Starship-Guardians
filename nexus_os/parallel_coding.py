@@ -27,7 +27,7 @@ class CodingResult:
 
 
 class ParallelCodingCoordinator:
-    """Run coding agents in separate git worktrees with bounded concurrency."""
+    """Run coding Guardians in separate git worktrees with bounded concurrency."""
 
     def __init__(
         self,
@@ -76,7 +76,7 @@ class ParallelCodingCoordinator:
     @staticmethod
     def _prompt(task: CodingTask, worktree: Path) -> str:
         return (
-            "You are a coding specialist in Nexus Universe Agents. "
+            "You are a coding Guardian in Nexus Starship Guardians. "
             f"Your isolated git worktree is {worktree}. "
             "Work only on the assigned task. Return a concrete implementation plan or patch-oriented "
             "instructions, tests to run, risks, and acceptance criteria. Never claim edits or tests happened "
