@@ -1,16 +1,21 @@
-# Nexus Universe Agents
+# Nexus Starship Guardians
 
-**Nexus Universe Agents** is the product name for this project going forward.
+**Nexus Starship Guardians** is the canonical product name for this project going forward.
 
-The existing GitHub repository name (`NEXUS-Agentic-OS`), Python import namespace (`nexus_os`), package name (`nexus-agentic-os`), executable (`nexus-portable`), and environment-variable prefixes remain temporarily unchanged for backward compatibility. Renaming those identifiers in one step would break existing clones, imports, scripts, plugin references, and integrations.
+The autonomous specialist role is **Sentinel**. Use **Sentinel** / **Sentinels** in product-facing UI, documentation, prompts, CLI help, architecture diagrams, and future integrations instead of agent terminology.
 
-## Migration policy
+## Compatibility policy
 
-- Product-facing UI, documentation, prompts, and future releases should use **Nexus Universe Agents**.
-- Existing technical identifiers are compatibility aliases until a versioned migration is released.
-- New integrations should not hard-code the old product name in user-facing text.
-- A future major release may introduce new package/CLI identifiers with compatibility shims and deprecation notices.
+The existing GitHub repository slug (`NEXUS-Agentic-OS`), Python import namespace (`nexus_os`), package name (`nexus-agentic-os`), executable (`nexus-portable`), and environment-variable prefixes remain temporarily unchanged as technical compatibility identifiers. Changing those identifiers immediately would break existing clones, imports, scripts, plugin references, and integrations.
 
-## Product shorthand
+Legacy Python aliases that contain agent terminology may remain only as compatibility shims while new canonical APIs use Sentinel terminology.
 
-Use **Nexus Universe** or **NUA** where a shorter internal label is useful. Do not silently rename repository/package identifiers until migration tooling exists.
+## Naming standard
+
+- Product: **Nexus Starship Guardians**
+- Specialist: **Sentinel**
+- Specialist team: **Sentinel Swarm**
+- Short product name: **Starship Guardians**
+- Short code/branch prefix: **NSG** / `nsg/`
+
+All new user-facing text must use the canonical names above.
