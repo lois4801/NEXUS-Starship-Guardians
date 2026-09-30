@@ -54,7 +54,7 @@ class AutomaticDiffReviewer:
     def review(self, diff: str) -> DiffReviewReport:
         report = DiffReviewReport()
         for raw in diff.splitlines():
-            if raw.startswith("+++") or raw.startswith("---"):
+            if raw.startswith(("+++", "---")):
                 continue
             if raw.startswith("+"):
                 report.additions += 1
