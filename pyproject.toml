@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "nexus-agentic-os"
 version = "0.1.0"
-description = "Nexus Universe Agents: reusable multi-project agent runtime with scoped credentials, approval gates, execution swarms, and pluggable models"
+description = "Nexus Starship Guardians: reusable multi-project Guardian runtime with scoped credentials, approval gates, execution swarms, and pluggable models"
 requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.115,<1",
