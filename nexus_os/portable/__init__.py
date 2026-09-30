@@ -1,4 +1,4 @@
-"""Portable local/CLI LLM adapters for NEXUS Agentic OS."""
+"""Portable local/CLI LLM adapters for Nexus Starship Guardians."""
 
 from .base import PortableProvider, ProviderResult
 from .registry import build_provider, list_providers
