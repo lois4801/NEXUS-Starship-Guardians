@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from collections.abc import Callable
-from dataclasses import dataclass
 import json
 import time
-from typing import Any, Protocol
 import uuid
+from collections.abc import Callable
+from dataclasses import dataclass
+from typing import Any, Protocol
 
 
 POSTGRES_QUEUE_DDL = """
