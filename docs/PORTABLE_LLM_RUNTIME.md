@@ -1,14 +1,14 @@
 # Portable LLM Runtime
 
-NEXUS Agentic OS can route prompts through local models and user-operated coding/chat CLIs without requiring a paid model API in the NEXUS core.
+Nexus Starship Guardians can route prompts through local models and user-operated coding/chat CLIs without requiring a paid model API in the core runtime.
 
 ## What "no API needed" means
 
 - **Local models:** fully API-key-free when invoked through a local executable such as Ollama.
-- **Desktop/coding CLIs:** NEXUS can invoke a CLI already installed and authenticated on your laptop. The external tool may still require its own account, subscription, login, or license.
-- **Hosted chat models:** a provider cannot be bypassed. If a hosted model only exposes authenticated web/API access, NEXUS must use the provider's supported authentication path.
+- **Desktop/coding CLIs:** Nexus Starship Guardians can invoke a CLI already installed and authenticated on your laptop. The external tool may still require its own account, subscription, login, or license.
+- **Hosted chat models:** a provider cannot be bypassed. If a hosted model only exposes authenticated web/API access, Nexus Starship Guardians must use the provider's supported authentication path.
 
-NEXUS never embeds or shares provider credentials between projects.
+Nexus Starship Guardians never embeds or shares provider credentials between projects.
 
 ## Windows quick start
 
@@ -55,15 +55,15 @@ $env:NEXUS_LLM_COMMAND='["codex","exec","-"]'
 
 Exact CLI flags can change between tool versions. Run the target tool's own help command before configuring it.
 
-## Multi-agent swarm
+## Multi-Guardian swarm
 
-The same portable provider can power a coordinated NEXUS swarm of up to 200 logical specialists:
+The same portable provider can power a coordinated Nexus Starship Guardians swarm of up to 200 logical Guardians:
 
 ```powershell
 .\.venv\Scripts\nexus-portable.exe swarm `
   --provider ollama `
   --model llama3.2 `
-  --agents 24 `
+  --guardians 24 `
   "Build, review, test, and document this feature"
 ```
 
@@ -73,12 +73,12 @@ For broad jobs, increase logical team size while keeping physical concurrency ap
 .\.venv\Scripts\nexus-portable.exe swarm `
   --provider ollama `
   --model llama3.2 `
-  --agents 200 `
+  --guardians 200 `
   --max-parallel 8 `
   "Audit and prepare this application for production"
 ```
 
-A 200-agent mission is 200 collaborating logical specialists, not 200 unrestricted simultaneous shell/model processes. See `MULTI_AGENT_SWARM.md` for scheduling and safety details.
+A 200-Guardian mission is 200 collaborating logical specialists, not 200 unrestricted simultaneous shell/model processes. See `MULTI_GUARDIAN_SWARM.md` for scheduling and safety details.
 
 ## Adapter contract
 
