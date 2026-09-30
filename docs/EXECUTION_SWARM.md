@@ -1,13 +1,13 @@
-# NEXUS Execution Swarm
+# Nexus Starship Guardians — Execution Swarm
 
-The Execution Swarm turns multi-agent plans into a controlled dependency graph of work. It is designed to let many specialists contribute while keeping state-changing actions bounded, reviewable, and isolated.
+The Execution Swarm turns multi-Guardian plans into a controlled dependency graph of work. It is designed to let many Guardians contribute while keeping state-changing actions bounded, reviewable, and isolated.
 
 ## Architecture
 
 ```text
 Mission
-  -> 1-200 logical specialists
-  -> lead synthesis
+  -> 1-200 logical Guardians
+  -> lead Guardian synthesis
   -> ExecutionTask DAG
        -> read / analyze workers
        -> coding workers
@@ -33,16 +33,16 @@ Mission
 - workspace-root containment
 - process timeout and output caps
 
-## Why logical agents and execution workers are separate
+## Why logical Guardians and execution workers are separate
 
-A 200-agent reasoning swarm may create many findings, but only a subset should be allowed to mutate a repository or environment. NEXUS therefore separates:
+A 200-Guardian reasoning swarm may create many findings, but only a subset should be allowed to mutate a repository or environment. Nexus Starship Guardians therefore separates:
 
-1. **specialists** — reason, inspect, review, propose, test plans, find defects;
+1. **Guardians** — reason, inspect, review, propose, create test plans, and find defects;
 2. **execution tasks** — concrete work units with dependencies;
 3. **workers** — controlled capabilities that can carry out an approved task;
 4. **verifiers** — independently check results before dependent tasks or release gates continue.
 
-This prevents a large team from becoming 200 unrestricted terminals.
+This prevents a large Guardian team from becoming 200 unrestricted terminals.
 
 ## Restricted local process worker
 
@@ -80,4 +80,4 @@ The interfaces are intentionally provider-neutral. Planned adapters include:
 - artifact/evidence collector
 - release verifier
 
-Writes, deployment, database mutation, credential changes, and external messaging should remain approval-gated even when reasoning agents are fully automatic.
+Writes, deployment, database mutation, credential changes, and external messaging should remain approval-gated even when reasoning Guardians are fully automatic.
