@@ -1,19 +1,31 @@
 {
   "vault": "Figma 1st Designs Vault",
   "current_revision": "FIGMA_VAULT_V1.0",
-  "status": "baseline_locked",
+  "status": "live_canonical",
+  "update_mode": "test_before_overwrite",
+  "workflow": [
+    "stage",
+    "build",
+    "test",
+    "verify",
+    "update_github_canonical",
+    "sync_supabase_canonical",
+    "verify_sync"
+  ],
   "github": {
     "repository": "lois4801/NEXUS-Agentic-OS",
     "branch": "archive/figma-1st-designs-vault-v1",
     "root": "archives/figma-1st-designs-vault",
-    "revision_path": "archives/figma-1st-designs-vault/revisions/FIGMA_VAULT_V1.0"
+    "history": "git_commit_history",
+    "baseline_reference": "archives/figma-1st-designs-vault/revisions/FIGMA_VAULT_V1.0"
   },
   "supabase": {
     "project": "Websites",
     "project_ref": "pbijedwkjiovjevyaopp",
     "schema": "figma_vault",
     "bucket": "figma-1st-designs-vault",
-    "revision_label": "FIGMA_VAULT_V1.0"
+    "revision_label": "FIGMA_VAULT_V1.0",
+    "mode": "current_verified_state"
   },
   "counts": {
     "projects": 9,
@@ -21,5 +33,5 @@
     "scenes": 26,
     "grigoletto_templates": 56
   },
-  "next_revision": "FIGMA_VAULT_V1.1"
+  "overwrite_gate": "all_applicable_tests_must_pass"
 }
