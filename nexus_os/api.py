@@ -1,22 +1,27 @@
-"""NEXUS REST API: project-scoped keys and a small documented agent execution surface."""
+"""Nexus Starship Guardians REST API with project-scoped keys and bounded execution."""
 
 import secrets
 import sqlite3
+from pathlib import Path
 from typing import Any
 
 from fastapi import Depends, FastAPI, Header, HTTPException
 
 from .config import Settings
+from .learning_memory import GuardianLearningEngine, JsonlLearningStore
 from .models import Approval, ProjectCreate, ProjectCreated, ProjectInfo, RunCreate, RunView
 from .orchestrator import Orchestrator
+from .server_learning import ServerLearningRecorder
 from .storage import Store
 
 
 def create_app(settings: Settings | None = None, store: Store | None = None) -> FastAPI:
     settings = settings or Settings.from_env()
     store = store or Store(settings.db_path)
-    orchestrator = Orchestrator(store, settings)
-    app = FastAPI(title="NEXUS Agentic OS", version="0.1.0", docs_url="/docs")
+    learning = GuardianLearningEngine(JsonlLearningStore(Path(settings.learning_path)))
+    learning_recorder = ServerLearningRecorder(learning)
+    orchestrator = Orchestrator(store, settings, learning_recorder=learning_recorder)
+    app = FastAPI(title="Nexus Starship Guardians", version="0.2.0", docs_url="/docs")
 
     def authenticate(authorization: str | None = Header(default=None)) -> str:
         if not authorization or not authorization.startswith("Bearer "):
@@ -44,14 +49,19 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
 
     @app.get("/health")
     def health():
-        return {"status": "ok", "version": "0.1.0", "mode": "dev" if settings.dev_mode else "configured"}
+        return {
+            "status": "ok",
+            "version": "0.2.0",
+            "mode": "dev" if settings.dev_mode else "configured",
+            "learning": "enabled",
+        }
 
     @app.post("/v1/projects", response_model=ProjectCreated, status_code=201)
     def create_project(spec: ProjectCreate, principal: str = Depends(authenticate)):
         if principal != "__admin__":
             raise HTTPException(status_code=403, detail="Admin key required")
         if not spec.agents or len(spec.agents) != len(set(spec.agents)):
-            raise HTTPException(status_code=422, detail="Agents must be nonempty and unique")
+            raise HTTPException(status_code=422, detail="Guardians must be nonempty and unique")
         if len(spec.allowed_tools) != len(set(spec.allowed_tools)):
             raise HTTPException(status_code=422, detail="Tools must be unique")
         key = "nxs_" + secrets.token_urlsafe(32)
@@ -76,7 +86,7 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
         if not project:
             raise HTTPException(status_code=404, detail="Project not found")
         if payload.agent not in project.agents:
-            raise HTTPException(status_code=403, detail="Agent not enabled for this project")
+            raise HTTPException(status_code=403, detail="Guardian not enabled for this project")
         run_id = store.add_run(project_id, payload.agent, payload.goal)
         return orchestrator.advance(run_id)
 
