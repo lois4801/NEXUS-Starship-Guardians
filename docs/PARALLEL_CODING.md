@@ -15,6 +15,13 @@ Nexus Universe Agents can decompose a software mission into isolated coding task
 9. Push reviewed branches and create draft pull requests through the user's authenticated GitHub tooling.
 10. Merge or deploy only after required approval and CI gates pass.
 
+## Implemented modules
+
+- `nexus_os.coding_worktrees.WorktreeManager`: creates/removes isolated Git worktrees and commits reviewed changes.
+- `nexus_os.parallel_coding.ParallelCodingCoordinator`: runs multiple coding-agent proposals against isolated worktrees with bounded concurrency.
+- `nexus_os.verification_pipeline.VerificationPipeline`: executes allowlisted quality gates in a task worktree using the restricted process worker.
+- `nexus_os.github_pr.PullRequestPublisher`: creates draft PRs and inspects PR checks through an already authenticated `gh` CLI.
+
 ## Isolation
 
 Branches use the `nua/task-<task-id>` convention. Worktree paths are constrained under a configured workspace root. Task IDs are restricted to safe characters and Git commands use argv execution instead of a shell.
@@ -37,4 +44,4 @@ Example policy:
 
 ## Current boundary
 
-The current coordinator creates isolated workspaces, obtains coding proposals, and provides safe process/PR primitives. Fully autonomous patch application is intentionally not performed by interpreting arbitrary model-generated shell commands. A later patch worker should use structured file operations or a trusted coding CLI with workspace and approval constraints.
+The current coordinator creates isolated workspaces, obtains coding proposals, runs allowlisted verification gates, and provides safe process/PR primitives. Fully autonomous patch application is intentionally not performed by interpreting arbitrary model-generated shell commands. A future structured patch worker can apply file-level edits while preserving workspace and approval constraints.
