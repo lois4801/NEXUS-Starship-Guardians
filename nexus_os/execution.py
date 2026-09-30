@@ -109,11 +109,12 @@ class ExecutionCoordinator:
         async def execute(task: ExecutionTask) -> None:
             async with semaphore:
                 result = report.results[task.task_id]
-                if task.requires_approval:
-                    if approval_check is None or not await approval_check(task):
-                        result.status = TaskStatus.BLOCKED
-                        result.error = "approval required"
-                        return
+                if task.requires_approval and (
+                    approval_check is None or not await approval_check(task)
+                ):
+                    result.status = TaskStatus.BLOCKED
+                    result.error = "approval required"
+                    return
                 result.status = TaskStatus.RUNNING
                 try:
                     output = await worker(task)
@@ -132,7 +133,10 @@ class ExecutionCoordinator:
             for task_id in sorted(pending):
                 task = by_id[task_id]
                 dependency_states = [report.results[item].status for item in task.dependencies]
-                if any(state in {TaskStatus.FAILED, TaskStatus.BLOCKED, TaskStatus.SKIPPED} for state in dependency_states):
+                if any(
+                    state in {TaskStatus.FAILED, TaskStatus.BLOCKED, TaskStatus.SKIPPED}
+                    for state in dependency_states
+                ):
                     report.results[task_id].status = TaskStatus.SKIPPED
                     report.results[task_id].error = "dependency did not complete successfully"
                     pending.remove(task_id)
