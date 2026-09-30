@@ -5,7 +5,8 @@ import os
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 
-MAX_SWARM_AGENTS = 200
+MAX_SWARM_GUARDIANS = 200
+MAX_SWARM_AGENTS = MAX_SWARM_GUARDIANS  # compatibility alias
 DEFAULT_PARALLELISM = max(2, min(16, (os.cpu_count() or 4) * 2))
 
 ROLE_FAMILIES = (
@@ -20,46 +21,71 @@ ROLE_FAMILIES = (
 
 
 @dataclass(slots=True)
-class AgentSpec:
-    agent_id: str
+class GuardianSpec:
+    guardian_id: str
     role: str
     objective: str
 
+    @property
+    def agent_id(self) -> str:
+        """Compatibility alias for integrations written before Guardian terminology."""
+        return self.guardian_id
+
 
 @dataclass(slots=True)
-class AgentResult:
-    agent_id: str
+class GuardianResult:
+    guardian_id: str
     role: str
     output: str
     ok: bool = True
     error: str | None = None
 
+    @property
+    def agent_id(self) -> str:
+        """Compatibility alias for integrations written before Guardian terminology."""
+        return self.guardian_id
+
+
+# Backward-compatible Python aliases. New code should use GuardianSpec/GuardianResult.
+AgentSpec = GuardianSpec
+AgentResult = GuardianResult
+
 
 @dataclass(slots=True)
 class SwarmReport:
     goal: str
-    requested_agents: int
-    active_agents: int
+    requested_guardians: int
+    active_guardians: int
     max_parallel: int
-    results: list[AgentResult] = field(default_factory=list)
+    results: list[GuardianResult] = field(default_factory=list)
     synthesis: str | None = None
 
+    @property
+    def requested_agents(self) -> int:
+        return self.requested_guardians
 
-Worker = Callable[[AgentSpec, str], Awaitable[str]]
-Synthesizer = Callable[[str, list[AgentResult]], Awaitable[str]]
+    @property
+    def active_agents(self) -> int:
+        return self.active_guardians
 
 
-def build_team(goal: str, requested_agents: int) -> list[AgentSpec]:
-    """Build up to 200 logical specialists with deterministic, diverse roles."""
-    if not 1 <= requested_agents <= MAX_SWARM_AGENTS:
-        raise ValueError(f"requested_agents must be between 1 and {MAX_SWARM_AGENTS}")
-    team: list[AgentSpec] = []
-    for index in range(requested_agents):
+Worker = Callable[[GuardianSpec, str], Awaitable[str]]
+Synthesizer = Callable[[str, list[GuardianResult]], Awaitable[str]]
+
+
+def build_team(goal: str, requested_guardians: int) -> list[GuardianSpec]:
+    """Build up to 200 logical Guardians with deterministic, diverse roles."""
+    if not 1 <= requested_guardians <= MAX_SWARM_GUARDIANS:
+        raise ValueError(
+            f"requested_guardians must be between 1 and {MAX_SWARM_GUARDIANS}"
+        )
+    team: list[GuardianSpec] = []
+    for index in range(requested_guardians):
         role = ROLE_FAMILIES[index % len(ROLE_FAMILIES)]
         replica = index // len(ROLE_FAMILIES) + 1
         team.append(
-            AgentSpec(
-                agent_id=f"{role}-{replica:02d}",
+            GuardianSpec(
+                guardian_id=f"{role}-{replica:02d}",
                 role=role,
                 objective=(
                     f"Analyze the goal from the {role} perspective. Produce concrete findings, "
@@ -72,35 +98,35 @@ def build_team(goal: str, requested_agents: int) -> list[AgentSpec]:
 
 
 class SwarmCoordinator:
-    """Run a large logical team with bounded physical concurrency.
+    """Run a large Guardian team with bounded physical concurrency.
 
-    A swarm may contain up to 200 agents, while max_parallel limits simultaneous
+    A swarm may contain up to 200 Guardians, while max_parallel limits simultaneous
     model/process calls so a laptop or local model server is not overwhelmed.
     """
 
     def __init__(self, *, max_parallel: int = DEFAULT_PARALLELISM):
-        if max_parallel < 1 or max_parallel > MAX_SWARM_AGENTS:
-            raise ValueError(f"max_parallel must be between 1 and {MAX_SWARM_AGENTS}")
+        if max_parallel < 1 or max_parallel > MAX_SWARM_GUARDIANS:
+            raise ValueError(f"max_parallel must be between 1 and {MAX_SWARM_GUARDIANS}")
         self.max_parallel = max_parallel
 
     async def run(
         self,
         goal: str,
-        requested_agents: int,
+        requested_guardians: int,
         worker: Worker,
         synthesizer: Synthesizer | None = None,
     ) -> SwarmReport:
-        team = build_team(goal, requested_agents)
+        team = build_team(goal, requested_guardians)
         semaphore = asyncio.Semaphore(self.max_parallel)
 
-        async def execute(spec: AgentSpec) -> AgentResult:
+        async def execute(spec: GuardianSpec) -> GuardianResult:
             async with semaphore:
                 try:
                     output = await worker(spec, goal)
-                    return AgentResult(spec.agent_id, spec.role, output)
+                    return GuardianResult(spec.guardian_id, spec.role, output)
                 except Exception as exc:  # noqa: BLE001 - isolate one worker from the swarm
-                    return AgentResult(
-                        spec.agent_id,
+                    return GuardianResult(
+                        spec.guardian_id,
                         spec.role,
                         "",
                         ok=False,
@@ -110,8 +136,8 @@ class SwarmCoordinator:
         results = await asyncio.gather(*(execute(spec) for spec in team))
         report = SwarmReport(
             goal=goal,
-            requested_agents=requested_agents,
-            active_agents=len(team),
+            requested_guardians=requested_guardians,
+            active_guardians=len(team),
             max_parallel=self.max_parallel,
             results=list(results),
         )
@@ -121,14 +147,14 @@ class SwarmCoordinator:
         return report
 
 
-def compact_evidence(results: list[AgentResult], *, max_chars: int = 48000) -> str:
-    """Create a bounded synthesis payload from successful specialist outputs."""
+def compact_evidence(results: list[GuardianResult], *, max_chars: int = 48000) -> str:
+    """Create a bounded synthesis payload from successful Guardian outputs."""
     chunks: list[str] = []
     used = 0
     for result in results:
         if not result.ok or not result.output.strip():
             continue
-        chunk = f"[{result.agent_id} | {result.role}]\n{result.output.strip()}\n"
+        chunk = f"[{result.guardian_id} | {result.role}]\n{result.output.strip()}\n"
         if used + len(chunk) > max_chars:
             break
         chunks.append(chunk)
