@@ -14,7 +14,7 @@
 - Adaptive multi-agent swarm coordinator supporting **1-200 logical specialists per mission** with bounded physical concurrency, isolated failures, evidence compaction, and lead-agent synthesis.
 - Python and server-side TypeScript SDKs, Docker, Docker Compose, examples and CI tests.
 
-**Not yet implemented:** GitHub repository editing, terminal sandbox, full MCP client/server, external web research, app deployment, model-cost router, durable distributed queue, Postgres, or Kubernetes. Plan these as subsequent integrations; never expose arbitrary shell or tenant-wide credentials to models.
+**Not yet implemented:** authenticated GitHub editing as a runtime tool, terminal sandbox, full MCP client/server, external web research, app deployment, model-cost router, durable distributed queue, Postgres, or Kubernetes. These remain subsequent integrations; never expose arbitrary shell or tenant-wide credentials to models.
 
 ## Architecture
 
