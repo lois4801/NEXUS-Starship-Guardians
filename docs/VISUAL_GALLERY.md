@@ -6,6 +6,12 @@ The repository keeps architecture and process visuals close to the code so reade
 
 ![Nexus Starship Guardians hero](assets/nexus-starship-guardians-hero.svg)
 
+## Mission intelligence and adaptive routing
+
+![Mission intelligence and adaptive routing](assets/mission-routing-pipeline.svg)
+
+This animated flow shows the path from mission text through classification, capability mapping, permission-safe Guardian routing, alternate-model judging, correlated telemetry, and cross-project learning.
+
 ## Production verification motion graph
 
 ![Production verification pipeline](assets/production-verification-pipeline.svg)
