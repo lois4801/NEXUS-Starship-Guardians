@@ -40,7 +40,7 @@ class AdaptiveGuardianRouter:
         performance. A required tool counts as covered only when at least one selected Guardian
         explicitly has that tool in its allowlist.
         """
-        broad = list(self.registry._items.values())
+        broad = self.registry.all()
         broad.sort(key=self.registry.utility, reverse=True)
 
         selected: list[RegisteredGuardian] = []
@@ -73,8 +73,6 @@ class AdaptiveGuardianRouter:
             covered_capabilities.update(best.profile.capabilities)
             covered_tools.update(best.profile.allowed_tools)
 
-        # If coverage is already complete but the mission requested a larger minimum team,
-        # add the highest-utility Guardians without weakening the permission checks above.
         if not (requirements.capabilities - covered_capabilities) and not (
             requirements.tools - covered_tools
         ):
