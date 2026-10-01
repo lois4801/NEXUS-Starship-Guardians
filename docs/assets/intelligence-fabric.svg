@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Nexus Starship Guardians Intelligence Fabric</title>
+  <desc id="desc">Animated intelligence flow connecting knowledge, strategy, memory quality, model performance, adversarial evaluation, mission intelligence, routing, verification, and learning.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#020617"/><stop offset=".5" stop-color="#0b1730"/><stop offset="1" stop-color="#24103b"/></linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#22d3ee"/><stop offset=".5" stop-color="#8b5cf6"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <style>.title{font:800 46px Arial,sans-serif;fill:#ecfeff}.sub{font:20px Arial,sans-serif;fill:#94a3b8}.h{font:700 22px Arial,sans-serif;fill:#f8fafc}.s{font:16px Arial,sans-serif;fill:#cbd5e1}.card{fill:#071426;stroke-width:2}</style>
+  </defs>
+  <rect width="1600" height="1000" rx="36" fill="url(#bg)"/>
+  <text x="70" y="75" class="title">NEXUS INTELLIGENCE FABRIC</text>
+  <text x="72" y="112" class="sub">Knowledge • Strategy • Memory quality • Model evidence • Adversarial evaluation • Uncertainty</text>
+
+  <path d="M800 185 V790" stroke="url(#beam)" stroke-width="8" stroke-dasharray="18 16" opacity=".65" filter="url(#glow)"><animate attributeName="stroke-dashoffset" values="0;-68" dur="2.2s" repeatCount="indefinite"/></path>
+
+  <g transform="translate(580 150)"><rect class="card" width="440" height="90" rx="24" stroke="#22d3ee"/><text x="220" y="55" text-anchor="middle" class="h">Mission / Goal</text></g>
+
+  <g transform="translate(70 300)"><rect class="card" width="280" height="130" rx="22" stroke="#60a5fa"/><text x="140" y="48" text-anchor="middle" class="h">Knowledge Graph</text><text x="140" y="82" text-anchor="middle" class="s">dependencies • impact</text><text x="140" y="108" text-anchor="middle" class="s">verified relationships</text></g>
+  <g transform="translate(390 300)"><rect class="card" width="280" height="130" rx="22" stroke="#f59e0b"/><text x="140" y="48" text-anchor="middle" class="h">Strategy Engine</text><text x="140" y="82" text-anchor="middle" class="s">security • migration</text><text x="140" y="108" text-anchor="middle" class="s">research • prototype</text></g>
+  <g transform="translate(710 300)"><rect class="card" width="280" height="130" rx="22" stroke="#8b5cf6"/><text x="140" y="48" text-anchor="middle" class="h">Memory Quality</text><text x="140" y="82" text-anchor="middle" class="s">helpful • harmful</text><text x="140" y="108" text-anchor="middle" class="s">quarantine bad lessons</text></g>
+  <g transform="translate(1030 300)"><rect class="card" width="280" height="130" rx="22" stroke="#d946ef"/><text x="140" y="48" text-anchor="middle" class="h">Model Registry</text><text x="140" y="82" text-anchor="middle" class="s">quality • reliability</text><text x="140" y="108" text-anchor="middle" class="s">cost • latency</text></g>
+  <g transform="translate(1350 300)"><rect class="card" width="180" height="130" rx="22" stroke="#fb7185"/><text x="90" y="45" text-anchor="middle" class="h">Adversarial</text><text x="90" y="75" text-anchor="middle" class="h">Eval</text><text x="90" y="108" text-anchor="middle" class="s">guardrails</text></g>
+
+  <path d="M210 430 L690 535 M530 430 L730 535 M850 430 V535 M1170 430 L900 535 M1440 430 L950 535" fill="none" stroke="#94a3b8" stroke-width="3" opacity=".7"/>
+  <g transform="translate(555 535)"><rect class="card" width="490" height="105" rx="24" stroke="#22d3ee"/><text x="245" y="45" text-anchor="middle" class="h">Mission Intelligence + Uncertainty</text><text x="245" y="78" text-anchor="middle" class="s">explicit capabilities • assumptions • evidence requirements</text></g>
+
+  <g transform="translate(150 725)"><rect class="card" width="330" height="110" rx="22" stroke="#60a5fa"/><text x="165" y="45" text-anchor="middle" class="h">Adaptive Routing</text><text x="165" y="78" text-anchor="middle" class="s">Models • Guardians • Tools</text></g>
+  <g transform="translate(635 725)"><rect class="card" width="330" height="110" rx="22" stroke="#22d3ee"/><text x="165" y="45" text-anchor="middle" class="h">Verified Execution</text><text x="165" y="78" text-anchor="middle" class="s">DAG • tests • evidence</text></g>
+  <g transform="translate(1120 725)"><rect class="card" width="330" height="110" rx="22" stroke="#34d399"/><text x="165" y="45" text-anchor="middle" class="h">Learning Loop</text><text x="165" y="78" text-anchor="middle" class="s">eval • memory • promotion</text></g>
+  <path d="M635 640 L315 725 M800 640 V725 M965 640 L1285 725" fill="none" stroke="url(#beam)" stroke-width="4" stroke-dasharray="12 9"><animate attributeName="stroke-dashoffset" values="0;-42" dur="1.7s" repeatCount="indefinite"/></path>
+  <path d="M1285 835 C1285 930 315 930 315 835" fill="none" stroke="#8b5cf6" stroke-width="3" stroke-dasharray="12 10"><animate attributeName="stroke-dashoffset" values="0;-44" dur="2.4s" repeatCount="indefinite"/></path>
+  <text x="800" y="920" text-anchor="middle" class="sub">Measured outcomes feed future strategy, model selection, memory trust, and project knowledge.</text>
+</svg>
