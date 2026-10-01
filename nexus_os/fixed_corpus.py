@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from importlib.resources import files
 from pathlib import Path
 
-from .evaluation_lab import EvaluationCase
+from nexus_os.evaluation_lab import EvaluationCase
 
 
 CORE_CORPUS_SHA256 = "58e81cf285623497af9c4ee96cacfa9ddce2270636f697b51dbdc77c7cb4387e"
