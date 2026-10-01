@@ -1,5 +1,34 @@
 # Nexus Starship Guardians — Internal Change Log
 
+## 2026-10-01 — Compatibility and production hardening
+
+### Added
+
+- Python CI matrix for 3.11, 3.12, and 3.13;
+- canonical `nexus-guardians` CLI smoke test;
+- legacy `nexus-portable` compatibility smoke test;
+- clean-process REST API import/title smoke test;
+- explicit compatibility contract for the retained `nexus_os` namespace and REST v1 wire fields;
+- live PostgreSQL 16 GitHub Actions service testing;
+- PostgreSQL claim/heartbeat/complete and expired-lease recovery integration tests;
+- expanded environment template for learning, evaluation, and PostgreSQL settings;
+- compatibility and production-verification workflow documentation.
+
+### Compatibility policy
+
+Nexus Starship Guardians is the canonical product name. Existing technical interfaces such as `nexus_os`, `nexus-portable`, REST v1 `agent`/`agents` fields, and `NEXUS_*` environment variables remain supported intentionally until a versioned migration can remove them without breaking Lucio AI Platform, Ember, Nexus Code, scripts, SDKs, or deployed clients.
+
+### Verification result
+
+Latest hardening CI passed:
+
+- Python 3.11: install, Ruff, pytest, canonical CLI, legacy CLI, REST import — passed;
+- Python 3.12: install, Ruff, pytest, canonical CLI, legacy CLI, REST import — passed;
+- Python 3.13: install, Ruff, pytest, canonical CLI, legacy CLI, REST import — passed;
+- PostgreSQL 16: service health, queue initialization, claim/ownership, heartbeat, completion, and expired-lease recovery — passed.
+
+A failed first PostgreSQL recovery test exposed a synthetic-clock mismatch in the test itself. The test now uses one consistent synthetic clock and passes against the real database service.
+
 ## 2026-09-30 — Intelligence, routing, and distributed execution expansion
 
 ### Added
