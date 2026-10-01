@@ -1,37 +1,38 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "nexus-agentic-os",
-  "version": "0.1.0",
-  "description": "Scoped project setup, agent-run operation, approval review and integration guidance for private NEXUS Agentic OS.",
-  "repository": "https://github.com/lois4801/NEXUS-Agentic-OS",
+  "name": "nexus-starship-guardians",
+  "version": "0.3.0",
+  "description": "Project-scoped Guardian operations, approvals, integration guidance, and verified runtime workflows for Nexus Starship Guardians.",
+  "repository": "https://github.com/lois4801/NEXUS-Starship-Guardians",
   "keywords": [
-    "agents",
+    "guardians",
     "orchestration",
     "developer-tools",
+    "verification",
     "integrations"
   ],
   "extensions": {
     "com.openai": {
       "interface": {
-        "displayName": "NEXUS Agentic OS",
-        "shortDescription": "Manage scoped agent workflows",
-        "longDescription": "Plan and operate a privately hosted NEXUS Agentic OS development instance. Guides separate project registration, bounded agent runs and approval review, secure server-side integration, and readiness checks. Bundles a small optional CLI for invoking an existing authorized NEXUS endpoint when the host provides Python and network access. No server, model, or NEXUS account is included; the plugin cannot connect without your own running instance and securely configured project key. NEXUS v0.1 is a development starter, not a live coding, repository editing, deployment, or web-research service.",
-        "developerName": "NEXUS Agentic OS",
+        "displayName": "Nexus Starship Guardians",
+        "shortDescription": "Operate verified Guardian workflows",
+        "longDescription": "Plan, operate, and review project-scoped Nexus Starship Guardians workflows. Supports project onboarding, bounded Guardian runs through the compatible REST v1 API, explicit approval review, server-side app integration, production-readiness checks, and evidence-first verification. The package includes a small optional REST CLI for an existing authorized Nexus endpoint. It does not bundle a hosted model, credentials, or an MCP server, and it never grants filesystem, GitHub, deployment, browser, or infrastructure permissions by itself.",
+        "developerName": "Nexus Starship Guardians",
         "category": "Developer Tools",
         "capabilities": [
-          "Plan isolated NEXUS projects and tool permissions",
-          "Run and inspect existing NEXUS agent tasks when connected",
-          "Review write approvals before execution",
-          "Design server-side Lucio and Ember integration",
-          "Audit development readiness and tenant isolation"
+          "Plan isolated Nexus projects and Guardian permissions",
+          "Run and inspect authorized Guardian tasks",
+          "Review explicit write approvals",
+          "Plan Lucio, Ember, Nexus Code, and future app integrations",
+          "Audit verification, tenant isolation, and production readiness"
         ],
         "defaultPrompt": [
-          "Help me configure separate NEXUS projects for Lucio and Ember.",
-          "Inspect my NEXUS run and explain any pending approvals.",
-          "Plan and test a secure NEXUS adapter for my app."
+          "Help me configure separate Nexus Starship Guardians projects for Lucio and Ember.",
+          "Inspect my Nexus run and explain any pending approvals.",
+          "Review whether this Nexus integration has enough evidence for release."
         ],
-        "brandColor": "#27324A",
-        "brandColorDark": "#D6AE68",
+        "brandColor": "#0B1730",
+        "brandColorDark": "#8B5CF6",
         "logo": "./assets/logo-light.svg",
         "composerIcon": "./assets/icon.svg"
       }
