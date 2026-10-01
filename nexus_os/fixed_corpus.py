@@ -1,12 +1,10 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.resources
 import json
-from collections.abc import Mapping
 from dataclasses import dataclass
-from importlib import resources
 from pathlib import Path
-from typing import Any
 
 from .evaluation_lab import EvaluationCase
 
@@ -37,7 +35,7 @@ class FixedEvaluationCorpus:
         if len(case_ids) != len(set(case_ids)):
             raise ValueError("fixed evaluation corpus contains duplicate case IDs")
 
-    def canonical_payload(self) -> dict[str, Any]:
+    def canonical_payload(self) -> dict[str, object]:
         return {
             "schema_version": self.schema_version,
             "corpus_id": self.corpus_id,
@@ -67,7 +65,7 @@ class FixedEvaluationCorpus:
         return hashlib.sha256(payload).hexdigest()
 
     @classmethod
-    def from_mapping(cls, payload: Mapping[str, Any]) -> FixedEvaluationCorpus:
+    def from_mapping(cls, payload: dict[str, object]) -> FixedEvaluationCorpus:
         try:
             raw_cases = payload["cases"]
         except KeyError as exc:
@@ -77,7 +75,7 @@ class FixedEvaluationCorpus:
 
         cases: list[EvaluationCase] = []
         for index, item in enumerate(raw_cases):
-            if not isinstance(item, Mapping):
+            if not isinstance(item, dict):
                 raise TypeError(f"fixed corpus case {index} must be an object")
             try:
                 case_id = str(item["case_id"]).strip()
@@ -126,7 +124,7 @@ class FixedEvaluationCorpus:
             payload = json.loads(text)
         except json.JSONDecodeError as exc:
             raise ValueError(f"fixed corpus is not valid JSON: {source}") from exc
-        if not isinstance(payload, Mapping):
+        if not isinstance(payload, dict):
             raise TypeError("fixed corpus root must be a JSON object")
         corpus = cls.from_mapping(payload)
         if expected_sha256 is not None and corpus.sha256 != expected_sha256:
@@ -153,7 +151,7 @@ class FixedEvaluationCorpus:
     def load_core(cls) -> FixedEvaluationCorpus:
         """Load the locked core corpus shipped inside the Python package."""
         text = (
-            resources.files("nexus_os")
+            importlib.resources.files("nexus_os")
             .joinpath("benchmarks")
             .joinpath("core_v1.json")
             .read_text(encoding="utf-8")
