@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import hashlib
-import importlib.resources
 import json
 from dataclasses import dataclass
+from importlib.resources import files
 from pathlib import Path
 
 from .evaluation_lab import EvaluationCase
@@ -151,7 +151,7 @@ class FixedEvaluationCorpus:
     def load_core(cls) -> FixedEvaluationCorpus:
         """Load the locked core corpus shipped inside the Python package."""
         text = (
-            importlib.resources.files("nexus_os")
+            files("nexus_os")
             .joinpath("benchmarks")
             .joinpath("core_v1.json")
             .read_text(encoding="utf-8")
