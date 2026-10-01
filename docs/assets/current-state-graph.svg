@@ -1,69 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="2680" viewBox="0 0 1500 2680" role="img" aria-labelledby="title desc">
-  <title id="title">Nexus Starship Guardians v0.7.1 current state graph</title>
-  <desc id="desc">Animated architecture showing live Adaptive Guardian Intelligence, automatic verified specialist learning, Benchmark Replay, Coverage Intelligence, Guardian routing, verified execution, governed benchmark learning, and releases.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="2300" viewBox="0 0 1500 2300" role="img" aria-labelledby="title desc">
+  <title id="title">Nexus Starship Guardians v0.8.0 current state graph</title>
+  <desc id="desc">Animated architecture showing Adaptive Guardian Intelligence, Guardian Cognitive Evolution, verified learning, counterfactual replay, Benchmark Replay, Coverage Intelligence, routing, verification, and releases.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#020617"/><stop offset=".45" stop-color="#07152e"/><stop offset="1" stop-color="#1a0b2e"/></linearGradient>
-    <linearGradient id="flow" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#22d3ee"/><stop offset=".26" stop-color="#60a5fa"/><stop offset=".52" stop-color="#8b5cf6"/><stop offset=".76" stop-color="#f59e0b"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#020617"/><stop offset=".5" stop-color="#07152e"/><stop offset="1" stop-color="#1a0b2e"/></linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#22d3ee"/><stop offset=".35" stop-color="#8b5cf6"/><stop offset=".7" stop-color="#f59e0b"/><stop offset="1" stop-color="#34d399"/></linearGradient>
     <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <style>
-      .title{font:800 44px Arial,Helvetica,sans-serif;fill:#ecfeff}.sub{font:20px Arial,Helvetica,sans-serif;fill:#94a3b8}.label{font:700 21px Arial,Helvetica,sans-serif;fill:#e2e8f0}.small{font:16px Arial,Helvetica,sans-serif;fill:#cbd5e1}.tiny{font:14px Arial,Helvetica,sans-serif;fill:#94a3b8}.box{fill:#071426;stroke-width:2}.cyan{stroke:#22d3ee}.blue{stroke:#60a5fa}.violet{stroke:#8b5cf6}.pink{stroke:#d946ef}.amber{stroke:#f59e0b}.green{stroke:#34d399}
-    </style>
+    <style>.title{font:800 42px Arial,sans-serif;fill:#ecfeff}.sub{font:19px Arial,sans-serif;fill:#94a3b8}.label{font:700 20px Arial,sans-serif;fill:#e2e8f0}.small{font:15px Arial,sans-serif;fill:#cbd5e1}.tiny{font:14px Arial,sans-serif;fill:#94a3b8}.box{fill:#071426;stroke-width:2}.cyan{stroke:#22d3ee}.blue{stroke:#60a5fa}.violet{stroke:#8b5cf6}.pink{stroke:#d946ef}.amber{stroke:#f59e0b}.green{stroke:#34d399}</style>
   </defs>
-  <rect width="1500" height="2680" rx="34" fill="url(#bg)"/>
-  <text x="80" y="78" class="title">NEXUS STARSHIP GUARDIANS v0.7.1 — CURRENT STATE</text>
-  <text x="82" y="116" class="sub">Reason → specialize → route → execute → verify → auto-learn → replay → adapt → promote → release</text>
-
-  <path d="M750 170 V2360" stroke="url(#flow)" stroke-width="8" stroke-dasharray="20 18" opacity=".55" filter="url(#glow)"><animate attributeName="stroke-dashoffset" values="0;-76" dur="2.4s" repeatCount="indefinite"/></path>
+  <rect width="1500" height="2300" rx="34" fill="url(#bg)"/>
+  <text x="70" y="76" class="title">NEXUS STARSHIP GUARDIANS v0.8.0 — CURRENT STATE</text>
+  <text x="72" y="112" class="sub">Reason → specialize → execute → verify → learn → reflect → replay → adapt → promote → release</text>
+  <path d="M750 155 V2100" stroke="url(#flow)" stroke-width="8" stroke-dasharray="20 18" opacity=".48" filter="url(#glow)"><animate attributeName="stroke-dashoffset" values="0;-76" dur="2.4s" repeatCount="indefinite"/></path>
 
   <g text-anchor="middle">
-    <g transform="translate(500 150)"><rect class="box cyan" width="500" height="90" rx="24"/><text x="250" y="56" class="label">Intelligence Fabric</text></g>
-    <g transform="translate(500 280)"><rect class="box violet" width="500" height="100" rx="24"/><text x="250" y="44" class="label">Live Adaptive Guardian Intelligence</text><text x="250" y="74" class="small">persistent per-skill evidence • confidence • trend • training priorities</text></g>
+    <g transform="translate(500 145)"><rect class="box cyan" width="500" height="82" rx="22"/><text x="250" y="51" class="label">Intelligence Fabric</text></g>
+    <g transform="translate(500 260)"><rect class="box violet" width="500" height="92" rx="22"/><text x="250" y="39" class="label">Adaptive Guardian Intelligence</text><text x="250" y="67" class="small">verified skill evidence • confidence • trend • priorities</text></g>
+    <g transform="translate(500 390)"><rect class="box pink" width="500" height="108" rx="22"/><text x="250" y="38" class="label">Guardian Cognitive Evolution</text><text x="250" y="67" class="small">lessons • calibration • failure clusters</text><text x="250" y="91" class="small">counterfactual replay • self-curricula</text></g>
   </g>
 
   <g text-anchor="middle">
-    <g transform="translate(90 430)"><rect class="box blue" width="300" height="105" rx="22"/><text x="150" y="44" class="label">10 Live Specialist</text><text x="150" y="75" class="label">Guardians</text></g>
-    <g transform="translate(435 430)"><rect class="box amber" width="300" height="105" rx="22"/><text x="150" y="44" class="label">Skill Evidence</text><text x="150" y="75" class="small">quality • reliability • benchmark</text></g>
-    <g transform="translate(780 430)"><rect class="box pink" width="300" height="105" rx="22"/><text x="150" y="44" class="label">Training Priorities</text><text x="150" y="75" class="small">weakness • uncertainty • regressions</text></g>
-    <g transform="translate(1125 430)"><rect class="box green" width="285" height="105" rx="22"/><text x="142" y="44" class="label">Routing Bonus</text><text x="142" y="75" class="small">bounded • evidence-only</text></g>
+    <g transform="translate(70 545)"><rect class="box blue" width="250" height="96" rx="20"/><text x="125" y="38" class="label">10 Specialists</text><text x="125" y="67" class="small">live evolving profiles</text></g>
+    <g transform="translate(350 545)"><rect class="box cyan" width="250" height="96" rx="20"/><text x="125" y="38" class="label">Peer Lessons</text><text x="125" y="67" class="small">knowledge, not scores</text></g>
+    <g transform="translate(625 545)"><rect class="box amber" width="250" height="96" rx="20"/><text x="125" y="38" class="label">Calibration</text><text x="125" y="67" class="small">confidence vs outcome</text></g>
+    <g transform="translate(900 545)"><rect class="box pink" width="250" height="96" rx="20"/><text x="125" y="38" class="label">Counterfactuals</text><text x="125" y="67" class="small">alternate strategies</text></g>
+    <g transform="translate(1175 545)"><rect class="box green" width="250" height="96" rx="20"/><text x="125" y="38" class="label">Curriculum</text><text x="125" y="67" class="small">practice weakest skills</text></g>
   </g>
-  <path d="M750 380 L240 430 M750 380 L585 430 M750 380 L930 430 M750 380 L1267 430" fill="none" stroke="#8b5cf6" stroke-width="3" stroke-dasharray="11 9" opacity=".75"><animate attributeName="stroke-dashoffset" values="0;-40" dur="2s" repeatCount="indefinite"/></path>
+  <path d="M750 498 L195 545 M750 498 L475 545 M750 498 L750 545 M750 498 L1025 545 M750 498 L1300 545" fill="none" stroke="#d946ef" stroke-width="3" stroke-dasharray="10 8" opacity=".7"><animate attributeName="stroke-dashoffset" values="0;-40" dur="2s" repeatCount="indefinite"/></path>
 
   <g text-anchor="middle">
-    <g transform="translate(510 600)"><rect class="box cyan" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Mission Intelligence</text></g>
-    <g transform="translate(510 710)"><rect class="box blue" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Live Registry + Adaptive Router</text></g>
-    <g transform="translate(510 820)"><rect class="box violet" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Selected Specialist Guardian Team</text></g>
-    <g transform="translate(510 930)"><rect class="box amber" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Controlled Tool Gateway</text></g>
-    <g transform="translate(510 1040)"><rect class="box blue" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Execution DAG</text></g>
-    <g transform="translate(510 1150)"><rect class="box cyan" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Verification Grid</text></g>
-    <g transform="translate(510 1260)"><rect class="box amber" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Auto Repair + Reverify</text></g>
-    <g transform="translate(510 1370)"><rect class="box violet" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Evidence Bundle</text></g>
-    <g transform="translate(510 1480)"><rect class="box pink" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Multi-Judge Evaluation</text></g>
+    <g transform="translate(510 710)"><rect class="box cyan" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Mission Intelligence</text></g>
+    <g transform="translate(510 812)"><rect class="box blue" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Registry + Adaptive/Cognitive Router</text></g>
+    <g transform="translate(510 914)"><rect class="box amber" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Controlled Tool Gateway</text></g>
+    <g transform="translate(510 1016)"><rect class="box blue" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Execution DAG</text></g>
+    <g transform="translate(510 1118)"><rect class="box cyan" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Verification Grid</text></g>
+    <g transform="translate(510 1220)"><rect class="box violet" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Evidence Bundle + Multi-Judge</text></g>
+    <g transform="translate(510 1322)"><rect class="box pink" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Automatic Verified Learning</text></g>
   </g>
 
-  <g transform="translate(70 1450)"><rect width="350" height="210" rx="24" fill="#09182c" stroke="#60a5fa" stroke-width="2"/><text x="24" y="42" class="label">Automatic Verified Learning</text><text x="24" y="78" class="small">successful runs need objective proof</text><text x="24" y="108" class="small">concrete failures teach failure evidence</text><text x="24" y="138" class="small">persistent per-skill updates</text><text x="24" y="168" class="small">trend + regression pressure</text><text x="24" y="196" class="tiny">feeds live Adaptive Guardian Intelligence</text></g>
-  <path d="M510 1522 C430 1522 420 1540 420 1540" fill="none" stroke="#60a5fa" stroke-width="4" stroke-dasharray="10 8"><animate attributeName="stroke-dashoffset" values="0;-36" dur="1.6s" repeatCount="indefinite"/></path>
-  <path d="M245 1450 C245 1090 350 330 500 330" fill="none" stroke="#60a5fa" stroke-width="3" stroke-dasharray="10 9" opacity=".65"><animate attributeName="stroke-dashoffset" values="0;-38" dur="2.2s" repeatCount="indefinite"/></path>
+  <path d="M510 1361 C330 1361 310 460 500 444" fill="none" stroke="#d946ef" stroke-width="4" stroke-dasharray="11 9" opacity=".7"><animate attributeName="stroke-dashoffset" values="0;-42" dur="2.1s" repeatCount="indefinite"/></path>
+  <path d="M990 1361 C1170 1361 1185 315 1000 306" fill="none" stroke="#8b5cf6" stroke-width="4" stroke-dasharray="11 9" opacity=".65"><animate attributeName="stroke-dashoffset" values="0;-42" dur="2.4s" repeatCount="indefinite"/></path>
 
   <g text-anchor="middle">
-    <g transform="translate(510 1620)"><rect class="box amber" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Regression Corpus</text></g>
-    <g transform="translate(510 1730)"><rect class="box violet" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Guardian Benchmark Vault</text></g>
-    <g transform="translate(510 1840)"><rect class="box pink" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Benchmark Replay</text></g>
-    <g transform="translate(510 1950)"><rect class="box amber" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Governed Review</text></g>
-    <g transform="translate(510 2060)"><rect class="box cyan" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Frozen Benchmark Snapshot</text></g>
-    <g transform="translate(510 2170)"><rect class="box blue" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Coverage Intelligence</text></g>
-    <g transform="translate(510 2280)"><rect class="box green" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Promotion Gate</text></g>
-    <g transform="translate(510 2390)"><rect class="box green" width="480" height="84" rx="22"/><text x="240" y="52" class="label">Release</text></g>
+    <g transform="translate(510 1485)"><rect class="box amber" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Regression Corpus</text></g>
+    <g transform="translate(510 1587)"><rect class="box violet" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Guardian Benchmark Vault</text></g>
+    <g transform="translate(510 1689)"><rect class="box pink" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Benchmark Replay + Governed Review</text></g>
+    <g transform="translate(510 1791)"><rect class="box cyan" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Frozen Snapshot + Coverage Intelligence</text></g>
+    <g transform="translate(510 1893)"><rect class="box green" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Promotion Gate</text></g>
+    <g transform="translate(510 1995)"><rect class="box green" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Release</text></g>
   </g>
 
-  <g transform="translate(1060 1730)"><rect width="360" height="260" rx="24" fill="#160d24" stroke="#d946ef" stroke-width="2"/><text x="24" y="42" class="label">Replay Evidence</text><text x="24" y="78" class="small">baseline / candidate strategies</text><text x="24" y="108" class="small">pass / fail + score</text><text x="24" y="138" class="small">failure category</text><text x="24" y="168" class="small">reproduced failure?</text><text x="24" y="198" class="small">review-ready evidence</text><text x="24" y="230" class="tiny">cannot auto-approve benchmark truth</text></g>
-  <path d="M990 1882 H1060" stroke="#d946ef" stroke-width="4" stroke-dasharray="10 8"><animate attributeName="stroke-dashoffset" values="0;-36" dur="1.5s" repeatCount="indefinite"/></path>
+  <g transform="translate(65 1645)"><rect width="355" height="220" rx="22" fill="#081d25" stroke="#22d3ee" stroke-width="2"/><text x="24" y="40" class="label">Coverage Intelligence</text><text x="24" y="77" class="small">coding • security • database • UI</text><text x="24" y="106" class="small">deployment • tool-use • API • cloud</text><text x="24" y="135" class="small">architecture • debugging • reliability</text><text x="24" y="174" class="tiny">gaps feed training priorities</text></g>
+  <g transform="translate(1080 1370)"><rect width="355" height="250" rx="22" fill="#160d24" stroke="#d946ef" stroke-width="2"/><text x="24" y="40" class="label">Cognitive Failure Intelligence</text><text x="24" y="78" class="small">cluster recurring signatures</text><text x="24" y="108" class="small">generate alternate strategies</text><text x="24" y="138" class="small">calibrate overconfidence</text><text x="24" y="168" class="small">share verified lessons</text><text x="24" y="207" class="tiny">never copies peer scores or permissions</text></g>
 
-  <g transform="translate(70 2110)"><rect width="360" height="260" rx="24" fill="#081d25" stroke="#22d3ee" stroke-width="2"/><text x="24" y="42" class="label">Coverage Intelligence</text><text x="24" y="78" class="small">architecture • platform • coding</text><text x="24" y="108" class="small">debugging • AI/ML • evaluation</text><text x="24" y="138" class="small">cloud • API • security • database</text><text x="24" y="168" class="small">UI • deployment • tool-use</text><text x="24" y="198" class="small">reliability • snapshot deltas</text><text x="24" y="230" class="tiny">gaps become specialist training targets</text></g>
-  <path d="M510 2212 H430" stroke="#22d3ee" stroke-width="4" stroke-dasharray="10 8"><animate attributeName="stroke-dashoffset" values="0;-36" dur="1.8s" repeatCount="indefinite"/></path>
-  <path d="M250 2110 C250 1750 320 480 780 480" fill="none" stroke="#22d3ee" stroke-width="3" stroke-dasharray="10 9" opacity=".55"><animate attributeName="stroke-dashoffset" values="0;-38" dur="2.6s" repeatCount="indefinite"/></path>
+  <g transform="translate(70 2095)"><rect width="350" height="140" rx="22" fill="#09251e" stroke="#34d399" stroke-width="2"/><text x="28" y="45" class="label">GitHub Release</text><text x="28" y="82" class="small">v0.8.0 • wheel • sdist • source</text></g>
+  <g transform="translate(1080 2095)"><rect width="350" height="140" rx="22" fill="#09251e" stroke="#34d399" stroke-width="2"/><text x="28" y="45" class="label">GHCR Package</text><text x="28" y="82" class="small">0.8.0 • 0.8 • latest</text></g>
 
-  <g transform="translate(70 2420)"><rect width="350" height="170" rx="24" fill="#09251e" stroke="#34d399" stroke-width="2"/><text x="28" y="48" class="label">GitHub Release</text><text x="28" y="90" class="small">v0.7.1 semantic release</text><text x="28" y="124" class="small">wheel + sdist + source</text></g>
-  <g transform="translate(1080 2420)"><rect width="350" height="170" rx="24" fill="#09251e" stroke="#34d399" stroke-width="2"/><text x="28" y="48" class="label">GitHub Package</text><text x="28" y="90" class="small">GHCR container</text><text x="28" y="124" class="small">0.7.1 • 0.7 • latest</text></g>
-
-  <text x="80" y="2640" class="tiny">Learning adapts verified evidence, priorities, memory, and routing. It cannot grant permissions, mutate live model weights, or silently approve benchmark truth.</text>
+  <text x="70" y="2260" class="tiny">Learning may adapt verified evidence, lessons, calibration, curricula, replay strategies, and bounded routing — never permissions, peer scores, live model weights, or benchmark truth.</text>
 </svg>

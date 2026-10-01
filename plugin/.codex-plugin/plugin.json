@@ -1,26 +1,25 @@
 {
   "interface": {
     "displayName": "Nexus Starship Guardians",
-    "shortDescription": "Operate adaptive verified Guardian intelligence workflows",
-    "longDescription": "Plan, operate, evaluate, learn, and review project-scoped Nexus Starship Guardians workflows. v0.7.1 activates Adaptive Guardian Intelligence in the live runtime: AI architects, platform engineers, AI developers, coder/debugging specialists, AI engineers/scientists, cloud specialists, API specialists, and AI programmers are registered for live routing, and verified terminal outcomes automatically update persistent per-skill evidence, confidence, trend, and training priorities. Successful runs require objective test/API/browser/security evidence before reinforcing specialist expertise; concrete runtime failures can teach failure evidence automatically. Benchmark Replay and Coverage Intelligence remain governed evaluation layers. Automatic learning cannot grant permissions, mutate model weights live, or silently approve benchmark truth.",
+    "shortDescription": "Operate self-improving verified Guardian workflows",
+    "longDescription": "v0.8 Guardian Cognitive Evolution makes the ten specialist Guardians compound intelligence from verified work. They retain personal skill evidence, calibrate confidence, learn recurring failure signatures, generate counterfactual replay strategies and self-curricula, and consume verified peer lessons without inheriting peer performance scores. Routing evidence remains bounded and cannot grant permissions, mutate hosted model weights live, or silently approve benchmark truth.",
     "developerName": "Nexus Starship Guardians",
     "category": "Developer Tools",
     "capabilities": [
-      "Automatically adapt specialist Guardian skill evidence from verified live outcomes",
-      "Route missions using bounded evidence from proven specialist strengths",
-      "Keep ten elite specialist Guardians available in the live default registry",
-      "Replay Benchmark Vault candidates before governed review",
-      "Measure benchmark coverage and snapshot-to-snapshot category growth",
-      "Generate targeted training priorities from weak, uncertain, or regressing skills",
-      "Evaluate baseline and candidate strategies against fingerprinted fixed corpora",
-      "Run and inspect authorized Guardian tasks without inferring permissions from performance"
+      "Learn automatically from verified specialist outcomes",
+      "Transfer verified lessons between specialist Guardians without copying scores",
+      "Calibrate confidence against observed success and failure",
+      "Cluster recurring failures and generate counterfactual replay strategies",
+      "Generate personalized self-training curricula from weaknesses and evidence",
+      "Route missions using bounded adaptive and cognitive evidence without changing permissions",
+      "Replay Benchmark Vault candidates and measure benchmark coverage intelligence"
     ],
     "defaultPrompt": [
-      "Show the adaptive intelligence summary and training priorities for my specialist Guardians.",
-      "Explain which specialist Guardians have learned from verified runs and why.",
-      "Replay pending Benchmark Vault candidates and summarize which failures reproduce.",
-      "Analyze benchmark coverage gaps across architecture, coding, debugging, AI, cloud, API, security, database, UI, deployment, and tool-use.",
-      "Route this mission using verified specialist performance evidence without changing tool permissions."
+      "Show the cognitive and adaptive intelligence summary for my specialist Guardians.",
+      "What has this Guardian learned, and what should it practice next?",
+      "Show transferable lessons relevant to this mission without copying another Guardian's score.",
+      "Generate counterfactual strategies for this verified failure.",
+      "Route this mission using verified cognitive evidence without changing tool permissions."
     ],
     "brandColor": "#0B1730",
     "brandColorDark": "#8B5CF6",
@@ -28,23 +27,10 @@
     "composerIcon": "./assets/icon.svg"
   },
   "name": "nexus-starship-guardians",
-  "version": "0.7.1",
-  "description": "Project-scoped Guardian operations with live Adaptive Guardian Intelligence, automatic verified specialist learning, Benchmark Replay, Coverage Intelligence, governed Benchmark Vault learning, fingerprinted evaluation, approvals, and verified runtime workflows.",
-  "author": {
-    "name": "Nexus Starship Guardians"
-  },
-  "keywords": [
-    "guardians",
-    "orchestration",
-    "adaptive-intelligence",
-    "automatic-learning",
-    "benchmark-replay",
-    "coverage-intelligence",
-    "benchmark-vault",
-    "evaluation",
-    "developer-tools",
-    "verification"
-  ],
+  "version": "0.8.0",
+  "description": "Project-scoped Guardian operations with Cognitive Evolution, verified meta-learning, cross-Guardian knowledge transfer, confidence calibration, counterfactual replay, self-curricula, Adaptive Guardian Intelligence, Benchmark Replay, and Coverage Intelligence.",
+  "author": {"name": "Nexus Starship Guardians"},
+  "keywords": ["guardians", "orchestration", "cognitive-evolution", "adaptive-intelligence", "meta-learning", "counterfactual-replay", "benchmark-replay", "coverage-intelligence", "verification"],
   "repository": "https://github.com/lois4801/NEXUS-Starship-Guardians",
   "skills": "./skills"
 }

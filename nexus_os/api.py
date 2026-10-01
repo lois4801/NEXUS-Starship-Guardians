@@ -9,6 +9,7 @@ from fastapi import Depends, FastAPI, Header, HTTPException
 
 from . import __version__
 from .adaptive_intelligence import AdaptiveGuardianIntelligence
+from .cognitive_evolution import CognitiveEvolutionEngine
 from .config import Settings
 from .integration_contracts import IntegrationContractRegistry
 from .intelligence_fabric import IntelligenceFabric
@@ -37,8 +38,19 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
     store = store or Store(settings.db_path)
     learning = GuardianLearningEngine(JsonlLearningStore(Path(settings.learning_path)))
     adaptive_intelligence = AdaptiveGuardianIntelligence(Path(settings.adaptive_intelligence_path))
-    learning_recorder = ServerLearningRecorder(learning, adaptive_intelligence)
-    mission_runtime = MissionRuntime(adaptive_intelligence=adaptive_intelligence)
+    cognitive_evolution = CognitiveEvolutionEngine(
+        Path(settings.cognitive_evolution_path),
+        adaptive_intelligence,
+    )
+    learning_recorder = ServerLearningRecorder(
+        learning,
+        adaptive_intelligence,
+        cognitive_evolution,
+    )
+    mission_runtime = MissionRuntime(
+        adaptive_intelligence=adaptive_intelligence,
+        cognitive_evolution=cognitive_evolution,
+    )
     intelligence_fabric = IntelligenceFabric(classifier=mission_runtime.classifier)
     integrations = IntegrationContractRegistry()
     orchestrator = Orchestrator(
@@ -128,6 +140,7 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
             "mode": "dev" if settings.dev_mode else "configured",
             "learning": "enabled",
             "adaptive_guardian_intelligence": "live",
+            "cognitive_evolution": "live",
             "adaptive_specialists": len(adaptive_intelligence.profiles()),
             "mission_intelligence": "live",
             "intelligence_fabric": "live",
@@ -171,6 +184,20 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
     ):
         scoped_project(project_id, principal)
         return intelligence_view(payload.goal)
+
+    @app.get("/v1/projects/{project_id}/guardians/{guardian_id}/cognitive-summary")
+    def cognitive_summary(
+        project_id: str,
+        guardian_id: str,
+        principal: str = Depends(authenticate),
+    ):
+        scoped_project(project_id, principal)
+        try:
+            adaptive = adaptive_intelligence.intelligence_summary(guardian_id)
+            cognitive = cognitive_evolution.summary(guardian_id)
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+        return {"adaptive": adaptive, "cognitive": cognitive}
 
     @app.get(
         "/v1/projects/{project_id}/integrations/{integration_name}/readiness",

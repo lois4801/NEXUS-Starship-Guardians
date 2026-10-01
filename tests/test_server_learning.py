@@ -1,4 +1,5 @@
 from nexus_os.adaptive_intelligence import AdaptiveGuardianIntelligence
+from nexus_os.cognitive_evolution import CognitiveEvolutionEngine
 from nexus_os.learning_memory import GuardianLearningEngine, JsonlLearningStore
 from nexus_os.server_learning import ServerLearningRecorder
 
@@ -124,3 +125,41 @@ def test_verified_specialist_failure_learns_from_concrete_failure_event(tmp_path
     assert evidence.attempts == 1
     assert evidence.successes == 0
     assert evidence.average_score == 2.0
+
+
+def test_verified_live_run_feeds_cognitive_evolution_and_counterfactual_cycle(tmp_path):
+    store = JsonlLearningStore(tmp_path / "learning.jsonl")
+    adaptive = AdaptiveGuardianIntelligence(tmp_path / "adaptive.json")
+    cognitive = CognitiveEvolutionEngine(tmp_path / "cognitive.json", adaptive)
+    recorder = ServerLearningRecorder(
+        GuardianLearningEngine(store),
+        adaptive,
+        cognitive,
+    )
+    recorder.record_if_terminal(
+        {
+            "run_id": "run-cognitive-failure",
+            "project_id": "project-a",
+            "agent": "debugger-specialist",
+            "goal": "Debug the API regression",
+            "answer": "",
+            "status": "failed",
+            "steps_used": 2,
+            "events": [
+                {
+                    "type": "mission_intelligence",
+                    "capabilities": ["debugging", "testing"],
+                    "confidence": 0.95,
+                },
+                {"type": "strategy_intelligence", "strategy": "direct-repair"},
+                {"type": "tool_error", "tool": "test", "error": "regression persists"},
+            ],
+        }
+    )
+
+    state = cognitive.state("debugger-specialist")
+    assert state.verified_episodes == 1
+    assert state.counterfactual_cycles == 1
+    assert state.calibration.predictions == 1
+    assert cognitive.lessons()
+    assert cognitive.failure_clusters()[0].signature == "tool_error:test"

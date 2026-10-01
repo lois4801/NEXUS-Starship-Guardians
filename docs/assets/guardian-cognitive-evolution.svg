@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050" role="img" aria-labelledby="title desc">
+  <title id="title">Guardian Cognitive Evolution v0.8.0</title>
+  <desc id="desc">Animated visualization of verified outcomes becoming lessons, calibrated confidence, failure intelligence, counterfactual strategies, self-curricula, peer knowledge, and bounded routing evidence.</desc>
+  <defs>
+    <radialGradient id="bg"><stop stop-color="#112448"/><stop offset="1" stop-color="#020617"/></radialGradient>
+    <linearGradient id="ring"><stop stop-color="#22d3ee"/><stop offset=".45" stop-color="#8b5cf6"/><stop offset="1" stop-color="#d946ef"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <style>.h{font:800 42px Arial,sans-serif;fill:#eefcff}.s{font:18px Arial,sans-serif;fill:#94a3b8}.l{font:700 18px Arial,sans-serif;fill:#e2e8f0}.t{font:15px Arial,sans-serif;fill:#cbd5e1}.node{fill:#071426;stroke-width:2}.cyan{stroke:#22d3ee}.violet{stroke:#8b5cf6}.amber{stroke:#f59e0b}.green{stroke:#34d399}.pink{stroke:#d946ef}</style>
+  </defs>
+  <rect width="1600" height="1050" rx="36" fill="url(#bg)"/>
+  <text x="65" y="75" class="h">GUARDIAN COGNITIVE EVOLUTION · v0.8.0</text>
+  <text x="67" y="110" class="s">verified experience → reflection → peer learning → counterfactuals → curriculum → better calibrated routing</text>
+
+  <circle cx="800" cy="525" r="220" fill="none" stroke="url(#ring)" stroke-width="6" stroke-dasharray="22 16" opacity=".65" filter="url(#glow)"><animateTransform attributeName="transform" type="rotate" from="0 800 525" to="360 800 525" dur="18s" repeatCount="indefinite"/></circle>
+  <circle cx="800" cy="525" r="150" fill="#081426" stroke="#8b5cf6" stroke-width="3" filter="url(#glow)"/>
+  <text x="800" y="492" class="l" text-anchor="middle">Cognitive Evolution</text>
+  <text x="800" y="523" class="l" text-anchor="middle">Core</text>
+  <text x="800" y="560" class="t" text-anchor="middle">verified lessons • calibration</text>
+  <text x="800" y="584" class="t" text-anchor="middle">failure clusters • curricula</text>
+
+  <g text-anchor="middle">
+    <g transform="translate(85 205)"><rect class="node cyan" width="300" height="95" rx="20"/><text x="150" y="39" class="l">Verified Outcomes</text><text x="150" y="68" class="t">tests • API • browser • security</text></g>
+    <g transform="translate(650 150)"><rect class="node violet" width="300" height="95" rx="20"/><text x="150" y="39" class="l">Personal Skill Evidence</text><text x="150" y="68" class="t">quality • reliability • trend</text></g>
+    <g transform="translate(1215 205)"><rect class="node pink" width="300" height="95" rx="20"/><text x="150" y="39" class="l">Peer Lessons</text><text x="150" y="68" class="t">knowledge without score cloning</text></g>
+
+    <g transform="translate(45 490)"><rect class="node amber" width="300" height="95" rx="20"/><text x="150" y="39" class="l">Failure Intelligence</text><text x="150" y="68" class="t">recurring causal signatures</text></g>
+    <g transform="translate(1255 490)"><rect class="node amber" width="300" height="95" rx="20"/><text x="150" y="39" class="l">Confidence Calibration</text><text x="150" y="68" class="t">prediction vs verified outcome</text></g>
+
+    <g transform="translate(85 790)"><rect class="node green" width="300" height="95" rx="20"/><text x="150" y="39" class="l">Counterfactual Replay</text><text x="150" y="68" class="t">alternate strategies after failure</text></g>
+    <g transform="translate(650 845)"><rect class="node green" width="300" height="95" rx="20"/><text x="150" y="39" class="l">Self-Curriculum</text><text x="150" y="68" class="t">practice weakest capabilities</text></g>
+    <g transform="translate(1215 790)"><rect class="node pink" width="300" height="95" rx="20"/><text x="150" y="39" class="l">Bounded Routing</text><text x="150" y="68" class="t">small evidence-only influence</text></g>
+  </g>
+
+  <g fill="none" stroke="#64748b" stroke-width="2.5" stroke-dasharray="10 8" opacity=".72">
+    <path d="M385 252 C520 280 610 360 675 420"/>
+    <path d="M800 245 V375"/>
+    <path d="M1215 252 C1080 280 990 360 925 420"/>
+    <path d="M345 538 H625"/>
+    <path d="M1255 538 H975"/>
+    <path d="M385 837 C520 790 610 705 675 635"/>
+    <path d="M800 845 V675"/>
+    <path d="M1215 837 C1080 790 990 705 925 635"/>
+  </g>
+
+  <path d="M385 252 C520 280 610 360 675 420" fill="none" stroke="#22d3ee" stroke-width="4" stroke-dasharray="12 10"><animate attributeName="stroke-dashoffset" values="0;-44" dur="1.6s" repeatCount="indefinite"/></path>
+  <path d="M345 538 H625" stroke="#f59e0b" stroke-width="4" stroke-dasharray="12 10"><animate attributeName="stroke-dashoffset" values="0;-44" dur="1.8s" repeatCount="indefinite"/></path>
+  <path d="M800 675 V845" stroke="#34d399" stroke-width="4" stroke-dasharray="12 10"><animate attributeName="stroke-dashoffset" values="0;-44" dur="1.9s" repeatCount="indefinite"/></path>
+  <path d="M925 635 C990 705 1080 790 1215 837" fill="none" stroke="#d946ef" stroke-width="4" stroke-dasharray="12 10"><animate attributeName="stroke-dashoffset" values="0;-44" dur="1.7s" repeatCount="indefinite"/></path>
+
+  <text x="65" y="1005" class="s">Cognitive evolution transfers verified knowledge and strategy evidence — never credentials, peer competence scores, live model weights, or benchmark approval.</text>
+</svg>

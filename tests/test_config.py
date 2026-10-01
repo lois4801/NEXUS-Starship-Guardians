@@ -25,3 +25,13 @@ def test_adaptive_intelligence_path_can_be_configured(monkeypatch, tmp_path):
 
     settings = Settings.from_env()
     assert settings.adaptive_intelligence_path == str(adaptive_path)
+
+
+def test_cognitive_evolution_path_can_be_configured(monkeypatch, tmp_path):
+    cognitive_path = tmp_path / "guardian-cognition.json"
+    monkeypatch.setenv("NEXUS_ADMIN_TOKEN", "test")
+    monkeypatch.setenv("NEXUS_MODEL_BASE_URL", "http://localhost:11434/v1")
+    monkeypatch.setenv("NEXUS_COGNITIVE_EVOLUTION_PATH", str(cognitive_path))
+
+    settings = Settings.from_env()
+    assert settings.cognitive_evolution_path == str(cognitive_path)
