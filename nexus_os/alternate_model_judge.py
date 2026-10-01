@@ -34,17 +34,17 @@ class AlternateModelJudge:
         except json.JSONDecodeError as exc:
             raise ValueError("alternate-model judge returned invalid JSON") from exc
         if not isinstance(payload, dict):
-            raise ValueError("alternate-model judge response must be a JSON object")
+            raise TypeError("alternate-model judge response must be a JSON object")
         score = payload.get("score")
         passed = payload.get("passed")
         rationale = payload.get("rationale", "")
         critical = payload.get("critical", False)
         if not isinstance(score, int | float) or isinstance(score, bool):
-            raise ValueError("alternate-model judge score must be numeric")
+            raise TypeError("alternate-model judge score must be numeric")
         if not isinstance(passed, bool) or not isinstance(critical, bool):
-            raise ValueError("alternate-model judge passed/critical must be booleans")
+            raise TypeError("alternate-model judge passed/critical must be booleans")
         if not isinstance(rationale, str):
-            raise ValueError("alternate-model judge rationale must be a string")
+            raise TypeError("alternate-model judge rationale must be a string")
         return JudgeResult(
             judge_id=self.judge_id,
             kind=JudgeKind.ALTERNATE_MODEL,
