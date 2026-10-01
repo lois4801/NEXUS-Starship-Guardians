@@ -28,8 +28,20 @@ def test_current_state_graph_is_repo_visible() -> None:
     assert visual.is_file()
     text = doc.read_text(encoding="utf-8")
     assert "NEXUS STARSHIP GUARDIANS" in text
+    assert "Guardian Benchmark Vault" in text
     assert "GitHub Release" in text
     assert "GHCR Package" in text
+
+
+def test_benchmark_vault_docs_and_animation_are_repo_visible() -> None:
+    doc = ROOT / "docs" / "GUARDIAN_BENCHMARK_VAULT.md"
+    visual = ROOT / "docs" / "assets" / "guardian-benchmark-vault.svg"
+    assert doc.is_file()
+    assert visual.is_file()
+    assert "Benchmark Vault" in doc.read_text(encoding="utf-8")
+    svg = visual.read_text(encoding="utf-8")
+    assert "GUARDIAN BENCHMARK VAULT" in svg
+    assert "<animate" in svg
 
 
 def test_release_workflow_has_required_publish_permissions_and_outputs() -> None:

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="980" viewBox="0 0 1500 980" role="img" aria-labelledby="title desc">
+  <title id="title">Guardian Benchmark Vault</title>
+  <desc id="desc">Animated flow from verified failures through regression capture, benchmark nomination, governed review, frozen corpus snapshots, Intelligence Lab evaluation, and promotion gates.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#020617"/><stop offset=".5" stop-color="#07152e"/><stop offset="1" stop-color="#1a0b2e"/></linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#22d3ee"/><stop offset=".45" stop-color="#8b5cf6"/><stop offset=".75" stop-color="#f59e0b"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+    <radialGradient id="orb"><stop offset="0" stop-color="#22d3ee" stop-opacity=".95"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <style>
+      .title{font:800 44px Arial,Helvetica,sans-serif;fill:#ecfeff}.sub{font:20px Arial,Helvetica,sans-serif;fill:#94a3b8}.label{font:700 20px Arial,Helvetica,sans-serif;fill:#e2e8f0}.small{font:16px Arial,Helvetica,sans-serif;fill:#cbd5e1}.tiny{font:14px Arial,Helvetica,sans-serif;fill:#94a3b8}.box{fill:#071426;stroke-width:2}.cyan{stroke:#22d3ee}.violet{stroke:#8b5cf6}.amber{stroke:#f59e0b}.green{stroke:#34d399}.red{stroke:#fb7185}.path{fill:none;stroke:url(#flow);stroke-width:5;stroke-dasharray:18 14;opacity:.82}
+    </style>
+  </defs>
+  <rect width="1500" height="980" rx="36" fill="url(#bg)"/>
+  <circle cx="180" cy="130" r="180" fill="url(#orb)" opacity=".22"><animate attributeName="opacity" values=".14;.28;.14" dur="4s" repeatCount="indefinite"/></circle>
+  <text x="80" y="82" class="title">GUARDIAN BENCHMARK VAULT</text>
+  <text x="82" y="120" class="sub">Verified mistakes become reviewed regression knowledge — never silent self-modification.</text>
+
+  <path class="path" d="M180 280 H1320"><animate attributeName="stroke-dashoffset" values="0;-64" dur="2.2s" repeatCount="indefinite"/></path>
+
+  <g transform="translate(70 200)">
+    <rect class="box red" width="250" height="160" rx="24"/>
+    <text x="125" y="48" text-anchor="middle" class="label">Verified Failure</text>
+    <text x="125" y="82" text-anchor="middle" class="small">test • CI • production</text>
+    <text x="125" y="110" text-anchor="middle" class="small">evidence bundle attached</text>
+    <circle cx="125" cy="137" r="7" fill="#fb7185"><animate attributeName="r" values="6;10;6" dur="1.6s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <g transform="translate(360 200)">
+    <rect class="box amber" width="250" height="160" rx="24"/>
+    <text x="125" y="48" text-anchor="middle" class="label">Regression Bridge</text>
+    <text x="125" y="82" text-anchor="middle" class="small">classify + deduplicate</text>
+    <text x="125" y="110" text-anchor="middle" class="small">verified only</text>
+    <text x="125" y="137" text-anchor="middle" class="tiny">RegressionCorpus</text>
+  </g>
+
+  <g transform="translate(650 200)">
+    <rect class="box violet" width="250" height="160" rx="24"/>
+    <text x="125" y="48" text-anchor="middle" class="label">Vault Candidate</text>
+    <text x="125" y="82" text-anchor="middle" class="small">provenance + severity</text>
+    <text x="125" y="110" text-anchor="middle" class="small">evidence_ref required</text>
+    <text x="125" y="137" text-anchor="middle" class="tiny">status: candidate</text>
+  </g>
+
+  <g transform="translate(940 200)">
+    <rect class="box cyan" width="250" height="160" rx="24"/>
+    <text x="125" y="48" text-anchor="middle" class="label">Governed Review</text>
+    <text x="125" y="82" text-anchor="middle" class="small">replay + evidence check</text>
+    <text x="125" y="110" text-anchor="middle" class="small">reviewer + note</text>
+    <text x="125" y="137" text-anchor="middle" class="tiny">approve / reject</text>
+  </g>
+
+  <g transform="translate(1230 200)">
+    <rect class="box green" width="200" height="160" rx="24"/>
+    <text x="100" y="48" text-anchor="middle" class="label">Frozen Snapshot</text>
+    <text x="100" y="82" text-anchor="middle" class="small">semantic version</text>
+    <text x="100" y="110" text-anchor="middle" class="small">SHA-256 identity</text>
+    <text x="100" y="137" text-anchor="middle" class="tiny">immutable evaluation input</text>
+  </g>
+
+  <path d="M1065 360 V455 H865" fill="none" stroke="#fb7185" stroke-width="4" stroke-dasharray="12 10"><animate attributeName="stroke-dashoffset" values="0;-44" dur="1.7s" repeatCount="indefinite"/></path>
+  <g transform="translate(650 420)">
+    <rect width="430" height="115" rx="22" fill="#170b17" stroke="#fb7185" stroke-width="2"/>
+    <text x="215" y="45" text-anchor="middle" class="label">Rejected Candidate</text>
+    <text x="215" y="76" text-anchor="middle" class="small">kept as review history • excluded from benchmark truth</text>
+  </g>
+
+  <path class="path" d="M1330 360 V610 H250"><animate attributeName="stroke-dashoffset" values="0;-64" dur="2.5s" repeatCount="indefinite"/></path>
+
+  <g transform="translate(80 575)">
+    <rect class="box violet" width="340" height="165" rx="24"/>
+    <text x="170" y="48" text-anchor="middle" class="label">Guardian Intelligence Lab</text>
+    <text x="170" y="82" text-anchor="middle" class="small">baseline vs candidate</text>
+    <text x="170" y="110" text-anchor="middle" class="small">exact same snapshot</text>
+    <text x="170" y="138" text-anchor="middle" class="tiny">ID + version + fingerprint</text>
+  </g>
+
+  <g transform="translate(500 575)">
+    <rect class="box cyan" width="340" height="165" rx="24"/>
+    <text x="170" y="48" text-anchor="middle" class="label">Multi-Judge Evaluation</text>
+    <text x="170" y="82" text-anchor="middle" class="small">deterministic + evidence</text>
+    <text x="170" y="110" text-anchor="middle" class="small">Guardian + alternate model</text>
+    <text x="170" y="138" text-anchor="middle" class="tiny">score • pass rate • critical failures</text>
+  </g>
+
+  <g transform="translate(920 575)">
+    <rect class="box amber" width="240" height="165" rx="24"/>
+    <text x="120" y="48" text-anchor="middle" class="label">Promotion Gate</text>
+    <text x="120" y="82" text-anchor="middle" class="small">regressions?</text>
+    <text x="120" y="110" text-anchor="middle" class="small">cost / latency?</text>
+    <text x="120" y="138" text-anchor="middle" class="tiny">corpus match required</text>
+  </g>
+
+  <g transform="translate(1240 575)">
+    <rect class="box green" width="190" height="165" rx="24"/>
+    <text x="95" y="48" text-anchor="middle" class="label">Release</text>
+    <text x="95" y="82" text-anchor="middle" class="small">approved only</text>
+    <text x="95" y="110" text-anchor="middle" class="small">evidence retained</text>
+    <text x="95" y="138" text-anchor="middle" class="tiny">rollback remains possible</text>
+  </g>
+
+  <path d="M420 657 H500 M840 657 H920 M1160 657 H1240" fill="none" stroke="url(#flow)" stroke-width="5" stroke-dasharray="16 12"><animate attributeName="stroke-dashoffset" values="0;-56" dur="1.9s" repeatCount="indefinite"/></path>
+
+  <g transform="translate(80 805)">
+    <rect width="1350" height="110" rx="24" fill="#05101f" stroke="#334155" stroke-width="2"/>
+    <text x="30" y="38" class="label">Safety invariant</text>
+    <text x="30" y="70" class="small">Verified failure → automatic candidate is allowed. Candidate → permanent benchmark truth requires explicit review.</text>
+    <text x="30" y="96" class="tiny">The packaged core corpus is never mutated in place; approved cases enter new versioned snapshots with reproducible fingerprints.</text>
+  </g>
+</svg>
