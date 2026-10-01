@@ -19,10 +19,13 @@ def headers(token):
     return {"Authorization": f"Bearer {token}"}
 
 
-def add_project(api, name="lucio", tools=None, agents=None):
+def add_project(api, name="lucio", tools=None, agents=None, gateway_tools=None):
     result = api.post("/v1/projects", headers=headers("test-admin-secret"), json={
-        "project_id": name, "display_name": name, "agents": agents or ["general"],
+        "project_id": name,
+        "display_name": name,
+        "agents": agents or ["general"],
         "allowed_tools": tools if tools is not None else ["calculator", "utc_now"],
+        "gateway_tools": gateway_tools or [],
     })
     assert result.status_code == 201, result.text
     return result.json()["api_key"]
@@ -33,6 +36,7 @@ def test_requires_auth_and_admin(api):
     key = add_project(api)
     assert api.post("/v1/projects", headers=headers(key), json={"project_id": "ember", "display_name": "Ember"}).status_code == 403
     assert api.get("/health").json()["status"] == "ok"
+    assert api.get("/health").json()["mission_intelligence"] == "live"
     assert api.get("/v1/projects/lucio", headers=headers(key)).status_code == 200
 
 
@@ -43,7 +47,10 @@ def test_real_tool_execution_and_trace(api):
     data = r.json()
     assert data["status"] == "completed"
     assert "84" in data["answer"]
-    assert [e["type"] for e in data["events"]] == ["tool_result", "final"]
+    assert [e["type"] for e in data["events"]] == ["mission_intelligence", "tool_result", "final"]
+    mission = data["events"][0]
+    assert mission["type"] == "mission_intelligence"
+    assert "selected_guardians" in mission
     assert api.get("/v1/runs/" + data["run_id"], headers=headers(key)).status_code == 200
 
 
@@ -77,15 +84,16 @@ def test_duplicate_project_rejected(api):
 def test_notes_are_project_scoped(api):
     lucio = add_project(api, "lucio", tools=["project_note"])
     ember = add_project(api, "ember", tools=["project_note"])
-    # Demo intentionally doesn't propose writes; create a pending approval by overriding provider in tests.
     from nexus_os import orchestrator as orch
     from nexus_os.models import Action
     original = orch.get_provider
+
     class FakeProvider:
         def next_action(self, goal, agent, history, available, model):
             if any(e["type"] == "tool_result" for e in history):
                 return Action(type="final", answer="saved")
             return Action(type="tool", tool="project_note", arguments={"content": goal})
+
     orch.get_provider = lambda project, settings: FakeProvider()
     try:
         run = api.post("/v1/projects/lucio/runs", headers=headers(lucio), json={"goal": "Scoped example"}).json()
@@ -105,9 +113,11 @@ def test_denial_prevents_write(api):
     from nexus_os import orchestrator as orch
     from nexus_os.models import Action
     original = orch.get_provider
+
     class FakeProvider:
         def next_action(self, goal, agent, history, available, model):
             return Action(type="tool", tool="project_note", arguments={"content": "Secret"})
+
     orch.get_provider = lambda project, settings: FakeProvider()
     try:
         run = api.post("/v1/projects/lucio/runs", headers=headers(key), json={"goal": "Write"}).json()
