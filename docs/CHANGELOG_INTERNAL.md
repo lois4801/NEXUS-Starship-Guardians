@@ -1,5 +1,38 @@
 # Nexus Starship Guardians — Internal Change Log
 
+## 2026-10-01 — v0.5.0 Intelligence Fabric
+
+### Added
+
+- `IntelligenceFabric` composition layer for mission classification, strategy selection, adversarial guardrails, uncertainty, and explicit assumptions;
+- `KnowledgeGraph` with explicit nodes/edges and dependency-impact traversal;
+- `StrategyEngine` with research-first, prototype-first, test-first, security-first, migration-safe, cost-optimized, and balanced strategies;
+- `ModelRegistry` with verified task-specific quality, reliability, cost, and latency evidence;
+- `MemoryQualityRegistry` with helpful/harmful/neutral reuse tracking and automatic quarantine for repeatedly harmful memories;
+- `AdversarialCaseGenerator` for deployment-evidence, schema-rollback, permission-escalation, fabricated-integration, and unsupported-completion guardrails;
+- project-scoped `POST /v1/projects/{project_id}/intelligence-plan` endpoint;
+- durable `strategy_intelligence` event in each live run before provider execution;
+- dedicated Intelligence Fabric tests covering strategy, graph impact, model ranking, memory quarantine, adversarial cases, API scope, and live trace evidence;
+- `docs/INTELLIGENCE_FABRIC.md`;
+- animated `docs/assets/intelligence-fabric.svg`;
+- v0.5 Current State Graph and README architecture refresh;
+- runtime, portable plugin, and Codex plugin version alignment at `0.5.0`.
+
+### Intelligence policy
+
+Intelligence output may recommend strategy, evidence, models, memories, or adversarial checks, but it does not grant credentials, external connectivity, or tool permissions. Knowledge Graph relationships must come from explicit/verified evidence. Model rankings are historical evidence, not universal claims. Adversarial cases are test proposals, not automatic failure declarations.
+
+### Compatibility policy
+
+REST v1 `agent` / `agents`, the `nexus_os` namespace, `NEXUS_*` environment variables, and the `nexus-portable` CLI alias remain supported. The v0.5 intelligence layer is additive and inspectable.
+
+### Release target
+
+- runtime: `0.5.0`;
+- portable plugin manifest: `0.5.0`;
+- Codex compatibility manifest: `0.5.0`;
+- expected post-merge outputs: GitHub Release `v0.5.0` plus GHCR `0.5.0`, `0.5`, and `latest` images after the complete CI/release workflow succeeds.
+
 ## 2026-10-01 — v0.4.0 Live Mission Runtime and controlled integration policy
 
 ### Added
