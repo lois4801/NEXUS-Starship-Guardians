@@ -20,6 +20,14 @@ class NexusClient:
         response.raise_for_status()
         return response.json()
 
+    def plan_intelligence(self, project_id: str, goal: str) -> dict:
+        response = self.client.post(
+            f"/v1/projects/{project_id}/intelligence-plan",
+            json={"goal": goal},
+        )
+        response.raise_for_status()
+        return response.json()
+
     def plan_mission(self, project_id: str, goal: str) -> dict:
         response = self.client.post(
             f"/v1/projects/{project_id}/mission-plan",
