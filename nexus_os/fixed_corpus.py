@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections.abc import Mapping
 from dataclasses import dataclass
 from importlib import resources
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 from .evaluation_lab import EvaluationCase
 
@@ -66,18 +67,18 @@ class FixedEvaluationCorpus:
         return hashlib.sha256(payload).hexdigest()
 
     @classmethod
-    def from_mapping(cls, payload: Mapping[str, Any]) -> "FixedEvaluationCorpus":
+    def from_mapping(cls, payload: Mapping[str, Any]) -> FixedEvaluationCorpus:
         try:
             raw_cases = payload["cases"]
         except KeyError as exc:
             raise ValueError("fixed corpus is missing cases") from exc
         if not isinstance(raw_cases, list):
-            raise ValueError("fixed corpus cases must be a list")
+            raise TypeError("fixed corpus cases must be a list")
 
         cases: list[EvaluationCase] = []
         for index, item in enumerate(raw_cases):
             if not isinstance(item, Mapping):
-                raise ValueError(f"fixed corpus case {index} must be an object")
+                raise TypeError(f"fixed corpus case {index} must be an object")
             try:
                 case_id = str(item["case_id"]).strip()
                 task = str(item["task"]).strip()
@@ -87,10 +88,10 @@ class FixedEvaluationCorpus:
                 raise ValueError(f"fixed corpus case {index} requires non-empty case_id and task")
             raw_tags = item.get("tags", [])
             if not isinstance(raw_tags, list) or not all(isinstance(tag, str) for tag in raw_tags):
-                raise ValueError(f"fixed corpus case {case_id} tags must be a list of strings")
+                raise TypeError(f"fixed corpus case {case_id} tags must be a list of strings")
             critical = item.get("critical", False)
             if not isinstance(critical, bool):
-                raise ValueError(f"fixed corpus case {case_id} critical must be a boolean")
+                raise TypeError(f"fixed corpus case {case_id} critical must be a boolean")
             cases.append(
                 EvaluationCase(
                     case_id=case_id,
@@ -104,7 +105,7 @@ class FixedEvaluationCorpus:
 
         schema_version = payload.get("schema_version", 1)
         if not isinstance(schema_version, int):
-            raise ValueError("fixed-corpus schema_version must be an integer")
+            raise TypeError("fixed-corpus schema_version must be an integer")
         return cls(
             corpus_id=str(payload.get("corpus_id", "")).strip(),
             version=str(payload.get("version", "")).strip(),
@@ -120,13 +121,13 @@ class FixedEvaluationCorpus:
         *,
         expected_sha256: str | None = None,
         source: str = "<memory>",
-    ) -> "FixedEvaluationCorpus":
+    ) -> FixedEvaluationCorpus:
         try:
             payload = json.loads(text)
         except json.JSONDecodeError as exc:
             raise ValueError(f"fixed corpus is not valid JSON: {source}") from exc
         if not isinstance(payload, Mapping):
-            raise ValueError("fixed corpus root must be a JSON object")
+            raise TypeError("fixed corpus root must be a JSON object")
         corpus = cls.from_mapping(payload)
         if expected_sha256 is not None and corpus.sha256 != expected_sha256:
             raise ValueError(
@@ -141,7 +142,7 @@ class FixedEvaluationCorpus:
         path: Path,
         *,
         expected_sha256: str | None = None,
-    ) -> "FixedEvaluationCorpus":
+    ) -> FixedEvaluationCorpus:
         return cls.from_json_text(
             path.read_text(encoding="utf-8"),
             expected_sha256=expected_sha256,
@@ -149,10 +150,13 @@ class FixedEvaluationCorpus:
         )
 
     @classmethod
-    def load_core(cls) -> "FixedEvaluationCorpus":
+    def load_core(cls) -> FixedEvaluationCorpus:
         """Load the locked core corpus shipped inside the Python package."""
-        text = resources.files("nexus_os").joinpath("benchmarks/core_v1.json").read_text(
-            encoding="utf-8"
+        text = (
+            resources.files("nexus_os")
+            .joinpath("benchmarks")
+            .joinpath("core_v1.json")
+            .read_text(encoding="utf-8")
         )
         return cls.from_json_text(
             text,
