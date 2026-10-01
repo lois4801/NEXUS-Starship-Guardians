@@ -2,6 +2,51 @@
 
 This file is part of the default repository update discipline. Meaningful changes should add a concise entry when they reveal reusable engineering lessons, regressions, CI failures, or architecture decisions.
 
+## 2026-10-01 — Compatibility and production hardening
+
+### What changed
+
+- expanded CI to Python 3.11, 3.12, and 3.13;
+- added canonical and legacy CLI smoke tests;
+- added REST API import/title smoke testing;
+- added real PostgreSQL 16 service integration testing;
+- documented compatibility guarantees for retained technical identifiers;
+- expanded environment configuration examples;
+- added a production-verification workflow visual.
+
+### What the hardening run found
+
+1. **Brand renaming and interface renaming are not the same thing.** Product-facing naming can move to Nexus Starship Guardians while technical interfaces such as `nexus_os`, `nexus-portable`, REST v1 `agent`/`agents`, and `NEXUS_*` remain compatibility surfaces. Mechanical renaming would create avoidable breakage.
+2. **A single Python version was not enough evidence.** The package, tests, CLI, and REST import now pass on Python 3.11, 3.12, and 3.13.
+3. **Real database tests reveal assumptions unit tests cannot.** The first live PostgreSQL recovery test failed because it mixed real enqueue time with a synthetic claim clock. PostgreSQL behaved correctly; the test assumption was wrong.
+4. **Synthetic time must be internally consistent.** Time-sensitive queue tests now set `available_at`, claim time, expiry time, and recovery time from one synthetic timeline.
+5. **Compatibility deserves tests, not comments.** Both `nexus-guardians` and the legacy `nexus-portable` CLI are exercised in CI, and the retained `nexus_os` namespace is imported explicitly.
+6. **Production claims should match tested scope.** The hardening matrix proves install/import/CLI/API-health/unit/PostgreSQL queue compatibility, but does not prove every hosted model, browser provider, Railway deployment, Supabase project, or MCP service without those environments and credentials.
+
+### Verification result
+
+The final hardening code-bearing CI run passed all four jobs:
+
+- Python 3.11 — passed;
+- Python 3.12 — passed;
+- Python 3.13 — passed;
+- PostgreSQL 16 integration — passed.
+
+Within the Python matrix, package installation, Ruff, pytest, canonical CLI, legacy CLI, and REST API import/title all passed. The PostgreSQL job passed queue initialization, ownership/claim behavior, heartbeat, completion, and expired-lease recovery against a real database container.
+
+### Reusable lesson
+
+**Preserve compatibility first, rename safely second, and verify behavior on the real dependency whenever practical.** A branding migration should not force a breaking runtime migration unless there is a deliberate versioned deprecation plan.
+
+### Next hardening targets
+
+- add Docker image build/start/health CI;
+- add FastAPI HTTP smoke testing through a live uvicorn process;
+- add persisted Guardian Registry integration tests;
+- add provider-contract tests with deterministic fake providers;
+- add optional gated tests for Railway/Supabase/MCP integrations when credentials are available;
+- define a v1 compatibility/deprecation policy for legacy REST v1 field names.
+
 ## 2026-09-30 — Guardian Intelligence + Adaptive Execution phase
 
 ### What changed
