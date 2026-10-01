@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 from .guardian_registry import GuardianRegistry, RegisteredGuardian
+
+if TYPE_CHECKING:
+    from .adaptive_intelligence import AdaptiveGuardianIntelligence
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,18 +34,40 @@ class RoutingDecision:
 
 
 class AdaptiveGuardianRouter:
-    def __init__(self, registry: GuardianRegistry):
+    def __init__(
+        self,
+        registry: GuardianRegistry,
+        intelligence: AdaptiveGuardianIntelligence | None = None,
+    ):
         self.registry = registry
+        self.intelligence = intelligence
+
+    def _utility(
+        self,
+        guardian: RegisteredGuardian,
+        required_capabilities: frozenset[str],
+    ) -> float:
+        utility = self.registry.utility(guardian)
+        if self.intelligence is None:
+            return utility
+        return utility + self.intelligence.routing_bonus(
+            guardian.profile.guardian_id,
+            required_capabilities,
+        )
 
     def route(self, requirements: MissionRequirements) -> RoutingDecision:
         """Select a bounded team that collectively covers capabilities and tools.
 
-        Historical utility ranks eligible contributors, but permissions are never inferred from
-        performance. A required tool counts as covered only when at least one selected Guardian
-        explicitly has that tool in its allowlist.
+        Historical utility ranks eligible contributors, while adaptive specialist evidence can
+        add a bounded bonus for capabilities that have been repeatedly verified. Permissions are
+        never inferred from performance: a required tool counts as covered only when at least one
+        selected Guardian explicitly has that tool in its allowlist.
         """
         broad = self.registry.all()
-        broad.sort(key=self.registry.utility, reverse=True)
+        broad.sort(
+            key=lambda guardian: self._utility(guardian, requirements.capabilities),
+            reverse=True,
+        )
 
         selected: list[RegisteredGuardian] = []
         covered_capabilities: set[str] = set()
@@ -62,7 +88,7 @@ class AdaptiveGuardianRouter:
                 capability_gain = len(guardian.profile.capabilities & remaining_capabilities)
                 tool_gain = len(guardian.profile.allowed_tools & remaining_tools)
                 gain = capability_gain + tool_gain
-                utility = self.registry.utility(guardian)
+                utility = self._utility(guardian, remaining_capabilities)
                 if gain > best_gain or (gain == best_gain and gain > 0 and utility > best_utility):
                     best = guardian
                     best_gain = gain
