@@ -1,0 +1,41 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "nexus-starship-guardians",
+  "version": "0.3.0",
+  "description": "Project-scoped Guardian operations, approvals, integration guidance, and verified runtime workflows for Nexus Starship Guardians.",
+  "repository": "https://github.com/lois4801/NEXUS-Starship-Guardians",
+  "keywords": [
+    "guardians",
+    "orchestration",
+    "developer-tools",
+    "verification",
+    "integrations"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Nexus Starship Guardians",
+        "shortDescription": "Operate verified Guardian workflows",
+        "longDescription": "Plan, operate, and review project-scoped Nexus Starship Guardians workflows. Supports project onboarding, bounded Guardian runs through the compatible REST v1 API, explicit approval review, server-side app integration, production-readiness checks, and evidence-first verification. The package includes a small optional REST CLI for an existing authorized Nexus endpoint. It does not bundle a hosted model, credentials, or an MCP server, and it never grants filesystem, GitHub, deployment, browser, or infrastructure permissions by itself.",
+        "developerName": "Nexus Starship Guardians",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Plan isolated Nexus projects and Guardian permissions",
+          "Run and inspect authorized Guardian tasks",
+          "Review explicit write approvals",
+          "Plan Lucio, Ember, Nexus Code, and future app integrations",
+          "Audit verification, tenant isolation, and production readiness"
+        ],
+        "defaultPrompt": [
+          "Help me configure separate Nexus Starship Guardians projects for Lucio and Ember.",
+          "Inspect my Nexus run and explain any pending approvals.",
+          "Review whether this Nexus integration has enough evidence for release."
+        ],
+        "brandColor": "#0B1730",
+        "brandColorDark": "#8B5CF6",
+        "logo": "./assets/logo-light.svg",
+        "composerIcon": "./assets/icon.svg"
+      }
+    }
+  }
+}
