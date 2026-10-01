@@ -17,7 +17,7 @@ flowchart TD
     B --> B5[Adversarial Evaluation]
     B --> B6[Uncertainty + Assumptions]
     B --> B7[Guardian Intelligence Lab]
-    B7 --> B8[Fixed Corpus Vault]
+    B7 --> B8[Fixed Corpus / Frozen Snapshot]
 
     B --> C[Mission Intelligence]
     C --> D[Live Mission Runtime]
@@ -46,6 +46,11 @@ flowchart TD
     B8 --> O[Multi-Judge Evaluation]
     N --> O
     O --> P[Regression Corpus]
+    P --> BV[Guardian Benchmark Vault]
+    BV --> BR[Governed Review]
+    BR -->|approved| BS[Frozen Benchmark Snapshot]
+    BR -->|rejected| BH[Review History]
+    BS --> B7
     P --> Q[Learning Memory]
     Q --> B3
     O --> B4
@@ -54,7 +59,7 @@ flowchart TD
     Q --> R
     R --> S[Release]
 
-    T[ChatGPT / Codex Plugin v0.5.1] --> U[Nexus REST v1 Adapter]
+    T[ChatGPT / Codex Plugin v0.6.0] --> U[Nexus REST v1 Adapter]
     U --> D
 
     S --> V[GitHub Release]
@@ -73,7 +78,9 @@ flowchart TD
 - **Adversarial Evaluation:** creates deterministic guardrail cases for unsupported deployment claims, unsafe schema change, permission escalation, fabricated integrations, and unsupported completion claims.
 - **Uncertainty + Assumptions:** exposes interpretation uncertainty and assumptions instead of hiding ambiguity behind confident prose.
 - **Guardian Intelligence Lab:** runs baseline/candidate evaluation against versioned fixed corpora, binds runs to corpus ID/version/SHA-256, and rejects comparisons when the evaluated corpus differs.
-- **Fixed Corpus Vault:** repository-owned benchmark manifests provide reproducible evaluation inputs. Core v1 is locked by a canonical SHA-256 regression test; meaningful corpus changes require an intentional version/fingerprint update.
+- **Fixed Corpus / Frozen Snapshot:** repository-owned benchmark manifests provide reproducible evaluation inputs. Core v1 remains immutable; reviewed Benchmark Vault cases enter new versioned snapshots instead of rewriting the core in place.
+- **Guardian Benchmark Vault:** receives verified regression cases as evidence-linked candidates, deduplicates nominations, stores review status, and creates new `FixedEvaluationCorpus` snapshots only from approved cases.
+- **Governed Review:** candidates remain outside permanent benchmark truth until explicitly approved. Rejected candidates remain audit history and are excluded from snapshots.
 - **Mission Intelligence:** deterministic intent classification, confidence/reasons, explicit capability requirements, and bounded team sizing.
 - **Live Mission Runtime:** records both `mission_intelligence` and `strategy_intelligence` before normal REST v1 provider/tool execution. Intelligence plans remain advisory to preserve compatibility unless a future governed policy explicitly makes a gate blocking.
 - **Capability Map:** maps mission language to capabilities and high-level required tools without granting permissions.
@@ -86,12 +93,32 @@ flowchart TD
 - **Auto Repair:** bounded build → verify → repair → reverify loops.
 - **Evidence Bundle:** SHA-256 provenance and verification evidence.
 - **Multi-Judge Evaluation:** deterministic, evidence, Guardian, and alternate-model judge support. Fixed-corpus runs feed the same evidence layer.
-- **Regression Corpus:** verified failures can become deduplicated persistent regression cases and can inform later versioned benchmark releases.
+- **Regression Corpus:** verified failures become deduplicated persistent regression cases. When the Benchmark Vault is enabled, those verified cases can be nominated automatically with an evidence reference.
 - **Learning Memory:** episodic memory, reflection, lesson retrieval, and cross-project performance evidence; no live model-weight mutation.
 - **Promotion Gate:** blocks corpus mismatch, critical regressions, score/pass-rate regression, and optional cost/latency overruns.
-- **ChatGPT/Codex Plugin:** `nexus-starship-guardians` v0.5.1 retains REST v1 compatibility while documenting the fixed-corpus evaluation capability.
+- **ChatGPT/Codex Plugin:** `nexus-starship-guardians` v0.6.0 documents the Benchmark Vault, Intelligence Lab, and existing REST v1 compatibility surfaces.
 - **Nexus REST v1 Adapter:** legacy `agent` / `agents` wire fields remain compatibility contracts; product-facing terminology is Guardian/Guardians.
 - **Release outputs:** GitHub Releases carry semantic release notes, source, wheel, and sdist; GitHub Packages publishes versioned GHCR Docker images.
+
+## Benchmark learning invariant
+
+```text
+verified failure
+    ↓
+regression case
+    ↓
+benchmark candidate
+    ↓
+review
+  ↙     ↘
+reject  approve
+          ↓
+ versioned snapshot
+          ↓
+ Intelligence Lab
+```
+
+Automatic learning is allowed to propose benchmark knowledge. It is not allowed to silently rewrite benchmark truth.
 
 ## Maintenance rule
 
