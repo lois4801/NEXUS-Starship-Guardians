@@ -1,12 +1,12 @@
 ---
 name: sandbox-python-executor
-description: Use when a NEXUS workflow needs host-native Python for deterministic parsing, package checks, hashing, test execution or local verification and the current host actually offers a Python tool.
+description: Use when a Nexus Starship Guardians workflow needs host-native Python for deterministic parsing, package checks, hashing, test execution, or local verification and the current host actually offers a Python tool.
 ---
 
 # Sandbox Python Executor
 
-Use the **python tool** in ChatGPT when it is available and relevant, or an authorized Python environment in Codex. This Skill does not provide an MCP runtime or grant a tool.
+Use the available Python execution environment only when it is relevant and authorized. This Skill does not provide an MCP runtime, internet access, secrets, filesystem access, or any other tool by itself.
 
-Before executing target-repository scripts, inspect what they do. Prefer deterministic local parsing, hashing and archive verification. Keep target source read-only unless a write was authorized. Never assume sandbox internet access or secrets are available. Run checks and report actual exit status, important output and limitations rather than pasting commands and describing them as executed. Avoid leaking private file contents or credentials in logs.
+Before executing target-repository scripts, inspect what they do. Prefer deterministic parsing, hashing, archive verification, manifest validation, and focused tests. Keep target source read-only unless a write was authorized. Never assume network access or provider credentials are available. Report actual exit status, important output, and limitations rather than presenting unexecuted commands as results.
 
-For NEXUS, use Python to validate manifest JSON, inspect plugin archives, check source snippets or invoke inspected `pytest` only when dependencies and safe execution exist. Record exact skipped integration/real-model checks rather than declaring them passed.
+For Nexus Starship Guardians, Python may be used to validate plugin manifests, inspect plugin archives, verify deterministic packaging, run inspected pytest targets, and check compatibility behavior. Distinguish local/offline verification from real hosted-provider, browser, Railway, Supabase, MCP, or application-integration tests. Do not leak private file contents, tokens, or project keys into logs or artifacts.
