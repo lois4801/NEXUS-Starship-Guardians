@@ -17,7 +17,8 @@
 - **Failure Taxonomy + Automatic Regression Corpus** so verified failures can become deduplicated future evaluation cases.
 - **Guardian Capability Registry + Adaptive Router** using capability/tool requirements and historical quality/reliability/cost/latency evidence.
 - **Strategy Tournament** for comparing models, prompts, team structures, routing strategies, and repair policies on the same corpus.
-- Durable SQLite queue for local development plus a **PostgreSQL distributed lease-queue foundation** using `FOR UPDATE SKIP LOCKED`, worker leases, heartbeats, retries, and expired-lease recovery.
+- Durable SQLite queue for local development plus a **PostgreSQL distributed lease queue** using `FOR UPDATE SKIP LOCKED`, worker leases, heartbeats, retries, and expired-lease recovery.
+- CI compatibility matrix for **Python 3.11, 3.12, and 3.13**, canonical/legacy CLI smoke tests, REST import checks, and a real **PostgreSQL 16** service integration test.
 - GitHub-rendered architecture/process Mermaid diagrams and a permanent engineering learnings/retrospective log.
 
 ## Architecture
@@ -81,6 +82,19 @@ Example Guardian swarm:
 
 A 200-Guardian mission means up to 200 collaborating logical specialists, not 200 unrestricted shell processes.
 
+## Compatibility contract
+
+**Nexus Starship Guardians** is the canonical product name and `nexus-guardians` is the canonical CLI.
+
+To avoid breaking existing integrations during the migration, these technical compatibility surfaces remain supported and tested:
+
+- Python namespace: `nexus_os`
+- Legacy CLI alias: `nexus-portable`
+- Existing REST v1 wire fields such as `agent` / `agents`
+- Existing `NEXUS_*` environment-variable prefix
+
+These are compatibility interfaces, not the current product name. Removing them requires a versioned migration and regression coverage. See [`docs/COMPATIBILITY_AND_PRODUCTION_VERIFICATION.md`](docs/COMPATIBILITY_AND_PRODUCTION_VERIFICATION.md).
+
 ## Learning and evaluation
 
 Automatic Guardian learning means **memory + reflection + evaluation**, not live production weight mutation. High-quality verified episodes can later be curated for offline SFT/LoRA; a candidate model or strategy should then beat the fixed evaluation baseline before promotion.
@@ -97,7 +111,7 @@ Historical performance never grants new tool permissions.
 
 `PostgresGuardianQueue` implements the PostgreSQL multi-worker contract: queued jobs, `SKIP LOCKED` claims, leases, heartbeats, bounded retries, completion/failure transitions, and expired-lease recovery. The adapter uses an injected DB-API compatible connection factory.
 
-**Verification boundary:** unit tests validate queue policy/SQL structure, but CI does not yet launch a live PostgreSQL service. Concurrent database integration tests remain the next production gate.
+The CI workflow now launches a real PostgreSQL 16 service and verifies queue initialization, claim/ownership behavior, heartbeat, completion, and expired-lease recovery. This closes the previous unit-only PostgreSQL verification gap.
 
 ## Default repository update standard
 
@@ -116,12 +130,17 @@ Every meaningful Nexus Starship Guardians change should update the applicable re
 pip install -e '.[dev]'
 ruff check nexus_os tests examples
 NEXUS_DEV_MODE=true pytest -q
+nexus-guardians doctor
+nexus-portable doctor
 ```
+
+The GitHub Actions matrix runs the package and test suite on Python 3.11, 3.12, and 3.13. A separate job installs `.[dev,postgres]` and runs the live PostgreSQL integration suite.
 
 ## Key documentation
 
 - [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md)
 - [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md)
+- [`docs/COMPATIBILITY_AND_PRODUCTION_VERIFICATION.md`](docs/COMPATIBILITY_AND_PRODUCTION_VERIFICATION.md)
 - [`docs/GUARDIAN_INTELLIGENCE_LAB.md`](docs/GUARDIAN_INTELLIGENCE_LAB.md)
 - [`docs/MULTI_JUDGE_EVALUATION.md`](docs/MULTI_JUDGE_EVALUATION.md)
 - [`docs/REGRESSION_CORPUS.md`](docs/REGRESSION_CORPUS.md)
@@ -136,6 +155,6 @@ NEXUS_DEV_MODE=true pytest -q
 
 1. **Foundation:** secure project runtime, provider adapters, SDKs, CI.
 2. **Execution + Learning:** 30/200-Guardian coordination, worktrees, verification, repair, evidence, cross-run learning.
-3. **Intelligence + Routing (current):** multi-judge evaluation, regression corpus, promotion gates, strategy tournament, Guardian registry, adaptive routing, PostgreSQL distributed queue foundation.
-4. **Production verification:** live PostgreSQL concurrency CI, persistent registry metrics, automatic failure-to-regression wiring, alternate-model judge adapters, Mission Classifier, OpenTelemetry and queue observability.
+3. **Intelligence + Routing:** multi-judge evaluation, regression corpus, promotion gates, strategy tournament, Guardian registry, adaptive routing, PostgreSQL distributed queue.
+4. **Production verification (current):** Docker image build/start/health CI, live uvicorn HTTP smoke testing, persistent Guardian Registry metrics, automatic failure-to-regression wiring, alternate-model judge adapters, Mission Classifier, OpenTelemetry and queue observability.
 5. **v1.0:** verified Lucio/Ember/Nexus Code integrations, security/tenancy audit, governed release/rollback automation, and curated offline model-improvement pipeline.
