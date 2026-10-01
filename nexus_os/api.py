@@ -8,8 +8,20 @@ from typing import Any
 from fastapi import Depends, FastAPI, Header, HTTPException
 
 from .config import Settings
+from .integration_contracts import IntegrationContractRegistry
 from .learning_memory import GuardianLearningEngine, JsonlLearningStore
-from .models import Approval, ProjectCreate, ProjectCreated, ProjectInfo, RunCreate, RunView
+from .mission_runtime import MissionRuntime
+from .models import (
+    Approval,
+    IntegrationReadinessView,
+    MissionPlanRequest,
+    MissionPlanView,
+    ProjectCreate,
+    ProjectCreated,
+    ProjectInfo,
+    RunCreate,
+    RunView,
+)
 from .observability import install_http_tracing
 from .orchestrator import Orchestrator
 from .server_learning import ServerLearningRecorder
@@ -21,8 +33,15 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
     store = store or Store(settings.db_path)
     learning = GuardianLearningEngine(JsonlLearningStore(Path(settings.learning_path)))
     learning_recorder = ServerLearningRecorder(learning)
-    orchestrator = Orchestrator(store, settings, learning_recorder=learning_recorder)
-    app = FastAPI(title="Nexus Starship Guardians", version="0.3.0-dev", docs_url="/docs")
+    mission_runtime = MissionRuntime()
+    integrations = IntegrationContractRegistry()
+    orchestrator = Orchestrator(
+        store,
+        settings,
+        learning_recorder=learning_recorder,
+        mission_runtime=mission_runtime,
+    )
+    app = FastAPI(title="Nexus Starship Guardians", version="0.4.0", docs_url="/docs")
     install_http_tracing(app)
 
     def authenticate(authorization: str | None = Header(default=None)) -> str:
@@ -42,6 +61,13 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
         if principal not in ("__admin__", project_id):
             raise HTTPException(status_code=403, detail="Project access denied")
 
+    def scoped_project(project_id: str, principal: str) -> ProjectCreate:
+        require_scope(principal, project_id)
+        project = store.get_project(project_id)
+        if not project:
+            raise HTTPException(status_code=404, detail="Project not found")
+        return project
+
     def scoped_run(run_id: str, principal: str) -> dict[str, Any]:
         run = store.get_run(run_id)
         if not run:
@@ -49,13 +75,29 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
         require_scope(principal, run["project_id"])
         return run
 
+    def mission_view(goal: str, project: ProjectCreate) -> MissionPlanView:
+        plan = mission_runtime.plan(goal, project_gateway_tools=frozenset(project.gateway_tools))
+        return MissionPlanView(
+            kind=plan.kind,
+            confidence=plan.confidence,
+            capabilities=sorted(plan.capabilities),
+            required_tools=sorted(plan.required_tools),
+            selected_guardians=list(plan.selected_guardians),
+            missing_capabilities=sorted(plan.missing_capabilities),
+            missing_tools=sorted(plan.missing_tools),
+            blocked_tools=sorted(plan.blocked_tools),
+            sufficient=plan.sufficient,
+            reasons=list(plan.reasons),
+        )
+
     @app.get("/health")
     def health():
         return {
             "status": "ok",
-            "version": "0.3.0-dev",
+            "version": "0.4.0",
             "mode": "dev" if settings.dev_mode else "configured",
             "learning": "enabled",
+            "mission_intelligence": "live",
         }
 
     @app.post("/v1/projects", response_model=ProjectCreated, status_code=201)
@@ -66,6 +108,8 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
             raise HTTPException(status_code=422, detail="Guardians must be nonempty and unique")
         if len(spec.allowed_tools) != len(set(spec.allowed_tools)):
             raise HTTPException(status_code=422, detail="Tools must be unique")
+        if len(spec.gateway_tools) != len(set(spec.gateway_tools)):
+            raise HTTPException(status_code=422, detail="Gateway tools must be unique")
         key = "nxs_" + secrets.token_urlsafe(32)
         try:
             store.add_project(spec, key)
@@ -75,18 +119,55 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
 
     @app.get("/v1/projects/{project_id}", response_model=ProjectInfo)
     def get_project(project_id: str, principal: str = Depends(authenticate)):
-        require_scope(principal, project_id)
-        project = store.get_project(project_id)
-        if not project:
-            raise HTTPException(status_code=404, detail="Project not found")
-        return project
+        return scoped_project(project_id, principal)
+
+    @app.post("/v1/projects/{project_id}/mission-plan", response_model=MissionPlanView)
+    def plan_mission(
+        project_id: str,
+        payload: MissionPlanRequest,
+        principal: str = Depends(authenticate),
+    ):
+        project = scoped_project(project_id, principal)
+        return mission_view(payload.goal, project)
+
+    @app.get(
+        "/v1/projects/{project_id}/integrations/{integration_name}/readiness",
+        response_model=IntegrationReadinessView,
+    )
+    def integration_readiness(
+        project_id: str,
+        integration_name: str,
+        principal: str = Depends(authenticate),
+    ):
+        project = scoped_project(project_id, principal)
+        available_capabilities = frozenset(
+            capability
+            for guardian in mission_runtime.registry.all()
+            for capability in guardian.profile.capabilities
+        )
+        try:
+            readiness = integrations.assess(
+                integration_name,
+                available_capabilities=available_capabilities,
+                enabled_tools=frozenset(project.gateway_tools),
+                connected=False,
+            )
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+        return IntegrationReadinessView(
+            integration=readiness.integration,
+            description=readiness.description,
+            connected=readiness.connected,
+            required_capabilities=sorted(readiness.required_capabilities),
+            required_tools=sorted(readiness.required_tools),
+            missing_capabilities=sorted(readiness.missing_capabilities),
+            missing_tools=sorted(readiness.missing_tools),
+            ready=readiness.ready,
+        )
 
     @app.post("/v1/projects/{project_id}/runs", response_model=RunView, status_code=201)
     def start_run(project_id: str, payload: RunCreate, principal: str = Depends(authenticate)):
-        require_scope(principal, project_id)
-        project = store.get_project(project_id)
-        if not project:
-            raise HTTPException(status_code=404, detail="Project not found")
+        project = scoped_project(project_id, principal)
         if payload.agent not in project.agents:
             raise HTTPException(status_code=403, detail="Guardian not enabled for this project")
         run_id = store.add_run(project_id, payload.agent, payload.goal)
@@ -106,9 +187,7 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
 
     @app.get("/v1/projects/{project_id}/notes")
     def get_notes(project_id: str, principal: str = Depends(authenticate)):
-        require_scope(principal, project_id)
-        if not store.get_project(project_id):
-            raise HTTPException(status_code=404, detail="Project not found")
+        scoped_project(project_id, principal)
         return {"notes": store.list_notes(project_id)}
 
     return app
