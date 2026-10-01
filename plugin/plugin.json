@@ -1,12 +1,13 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "nexus-starship-guardians",
-  "version": "0.4.0",
-  "description": "Project-scoped Guardian operations, live mission planning, approvals, integration readiness guidance, and verified runtime workflows for Nexus Starship Guardians.",
+  "version": "0.5.0",
+  "description": "Project-scoped Guardian operations, Intelligence Fabric planning, live mission planning, approvals, integration readiness guidance, and verified runtime workflows for Nexus Starship Guardians.",
   "repository": "https://github.com/lois4801/NEXUS-Starship-Guardians",
   "keywords": [
     "guardians",
     "orchestration",
+    "intelligence-fabric",
     "mission-intelligence",
     "developer-tools",
     "verification",
@@ -16,12 +17,12 @@
     "com.openai": {
       "interface": {
         "displayName": "Nexus Starship Guardians",
-        "shortDescription": "Operate verified Guardian workflows",
-        "longDescription": "Plan, operate, and review project-scoped Nexus Starship Guardians workflows. Supports live mission classification, capability mapping, permission-safe Guardian routing, project onboarding, bounded Guardian runs through the compatible REST v1 API, explicit approval review, integration readiness checks, and evidence-first verification. The package includes a small optional REST CLI for an existing authorized Nexus endpoint. It does not bundle a hosted model, credentials, or an MCP server, and it never grants filesystem, GitHub, deployment, browser, or infrastructure permissions by itself.",
+        "shortDescription": "Operate verified Guardian intelligence workflows",
+        "longDescription": "Plan, operate, and review project-scoped Nexus Starship Guardians workflows. Supports Intelligence Fabric strategy planning, live mission classification, capability mapping, permission-safe Guardian routing, project onboarding, bounded Guardian runs through the compatible REST v1 API, explicit approval review, integration readiness checks, and evidence-first verification. The package includes a small optional REST CLI for an existing authorized Nexus endpoint. It does not bundle a hosted model, credentials, or an MCP server, and it never grants filesystem, GitHub, deployment, browser, or infrastructure permissions by itself.",
         "developerName": "Nexus Starship Guardians",
         "category": "Developer Tools",
         "capabilities": [
-          "Plan missions with explicit capability and tool requirements",
+          "Plan missions with explicit strategy, uncertainty, adversarial checks, capabilities, and tool requirements",
           "Plan isolated Nexus projects and Guardian permissions",
           "Run and inspect authorized Guardian tasks",
           "Review explicit write approvals",
@@ -29,7 +30,7 @@
           "Audit verification, tenant isolation, and production readiness"
         ],
         "defaultPrompt": [
-          "Plan this mission with Nexus Starship Guardians and show the selected Guardians and required tools.",
+          "Build an Intelligence Fabric plan for this mission and show strategy, uncertainty, evidence, and adversarial checks.",
           "Inspect my Nexus run and explain any pending approvals.",
           "Review whether this Nexus integration has enough evidence for release."
         ],
