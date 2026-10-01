@@ -2,6 +2,12 @@
 
 The repository keeps architecture and process visuals close to the code so readers can understand the system before diving into modules.
 
+## Current State Graph
+
+![Nexus Starship Guardians current state](assets/current-state-graph.svg)
+
+This is the canonical top-level system map and must be updated whenever a meaningful architecture, execution, evaluation, learning, integration, release, or packaging change alters the flow. The editable companion is [`CURRENT_STATE.md`](CURRENT_STATE.md).
+
 ## Project hero
 
 ![Nexus Starship Guardians hero](assets/nexus-starship-guardians-hero.svg)
@@ -18,7 +24,7 @@ This animated flow shows the path from mission text through classification, capa
 
 ## Core architecture
 
-The source-of-truth system flow remains in [`ARCHITECTURE_VISUALS.md`](ARCHITECTURE_VISUALS.md) and is rendered with Mermaid so the diagram stays editable as the architecture evolves.
+The source-of-truth system flow is maintained in [`CURRENT_STATE.md`](CURRENT_STATE.md) and [`ARCHITECTURE_VISUALS.md`](ARCHITECTURE_VISUALS.md). Mermaid diagrams stay editable while the animated SVGs provide an engaging GitHub-facing view.
 
 ## Process workflows
 
