@@ -27,6 +27,13 @@ class BenchmarkCandidate:
     review_note: str = ""
     created_at: float = 0.0
     reviewed_at: float = 0.0
+    replay_count: int = 0
+    replay_passes: int = 0
+    replay_failures: int = 0
+    last_replayed_at: float = 0.0
+    last_replay_strategy: str = ""
+    last_replay_score: float = 0.0
+    last_replay_failure_category: str = ""
 
     def __post_init__(self) -> None:
         if self.status not in {"candidate", "approved", "rejected"}:
@@ -37,6 +44,18 @@ class BenchmarkCandidate:
             raise ValueError("benchmark candidates require a verification evidence reference")
         if not 1 <= self.severity <= 5:
             raise ValueError("benchmark candidate severity must be between 1 and 5")
+        if self.replay_count < 0 or self.replay_passes < 0 or self.replay_failures < 0:
+            raise ValueError("benchmark replay counters cannot be negative")
+        if self.replay_passes + self.replay_failures > self.replay_count:
+            raise ValueError("benchmark replay pass/fail counters cannot exceed replay_count")
+
+    @property
+    def replayed(self) -> bool:
+        return self.replay_count > 0
+
+    @property
+    def replay_pass_rate(self) -> float:
+        return self.replay_passes / self.replay_count if self.replay_count else 0.0
 
     def to_evaluation_case(self) -> EvaluationCase:
         return EvaluationCase(
@@ -120,6 +139,38 @@ class GuardianBenchmarkVault:
         self._write_candidates(records)
         return candidate
 
+    def record_replay(
+        self,
+        case_id: str,
+        *,
+        strategy: str,
+        passed: bool,
+        score: float,
+        failure_category: str = "",
+    ) -> BenchmarkCandidate:
+        if not strategy.strip():
+            raise ValueError("benchmark replay requires a strategy")
+        if not 0 <= score <= 10:
+            raise ValueError("benchmark replay score must be between 0 and 10")
+        records = self.candidates()
+        for index, item in enumerate(records):
+            if item.case_id != case_id:
+                continue
+            replayed = replace(
+                item,
+                replay_count=item.replay_count + 1,
+                replay_passes=item.replay_passes + int(passed),
+                replay_failures=item.replay_failures + int(not passed),
+                last_replayed_at=time.time(),
+                last_replay_strategy=strategy.strip(),
+                last_replay_score=score,
+                last_replay_failure_category=failure_category.strip(),
+            )
+            records[index] = replayed
+            self._write_candidates(records)
+            return replayed
+        raise KeyError(f"unknown benchmark candidate: {case_id}")
+
     def review(
         self,
         case_id: str,
@@ -127,6 +178,7 @@ class GuardianBenchmarkVault:
         approved: bool,
         reviewer: str,
         note: str = "",
+        require_replay: bool = False,
     ) -> BenchmarkCandidate:
         if not reviewer.strip():
             raise ValueError("benchmark review requires a reviewer")
@@ -134,6 +186,8 @@ class GuardianBenchmarkVault:
         for index, item in enumerate(records):
             if item.case_id != case_id:
                 continue
+            if approved and require_replay and not item.replayed:
+                raise ValueError("benchmark approval requires replay evidence")
             reviewed = replace(
                 item,
                 status="approved" if approved else "rejected",
