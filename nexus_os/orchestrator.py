@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 from .config import Settings
+from .mission_runtime import MissionRuntime
 from .models import Action
 from .providers import ProviderError, get_provider
 from .server_learning import ServerLearningRecorder
@@ -18,10 +19,12 @@ class Orchestrator:
         store: Store,
         settings: Settings,
         learning_recorder: ServerLearningRecorder | None = None,
+        mission_runtime: MissionRuntime | None = None,
     ):
         self.store = store
         self.settings = settings
         self.learning_recorder = learning_recorder
+        self.mission_runtime = mission_runtime or MissionRuntime()
         self.lock = threading.RLock()  # single-process starter; use distributed locks when scaling
 
     @staticmethod
@@ -34,6 +37,28 @@ class Orchestrator:
             self.learning_recorder.record_if_terminal(run)
         return run
 
+    def _record_mission_intelligence(self, run: dict[str, Any], project) -> None:
+        if any(event.get("type") == "mission_intelligence" for event in run["events"]):
+            return
+        plan = self.mission_runtime.plan(
+            run["goal"],
+            project_gateway_tools=frozenset(project.gateway_tools),
+        )
+        self.event(
+            run,
+            "mission_intelligence",
+            kind=plan.kind,
+            confidence=plan.confidence,
+            capabilities=sorted(plan.capabilities),
+            required_tools=sorted(plan.required_tools),
+            selected_guardians=list(plan.selected_guardians),
+            missing_capabilities=sorted(plan.missing_capabilities),
+            missing_tools=sorted(plan.missing_tools),
+            blocked_tools=sorted(plan.blocked_tools),
+            sufficient=plan.sufficient,
+            reasons=list(plan.reasons),
+        )
+
     def advance(self, run_id: str, approved: bool | None = None) -> dict[str, Any]:
         with self.lock:
             run = self.store.get_run(run_id)
@@ -41,6 +66,7 @@ class Orchestrator:
                 raise LookupError("Run not found")
             project = self.store.get_project(run["project_id"])
             assert project is not None
+            self._record_mission_intelligence(run, project)
             if approved is not None:
                 if run["status"] != "pending_approval" or not run["pending_approval"]:
                     raise ValueError("No approval is pending")
