@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import contextvars
 import secrets
+from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
 from time import perf_counter
-from typing import Iterator
 
 from opentelemetry import trace
 
@@ -15,11 +15,11 @@ _correlation_id: contextvars.ContextVar[str | None] = contextvars.ContextVar(
 )
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(slots=True)
 class ExecutionTrace:
     correlation_id: str
     operation: str
-    duration_seconds: float
+    duration_seconds: float = 0.0
     guardian_id: str | None = None
     project_id: str | None = None
     mission_id: str | None = None
@@ -48,7 +48,13 @@ def guardian_span(
     token = _correlation_id.set(correlation_id)
     tracer = trace.get_tracer("nexus-starship-guardians.execution")
     started = perf_counter()
-    success = True
+    execution = ExecutionTrace(
+        correlation_id=correlation_id,
+        operation=operation,
+        guardian_id=guardian_id,
+        project_id=project_id,
+        mission_id=mission_id,
+    )
     try:
         with tracer.start_as_current_span(operation) as span:
             span.set_attribute("nexus.correlation_id", correlation_id)
@@ -59,30 +65,14 @@ def guardian_span(
             if mission_id:
                 span.set_attribute("nexus.mission_id", mission_id)
             try:
-                yield ExecutionTrace(
-                    correlation_id=correlation_id,
-                    operation=operation,
-                    duration_seconds=0.0,
-                    guardian_id=guardian_id,
-                    project_id=project_id,
-                    mission_id=mission_id,
-                    success=True,
-                )
+                yield execution
             except Exception as exc:
-                success = False
+                execution.success = False
                 span.record_exception(exc)
                 span.set_attribute("nexus.success", False)
                 raise
             else:
                 span.set_attribute("nexus.success", True)
     finally:
+        execution.duration_seconds = max(0.0, perf_counter() - started)
         _correlation_id.reset(token)
-        _ = ExecutionTrace(
-            correlation_id=correlation_id,
-            operation=operation,
-            duration_seconds=max(0.0, perf_counter() - started),
-            guardian_id=guardian_id,
-            project_id=project_id,
-            mission_id=mission_id,
-            success=success,
-        )
