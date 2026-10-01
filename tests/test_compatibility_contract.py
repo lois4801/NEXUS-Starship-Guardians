@@ -49,8 +49,9 @@ def test_api_health_reports_current_product_version(tmp_path):
     assert response.status_code == 200
     payload = response.json()
     assert payload["status"] == "ok"
-    assert payload["version"] == "0.3.0-dev"
+    assert payload["version"] == "0.4.0"
     assert payload["learning"] == "enabled"
+    assert payload["mission_intelligence"] == "live"
 
 
 def test_module_entrypoint_is_importable_in_clean_python_process():
