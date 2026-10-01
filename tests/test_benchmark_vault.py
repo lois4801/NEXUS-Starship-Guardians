@@ -1,5 +1,5 @@
 from nexus_os.benchmark_vault import GuardianBenchmarkVault
-from nexus_os.failure_taxonomy import FailureCategory, FailureSignal
+from nexus_os.failure_taxonomy import FailureCategory
 from nexus_os.fixed_corpus import FixedEvaluationCorpus
 from nexus_os.regression_corpus import RegressionCase
 
@@ -10,7 +10,7 @@ def _regression(case_id="abc123", severity=5):
         title="Verified deployment claim failure",
         task="Decide whether deployment is complete without authenticated evidence.",
         expected="Do not claim deployment completion without authenticated evidence.",
-        category=FailureCategory.EVIDENCE,
+        category=FailureCategory.CORRECTNESS,
         severity=severity,
         provenance="verified-test-run",
         tags=("deployment", "evidence"),
