@@ -9,11 +9,13 @@ from fastapi import Depends, FastAPI, Header, HTTPException
 
 from .config import Settings
 from .integration_contracts import IntegrationContractRegistry
+from .intelligence_fabric import IntelligenceFabric
 from .learning_memory import GuardianLearningEngine, JsonlLearningStore
 from .mission_runtime import MissionRuntime
 from .models import (
     Approval,
     IntegrationReadinessView,
+    IntelligencePlanView,
     MissionPlanRequest,
     MissionPlanView,
     ProjectCreate,
@@ -34,14 +36,16 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
     learning = GuardianLearningEngine(JsonlLearningStore(Path(settings.learning_path)))
     learning_recorder = ServerLearningRecorder(learning)
     mission_runtime = MissionRuntime()
+    intelligence_fabric = IntelligenceFabric(classifier=mission_runtime.classifier)
     integrations = IntegrationContractRegistry()
     orchestrator = Orchestrator(
         store,
         settings,
         learning_recorder=learning_recorder,
         mission_runtime=mission_runtime,
+        intelligence_fabric=intelligence_fabric,
     )
-    app = FastAPI(title="Nexus Starship Guardians", version="0.4.0", docs_url="/docs")
+    app = FastAPI(title="Nexus Starship Guardians", version="0.5.0", docs_url="/docs")
     install_http_tracing(app)
 
     def authenticate(authorization: str | None = Header(default=None)) -> str:
@@ -90,14 +94,38 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
             reasons=list(plan.reasons),
         )
 
+    def intelligence_view(goal: str) -> IntelligencePlanView:
+        plan = intelligence_fabric.plan(goal)
+        return IntelligencePlanView(
+            kind=plan.classification.kind.value,
+            confidence=plan.classification.confidence,
+            uncertainty=plan.uncertainty,
+            capabilities=sorted(plan.classification.requirements.capabilities),
+            required_tools=sorted(plan.classification.requirements.tools),
+            strategy=plan.strategy.mode.value,
+            strategy_rationale=list(plan.strategy.rationale),
+            required_evidence=list(plan.strategy.required_evidence),
+            adversarial_cases=[
+                {
+                    "case_id": case.case_id,
+                    "title": case.title,
+                    "expected_guardrail": case.expected_guardrail,
+                    "category": case.category,
+                }
+                for case in plan.adversarial_cases
+            ],
+            assumptions=list(plan.assumptions),
+        )
+
     @app.get("/health")
     def health():
         return {
             "status": "ok",
-            "version": "0.4.0",
+            "version": "0.5.0",
             "mode": "dev" if settings.dev_mode else "configured",
             "learning": "enabled",
             "mission_intelligence": "live",
+            "intelligence_fabric": "live",
         }
 
     @app.post("/v1/projects", response_model=ProjectCreated, status_code=201)
@@ -129,6 +157,15 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
     ):
         project = scoped_project(project_id, principal)
         return mission_view(payload.goal, project)
+
+    @app.post("/v1/projects/{project_id}/intelligence-plan", response_model=IntelligencePlanView)
+    def plan_intelligence(
+        project_id: str,
+        payload: MissionPlanRequest,
+        principal: str = Depends(authenticate),
+    ):
+        scoped_project(project_id, principal)
+        return intelligence_view(payload.goal)
 
     @app.get(
         "/v1/projects/{project_id}/integrations/{integration_name}/readiness",
