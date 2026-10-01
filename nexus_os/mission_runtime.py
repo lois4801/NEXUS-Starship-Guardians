@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from .adaptive_intelligence import AdaptiveGuardianIntelligence, SPECIALIST_INTELLIGENCE_PROFILES
+from .adaptive_intelligence import SPECIALIST_INTELLIGENCE_PROFILES, AdaptiveGuardianIntelligence
 from .adaptive_router import AdaptiveGuardianRouter
 from .guardian_registry import GuardianProfile, GuardianRegistry
 from .guardian_teams import artificial_architecture_team
