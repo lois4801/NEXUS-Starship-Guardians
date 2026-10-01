@@ -39,5 +39,5 @@ def test_alternate_model_judge_rejects_wrong_types():
     judge = AlternateModelJudge(
         StubProvider('{"score": "high", "passed": true, "rationale": "x", "critical": false}')
     )
-    with pytest.raises(ValueError, match="score must be numeric"):
+    with pytest.raises(TypeError, match="score must be numeric"):
         judge.evaluate(AlternateJudgePrompt(task="x", candidate="y"))
