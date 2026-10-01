@@ -3,10 +3,14 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
+from importlib import resources
 from pathlib import Path
 from typing import Any, Mapping
 
 from .evaluation_lab import EvaluationCase
+
+
+CORE_CORPUS_SHA256 = "58e81cf285623497af9c4ee96cacfa9ddce2270636f697b51dbdc77c7cb4387e"
 
 
 @dataclass(frozen=True, slots=True)
@@ -110,16 +114,17 @@ class FixedEvaluationCorpus:
         )
 
     @classmethod
-    def load(
+    def from_json_text(
         cls,
-        path: Path,
+        text: str,
         *,
         expected_sha256: str | None = None,
+        source: str = "<memory>",
     ) -> "FixedEvaluationCorpus":
         try:
-            payload = json.loads(path.read_text(encoding="utf-8"))
+            payload = json.loads(text)
         except json.JSONDecodeError as exc:
-            raise ValueError(f"fixed corpus is not valid JSON: {path}") from exc
+            raise ValueError(f"fixed corpus is not valid JSON: {source}") from exc
         if not isinstance(payload, Mapping):
             raise ValueError("fixed corpus root must be a JSON object")
         corpus = cls.from_mapping(payload)
@@ -129,3 +134,28 @@ class FixedEvaluationCorpus:
                 f"expected {expected_sha256}, got {corpus.sha256}"
             )
         return corpus
+
+    @classmethod
+    def load(
+        cls,
+        path: Path,
+        *,
+        expected_sha256: str | None = None,
+    ) -> "FixedEvaluationCorpus":
+        return cls.from_json_text(
+            path.read_text(encoding="utf-8"),
+            expected_sha256=expected_sha256,
+            source=str(path),
+        )
+
+    @classmethod
+    def load_core(cls) -> "FixedEvaluationCorpus":
+        """Load the locked core corpus shipped inside the Python package."""
+        text = resources.files("nexus_os").joinpath("benchmarks/core_v1.json").read_text(
+            encoding="utf-8"
+        )
+        return cls.from_json_text(
+            text,
+            expected_sha256=CORE_CORPUS_SHA256,
+            source="nexus_os/benchmarks/core_v1.json",
+        )
