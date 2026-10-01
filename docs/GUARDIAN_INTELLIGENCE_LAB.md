@@ -24,9 +24,11 @@ The Guardian Intelligence Lab is the controlled evaluation layer for Nexus Stars
 
 ## Fixed corpus contract
 
-The repository ships the first locked corpus at:
+The repository and Python package ship the first locked corpus at:
 
-`benchmarks/guardian_intelligence_lab/core_v1.json`
+`nexus_os/benchmarks/core_v1.json`
+
+It is included in wheel/sdist builds through setuptools package data, so installed runtimes can load the same benchmark without depending on a source checkout.
 
 Identity:
 
@@ -37,6 +39,14 @@ Identity:
 The fingerprint is computed from a canonical JSON representation after schema validation. Whitespace and JSON formatting do not change the fingerprint, but changing a task, expected behavior, critical flag, provenance, tag, corpus ID, version, description, or case order does.
 
 A fixed corpus must be deliberately versioned when its meaning changes. The locked fingerprint test exists specifically to prevent an accidental benchmark edit from making a candidate look better or worse than a baseline that was tested on different material.
+
+The built-in benchmark can be loaded with:
+
+```python
+from nexus_os.fixed_corpus import FixedEvaluationCorpus
+
+corpus = FixedEvaluationCorpus.load_core()
+```
 
 ## Baseline/candidate flow
 
