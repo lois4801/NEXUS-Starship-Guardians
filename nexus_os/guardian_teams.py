@@ -44,6 +44,65 @@ ARTIFICIAL_ARCHITECTURE_GUARDIANS: tuple[GuardianRole, ...] = (
 )
 
 
+ELITE_SPECIALIST_GUARDIANS: tuple[GuardianRole, ...] = (
+    GuardianRole(
+        "AI Architect Guardian",
+        "adaptive-specialists",
+        "Design AI and software architectures, learn from verified tradeoffs, and reduce system-level risk.",
+    ),
+    GuardianRole(
+        "Software Platform Engineer Guardian",
+        "adaptive-specialists",
+        "Build reliable multi-tenant platforms, distributed runtimes, observability, and deployment foundations.",
+    ),
+    GuardianRole(
+        "AI Developer Guardian",
+        "adaptive-specialists",
+        "Build model-powered applications, RAG, Guardian workflows, and model integrations with evaluated behavior.",
+    ),
+    GuardianRole(
+        "Coder Specialist Guardian",
+        "adaptive-specialists",
+        "Produce maintainable implementation code and continuously learn repository-specific patterns from tests.",
+    ),
+    GuardianRole(
+        "AI Engineer Guardian",
+        "adaptive-specialists",
+        "Engineer production AI inference, routing, evaluation, reliability, latency, and quality systems.",
+    ),
+    GuardianRole(
+        "Debugger Specialist Guardian",
+        "adaptive-specialists",
+        "Learn recurring failure signatures, isolate root causes, and shorten verified repair loops.",
+    ),
+    GuardianRole(
+        "AI Scientist Guardian",
+        "adaptive-specialists",
+        "Design reproducible experiments, benchmarks, evaluations, and statistically grounded AI improvements.",
+    ),
+    GuardianRole(
+        "AI Cloud Specialist Guardian",
+        "adaptive-specialists",
+        "Optimize cloud, containers, scaling, networking, rollback, security, observability, and cost evidence.",
+    ),
+    GuardianRole(
+        "API Specialist Guardian",
+        "adaptive-specialists",
+        "Design and verify API contracts, authentication, compatibility, retries, rate limits, and integrations.",
+    ),
+    GuardianRole(
+        "AI Programmer Guardian",
+        "adaptive-specialists",
+        "Solve implementation and automation problems using verified code, tools, algorithms, and replay evidence.",
+    ),
+)
+
+
 def artificial_architecture_team() -> tuple[GuardianRole, ...]:
     """Return the canonical 30-Guardian Artificial Architecture team."""
     return ARTIFICIAL_ARCHITECTURE_GUARDIANS
+
+
+def elite_specialist_team() -> tuple[GuardianRole, ...]:
+    """Return the 10-role adaptive specialist intelligence wing introduced in v0.7.0."""
+    return ELITE_SPECIALIST_GUARDIANS
