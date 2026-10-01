@@ -41,6 +41,9 @@ class RegressionLearningBridge:
     ) -> RegressionCapture | None:
         if not verified:
             return None
+        if self.benchmark_vault is not None and not evidence_ref.strip():
+            raise ValueError("Benchmark Vault nomination requires evidence_ref")
+
         failure = classify_failure(error=error, critique=critique, regression=regression)
         case = self.corpus.add(
             title=title,
@@ -52,8 +55,6 @@ class RegressionLearningBridge:
         )
         benchmark_candidate = None
         if self.benchmark_vault is not None:
-            if not evidence_ref.strip():
-                raise ValueError("Benchmark Vault nomination requires evidence_ref")
             benchmark_candidate = self.benchmark_vault.nominate(
                 case,
                 evidence_ref=evidence_ref,
