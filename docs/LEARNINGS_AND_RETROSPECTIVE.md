@@ -2,6 +2,42 @@
 
 This file is part of the default repository update discipline. Meaningful changes should add a concise entry when they reveal reusable engineering lessons, regressions, CI failures, or architecture decisions.
 
+## 2026-10-01 — Production verification, persistence, and observability
+
+### What changed
+
+- added live Uvicorn startup plus `/health` verification over real HTTP;
+- added Docker image build, container healthcheck, and host-side health verification;
+- added Compose configuration validation;
+- added SQLite-backed Guardian Registry persistence;
+- added verified failure → Regression Corpus wiring;
+- added deterministic provider contract tests;
+- added OpenTelemetry HTTP span instrumentation;
+- added animated README and production-verification SVG visuals.
+
+### Reusable engineering lessons
+
+1. **Import success is weaker evidence than process success.** A FastAPI module can import while Uvicorn startup, networking, middleware, filesystem permissions, or environment loading still fail. CI should exercise the live process.
+2. **Container health belongs inside the image.** A deployment should expose a machine-readable health contract that Docker/Compose can use without external knowledge of the application internals.
+3. **Routing intelligence needs durable evidence.** Guardian success, quality, cost, and latency metrics lose value if they disappear at every restart; persistence is part of adaptive routing, not an optional dashboard feature.
+4. **Learning memory needs an evidence gate.** A system that stores every suspected failure will contaminate itself. Only verified failures are eligible for automatic regression promotion.
+5. **Provider adapters need contract tests without hosted credentials.** Deterministic mocks can prove output shape, model/provider identity, and error propagation while keeping CI independent of external subscriptions.
+6. **Observability should be instrumented centrally but exported per deployment.** The runtime can emit OpenTelemetry spans without hard-coding a vendor or backend.
+7. **Visuals are part of the engineering contract.** Animated/architecture graphics should evolve in the same pull request as the flow they explain.
+
+### Verification boundary
+
+This phase is designed to prove local/runtime production surfaces in GitHub Actions: Python compatibility, live HTTP, Docker, PostgreSQL, provider contracts, persistence behavior, and regression-learning rules. Hosted integrations still require their own credentialed/gated tests.
+
+### Next targets after this phase is green
+
+- Mission Classifier that emits explicit capability requirements;
+- alternate-model judge adapters;
+- Guardian/queue trace correlation and structured metrics;
+- persistent cross-project performance aggregation;
+- gated Railway/Supabase/MCP/Lucio/Ember/Nexus Code integration suites;
+- release/rollback evidence automation.
+
 ## 2026-10-01 — Compatibility and production hardening
 
 ### What changed
