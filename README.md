@@ -1,5 +1,7 @@
 # Nexus Starship Guardians · v0.3-dev
 
+![Nexus Starship Guardians](docs/assets/nexus-starship-guardians-hero.svg)
+
 **A reusable Guardian engineering runtime for Lucio AI Platform, Ember, Nexus Code, and future applications.** Nexus Starship Guardians coordinates bounded Guardian teams, verified execution, learning memory, evaluation, regression protection, adaptive routing, and increasingly distributed work.
 
 ## Current capabilities
@@ -14,12 +16,20 @@
 - **Guardian Intelligence Lab** for fixed-corpus baseline/candidate evaluation.
 - **Multi-Judge Evaluation** with deterministic, Guardian, alternate-model, and evidence judge types.
 - **Promotion Gate** that blocks pass-rate regressions, insufficient score gains, critical regressions, and optional cost/latency overruns.
-- **Failure Taxonomy + Automatic Regression Corpus** so verified failures can become deduplicated future evaluation cases.
+- **Failure Taxonomy + Automatic Regression Corpus** with verified-failure capture and deduplication.
 - **Guardian Capability Registry + Adaptive Router** using capability/tool requirements and historical quality/reliability/cost/latency evidence.
+- **Persistent Guardian Registry metrics** through SQLite so routing history survives process restarts.
 - **Strategy Tournament** for comparing models, prompts, team structures, routing strategies, and repair policies on the same corpus.
 - Durable SQLite queue for local development plus a **PostgreSQL distributed lease queue** using `FOR UPDATE SKIP LOCKED`, worker leases, heartbeats, retries, and expired-lease recovery.
-- CI compatibility matrix for **Python 3.11, 3.12, and 3.13**, canonical/legacy CLI smoke tests, REST import checks, and a real **PostgreSQL 16** service integration test.
-- GitHub-rendered architecture/process Mermaid diagrams and a permanent engineering learnings/retrospective log.
+- **OpenTelemetry HTTP instrumentation foundation** for live API request spans.
+- CI compatibility matrix for **Python 3.11, 3.12, and 3.13**, canonical/legacy CLI smoke tests, live Uvicorn HTTP verification, Docker build/start/health verification, REST checks, and a real **PostgreSQL 16** service integration test.
+- GitHub-rendered Mermaid diagrams plus animated SVG architecture/process visuals and a permanent engineering learnings/retrospective log.
+
+## Production verification
+
+![Production verification pipeline](docs/assets/production-verification-pipeline.svg)
+
+Every meaningful change is expected to earn evidence from the applicable compatibility, live HTTP, Docker, PostgreSQL, provider-contract, persistence, and learning gates before promotion. See [`docs/PRODUCTION_VERIFICATION.md`](docs/PRODUCTION_VERIFICATION.md).
 
 ## Architecture
 
@@ -52,7 +62,7 @@ flowchart TD
     W --> X[Release]
 ```
 
-Full visuals: [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md) and [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md).
+Full visuals: [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md), [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md), and [`docs/VISUAL_GALLERY.md`](docs/VISUAL_GALLERY.md).
 
 ## Quick start
 
@@ -101,17 +111,23 @@ Automatic Guardian learning means **memory + reflection + evaluation**, not live
 
 The Guardian Intelligence Lab compares candidates on pass rate, score, critical regressions, cost, and latency. Deterministic/evidence failures cannot be hidden by a high semantic score.
 
+`RegressionLearningBridge` only turns verified failure evidence into persistent regression cases. Unsupported suspicions are not promoted into long-term learning truth.
+
 ## Adaptive routing
 
 `GuardianRegistry` records capabilities, tool access, success rate, quality, cost, and latency. `AdaptiveGuardianRouter` chooses a bounded team from explicit `MissionRequirements` and reports missing capabilities rather than pretending a team is sufficient.
 
-Historical performance never grants new tool permissions.
+`SQLiteGuardianRegistry` persists those profiles and performance metrics across process restarts. Historical performance never grants new tool permissions.
 
 ## Distributed execution
 
 `PostgresGuardianQueue` implements the PostgreSQL multi-worker contract: queued jobs, `SKIP LOCKED` claims, leases, heartbeats, bounded retries, completion/failure transitions, and expired-lease recovery. The adapter uses an injected DB-API compatible connection factory.
 
-The CI workflow now launches a real PostgreSQL 16 service and verifies queue initialization, claim/ownership behavior, heartbeat, completion, and expired-lease recovery. This closes the previous unit-only PostgreSQL verification gap.
+The CI workflow launches a real PostgreSQL 16 service and verifies queue initialization, claim/ownership behavior, heartbeat, completion, and expired-lease recovery.
+
+## Observability
+
+Incoming FastAPI requests create OpenTelemetry spans with service name, request method, path, and response status. Exporters are intentionally deployment-specific rather than hard-coded into the runtime.
 
 ## Default repository update standard
 
@@ -134,12 +150,21 @@ nexus-guardians doctor
 nexus-portable doctor
 ```
 
-The GitHub Actions matrix runs the package and test suite on Python 3.11, 3.12, and 3.13. A separate job installs `.[dev,postgres]` and runs the live PostgreSQL integration suite.
+GitHub Actions additionally validates:
+
+- Python 3.11 / 3.12 / 3.13 compatibility;
+- live Uvicorn startup and `/health` over HTTP;
+- Docker Compose configuration;
+- Docker image build, start and container health;
+- PostgreSQL 16 queue behavior;
+- deterministic provider contracts.
 
 ## Key documentation
 
+- [`docs/VISUAL_GALLERY.md`](docs/VISUAL_GALLERY.md)
 - [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md)
 - [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md)
+- [`docs/PRODUCTION_VERIFICATION.md`](docs/PRODUCTION_VERIFICATION.md)
 - [`docs/COMPATIBILITY_AND_PRODUCTION_VERIFICATION.md`](docs/COMPATIBILITY_AND_PRODUCTION_VERIFICATION.md)
 - [`docs/GUARDIAN_INTELLIGENCE_LAB.md`](docs/GUARDIAN_INTELLIGENCE_LAB.md)
 - [`docs/MULTI_JUDGE_EVALUATION.md`](docs/MULTI_JUDGE_EVALUATION.md)
@@ -156,5 +181,6 @@ The GitHub Actions matrix runs the package and test suite on Python 3.11, 3.12, 
 1. **Foundation:** secure project runtime, provider adapters, SDKs, CI.
 2. **Execution + Learning:** 30/200-Guardian coordination, worktrees, verification, repair, evidence, cross-run learning.
 3. **Intelligence + Routing:** multi-judge evaluation, regression corpus, promotion gates, strategy tournament, Guardian registry, adaptive routing, PostgreSQL distributed queue.
-4. **Production verification (current):** Docker image build/start/health CI, live uvicorn HTTP smoke testing, persistent Guardian Registry metrics, automatic failure-to-regression wiring, alternate-model judge adapters, Mission Classifier, OpenTelemetry and queue observability.
-5. **v1.0:** verified Lucio/Ember/Nexus Code integrations, security/tenancy audit, governed release/rollback automation, and curated offline model-improvement pipeline.
+4. **Production verification:** multi-version compatibility, live HTTP, Docker health, PostgreSQL integration, persisted Guardian metrics, verified failure-to-regression wiring, provider contracts, and HTTP tracing.
+5. **Next integration wave:** Mission Classifier, alternate-model judge adapters, queue/mission telemetry, persistent cross-project metrics, and gated Railway/Supabase/MCP/Lucio/Ember/Nexus Code integration tests.
+6. **v1.0:** security/tenancy audit, governed release/rollback automation, and curated offline model-improvement pipeline.

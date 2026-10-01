@@ -30,6 +30,83 @@ jobs:
           NEXUS_DEV_MODE: 'true'
         run: python -c "import nexus_os.api; assert nexus_os.api.app.title == 'Nexus Starship Guardians'"
 
+  live-api-smoke:
+    name: Live Uvicorn HTTP smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e '.[dev]'
+      - name: Start Uvicorn and verify health over HTTP
+        env:
+          NEXUS_DEV_MODE: 'true'
+        run: |
+          uvicorn nexus_os.api:app --host 127.0.0.1 --port 8001 > /tmp/nexus-uvicorn.log 2>&1 &
+          NEXUS_PID=$!
+          trap 'kill $NEXUS_PID || true' EXIT
+          python - <<'PY'
+          import json
+          import time
+          import urllib.error
+          import urllib.request
+
+          url = "http://127.0.0.1:8001/health"
+          last_error = None
+          for _ in range(30):
+              try:
+                  with urllib.request.urlopen(url, timeout=2) as response:
+                      payload = json.load(response)
+                  assert payload["status"] == "ok"
+                  assert payload["learning"] == "enabled"
+                  print(payload)
+                  break
+              except (OSError, urllib.error.URLError) as exc:
+                  last_error = exc
+                  time.sleep(1)
+          else:
+              raise RuntimeError(f"live API did not become healthy: {last_error}")
+          PY
+
+  docker-smoke:
+    name: Docker build and health
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Compose configuration
+        run: |
+          cp .env.example .env
+          docker compose config --quiet
+      - name: Build image
+        run: docker build -t nexus-starship-guardians:ci .
+      - name: Start container and verify Docker health
+        run: |
+          docker run -d --name nexus-ci -e NEXUS_DEV_MODE=true -p 127.0.0.1:18000:8000 nexus-starship-guardians:ci
+          trap 'docker rm -f nexus-ci >/dev/null 2>&1 || true' EXIT
+          for i in $(seq 1 30); do
+            STATUS=$(docker inspect --format='{{.State.Health.Status}}' nexus-ci 2>/dev/null || true)
+            if [ "$STATUS" = "healthy" ]; then
+              break
+            fi
+            if [ "$STATUS" = "unhealthy" ]; then
+              docker logs nexus-ci
+              exit 1
+            fi
+            sleep 2
+          done
+          test "$(docker inspect --format='{{.State.Health.Status}}' nexus-ci)" = "healthy"
+          python - <<'PY'
+          import json
+          import urllib.request
+
+          with urllib.request.urlopen("http://127.0.0.1:18000/health", timeout=3) as response:
+              payload = json.load(response)
+          assert payload["status"] == "ok"
+          print(payload)
+          PY
+
   postgres-integration:
     name: PostgreSQL integration
     runs-on: ubuntu-latest
