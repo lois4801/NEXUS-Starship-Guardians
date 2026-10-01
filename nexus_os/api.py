@@ -10,6 +10,7 @@ from fastapi import Depends, FastAPI, Header, HTTPException
 from .config import Settings
 from .learning_memory import GuardianLearningEngine, JsonlLearningStore
 from .models import Approval, ProjectCreate, ProjectCreated, ProjectInfo, RunCreate, RunView
+from .observability import install_http_tracing
 from .orchestrator import Orchestrator
 from .server_learning import ServerLearningRecorder
 from .storage import Store
@@ -22,6 +23,7 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
     learning_recorder = ServerLearningRecorder(learning)
     orchestrator = Orchestrator(store, settings, learning_recorder=learning_recorder)
     app = FastAPI(title="Nexus Starship Guardians", version="0.3.0-dev", docs_url="/docs")
+    install_http_tracing(app)
 
     def authenticate(authorization: str | None = Header(default=None)) -> str:
         if not authorization or not authorization.startswith("Bearer "):
