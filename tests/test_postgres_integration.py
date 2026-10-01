@@ -74,7 +74,12 @@ def test_real_postgres_queue_recovers_expired_lease():
     finally:
         connection.close()
 
-    job_id = queue.enqueue("mission-expired-lease", {"kind": "recovery"}, max_attempts=2)
+    job_id = queue.enqueue(
+        "mission-expired-lease",
+        {"kind": "recovery"},
+        max_attempts=2,
+        available_at=10.0,
+    )
     claimed = queue.claim("worker-crashed", now=10.0)
     assert claimed is not None
     queue.recover_expired(now=12.0)
