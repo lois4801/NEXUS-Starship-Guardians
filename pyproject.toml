@@ -26,6 +26,9 @@ postgres = ["psycopg[binary]>=3.2,<4"]
 [tool.setuptools.packages.find]
 include = ["nexus_os*"]
 
+[tool.setuptools.package-data]
+nexus_os = ["benchmarks/*.json"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
