@@ -69,6 +69,19 @@ class MissionPlanView(BaseModel):
     reasons: list[str]
 
 
+class IntelligencePlanView(BaseModel):
+    kind: str
+    confidence: float
+    uncertainty: float
+    capabilities: list[str]
+    required_tools: list[str]
+    strategy: str
+    strategy_rationale: list[str]
+    required_evidence: list[str]
+    adversarial_cases: list[dict[str, str]]
+    assumptions: list[str]
+
+
 class IntegrationReadinessView(BaseModel):
     integration: str
     description: str

@@ -2,6 +2,44 @@
 
 This file is part of the default repository update discipline. Meaningful changes should add a concise entry when they reveal reusable engineering lessons, regressions, CI failures, or architecture decisions.
 
+## 2026-10-01 — v0.5 Intelligence Fabric
+
+### What changed
+
+- added a top-level `IntelligenceFabric` planning layer above the live Mission Runtime;
+- added an inspectable Strategy Engine with explicit rationale/evidence requirements;
+- added a Knowledge Graph foundation for verified project/system relationships and dependency-impact traversal;
+- added task-specific Model Registry evidence rather than hard-coded model rankings;
+- added Memory Quality scoring and quarantine for repeatedly harmful lessons;
+- added deterministic adversarial guardrail generation;
+- exposed uncertainty and assumptions as structured output;
+- added `/intelligence-plan` and durable `strategy_intelligence` run evidence;
+- synchronized runtime/plugin versions, README, Current State Graph, animated Intelligence Fabric visual, release docs, changelog, and tests at `0.5.0`.
+
+### Reusable engineering lessons
+
+1. **More intelligence should mean more inspectability, not more hidden autonomy.** Strategy, uncertainty, assumptions, evidence requirements, and adversarial checks are explicit data that can be tested and audited.
+2. **A model leaderboard should be empirical and task-specific.** Nexus records verified quality, reliability, cost, and latency by task category rather than embedding opinions that a particular provider is universally best.
+3. **Memory needs trust management.** Retrieval alone is not learning quality. A lesson that repeatedly hurts verified outcomes should lose eligibility even if it was once considered useful.
+4. **Knowledge graphs must distinguish known relationships from generated guesses.** The initial graph accepts explicit nodes/edges and performs deterministic traversal; repository ingestion should preserve provenance before relationships influence planning.
+5. **Adversarial generation is a test proposal, not a verdict.** Generated cases identify things that should be challenged; they do not declare a mission failed without verification evidence.
+6. **Uncertainty is useful engineering state.** Low confidence should become visible input to escalation/human-review policies rather than being hidden in prose.
+7. **Strategy is a versionable system component.** Security-first, migration-safe, research-first, and other strategies can later enter the existing Strategy Tournament and Promotion Gate instead of being changed informally.
+8. **Intelligence must not bypass authorization.** Strategy, model ranking, graph context, memory, and mission capabilities may influence planning, but none may grant a credential, tool permission, or external connection.
+
+### Current verification boundary
+
+v0.5 introduces deterministic intelligence primitives and live strategy evidence. Knowledge Graph and Model Registry persistence, repository ingestion, automatic context compression, hypothesis-driven debugging, causal failure graphs, and governed model-router execution remain future work. Hosted/external integrations still require real authenticated adapters and gated tests.
+
+### Next targets
+
+- ingest repository structure and verified dependencies into the Knowledge Graph;
+- persist project-scoped graph/model/memory-quality evidence;
+- add context relevance scoring and mission-specific context compression;
+- add hypothesis → distinguishing test → evidence → updated hypothesis debugging loops;
+- benchmark Strategy Engine candidates through Guardian Intelligence Lab before promotion;
+- connect Model Registry ranking to a governed model router without hard-coded provider preference.
+
 ## 2026-10-01 — v0.4 Live Mission Runtime and controlled external-tool policy
 
 ### What changed

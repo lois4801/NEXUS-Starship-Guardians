@@ -12,6 +12,19 @@ export type NexusRun = {
   pending_approval: Record<string, unknown> | null;
 };
 
+export type IntelligencePlan = {
+  kind: string;
+  confidence: number;
+  uncertainty: number;
+  capabilities: string[];
+  required_tools: string[];
+  strategy: string;
+  strategy_rationale: string[];
+  required_evidence: string[];
+  adversarial_cases: Record<string, string>[];
+  assumptions: string[];
+};
+
 export type MissionPlan = {
   kind: string;
   confidence: number;
@@ -57,6 +70,13 @@ export class NexusClient {
     return this.request<NexusRun>(`/v1/projects/${encodeURIComponent(projectId)}/runs`, {
       method: 'POST', body: JSON.stringify({ goal, agent }),
     });
+  }
+
+  planIntelligence(projectId: string, goal: string) {
+    return this.request<IntelligencePlan>(
+      `/v1/projects/${encodeURIComponent(projectId)}/intelligence-plan`,
+      { method: 'POST', body: JSON.stringify({ goal }) },
+    );
   }
 
   planMission(projectId: string, goal: string) {

@@ -23,7 +23,7 @@ DEFAULT_CAPABILITY_RULES: tuple[CapabilityRule, ...] = (
     CapabilityRule("backend", ("backend", "fastapi", "api", "server", "endpoint"), frozenset({"api"}), 3),
     CapabilityRule("database", ("database", "postgres", "sql", "schema", "migration"), frozenset({"database"}), 3),
     CapabilityRule("testing", ("test", "pytest", "playwright", "verify", "regression"), frozenset({"test"}), 2),
-    CapabilityRule("security", ("security", "auth", "oauth", "permission", "secret", "vulnerability"), frozenset({"security"}), 3),
+    CapabilityRule("security", ("security", "secure", "auth", "oauth", "permission", "secret", "vulnerability"), frozenset({"security"}), 3),
     CapabilityRule("devops", ("docker", "railway", "deploy", "ci", "cd", "hosting"), frozenset({"terminal"}), 2),
     CapabilityRule("observability", ("trace", "telemetry", "opentelemetry", "metric", "logging"), frozenset({"observability"}), 2),
     CapabilityRule("ai-engineering", ("llm", "model", "prompt", "embedding", "ai", "inference"), frozenset({"model"}), 2),

@@ -25,7 +25,7 @@ def test_plugin_manifests_are_reconciled():
 
     assert portable["name"] == "nexus-starship-guardians"
     assert codex["name"] == "nexus-starship-guardians"
-    assert portable["version"] == codex["version"] == "0.4.0"
+    assert portable["version"] == codex["version"] == "0.5.0"
     assert portable["repository"] == codex["repository"]
     assert portable["repository"].endswith("/NEXUS-Starship-Guardians")
     assert portable["extensions"]["com.openai"]["interface"]["displayName"] == "Nexus Starship Guardians"

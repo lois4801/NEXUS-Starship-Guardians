@@ -35,8 +35,10 @@ def test_requires_auth_and_admin(api):
     assert api.get("/v1/projects/lucio").status_code == 401
     key = add_project(api)
     assert api.post("/v1/projects", headers=headers(key), json={"project_id": "ember", "display_name": "Ember"}).status_code == 403
-    assert api.get("/health").json()["status"] == "ok"
-    assert api.get("/health").json()["mission_intelligence"] == "live"
+    health = api.get("/health").json()
+    assert health["status"] == "ok"
+    assert health["mission_intelligence"] == "live"
+    assert health["intelligence_fabric"] == "live"
     assert api.get("/v1/projects/lucio", headers=headers(key)).status_code == 200
 
 
@@ -47,11 +49,33 @@ def test_real_tool_execution_and_trace(api):
     data = r.json()
     assert data["status"] == "completed"
     assert "84" in data["answer"]
-    assert [e["type"] for e in data["events"]] == ["mission_intelligence", "tool_result", "final"]
-    mission = data["events"][0]
-    assert mission["type"] == "mission_intelligence"
-    assert "selected_guardians" in mission
+    assert [e["type"] for e in data["events"]] == [
+        "mission_intelligence",
+        "strategy_intelligence",
+        "tool_result",
+        "final",
+    ]
+    assert "selected_guardians" in data["events"][0]
+    strategy = data["events"][1]
+    assert strategy["strategy"]
+    assert strategy["required_evidence"]
     assert api.get("/v1/runs/" + data["run_id"], headers=headers(key)).status_code == 200
+
+
+def test_intelligence_plan_is_project_scoped_and_inspectable(api):
+    key = add_project(api)
+    response = api.post(
+        "/v1/projects/lucio/intelligence-plan",
+        headers=headers(key),
+        json={"goal": "Deploy a secure FastAPI service with PostgreSQL migration and tests"},
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["strategy"] == "security_first"
+    assert "security review" in data["required_evidence"]
+    assert "database" in data["capabilities"]
+    assert data["adversarial_cases"]
+    assert 0 <= data["uncertainty"] <= 1
 
 
 def test_cross_project_isolation(api):
@@ -60,6 +84,7 @@ def test_cross_project_isolation(api):
     run = api.post("/v1/projects/lucio/runs", headers=headers(lucio), json={"goal": "utc now"}).json()
     assert api.get("/v1/projects/lucio", headers=headers(ember)).status_code == 403
     assert api.post("/v1/projects/lucio/runs", headers=headers(ember), json={"goal": "utc now"}).status_code == 403
+    assert api.post("/v1/projects/lucio/intelligence-plan", headers=headers(ember), json={"goal": "test"}).status_code == 403
     assert api.get("/v1/runs/" + run["run_id"], headers=headers(ember)).status_code == 403
     assert api.post("/v1/runs/" + run["run_id"] + "/approval", headers=headers(ember), json={"approved": True}).status_code == 403
 

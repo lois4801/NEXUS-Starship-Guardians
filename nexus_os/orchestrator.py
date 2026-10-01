@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 from .config import Settings
+from .intelligence_fabric import IntelligenceFabric
 from .mission_runtime import MissionRuntime
 from .models import Action
 from .providers import ProviderError, get_provider
@@ -20,11 +21,15 @@ class Orchestrator:
         settings: Settings,
         learning_recorder: ServerLearningRecorder | None = None,
         mission_runtime: MissionRuntime | None = None,
+        intelligence_fabric: IntelligenceFabric | None = None,
     ):
         self.store = store
         self.settings = settings
         self.learning_recorder = learning_recorder
         self.mission_runtime = mission_runtime or MissionRuntime()
+        self.intelligence_fabric = intelligence_fabric or IntelligenceFabric(
+            classifier=self.mission_runtime.classifier
+        )
         self.lock = threading.RLock()  # single-process starter; use distributed locks when scaling
 
     @staticmethod
@@ -59,6 +64,21 @@ class Orchestrator:
             reasons=list(plan.reasons),
         )
 
+    def _record_strategy_intelligence(self, run: dict[str, Any]) -> None:
+        if any(event.get("type") == "strategy_intelligence" for event in run["events"]):
+            return
+        plan = self.intelligence_fabric.plan(run["goal"])
+        self.event(
+            run,
+            "strategy_intelligence",
+            strategy=plan.strategy.mode.value,
+            rationale=list(plan.strategy.rationale),
+            required_evidence=list(plan.strategy.required_evidence),
+            uncertainty=plan.uncertainty,
+            adversarial_cases=[case.case_id for case in plan.adversarial_cases],
+            assumptions=list(plan.assumptions),
+        )
+
     def advance(self, run_id: str, approved: bool | None = None) -> dict[str, Any]:
         with self.lock:
             run = self.store.get_run(run_id)
@@ -67,6 +87,7 @@ class Orchestrator:
             project = self.store.get_project(run["project_id"])
             assert project is not None
             self._record_mission_intelligence(run, project)
+            self._record_strategy_intelligence(run)
             if approved is not None:
                 if run["status"] != "pending_approval" or not run["pending_approval"]:
                     raise ValueError("No approval is pending")
