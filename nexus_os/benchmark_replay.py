@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Iterable
 
 from nexus_os.benchmark_vault import BenchmarkCandidate, GuardianBenchmarkVault
 from nexus_os.evaluation_lab import EvaluationOutcome, Executor, GuardianIntelligenceLab
