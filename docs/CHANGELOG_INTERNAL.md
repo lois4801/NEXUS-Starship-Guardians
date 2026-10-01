@@ -1,5 +1,22 @@
 # Nexus Starship Guardians — Internal Change Log
 
+## 2026-10-01 — Mission Intelligence and cross-project routing evidence
+
+### Added
+
+- deterministic `MissionClassifier` with mission kind, confidence, reasons, and bounded Guardian team sizing;
+- `CapabilityMap` for explicit capability/tool requirements;
+- `AlternateModelJudge` with strict structured JSON validation;
+- correlated Guardian execution telemetry with reusable correlation IDs;
+- persistent cross-project Guardian performance aggregation;
+- dedicated tests for classifier, capability mapping, alternate-model judging, telemetry correlation, and cross-project metrics;
+- animated Mission Intelligence + Adaptive Routing visual;
+- `MISSION_INTELLIGENCE.md` and Visual Gallery updates.
+
+### Architecture policy
+
+Mission interpretation may propose capabilities, but it never grants tool permissions. Adaptive routing must continue to enforce each Guardian's explicit allowlist. Alternate-model judgments are additional semantic evidence and never replace deterministic/evidence judges.
+
 ## 2026-10-01 — Production verification, persistence, and observability
 
 ### Added
