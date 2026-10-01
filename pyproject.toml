@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nexus-starship-guardians"
-version = "0.5.0"
-description = "Nexus Starship Guardians: verified multi-project Guardian runtime with live mission intelligence, Intelligence Fabric, learning, evaluation, adaptive routing, controlled tool policy, and distributed execution foundations"
+version = "0.5.1"
+description = "Nexus Starship Guardians: verified multi-project Guardian runtime with Intelligence Fabric, fingerprinted fixed-corpus evaluation, learning, adaptive routing, controlled tool policy, and distributed execution foundations"
 requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.115,<1",
