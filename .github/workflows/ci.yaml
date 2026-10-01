@@ -19,6 +19,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e '.[dev]'
+      - name: Show Ruff canonical import diff
+        run: ruff check --fix --diff nexus_os/fixed_corpus.py || true
       - run: ruff check nexus_os tests examples
       - run: NEXUS_DEV_MODE=true pytest -q
       - name: Canonical CLI smoke test
