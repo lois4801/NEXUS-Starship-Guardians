@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .adaptive_intelligence import AdaptiveGuardianIntelligence
+from .cognitive_evolution import CognitiveEvolutionEngine
 from .learning_memory import GuardianLearningEngine
 
 
@@ -59,10 +60,37 @@ def _mission_capabilities(run: dict[str, Any]) -> frozenset[str]:
             continue
         capabilities = event.get("capabilities", [])
         if isinstance(capabilities, list):
-            return frozenset(
-                str(item).strip() for item in capabilities if str(item).strip()
-            )
+            return frozenset(str(item).strip() for item in capabilities if str(item).strip())
     return frozenset()
+
+
+def _mission_confidence(run: dict[str, Any]) -> float | None:
+    for event in reversed(list(run.get("events", []))):
+        if event.get("type") != "mission_intelligence":
+            continue
+        try:
+            confidence = float(event.get("confidence"))
+        except (TypeError, ValueError):
+            return None
+        return confidence if 0 <= confidence <= 1 else None
+    return None
+
+
+def _strategy_name(run: dict[str, Any]) -> str:
+    for event in reversed(list(run.get("events", []))):
+        if event.get("type") == "strategy_intelligence":
+            return str(event.get("strategy", "")).strip()
+    return ""
+
+
+def _failure_signature(run: dict[str, Any]) -> str:
+    for event in reversed(list(run.get("events", []))):
+        event_type = str(event.get("type", ""))
+        if event_type not in {"provider_error", "policy_denied", "tool_error", "max_steps_reached"}:
+            continue
+        subject = str(event.get("tool") or event.get("limit") or "").strip()
+        return f"{event_type}:{subject}" if subject else event_type
+    return ""
 
 
 def _has_verification_evidence(run: dict[str, Any]) -> bool:
@@ -85,20 +113,22 @@ def _has_verification_evidence(run: dict[str, Any]) -> bool:
 
 
 class ServerLearningRecorder:
-    """Record terminal API/server runs into shared and specialist learning systems.
+    """Record terminal API/server runs into shared, adaptive, and cognitive learning systems.
 
-    General memory records execution reliability. Adaptive specialist intelligence is stricter:
-    failed runs may learn from concrete failure events, while successful runs require objective
-    verification tool evidence before per-skill evidence changes.
+    General memory records execution reliability. Adaptive and cognitive specialist learning are
+    stricter: failed runs may learn from concrete failure events, while successful runs require
+    objective verification evidence. Peer knowledge transfer never copies another Guardian's score.
     """
 
     def __init__(
         self,
         engine: GuardianLearningEngine,
         adaptive_intelligence: AdaptiveGuardianIntelligence | None = None,
+        cognitive_evolution: CognitiveEvolutionEngine | None = None,
     ):
         self.engine = engine
         self.adaptive_intelligence = adaptive_intelligence
+        self.cognitive_evolution = cognitive_evolution
         self._recorded_run_ids: set[str] = set()
 
     def record_if_terminal(self, run: dict[str, Any]) -> None:
@@ -127,15 +157,14 @@ class ServerLearningRecorder:
             },
         )
 
-        if self.adaptive_intelligence is not None and _has_verification_evidence(run):
+        verified = _has_verification_evidence(run)
+        if self.adaptive_intelligence is not None and verified:
             try:
                 profile = self.adaptive_intelligence.profile(guardian)
             except KeyError:
                 profile = None
             if profile is not None:
-                skills = _mission_capabilities(run)
-                if not skills:
-                    skills = profile.capabilities
+                skills = _mission_capabilities(run) or profile.capabilities
                 status = str(run.get("status", ""))
                 success = status == "completed" and outcome.score >= 8.0
                 self.adaptive_intelligence.record_verified_outcome(
@@ -147,5 +176,24 @@ class ServerLearningRecorder:
                     critical_regression=False,
                     verified=True,
                 )
+                if self.cognitive_evolution is not None:
+                    self.cognitive_evolution.record_verified_episode(
+                        guardian,
+                        skills=skills,
+                        success=success,
+                        score=outcome.score,
+                        summary=outcome.distilled_lesson or outcome.critique,
+                        strategy=_strategy_name(run),
+                        failure_signature=_failure_signature(run),
+                        predicted_confidence=_mission_confidence(run),
+                        verified=True,
+                    )
+                    if not success:
+                        self.cognitive_evolution.counterfactual_plan(
+                            guardian,
+                            skills=skills,
+                            failure_signature=_failure_signature(run) or "verified-failure",
+                            original_strategy=_strategy_name(run),
+                        )
 
         self._recorded_run_ids.add(run_id)
