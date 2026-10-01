@@ -3,9 +3,13 @@ from __future__ import annotations
 import time
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
 from .failure_taxonomy import FailureSignal, classify_failure
 from .promotion_gate import EvaluationSummary, PromotionDecision, PromotionPolicy, decide_promotion
+
+if TYPE_CHECKING:
+    from .fixed_corpus import FixedEvaluationCorpus
 
 
 @dataclass(frozen=True, slots=True)
@@ -38,6 +42,9 @@ class EvaluationOutcome:
 class EvaluationRun:
     strategy: str
     outcomes: list[EvaluationOutcome] = field(default_factory=list)
+    corpus_id: str = ""
+    corpus_version: str = ""
+    corpus_fingerprint: str = ""
 
     def summary(self, cases: Sequence[EvaluationCase]) -> EvaluationSummary:
         critical_ids = {case.case_id for case in cases if case.critical}
@@ -102,6 +109,19 @@ class GuardianIntelligenceLab:
             run.outcomes.append(outcome)
         return run
 
+    def run_fixed(
+        self,
+        strategy: str,
+        corpus: FixedEvaluationCorpus,
+        executor: Executor,
+    ) -> EvaluationRun:
+        """Run a strategy against a versioned corpus and bind the run to its fingerprint."""
+        run = self.run(strategy, corpus.cases, executor)
+        run.corpus_id = corpus.corpus_id
+        run.corpus_version = corpus.version
+        run.corpus_fingerprint = corpus.sha256
+        return run
+
     def compare(
         self,
         *,
@@ -114,4 +134,32 @@ class GuardianIntelligenceLab:
             baseline.summary(cases),
             candidate.summary(cases),
             policy,
+        )
+
+    def compare_fixed(
+        self,
+        *,
+        baseline: EvaluationRun,
+        candidate: EvaluationRun,
+        corpus: FixedEvaluationCorpus,
+        policy: PromotionPolicy | None = None,
+    ) -> PromotionDecision:
+        """Compare runs only when both are bound to the exact supplied corpus snapshot."""
+        expected = corpus.sha256
+        reasons: list[str] = []
+        if baseline.corpus_fingerprint != expected:
+            reasons.append("baseline run does not match the supplied fixed corpus fingerprint")
+        if candidate.corpus_fingerprint != expected:
+            reasons.append("candidate run does not match the supplied fixed corpus fingerprint")
+        if baseline.corpus_id != corpus.corpus_id or candidate.corpus_id != corpus.corpus_id:
+            reasons.append("baseline and candidate must use the same fixed corpus ID")
+        if baseline.corpus_version != corpus.version or candidate.corpus_version != corpus.version:
+            reasons.append("baseline and candidate must use the same fixed corpus version")
+        if reasons:
+            return PromotionDecision(promote=False, reasons=reasons)
+        return self.compare(
+            baseline=baseline,
+            candidate=candidate,
+            cases=corpus.cases,
+            policy=policy,
         )
