@@ -6,13 +6,19 @@ The repository keeps architecture and process visuals close to the code so reade
 
 ![Nexus Starship Guardians current state](assets/current-state-graph.svg)
 
-This is the canonical top-level system map and must be updated whenever a meaningful architecture, intelligence, execution, evaluation, learning, integration, release, or packaging change alters the flow. In v0.6 it includes the **Guardian Benchmark Vault** feedback loop in addition to the Intelligence Fabric, Guardian Intelligence Lab, Knowledge Graph, Strategy Engine, Memory Quality, Model Registry, adversarial evaluation, Live Mission Runtime, controlled tool policy, integration-readiness contracts, and release/package outputs. The editable companion is [`CURRENT_STATE.md`](CURRENT_STATE.md).
+This is the canonical top-level system map and must be updated whenever a meaningful architecture, intelligence, execution, evaluation, learning, integration, release, or packaging change alters the flow. In v0.7 it includes **Adaptive Guardian Intelligence**, the ten-role specialist intelligence wing, verified per-skill learning, Benchmark Replay, Coverage Intelligence, the Guardian Benchmark Vault feedback loop, Intelligence Fabric, Guardian Intelligence Lab, adaptive routing, verified execution, and release/package outputs. The editable companion is [`CURRENT_STATE.md`](CURRENT_STATE.md).
+
+## Adaptive Guardian Intelligence
+
+![Adaptive Guardian Intelligence](assets/adaptive-guardian-intelligence.svg)
+
+This animated graph shows how AI Architect, Software Platform Engineer, AI Developer, Coder Specialist, AI Engineer, Debugger Specialist, AI Scientist, AI Cloud Specialist, API Specialist, and AI Programmer Guardians orbit the adaptive intelligence core. Verified outcomes update per-skill quality, reliability, benchmark evidence, confidence, trend, and regression pressure. Benchmark Replay and Coverage Intelligence generate targeted learning priorities that can influence future routing without granting new permissions. See [`ADAPTIVE_GUARDIAN_INTELLIGENCE.md`](ADAPTIVE_GUARDIAN_INTELLIGENCE.md).
 
 ## Guardian Benchmark Vault
 
 ![Guardian Benchmark Vault](assets/guardian-benchmark-vault.svg)
 
-This animated graph shows the governed learning path from verified failure to Regression Corpus, evidence-linked benchmark nomination, explicit review, versioned frozen snapshot, Guardian Intelligence Lab evaluation, Promotion Gate, and release. Rejected candidates remain review history and never enter permanent benchmark truth. See [`GUARDIAN_BENCHMARK_VAULT.md`](GUARDIAN_BENCHMARK_VAULT.md).
+This animated graph shows the governed learning path from verified failure to Regression Corpus, evidence-linked benchmark nomination, explicit review, versioned frozen snapshot, Guardian Intelligence Lab evaluation, Promotion Gate, and release. In v0.7, candidate replay can add reproducibility evidence before review. Rejected candidates remain review history and never enter permanent benchmark truth. See [`GUARDIAN_BENCHMARK_VAULT.md`](GUARDIAN_BENCHMARK_VAULT.md).
 
 ## Intelligence Fabric
 
@@ -36,11 +42,11 @@ This focused animated flow shows the path from mission text through classificati
 
 ## Core architecture
 
-The source-of-truth system flow is maintained in [`CURRENT_STATE.md`](CURRENT_STATE.md), [`INTELLIGENCE_FABRIC.md`](INTELLIGENCE_FABRIC.md), [`GUARDIAN_BENCHMARK_VAULT.md`](GUARDIAN_BENCHMARK_VAULT.md), and [`ARCHITECTURE_VISUALS.md`](ARCHITECTURE_VISUALS.md). Mermaid diagrams stay editable while the animated SVGs provide an engaging GitHub-facing view.
+The source-of-truth system flow is maintained in [`CURRENT_STATE.md`](CURRENT_STATE.md), [`ADAPTIVE_GUARDIAN_INTELLIGENCE.md`](ADAPTIVE_GUARDIAN_INTELLIGENCE.md), [`INTELLIGENCE_FABRIC.md`](INTELLIGENCE_FABRIC.md), [`GUARDIAN_BENCHMARK_VAULT.md`](GUARDIAN_BENCHMARK_VAULT.md), and [`ARCHITECTURE_VISUALS.md`](ARCHITECTURE_VISUALS.md). Mermaid diagrams stay editable while the animated SVGs provide an engaging GitHub-facing view.
 
 ## Process workflows
 
-Feature delivery, verification, repair, learning, benchmark nomination/review, and promotion workflows are maintained in [`PROCESS_WORKFLOWS.md`](PROCESS_WORKFLOWS.md).
+Feature delivery, verification, repair, specialist learning, benchmark replay, coverage analysis, benchmark nomination/review, and promotion workflows are maintained in [`PROCESS_WORKFLOWS.md`](PROCESS_WORKFLOWS.md).
 
 ## Visual design language
 
@@ -48,7 +54,7 @@ Nexus Starship Guardians visuals intentionally use a consistent command-center l
 
 - deep navy/space backgrounds;
 - cyan for routing and verified execution;
-- violet for reasoning, benchmark governance, and evaluation;
+- violet for reasoning, specialist intelligence, benchmark governance, and evaluation;
 - amber for planning, caution and recovery;
 - green for successful promotion/release;
 - red/pink for verified failure or rejected paths;

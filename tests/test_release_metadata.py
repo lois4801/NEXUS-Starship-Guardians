@@ -29,6 +29,9 @@ def test_current_state_graph_is_repo_visible() -> None:
     text = doc.read_text(encoding="utf-8")
     assert "NEXUS STARSHIP GUARDIANS" in text
     assert "Guardian Benchmark Vault" in text
+    assert "Adaptive Guardian Intelligence" in text
+    assert "Benchmark Replay" in text
+    assert "Coverage Intelligence" in text
     assert "GitHub Release" in text
     assert "GHCR Package" in text
 
@@ -41,6 +44,21 @@ def test_benchmark_vault_docs_and_animation_are_repo_visible() -> None:
     assert "Benchmark Vault" in doc.read_text(encoding="utf-8")
     svg = visual.read_text(encoding="utf-8")
     assert "GUARDIAN BENCHMARK VAULT" in svg
+    assert "<animate" in svg
+
+
+def test_adaptive_intelligence_docs_and_animation_are_repo_visible() -> None:
+    doc = ROOT / "docs" / "ADAPTIVE_GUARDIAN_INTELLIGENCE.md"
+    visual = ROOT / "docs" / "assets" / "adaptive-guardian-intelligence.svg"
+    assert doc.is_file()
+    assert visual.is_file()
+    text = doc.read_text(encoding="utf-8")
+    assert "Adaptive Guardian Intelligence" in text
+    assert "AI Architect Guardian" in text
+    assert "Benchmark Replay" in text
+    assert "Coverage Intelligence" in text
+    svg = visual.read_text(encoding="utf-8")
+    assert "ADAPTIVE GUARDIAN INTELLIGENCE" in svg
     assert "<animate" in svg
 
 
