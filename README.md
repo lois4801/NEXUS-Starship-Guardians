@@ -1,8 +1,14 @@
-# Nexus Starship Guardians · v0.3-dev
+# Nexus Starship Guardians · v0.3.0
 
 ![Nexus Starship Guardians](docs/assets/nexus-starship-guardians-hero.svg)
 
 **A reusable Guardian engineering runtime for Lucio AI Platform, Ember, Nexus Code, and future applications.** Nexus Starship Guardians coordinates bounded Guardian teams, verified execution, learning memory, evaluation, regression protection, adaptive routing, and increasingly distributed work.
+
+## Current State Graph
+
+![Nexus Starship Guardians Current State](docs/assets/current-state-graph.svg)
+
+The Current State Graph is maintained as architecture documentation and must change whenever the runtime flow materially changes. See [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md).
 
 ## Current capabilities
 
@@ -23,7 +29,17 @@
 - Durable SQLite queue for local development plus a **PostgreSQL distributed lease queue** using `FOR UPDATE SKIP LOCKED`, worker leases, heartbeats, retries, and expired-lease recovery.
 - **OpenTelemetry HTTP instrumentation foundation** for live API request spans.
 - CI compatibility matrix for **Python 3.11, 3.12, and 3.13**, canonical/legacy CLI smoke tests, live Uvicorn HTTP verification, Docker build/start/health verification, REST checks, and a real **PostgreSQL 16** service integration test.
+- Reconciled **ChatGPT/Codex plugin v0.3** using current Guardian terminology while retaining REST v1 compatibility fields.
 - GitHub-rendered Mermaid diagrams plus animated SVG architecture/process visuals and a permanent engineering learnings/retrospective log.
+
+## Releases and Packages
+
+Nexus Starship Guardians publishes two complementary release outputs:
+
+- **GitHub Releases** — semantic version, release notes, source, Python wheel, and Python source distribution.
+- **GitHub Packages / GHCR** — versioned Docker images such as `ghcr.io/lois4801/nexus-starship-guardians:0.3.0` plus `0.3` and `latest` aliases.
+
+Release/package automation is defined in [`.github/workflows/release.yaml`](.github/workflows/release.yaml). The full versioning and release policy is in [`docs/RELEASES_AND_PACKAGES.md`](docs/RELEASES_AND_PACKAGES.md).
 
 ## Production verification
 
@@ -35,34 +51,32 @@ Every meaningful change is expected to earn evidence from the applicable compati
 
 ```mermaid
 flowchart TD
-    A[Nexus Starship Guardians] --> B[Mission Command]
-    B --> C[Mission Classifier]
-    C --> D[Capability Map]
-    D --> E[Guardian Registry]
-    E --> F[Adaptive Router]
-    F --> G[Models]
-    F --> H[Guardians]
-    F --> I[Tools]
-    G --> J[Execution Planner]
-    H --> J
-    I --> J
-    J --> K[Dependency-Aware DAG]
-    K --> L[Isolated Worktrees]
-    L --> M[Parallel Build Guardians]
-    M --> N[Diff Review]
-    N --> O[Verification Grid]
-    O --> P[Auto Repair]
-    P --> Q[Evidence Bundle]
-    Q --> R[Multi-Judge Evaluation]
-    R --> S[Failure Taxonomy]
-    S --> T[Regression Corpus]
-    T --> U[Learning Memory]
-    U --> V[Strategy Tournament]
-    V --> W[Promotion Gate]
-    W --> X[Release]
+    A[Nexus Starship Guardians] --> B[Mission Intelligence]
+    B --> C[Capability Map]
+    C --> D[Guardian Registry]
+    D --> E[Adaptive Router]
+    E --> F[Models]
+    E --> G[Guardians]
+    E --> H[Tools]
+    F --> I[Execution DAG]
+    G --> I
+    H --> I
+    I --> J[Verification Grid]
+    J --> K[Auto Repair]
+    K --> L[Evidence Bundle]
+    L --> M[Multi-Judge Evaluation]
+    M --> N[Regression Corpus]
+    N --> O[Learning Memory]
+    O --> P[Promotion Gate]
+    P --> Q[Release]
+
+    R[ChatGPT / Codex Plugin] --> S[Nexus REST v1 Adapter]
+    S --> A
+    Q --> T[GitHub Release]
+    Q --> U[GHCR Package]
 ```
 
-Full visuals: [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md), [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md), and [`docs/VISUAL_GALLERY.md`](docs/VISUAL_GALLERY.md).
+Full visuals: [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md), [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md), [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md), and [`docs/VISUAL_GALLERY.md`](docs/VISUAL_GALLERY.md).
 
 ## Quick start
 
@@ -136,9 +150,10 @@ Every meaningful Nexus Starship Guardians change should update the applicable re
 1. code;
 2. automated tests;
 3. documentation;
-4. architecture/process visuals;
+4. **Current State Graph plus relevant architecture/process visuals**;
 5. learnings/retrospective;
-6. change log and CI/verification status.
+6. change log and CI/verification status;
+7. release/package metadata when the change is part of a versioned release.
 
 ## Quality gates
 
@@ -157,10 +172,13 @@ GitHub Actions additionally validates:
 - Docker Compose configuration;
 - Docker image build, start and container health;
 - PostgreSQL 16 queue behavior;
-- deterministic provider contracts.
+- deterministic provider contracts;
+- release metadata and Current State Graph presence.
 
 ## Key documentation
 
+- [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
+- [`docs/RELEASES_AND_PACKAGES.md`](docs/RELEASES_AND_PACKAGES.md)
 - [`docs/VISUAL_GALLERY.md`](docs/VISUAL_GALLERY.md)
 - [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md)
 - [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md)
@@ -182,5 +200,5 @@ GitHub Actions additionally validates:
 2. **Execution + Learning:** 30/200-Guardian coordination, worktrees, verification, repair, evidence, cross-run learning.
 3. **Intelligence + Routing:** multi-judge evaluation, regression corpus, promotion gates, strategy tournament, Guardian registry, adaptive routing, PostgreSQL distributed queue.
 4. **Production verification:** multi-version compatibility, live HTTP, Docker health, PostgreSQL integration, persisted Guardian metrics, verified failure-to-regression wiring, provider contracts, and HTTP tracing.
-5. **Next integration wave:** Mission Classifier, alternate-model judge adapters, queue/mission telemetry, persistent cross-project metrics, and gated Railway/Supabase/MCP/Lucio/Ember/Nexus Code integration tests.
+5. **Integration wave:** Mission Intelligence live orchestration, alternate-model judges, queue/mission telemetry, persistent cross-project metrics, and gated Railway/Supabase/MCP/Lucio/Ember/Nexus Code integration contracts.
 6. **v1.0:** security/tenancy audit, governed release/rollback automation, and curated offline model-improvement pipeline.

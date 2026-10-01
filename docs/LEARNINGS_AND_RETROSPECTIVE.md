@@ -2,6 +2,31 @@
 
 This file is part of the default repository update discipline. Meaningful changes should add a concise entry when they reveal reusable engineering lessons, regressions, CI failures, or architecture decisions.
 
+## 2026-10-01 — Current State Graph and release/package discipline
+
+### What changed
+
+- made the Current State Graph a required repository artifact;
+- embedded an animated current-state SVG in the README and Visual Gallery;
+- promoted the runtime from `0.3.0.dev0` to formal `0.3.0` while keeping the plugin at the same version;
+- added pre-merge wheel/sdist build verification;
+- added post-merge GitHub Release automation;
+- added GHCR Docker package publication with semantic version aliases.
+
+### Reusable engineering lessons
+
+1. **Architecture should have one obvious current-state view.** Deep subsystem docs are useful, but readers and maintainers also need a single graph that says what the system is *now*.
+2. **A graph is a contract only if CI and process keep it present.** The repository now tests that the Current State document and visual exist; future architecture PRs are expected to update them when flow changes.
+3. **A release should be reproducible from repository state.** Release assets are built from the merged commit, not uploaded from an unknown local machine.
+4. **Packages and releases serve different jobs.** GitHub Releases hold human-facing notes and Python build artifacts; GHCR holds the deployable Docker package.
+5. **Version drift is a compatibility risk.** Runtime and plugin versions are checked together before release so a plugin snapshot cannot silently claim compatibility with a different runtime version.
+6. **Publishing should happen only after the normal verification gates.** The release workflow runs from merged `main`; the pull request must first pass Python, Ruff, pytest, live HTTP, Docker, PostgreSQL, plugin, and release-artifact checks.
+7. **Release automation needs least privilege.** The workflow requests `contents: write` for tags/releases and `packages: write` for GHCR, rather than broad repository administration access.
+
+### Remaining verification boundary
+
+The release workflow itself still needs its first real execution from merged `main` to prove GitHub tag creation, Release asset upload, and GHCR publication under repository token permissions. Those outcomes must be verified after merge before calling the release channel operational.
+
 ## 2026-10-01 — Mission Intelligence and cross-project routing evidence
 
 ### What changed

@@ -1,0 +1,133 @@
+name: Release and Package
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - pyproject.toml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: nexus-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Publish release and GHCR package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Read and validate release version
+        id: version
+        shell: bash
+        run: |
+          VERSION=$(python - <<'PY'
+          import tomllib
+          from pathlib import Path
+          data = tomllib.loads(Path('pyproject.toml').read_text(encoding='utf-8'))
+          print(data['project']['version'])
+          PY
+          )
+          if [[ "$VERSION" == *dev* || "$VERSION" == *a* || "$VERSION" == *b* || "$VERSION" == *rc* ]]; then
+            echo "Refusing stable release for prerelease version: $VERSION"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Verify plugin version alignment
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, tomllib
+          from pathlib import Path
+          runtime = tomllib.loads(Path('pyproject.toml').read_text(encoding='utf-8'))['project']['version']
+          plugin = json.loads(Path('plugin/plugin.json').read_text(encoding='utf-8'))['version']
+          if runtime != plugin:
+              raise SystemExit(f'Runtime version {runtime} != plugin version {plugin}')
+          print(f'Version alignment verified: {runtime}')
+          PY
+
+      - name: Install build tooling
+        run: python -m pip install --upgrade pip build
+
+      - name: Build Python package
+        run: python -m build
+
+      - name: Verify Python distributions exist
+        shell: bash
+        run: |
+          test -n "$(find dist -maxdepth 1 -name '*.whl' -print -quit)"
+          test -n "$(find dist -maxdepth 1 -name '*.tar.gz' -print -quit)"
+
+      - name: Create Git tag and GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+          TAG: ${{ steps.version.outputs.tag }}
+        shell: bash
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; refreshing build assets."
+            gh release upload "$TAG" dist/* --clobber
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            if ! git rev-parse "$TAG" >/dev/null 2>&1; then
+              git tag -a "$TAG" -m "Nexus Starship Guardians $TAG"
+              git push origin "$TAG"
+            fi
+            gh release create "$TAG" dist/* \
+              --title "Nexus Starship Guardians $TAG" \
+              --generate-notes \
+              --verify-tag
+          fi
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and publish versioned Docker package
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          IMAGE=$(echo "ghcr.io/${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')
+          MINOR="${VERSION%.*}"
+          docker build \
+            -t "$IMAGE:$VERSION" \
+            -t "$IMAGE:$MINOR" \
+            -t "$IMAGE:latest" .
+          docker push "$IMAGE:$VERSION"
+          docker push "$IMAGE:$MINOR"
+          docker push "$IMAGE:latest"
+
+      - name: Release summary
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          IMAGE=$(echo "ghcr.io/${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')
+          {
+            echo "## Nexus Starship Guardians v$VERSION"
+            echo "- GitHub Release: v$VERSION"
+            echo "- Python assets: wheel + sdist"
+            echo "- GitHub Package: $IMAGE:$VERSION"
+            echo "- Moving tags: $IMAGE:${VERSION%.*}, $IMAGE:latest"
+          } >> "$GITHUB_STEP_SUMMARY"

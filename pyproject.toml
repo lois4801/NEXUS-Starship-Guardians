@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nexus-starship-guardians"
-version = "0.3.0.dev0"
+version = "0.3.0"
 description = "Nexus Starship Guardians: verified multi-project Guardian runtime with learning, evaluation, adaptive routing, and distributed execution foundations"
 requires-python = ">=3.11"
 dependencies = [
@@ -20,7 +20,7 @@ nexus-guardians = "nexus_os.portable.cli:main"
 nexus-portable = "nexus_os.portable.cli:main"
 
 [project.optional-dependencies]
-dev = ["pytest>=8,<10", "pytest-cov>=5,<8", "ruff>=0.9,<1"]
+dev = ["pytest>=8,<10", "pytest-cov>=5,<8", "ruff>=0.9,<1", "build>=1.2,<2"]
 postgres = ["psycopg[binary]>=3.2,<4"]
 
 [tool.setuptools.packages.find]
