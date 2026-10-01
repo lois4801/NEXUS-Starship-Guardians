@@ -1,3 +1,3 @@
-"""NEXUS Agentic OS: reusable, project-scoped agent runtime."""
+"""Nexus Starship Guardians: reusable, project-scoped Guardian intelligence runtime."""
 
-__version__ = "0.1.0"
+__version__ = "0.5.1"
