@@ -2,6 +2,40 @@
 
 This file is part of the default repository update discipline. Meaningful changes should add a concise entry when they reveal reusable engineering lessons, regressions, CI failures, or architecture decisions.
 
+## 2026-10-01 — v0.4 Live Mission Runtime and controlled external-tool policy
+
+### What changed
+
+- moved Mission Intelligence from reusable primitives into the live REST run path;
+- made mission classification/routing evidence durable through a `mission_intelligence` event;
+- added project-scoped mission planning before execution;
+- split local executable tools from high-level `gateway_tools` used for planning external capabilities;
+- changed adaptive routing from "one Guardian must match everything" to bounded collective team coverage;
+- added Lucio, Ember, Nexus Code, Railway, and Supabase readiness contracts without claiming live connectivity;
+- synchronized runtime/plugin version `0.4.0`, README, Current State Graph, changelog, and release target.
+
+### Reusable engineering lessons
+
+1. **Planning should be live before it becomes enforcement.** Recording a deterministic plan on every run gives evidence and observability without silently breaking the existing REST v1 contract. Strict mission-plan enforcement can be introduced later as an explicit versioned policy.
+2. **Capability demand and authorization must remain separate data.** A mission can require `database`, but that does not enable database access. Project enablement and Guardian tool permission are separate gates.
+3. **A team can be sufficient even when no individual is.** Multi-specialist systems should evaluate collective capability/tool coverage instead of filtering for a mythical single Guardian that owns every skill.
+4. **External readiness is not external connectivity.** Railway/Supabase/Lucio/Ember/Nexus Code contracts can describe prerequisites and gaps without inventing credentials, sessions, or successful calls.
+5. **Local tools and integration tools should not share one permission namespace.** Existing `allowed_tools` remain executable REST v1 tools; new `gateway_tools` are higher-level adapter permissions. Keeping them separate protects compatibility and prevents accidental execution expansion.
+6. **Routing utility cannot grant permissions.** Historical quality/cost/latency evidence may order candidates, but explicit allowlists remain the authorization source.
+7. **Mission evidence belongs in the same durable trace as execution evidence.** Future debugging can now compare what Nexus thought the mission required with what the provider/tools actually did.
+
+### Current verification boundary
+
+v0.4 provides policy and readiness contracts for external integrations, not authenticated adapters. Real MCP, Railway, Supabase, browser, database, GitHub, shell, or hosted-model operations still require separately configured and tested connectors.
+
+### Next targets
+
+- add authenticated adapter interfaces behind `ControlledToolGateway`;
+- add queue/Guardian/verification span correlation to the same mission ID;
+- benchmark live routing strategies through Guardian Intelligence Lab;
+- persist project-specific gateway policy in a production database deployment;
+- add explicitly gated real Railway/Supabase/Lucio/Ember/Nexus Code integration tests when credentials/environments exist.
+
 ## 2026-10-01 — Current State Graph and release/package discipline
 
 ### What changed
@@ -23,9 +57,9 @@ This file is part of the default repository update discipline. Meaningful change
 6. **Publishing should happen only after the normal verification gates.** The release workflow runs from merged `main`; the pull request must first pass Python, Ruff, pytest, live HTTP, Docker, PostgreSQL, plugin, and release-artifact checks.
 7. **Release automation needs least privilege.** The workflow requests `contents: write` for tags/releases and `packages: write` for GHCR, rather than broad repository administration access.
 
-### Remaining verification boundary
+### Verification result
 
-The release workflow itself still needs its first real execution from merged `main` to prove GitHub tag creation, Release asset upload, and GHCR publication under repository token permissions. Those outcomes must be verified after merge before calling the release channel operational.
+The first real release workflow completed successfully from merged `main`: GitHub created release/tag `v0.3.0`, uploaded the Python wheel and source distribution, authenticated to GHCR, and pushed the versioned Docker package. The release/package channel is therefore operational for subsequent semantic versions.
 
 ## 2026-10-01 — Mission Intelligence and cross-project routing evidence
 

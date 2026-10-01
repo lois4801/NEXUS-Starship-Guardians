@@ -60,6 +60,10 @@ class GuardianRegistry:
         except KeyError as exc:
             raise KeyError(f"unknown Guardian: {guardian_id}") from exc
 
+    def all(self) -> list[RegisteredGuardian]:
+        """Return a snapshot of all registered Guardians."""
+        return list(self._items.values())
+
     def record_outcome(
         self,
         guardian_id: str,

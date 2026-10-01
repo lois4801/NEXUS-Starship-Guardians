@@ -25,6 +25,7 @@ class MissionRequirements:
 class RoutingDecision:
     selected: list[RegisteredGuardian]
     missing_capabilities: frozenset[str]
+    missing_tools: frozenset[str]
     sufficient: bool
 
 
@@ -33,24 +34,64 @@ class AdaptiveGuardianRouter:
         self.registry = registry
 
     def route(self, requirements: MissionRequirements) -> RoutingDecision:
-        candidates = self.registry.select(
-            required_capabilities=requirements.capabilities,
-            required_tools=requirements.tools,
-            limit=requirements.maximum_guardians,
-        )
-        if len(candidates) >= requirements.minimum_guardians:
-            return RoutingDecision(candidates, frozenset(), True)
+        """Select a bounded team that collectively covers capabilities and tools.
 
-        covered: set[str] = set()
-        broad = self.registry.select(required_tools=requirements.tools, limit=requirements.maximum_guardians)
+        Historical utility ranks eligible contributors, but permissions are never inferred from
+        performance. A required tool counts as covered only when at least one selected Guardian
+        explicitly has that tool in its allowlist.
+        """
+        broad = self.registry.all()
+        broad.sort(key=self.registry.utility, reverse=True)
+
         selected: list[RegisteredGuardian] = []
-        for guardian in broad:
-            contribution = guardian.profile.capabilities & requirements.capabilities
-            if contribution - covered:
-                selected.append(guardian)
-                covered.update(contribution)
-            if requirements.capabilities.issubset(covered):
+        covered_capabilities: set[str] = set()
+        covered_tools: set[str] = set()
+
+        while len(selected) < requirements.maximum_guardians:
+            remaining_capabilities = requirements.capabilities - covered_capabilities
+            remaining_tools = requirements.tools - covered_tools
+            if not remaining_capabilities and not remaining_tools:
                 break
-        missing = requirements.capabilities - covered
-        sufficient = not missing and len(selected) >= requirements.minimum_guardians
-        return RoutingDecision(selected, frozenset(missing), sufficient)
+
+            best: RegisteredGuardian | None = None
+            best_gain = 0
+            best_utility = float("-inf")
+            for guardian in broad:
+                if guardian in selected:
+                    continue
+                capability_gain = len(guardian.profile.capabilities & remaining_capabilities)
+                tool_gain = len(guardian.profile.allowed_tools & remaining_tools)
+                gain = capability_gain + tool_gain
+                utility = self.registry.utility(guardian)
+                if gain > best_gain or (gain == best_gain and gain > 0 and utility > best_utility):
+                    best = guardian
+                    best_gain = gain
+                    best_utility = utility
+            if best is None or best_gain == 0:
+                break
+            selected.append(best)
+            covered_capabilities.update(best.profile.capabilities)
+            covered_tools.update(best.profile.allowed_tools)
+
+        if not (requirements.capabilities - covered_capabilities) and not (
+            requirements.tools - covered_tools
+        ):
+            for guardian in broad:
+                if len(selected) >= requirements.minimum_guardians:
+                    break
+                if guardian not in selected:
+                    selected.append(guardian)
+
+        missing_capabilities = requirements.capabilities - covered_capabilities
+        missing_tools = requirements.tools - covered_tools
+        sufficient = (
+            not missing_capabilities
+            and not missing_tools
+            and len(selected) >= requirements.minimum_guardians
+        )
+        return RoutingDecision(
+            selected=selected,
+            missing_capabilities=frozenset(missing_capabilities),
+            missing_tools=frozenset(missing_tools),
+            sufficient=sufficient,
+        )

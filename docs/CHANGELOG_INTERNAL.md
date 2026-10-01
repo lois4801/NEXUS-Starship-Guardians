@@ -1,5 +1,37 @@
 # Nexus Starship Guardians — Internal Change Log
 
+## 2026-10-01 — v0.4.0 Live Mission Runtime and controlled integration policy
+
+### Added
+
+- `MissionRuntime` that moves deterministic Mission Intelligence into the live REST execution path;
+- one durable `mission_intelligence` event per run before provider execution;
+- project-scoped `POST /v1/projects/{project_id}/mission-plan` endpoint;
+- `gateway_tools` project configuration kept separate from local REST v1 `allowed_tools`;
+- `ControlledToolGateway` permission policy for browser/API/database/test/security/terminal/observability/model/integration capabilities;
+- collective adaptive routing so multiple Guardians can jointly cover a mission's capabilities and explicit tool requirements;
+- integration-readiness contracts and API for Lucio AI Platform, Ember, Nexus Code, Railway, and Supabase;
+- explicit `connected=false` semantics for readiness-only external contracts;
+- v0.4 plugin manifests and plugin documentation;
+- dedicated live mission runtime/gateway/integration regression tests;
+- `docs/LIVE_MISSION_RUNTIME.md`;
+- updated canonical Current State Graph and animated SVG.
+
+### Compatibility policy
+
+REST v1 `agent` / `agents`, the `nexus_os` namespace, `NEXUS_*` environment variables, and the `nexus-portable` CLI alias remain supported. Mission Intelligence is advisory for existing v1 run execution in v0.4; insufficient planning evidence is recorded but does not silently break an existing client.
+
+### Permission policy
+
+Capability detection never grants access. High-level external tools require explicit project enablement plus Guardian permission, and the gateway remains a policy layer until a real authenticated adapter exists.
+
+### Release target
+
+- runtime: `0.4.0`;
+- portable plugin manifest: `0.4.0`;
+- Codex compatibility manifest: `0.4.0`;
+- expected post-merge outputs: GitHub Release `v0.4.0` plus GHCR `0.4.0`, `0.4`, and `latest` images after the complete CI/release workflow succeeds.
+
 ## 2026-10-01 — Formal v0.3.0 release, Current State Graph, and package automation
 
 ### Added

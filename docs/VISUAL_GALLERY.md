@@ -6,7 +6,7 @@ The repository keeps architecture and process visuals close to the code so reade
 
 ![Nexus Starship Guardians current state](assets/current-state-graph.svg)
 
-This is the canonical top-level system map and must be updated whenever a meaningful architecture, execution, evaluation, learning, integration, release, or packaging change alters the flow. The editable companion is [`CURRENT_STATE.md`](CURRENT_STATE.md).
+This is the canonical top-level system map and must be updated whenever a meaningful architecture, execution, evaluation, learning, integration, release, or packaging change alters the flow. In v0.4 it now shows the **Live Mission Runtime**, collective Guardian routing, **Controlled Tool Gateway**, integration-readiness contracts, and the release/package outputs. The editable companion is [`CURRENT_STATE.md`](CURRENT_STATE.md).
 
 ## Project hero
 
@@ -16,7 +16,7 @@ This is the canonical top-level system map and must be updated whenever a meanin
 
 ![Mission intelligence and adaptive routing](assets/mission-routing-pipeline.svg)
 
-This animated flow shows the path from mission text through classification, capability mapping, permission-safe Guardian routing, alternate-model judging, correlated telemetry, and cross-project learning.
+This animated flow shows the path from mission text through classification, capability mapping, permission-safe Guardian routing, alternate-model judging, correlated telemetry, and cross-project learning. The canonical current-state graphic supersedes this focused diagram when architecture details differ.
 
 ## Production verification motion graph
 

@@ -2,18 +2,19 @@
   "interface": {
     "displayName": "Nexus Starship Guardians",
     "shortDescription": "Operate verified Guardian workflows",
-    "longDescription": "Plan, operate, and review project-scoped Nexus Starship Guardians workflows. Supports project onboarding, bounded Guardian runs through the compatible REST v1 API, explicit approval review, server-side app integration, production-readiness checks, and evidence-first verification. The package includes a small optional REST CLI for an existing authorized Nexus endpoint. It does not bundle a hosted model, credentials, or an MCP server, and it never grants filesystem, GitHub, deployment, browser, or infrastructure permissions by itself.",
+    "longDescription": "Plan, operate, and review project-scoped Nexus Starship Guardians workflows. Supports live mission classification, capability mapping, permission-safe Guardian routing, project onboarding, bounded Guardian runs through the compatible REST v1 API, explicit approval review, integration readiness checks, and evidence-first verification. The package includes a small optional REST CLI for an existing authorized Nexus endpoint. It does not bundle a hosted model, credentials, or an MCP server, and it never grants filesystem, GitHub, deployment, browser, or infrastructure permissions by itself.",
     "developerName": "Nexus Starship Guardians",
     "category": "Developer Tools",
     "capabilities": [
+      "Plan missions with explicit capability and tool requirements",
       "Plan isolated Nexus projects and Guardian permissions",
       "Run and inspect authorized Guardian tasks",
       "Review explicit write approvals",
-      "Plan Lucio, Ember, Nexus Code, and future app integrations",
+      "Assess Lucio, Ember, Nexus Code, Railway, and Supabase integration readiness",
       "Audit verification, tenant isolation, and production readiness"
     ],
     "defaultPrompt": [
-      "Help me configure separate Nexus Starship Guardians projects for Lucio and Ember.",
+      "Plan this mission with Nexus Starship Guardians and show the selected Guardians and required tools.",
       "Inspect my Nexus run and explain any pending approvals.",
       "Review whether this Nexus integration has enough evidence for release."
     ],
@@ -23,14 +24,15 @@
     "composerIcon": "./assets/icon.svg"
   },
   "name": "nexus-starship-guardians",
-  "version": "0.3.0",
-  "description": "Project-scoped Guardian operations, approvals, integration guidance, and verified runtime workflows for Nexus Starship Guardians.",
+  "version": "0.4.0",
+  "description": "Project-scoped Guardian operations, live mission planning, approvals, integration readiness guidance, and verified runtime workflows for Nexus Starship Guardians.",
   "author": {
     "name": "Nexus Starship Guardians"
   },
   "keywords": [
     "guardians",
     "orchestration",
+    "mission-intelligence",
     "developer-tools",
     "verification",
     "integrations"
