@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import tomllib
 from pathlib import Path
 
 import pytest
@@ -22,10 +23,13 @@ def _load_cli():
 def test_plugin_manifests_are_reconciled():
     portable = json.loads((PLUGIN / "plugin.json").read_text(encoding="utf-8"))
     codex = json.loads((PLUGIN / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8"))
+    runtime_version = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"][
+        "version"
+    ]
 
     assert portable["name"] == "nexus-starship-guardians"
     assert codex["name"] == "nexus-starship-guardians"
-    assert portable["version"] == codex["version"] == "0.5.0"
+    assert portable["version"] == codex["version"] == runtime_version
     assert portable["repository"] == codex["repository"]
     assert portable["repository"].endswith("/NEXUS-Starship-Guardians")
     assert portable["extensions"]["com.openai"]["interface"]["displayName"] == "Nexus Starship Guardians"
