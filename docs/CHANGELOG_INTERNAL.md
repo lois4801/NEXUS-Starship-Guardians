@@ -1,5 +1,28 @@
 # Nexus Starship Guardians — Internal Change Log
 
+## 2026-10-01 — Production verification, persistence, and observability
+
+### Added
+
+- live Uvicorn HTTP startup and `/health` CI verification;
+- Docker image build, container startup, Docker `HEALTHCHECK`, and host-side HTTP verification;
+- Docker Compose configuration validation;
+- `SQLiteGuardianRegistry` for persisted Guardian profiles and performance metrics;
+- `RegressionLearningBridge` to promote only verified failures into the Regression Corpus;
+- deterministic provider contract tests for command-CLI and Ollama adapters;
+- OpenTelemetry HTTP request span instrumentation foundation;
+- animated Nexus Starship Guardians hero SVG;
+- animated production-verification motion graph;
+- production-verification and visual-gallery documentation.
+
+### Verification targets
+
+The phase is expected to pass the existing Python 3.11/3.12/3.13 matrix and PostgreSQL 16 integration job plus the new live-Uvicorn and Docker jobs before merge.
+
+### Architecture policy
+
+Production readiness claims must be backed by an environment that reproduces the claimed behavior. A successful Python import is not equivalent to a live HTTP service, and unit SQL tests are not equivalent to a real PostgreSQL transaction. Verified failures may become regression knowledge; unsupported suspicions may not.
+
 ## 2026-10-01 — Compatibility and production hardening
 
 ### Added
