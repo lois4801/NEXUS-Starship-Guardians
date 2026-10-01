@@ -1,5 +1,28 @@
 # Nexus Starship Guardians — Internal Change Log
 
+## 2026-10-01 — Formal v0.3.0 release, Current State Graph, and package automation
+
+### Added
+
+- canonical `docs/CURRENT_STATE.md` architecture snapshot;
+- animated `docs/assets/current-state-graph.svg` embedded in the README and Visual Gallery;
+- permanent rule that meaningful architecture changes must update the Current State Graph in the same pull request;
+- `docs/RELEASES_AND_PACKAGES.md` with semantic versioning and release/package policy;
+- automated GitHub Release workflow producing Python wheel and source distribution assets;
+- automated GitHub Packages publication through GHCR with version, minor, and `latest` Docker tags;
+- CI release-artifact smoke job that builds wheel/sdist before merge and verifies runtime/plugin version alignment;
+- release metadata regression tests.
+
+### Release target
+
+- runtime package version promoted from `0.3.0.dev0` to `0.3.0`;
+- plugin manifest remains aligned at `0.3.0`;
+- first formal release target is `v0.3.0`.
+
+### Repository policy
+
+Every meaningful update should keep code, tests, docs, Current State Graph, relevant visuals, learnings, changelog, and release/package metadata synchronized. GitHub Releases and GHCR packages are outputs of the verified release path, not manual side artifacts.
+
 ## 2026-10-01 — Mission Intelligence and cross-project routing evidence
 
 ### Added
