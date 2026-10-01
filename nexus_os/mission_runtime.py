@@ -5,6 +5,7 @@ from dataclasses import dataclass
 
 from .adaptive_intelligence import SPECIALIST_INTELLIGENCE_PROFILES, AdaptiveGuardianIntelligence
 from .adaptive_router import AdaptiveGuardianRouter
+from .cognitive_evolution import CognitiveEvolutionEngine
 from .guardian_registry import GuardianProfile, GuardianRegistry
 from .guardian_teams import artificial_architecture_team
 from .mission_classifier import MissionClassifier
@@ -71,11 +72,17 @@ class MissionRuntime:
         registry: GuardianRegistry | None = None,
         gateway: ControlledToolGateway | None = None,
         adaptive_intelligence: AdaptiveGuardianIntelligence | None = None,
+        cognitive_evolution: CognitiveEvolutionEngine | None = None,
     ) -> None:
         self.classifier = classifier or MissionClassifier()
         self.registry = registry or build_default_guardian_registry()
         self.adaptive_intelligence = adaptive_intelligence
-        self.router = AdaptiveGuardianRouter(self.registry, adaptive_intelligence)
+        self.cognitive_evolution = cognitive_evolution
+        self.router = AdaptiveGuardianRouter(
+            self.registry,
+            adaptive_intelligence,
+            cognitive_evolution,
+        )
         self.gateway = gateway or ControlledToolGateway()
 
     def plan(self, goal: str, *, project_gateway_tools: frozenset[str]) -> LiveMissionPlan:
