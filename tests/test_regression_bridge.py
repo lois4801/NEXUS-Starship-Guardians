@@ -71,6 +71,9 @@ def test_vault_enabled_capture_requires_evidence_reference(tmp_path):
     else:
         raise AssertionError("vault-enabled capture should require evidence_ref")
 
+    assert corpus.records() == []
+    assert vault.candidates() == []
+
 
 def test_unverified_failure_is_not_promoted_to_regression(tmp_path):
     corpus = RegressionCorpus(tmp_path / "regressions.jsonl")
