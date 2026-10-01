@@ -7,6 +7,7 @@ from .guardian_registry import GuardianRegistry, RegisteredGuardian
 
 if TYPE_CHECKING:
     from .adaptive_intelligence import AdaptiveGuardianIntelligence
+    from .cognitive_evolution import CognitiveEvolutionEngine
 
 
 @dataclass(frozen=True, slots=True)
@@ -38,9 +39,11 @@ class AdaptiveGuardianRouter:
         self,
         registry: GuardianRegistry,
         intelligence: AdaptiveGuardianIntelligence | None = None,
+        cognitive_evolution: CognitiveEvolutionEngine | None = None,
     ):
         self.registry = registry
         self.intelligence = intelligence
+        self.cognitive_evolution = cognitive_evolution
 
     def _utility(
         self,
@@ -48,18 +51,18 @@ class AdaptiveGuardianRouter:
         required_capabilities: frozenset[str],
     ) -> float:
         utility = self.registry.utility(guardian)
-        if self.intelligence is None:
-            return utility
-        return utility + self.intelligence.routing_bonus(
-            guardian.profile.guardian_id,
-            required_capabilities,
-        )
+        guardian_id = guardian.profile.guardian_id
+        if self.intelligence is not None:
+            utility += self.intelligence.routing_bonus(guardian_id, required_capabilities)
+        if self.cognitive_evolution is not None:
+            utility += self.cognitive_evolution.routing_bonus(guardian_id, required_capabilities)
+        return utility
 
     def route(self, requirements: MissionRequirements) -> RoutingDecision:
         """Select a bounded team that collectively covers capabilities and tools.
 
-        Historical utility ranks eligible contributors, while adaptive specialist evidence can
-        add a bounded bonus for capabilities that have been repeatedly verified. Permissions are
+        Historical utility ranks eligible contributors. Adaptive skill evidence and v0.8 cognitive
+        calibration may add small bounded bonuses for repeatedly verified strengths. Permissions are
         never inferred from performance: a required tool counts as covered only when at least one
         selected Guardian explicitly has that tool in its allowlist.
         """
