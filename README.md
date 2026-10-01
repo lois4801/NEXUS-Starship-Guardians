@@ -1,8 +1,8 @@
-# Nexus Starship Guardians · v0.4.0
+# Nexus Starship Guardians · v0.5.0
 
 ![Nexus Starship Guardians](docs/assets/nexus-starship-guardians-hero.svg)
 
-**A reusable Guardian engineering runtime for Lucio AI Platform, Ember, Nexus Code, and future applications.** Nexus Starship Guardians coordinates bounded Guardian teams, live mission intelligence, permission-safe routing, verified execution, learning memory, evaluation, regression protection, and increasingly distributed work.
+**A reusable Guardian engineering runtime for Lucio AI Platform, Ember, Nexus Code, and future applications.** Nexus Starship Guardians coordinates bounded Guardian teams, Intelligence Fabric planning, live mission intelligence, permission-safe routing, verified execution, learning memory, evaluation, regression protection, and increasingly distributed work.
 
 ## Current State Graph
 
@@ -13,13 +13,19 @@ The Current State Graph is maintained as architecture documentation and must cha
 ## Current capabilities
 
 - FastAPI REST API with project-scoped authentication and approval gates.
-- **Live Mission Runtime** that classifies each mission, maps capabilities/tools, selects a bounded Guardian team, and records a `mission_intelligence` event before normal REST v1 execution.
+- **Nexus Intelligence Fabric** combining Mission Intelligence, Strategy Engine, Knowledge Graph foundations, Memory Quality, Model Performance Registry, adversarial evaluation, uncertainty, and explicit assumptions.
+- **Live Mission Runtime** that classifies each mission, maps capabilities/tools, selects a bounded Guardian team, and records both `mission_intelligence` and `strategy_intelligence` evidence before normal REST v1 execution.
+- **Strategy Engine** with inspectable research-first, prototype-first, test-first, security-first, migration-safe, cost-optimized, and balanced strategies plus required evidence.
+- **Knowledge Graph foundation** for explicit project/system relationships and dependency-impact traversal.
+- **Memory Quality Registry** that measures helpful/harmful/neutral lesson reuse and can quarantine repeatedly harmful memories.
+- **Model Performance Registry** that ranks configured models from verified task-specific success, quality, cost, and latency instead of hard-coded model claims.
+- **Adversarial Evaluation** that proposes deterministic guardrail cases for unsupported deployment claims, unsafe schema changes, permission escalation, fabricated integrations, and unsupported completion claims.
 - **Controlled Tool Gateway policy** that separates high-level external-tool permissions from local runtime tools. Requirements never grant permissions by themselves.
 - **Integration Readiness Contracts** for Lucio AI Platform, Ember, Nexus Code, Railway, and Supabase. Readiness does not claim a live external connection.
 - Portable local/CLI runtime for Ollama and authenticated coding/chat CLIs.
 - Adaptive swarm coordination for **1–200 logical Guardians** with bounded physical concurrency.
 - Canonical **30-Guardian Artificial Architecture team**.
-- Cross-run learning through episodic memory, reflection, evidence, and relevant-lesson retrieval.
+- Cross-run learning through episodic memory, reflection, evidence, relevant-lesson retrieval, and memory-quality controls.
 - Isolated Git worktrees, parallel coding coordination, structured file editing, and automatic diff review.
 - Browser/API/unit verification, bounded auto-repair, SHA-256 evidence bundles, and safe rebase/conflict handling.
 - **Guardian Intelligence Lab** for fixed-corpus baseline/candidate evaluation.
@@ -32,7 +38,7 @@ The Current State Graph is maintained as architecture documentation and must cha
 - Durable SQLite queue for local development plus a **PostgreSQL distributed lease queue** using `FOR UPDATE SKIP LOCKED`, worker leases, heartbeats, retries, and expired-lease recovery.
 - **OpenTelemetry HTTP instrumentation foundation** for live API request spans.
 - CI compatibility matrix for **Python 3.11, 3.12, and 3.13**, canonical/legacy CLI smoke tests, live Uvicorn HTTP verification, Docker build/start/health verification, REST checks, release-artifact builds, and a real **PostgreSQL 16** service integration test.
-- Reconciled **ChatGPT/Codex plugin v0.4** using current Guardian terminology, mission-planning guidance, integration-readiness guidance, and REST v1 compatibility fields.
+- Reconciled **ChatGPT/Codex plugin v0.5** using current Guardian terminology, Intelligence Fabric guidance, mission-planning guidance, integration-readiness guidance, and REST v1 compatibility fields.
 - GitHub-rendered Mermaid diagrams plus animated SVG architecture/process visuals and a permanent engineering learnings/retrospective log.
 
 ## Releases and Packages
@@ -40,7 +46,7 @@ The Current State Graph is maintained as architecture documentation and must cha
 Nexus Starship Guardians publishes two complementary release outputs:
 
 - **GitHub Releases** — semantic version, generated release notes, source, Python wheel, and Python source distribution.
-- **GitHub Packages / GHCR** — versioned Docker images such as `ghcr.io/lois4801/nexus-starship-guardians:0.4.0` plus `0.4` and `latest` aliases.
+- **GitHub Packages / GHCR** — versioned Docker images such as `ghcr.io/lois4801/nexus-starship-guardians:0.5.0` plus `0.5` and `latest` aliases.
 
 Release/package automation is defined in [`.github/workflows/release.yaml`](.github/workflows/release.yaml). The versioning and release history is in [`docs/RELEASES_AND_PACKAGES.md`](docs/RELEASES_AND_PACKAGES.md).
 
@@ -48,60 +54,73 @@ Release/package automation is defined in [`.github/workflows/release.yaml`](.git
 
 ![Production verification pipeline](docs/assets/production-verification-pipeline.svg)
 
-Every meaningful change is expected to earn evidence from the applicable compatibility, live HTTP, Docker, PostgreSQL, provider-contract, persistence, mission-runtime, plugin, release-artifact, and learning gates before promotion. See [`docs/PRODUCTION_VERIFICATION.md`](docs/PRODUCTION_VERIFICATION.md).
+Every meaningful change is expected to earn evidence from the applicable compatibility, intelligence, live HTTP, Docker, PostgreSQL, provider-contract, persistence, mission-runtime, plugin, release-artifact, and learning gates before promotion. See [`docs/PRODUCTION_VERIFICATION.md`](docs/PRODUCTION_VERIFICATION.md).
 
 ## Architecture
 
 ```mermaid
 flowchart TD
-    A[Nexus Starship Guardians] --> B[Mission Intelligence]
-    B --> C[Live Mission Runtime]
-    C --> D[Capability Map]
-    D --> E[Guardian Registry]
-    E --> F[Adaptive Team Router]
-    F --> G[Models]
-    F --> H[Guardians]
-    F --> I[Controlled Tool Gateway]
+    A[Nexus Starship Guardians] --> B[Intelligence Fabric]
+    B --> B1[Knowledge Graph]
+    B --> B2[Strategy Engine]
+    B --> B3[Memory Quality]
+    B --> B4[Model Registry]
+    B --> B5[Adversarial Evaluation]
+    B --> C[Mission Intelligence]
+    C --> D[Live Mission Runtime]
+    D --> E[Capability Map]
+    E --> F[Guardian Registry]
+    F --> G[Adaptive Team Router]
+    G --> H[Models]
+    G --> I[Guardians]
+    G --> J[Controlled Tool Gateway]
+    H --> K[Execution DAG]
+    I --> K
+    J --> K
+    B2 --> K
+    K --> L[Verification Grid]
+    B5 --> L
+    L --> M[Auto Repair]
+    M --> N[Evidence Bundle]
+    N --> O[Multi-Judge Evaluation]
+    O --> P[Regression Corpus]
+    P --> Q[Learning Memory]
+    Q --> B3
+    O --> B4
+    K --> B1
+    Q --> R[Promotion Gate]
+    R --> S[Release]
 
-    X[Integration Readiness Contracts] --> I
-    X --> X1[Lucio]
-    X --> X2[Ember]
-    X --> X3[Nexus Code]
-    X --> X4[Railway]
-    X --> X5[Supabase]
-
-    G --> J[Execution DAG]
-    H --> J
-    I --> J
-    J --> K[Verification Grid]
-    K --> L[Auto Repair]
-    L --> M[Evidence Bundle]
-    M --> N[Multi-Judge Evaluation]
-    N --> O[Regression Corpus]
-    O --> P[Learning Memory]
-    P --> Q[Promotion Gate]
-    Q --> R[Release]
-
-    S[ChatGPT / Codex Plugin] --> T[Nexus REST v1 Adapter]
-    T --> C
-    R --> U[GitHub Release]
-    R --> V[GHCR Package]
+    T[ChatGPT / Codex Plugin] --> U[Nexus REST v1 Adapter]
+    U --> D
+    S --> V[GitHub Release]
+    S --> W[GHCR Package]
 ```
 
-Full visuals: [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md), [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md), [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md), and [`docs/VISUAL_GALLERY.md`](docs/VISUAL_GALLERY.md).
+Full visuals: [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md), [`docs/INTELLIGENCE_FABRIC.md`](docs/INTELLIGENCE_FABRIC.md), [`docs/ARCHITECTURE_VISUALS.md`](docs/ARCHITECTURE_VISUALS.md), [`docs/PROCESS_WORKFLOWS.md`](docs/PROCESS_WORKFLOWS.md), and [`docs/VISUAL_GALLERY.md`](docs/VISUAL_GALLERY.md).
+
+## Intelligence planning
+
+A project-scoped Intelligence Fabric plan is available at:
+
+```text
+POST /v1/projects/{project_id}/intelligence-plan
+```
+
+It returns mission kind, confidence, uncertainty, capabilities, required tools, selected strategy, strategy rationale, required evidence, adversarial guardrail cases, and assumptions. Intelligence proposes and explains decisions; it does **not** grant external permissions or credentials.
+
+See [`docs/INTELLIGENCE_FABRIC.md`](docs/INTELLIGENCE_FABRIC.md).
 
 ## Live mission planning
 
-A project can opt into high-level gateway-tool capabilities independently from the existing local `allowed_tools` contract. For example, a project can enable `browser`, `api`, and `test` for mission planning without granting shell/database/integration permissions.
-
-REST v1 now includes:
+REST v1 also includes:
 
 ```text
 POST /v1/projects/{project_id}/mission-plan
 GET  /v1/projects/{project_id}/integrations/{integration_name}/readiness
 ```
 
-A mission plan returns the mission kind, classifier confidence, capabilities, required tools, selected Guardians, missing capabilities/tools, project-disabled tools, and whether the plan is sufficient. Existing run creation remains compatible: `POST /v1/projects/{project_id}/runs` still accepts the v1 `agent` compatibility field, and every run records mission intelligence as trace evidence before provider execution.
+A mission plan returns the mission kind, classifier confidence, capabilities, required tools, selected Guardians, missing capabilities/tools, project-disabled tools, and whether the plan is sufficient. Existing run creation remains compatible: `POST /v1/projects/{project_id}/runs` still accepts the v1 `agent` compatibility field.
 
 See [`docs/LIVE_MISSION_RUNTIME.md`](docs/LIVE_MISSION_RUNTIME.md).
 
@@ -148,7 +167,7 @@ These are compatibility interfaces, not the current product name. Removing them 
 
 ## Permission model
 
-Mission classification and capability detection are **not authorization**. `ControlledToolGateway` keeps high-level tool policy explicit:
+Mission classification, strategy selection, model ranking, and capability detection are **not authorization**. `ControlledToolGateway` keeps high-level tool policy explicit:
 
 ```text
 mission requires a tool
@@ -160,11 +179,11 @@ selected Guardian is allowed that tool
 policy permits the adapter to be considered
 ```
 
-Even then, a real external adapter must separately authenticate and execute the action. Nexus v0.4 does not pretend an MCP server, Railway account, Supabase project, browser session, database, or shell is connected merely because the mission requires one.
+Even then, a real external adapter must separately authenticate and execute the action. Nexus does not pretend an MCP server, Railway account, Supabase project, browser session, database, or shell is connected merely because the mission requires one.
 
 ## Learning and evaluation
 
-Automatic Guardian learning means **memory + reflection + evaluation**, not live production weight mutation. High-quality verified episodes can later be curated for offline SFT/LoRA; a candidate model or strategy should then beat the fixed evaluation baseline before promotion.
+Automatic Guardian learning means **memory + reflection + evaluation**, not live production weight mutation. `MemoryQualityRegistry` adds a second question: not only “was this lesson retrieved?” but “did reusing it actually help verified outcomes?” Repeatedly harmful memories can be quarantined.
 
 The Guardian Intelligence Lab compares candidates on pass rate, score, critical regressions, cost, and latency. Deterministic/evidence failures cannot be hidden by a high semantic score.
 
@@ -174,7 +193,7 @@ The Guardian Intelligence Lab compares candidates on pass rate, score, critical 
 
 `GuardianRegistry` records capabilities, tool access, success rate, quality, cost, and latency. `AdaptiveGuardianRouter` chooses a bounded team from explicit `MissionRequirements` and can combine multiple Guardians whose capabilities/tool allowlists collectively satisfy the mission.
 
-`SQLiteGuardianRegistry` persists profiles and performance metrics across process restarts. Historical performance never grants new tool permissions.
+`ModelRegistry` separately ranks configured models by verified task-specific performance. Historical performance can influence routing but never grants a credential, provider account, or tool permission.
 
 ## Distributed execution
 
@@ -184,7 +203,7 @@ The CI workflow launches a real PostgreSQL 16 service and verifies queue initial
 
 ## Observability
 
-Incoming FastAPI requests create OpenTelemetry spans with service name, request method, path, and response status. Run traces additionally preserve the mission-intelligence decision that preceded execution. Exporters remain deployment-specific rather than hard-coded into the runtime.
+Incoming FastAPI requests create OpenTelemetry spans with service name, request method, path, and response status. Run traces preserve both mission and strategy intelligence decisions that precede execution. Exporters remain deployment-specific rather than hard-coded into the runtime.
 
 ## Default repository update standard
 
@@ -208,22 +227,12 @@ nexus-guardians doctor
 nexus-portable doctor
 ```
 
-GitHub Actions additionally validates:
-
-- Python 3.11 / 3.12 / 3.13 compatibility;
-- live Mission Runtime/API behavior;
-- live Uvicorn startup and `/health` over HTTP;
-- Docker Compose configuration;
-- Docker image build, start and container health;
-- PostgreSQL 16 queue behavior;
-- deterministic provider contracts;
-- plugin/runtime version alignment;
-- wheel/source-distribution builds;
-- release metadata and Current State Graph presence.
+GitHub Actions additionally validates Python 3.11/3.12/3.13 compatibility, live Intelligence/Mission Runtime API behavior, live Uvicorn HTTP, Docker Compose and container health, PostgreSQL 16 queue behavior, provider contracts, plugin/runtime version alignment, wheel/source-distribution builds, release metadata, and Current State Graph presence.
 
 ## Key documentation
 
 - [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
+- [`docs/INTELLIGENCE_FABRIC.md`](docs/INTELLIGENCE_FABRIC.md)
 - [`docs/LIVE_MISSION_RUNTIME.md`](docs/LIVE_MISSION_RUNTIME.md)
 - [`docs/RELEASES_AND_PACKAGES.md`](docs/RELEASES_AND_PACKAGES.md)
 - [`docs/VISUAL_GALLERY.md`](docs/VISUAL_GALLERY.md)
@@ -245,7 +254,7 @@ GitHub Actions additionally validates:
 
 1. **Foundation:** secure project runtime, provider adapters, SDKs, CI.
 2. **Execution + Learning:** 30/200-Guardian coordination, worktrees, verification, repair, evidence, cross-run learning.
-3. **Intelligence + Routing:** multi-judge evaluation, regression corpus, promotion gates, strategy tournament, Guardian registry, adaptive routing, PostgreSQL distributed queue.
+3. **Intelligence + Routing:** Intelligence Fabric, multi-judge evaluation, regression corpus, promotion gates, strategy tournament, Guardian/model registries, adaptive routing, PostgreSQL distributed queue.
 4. **Production verification:** multi-version compatibility, live HTTP, Docker health, PostgreSQL integration, persisted Guardian metrics, verified failure-to-regression wiring, provider contracts, release/package automation, and HTTP tracing.
-5. **Live integration wave:** Mission Intelligence is now in the live REST path; next are authenticated adapter implementations for selected external systems plus queue/mission telemetry and governed MCP/tool execution.
-6. **v1.0:** security/tenancy audit, governed release/rollback automation, and curated offline model-improvement pipeline.
+5. **Next intelligence wave:** repository ingestion into the Knowledge Graph, persistent model/memory-quality evidence, context compression/relevance scoring, hypothesis-driven debugging, causal failure graphs, and governed model-router integration.
+6. **v1.0:** security/tenancy audit, governed release/rollback automation, authenticated external-tool adapters, and curated offline model-improvement pipeline.
