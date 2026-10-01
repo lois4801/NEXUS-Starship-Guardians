@@ -1,12 +1,12 @@
 # Adaptive Guardian Intelligence
 
-Adaptive Guardian Intelligence is the v0.7.0 specialist-learning layer for Nexus Starship Guardians. It makes specialist Guardians increasingly evidence-driven across missions without pretending that production model weights retrain themselves automatically.
+Adaptive Guardian Intelligence is the specialist-learning layer for Nexus Starship Guardians. v0.7 introduced the evidence model; **v0.7.1 activates it in the live API/runtime path** so specialist Guardians can become increasingly evidence-driven across real missions without pretending that production model weights retrain themselves automatically.
 
 ![Adaptive Guardian Intelligence](assets/adaptive-guardian-intelligence.svg)
 
 ## Specialist intelligence wing
 
-v0.7.0 defines ten adaptive specialist profiles:
+The live default Guardian Registry includes ten adaptive specialist profiles:
 
 1. **AI Architect Guardian** — architecture, systems design, AI architecture, tradeoff analysis, integration design.
 2. **Software Platform Engineer Guardian** — platform engineering, distributed systems, reliability, deployment, observability.
@@ -20,6 +20,24 @@ v0.7.0 defines ten adaptive specialist profiles:
 10. **AI Programmer Guardian** — programming, automation, algorithms, tool use, testing.
 
 The canonical 30-Guardian Artificial Architecture team remains available. The ten-role specialist wing is an additional evidence-driven layer rather than a breaking replacement.
+
+## Live persistence
+
+The API runtime creates one persistent `AdaptiveGuardianIntelligence` store and supplies it to both the live `MissionRuntime` and `ServerLearningRecorder`.
+
+Default path:
+
+```text
+./data/adaptive_guardian_intelligence.json
+```
+
+Override with:
+
+```text
+NEXUS_ADAPTIVE_INTELLIGENCE_PATH=/path/to/adaptive_guardian_intelligence.json
+```
+
+This allows specialist evidence to survive process restarts rather than resetting with every server run.
 
 ## What automatically learns
 
@@ -36,27 +54,40 @@ The canonical 30-Guardian Artificial Architecture team remains available. The te
 
 The resulting adaptive score combines quality, reliability, benchmark performance, trend, and critical-regression penalties. This is deliberately interpretable rather than an opaque self-modification mechanism.
 
-## Verified learning only
+## Automatic verified learning
 
-Adaptive specialist learning rejects unverified outcomes. The intended loop is:
+Adaptive specialist learning rejects unsupported success claims. In v0.7.1 the live server recorder automatically feeds specialist outcomes into the adaptive engine when sufficient evidence exists.
 
 ```text
 mission
   ↓
 specialist Guardian executes
   ↓
-tests / judges / evidence verify outcome
+terminal outcome
   ↓
-record_verified_outcome(...)
+objective verification or concrete failure evidence
+  ↓
+automatic record_verified_outcome(...)
   ↓
 per-skill evidence changes
   ↓
 training priorities + bounded routing bonus
   ↓
-next mission can use stronger evidence
+future missions can use stronger evidence
 ```
 
-A Guardian saying that it succeeded is not enough. Verification evidence is the prerequisite for learning.
+For a **successful** run, automatic adaptive learning requires a successful tool result from one of the verification surfaces currently recognized by the server path:
+
+- `test`
+- `api`
+- `browser`
+- `security`
+
+For a **failed** run, a concrete recorded failure such as provider error, policy denial, tool error, or max-step exhaustion is evidence that can update failure-side specialist learning.
+
+A Guardian merely returning a final answer such as “done” is not enough to reinforce its expertise.
+
+Mission capabilities recorded in the `mission_intelligence` event become the per-skill evidence targets. If a recognized specialist has no recorded mission capabilities, its declared profile capabilities are used as the fallback.
 
 ## Training priorities
 
@@ -73,9 +104,9 @@ A skill with no evidence is treated as uncertain, not automatically strong. A sk
 
 ## Adaptive routing
 
-`AdaptiveGuardianRouter` can optionally consume `AdaptiveGuardianIntelligence`.
+The live `MissionRuntime` now creates `AdaptiveGuardianRouter` with the persistent `AdaptiveGuardianIntelligence` instance.
 
-The existing Guardian Registry utility still considers verified quality, reliability, cost, and latency. v0.7.0 adds only a **bounded specialist evidence bonus** for required capabilities with direct per-skill evidence.
+The existing Guardian Registry utility still considers verified quality, reliability, cost, and latency. The adaptive layer adds only a **bounded specialist evidence bonus** for required capabilities with direct per-skill evidence.
 
 Important invariant:
 
@@ -83,7 +114,7 @@ Important invariant:
 performance evidence ≠ authorization
 ```
 
-A high-performing Guardian does not gain a filesystem, GitHub, shell, cloud, browser, database, deployment, or API permission. Tool access still comes from explicit allowlists and project policy.
+A high-performing Guardian does not gain a filesystem, GitHub, shell, cloud, browser, database, deployment, or API permission. Tool access still comes from explicit Guardian allowlists, project configuration, the Controlled Tool Gateway, and real adapter authentication.
 
 ## Benchmark Replay
 
@@ -141,7 +172,7 @@ Optional model fine-tuning remains a separate curated offline process. Nexus can
 
 ## Practical meaning of “gets smarter”
 
-For Nexus Starship Guardians, automatic intelligence improvement means the system becomes better at deciding:
+For Nexus Starship Guardians, automatic intelligence improvement means the live system becomes better at deciding:
 
 - which specialist should handle a particular problem;
 - which capabilities are genuinely strong vs merely assumed;
