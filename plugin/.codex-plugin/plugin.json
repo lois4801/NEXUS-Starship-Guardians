@@ -1,26 +1,26 @@
 {
   "interface": {
     "displayName": "Nexus Starship Guardians",
-    "shortDescription": "Operate verified Guardian intelligence workflows",
-    "longDescription": "Plan, operate, evaluate, and review project-scoped Nexus Starship Guardians workflows. Supports Intelligence Fabric strategy planning, Guardian Intelligence Lab fixed-corpus evaluation, governed Guardian Benchmark Vault learning from verified regressions, live mission classification, capability mapping, permission-safe Guardian routing, project onboarding, bounded Guardian runs through the compatible REST v1 API, explicit approval review, integration readiness checks, and evidence-first verification. The package does not bundle a hosted model, credentials, or unrestricted tool permissions.",
+    "shortDescription": "Operate adaptive verified Guardian intelligence workflows",
+    "longDescription": "Plan, operate, evaluate, learn, and review project-scoped Nexus Starship Guardians workflows. v0.7 adds Adaptive Guardian Intelligence for specialist AI architects, platform engineers, AI developers, coder/debugging specialists, AI engineers/scientists, cloud specialists, API specialists, and AI programmers. Verified outcomes update per-skill evidence, confidence, trend, benchmark performance, training priorities, and a bounded routing bonus. Benchmark Replay re-runs review candidates before approval, while Coverage Intelligence measures benchmark breadth across architecture, platform, coding, debugging, AI/ML, cloud, API, security, database, UI, deployment, tool-use, evaluation, and reliability. Automatic learning cannot grant permissions, mutate model weights live, or silently approve benchmark truth.",
     "developerName": "Nexus Starship Guardians",
     "category": "Developer Tools",
     "capabilities": [
-      "Plan missions with explicit strategy, uncertainty, adversarial checks, capabilities, and tool requirements",
-      "Evaluate baseline and candidate Guardian strategies against fingerprinted fixed corpora",
+      "Adapt specialist Guardian skill evidence from verified outcomes",
+      "Route missions using bounded evidence from proven specialist strengths",
+      "Replay Benchmark Vault candidates before governed review",
+      "Measure benchmark coverage and snapshot-to-snapshot category growth",
+      "Generate targeted training priorities from weak, uncertain, or regressing skills",
+      "Evaluate baseline and candidate strategies against fingerprinted fixed corpora",
       "Grow future benchmark snapshots through evidence-linked regression candidates and explicit review",
-      "Plan isolated Nexus projects and Guardian permissions",
-      "Run and inspect authorized Guardian tasks",
-      "Review explicit write approvals",
-      "Assess Lucio, Ember, Nexus Code, Railway, and Supabase integration readiness",
-      "Audit verification, tenant isolation, and production readiness"
+      "Run and inspect authorized Guardian tasks without inferring permissions from performance"
     ],
     "defaultPrompt": [
-      "Build an Intelligence Fabric plan for this mission and show strategy, uncertainty, evidence, and adversarial checks.",
-      "Compare a baseline and candidate using the Guardian Intelligence Lab fixed corpus and show the promotion evidence.",
-      "Show how this verified regression would enter the Guardian Benchmark Vault and what review is required before freezing a new snapshot.",
-      "Inspect my Nexus run and explain any pending approvals.",
-      "Review whether this Nexus integration has enough evidence for release."
+      "Show the adaptive intelligence summary and training priorities for my specialist Guardians.",
+      "Replay pending Benchmark Vault candidates and summarize which failures reproduce.",
+      "Analyze benchmark coverage gaps across architecture, coding, debugging, AI, cloud, API, security, database, UI, deployment, and tool-use.",
+      "Route this mission using verified specialist performance evidence without changing tool permissions.",
+      "Compare a baseline and candidate using the Guardian Intelligence Lab and show promotion evidence."
     ],
     "brandColor": "#0B1730",
     "brandColorDark": "#8B5CF6",
@@ -28,21 +28,21 @@
     "composerIcon": "./assets/icon.svg"
   },
   "name": "nexus-starship-guardians",
-  "version": "0.6.0",
-  "description": "Project-scoped Guardian operations, Intelligence Fabric planning, governed Benchmark Vault learning, fingerprinted evaluation, approvals, integration readiness guidance, and verified runtime workflows for Nexus Starship Guardians.",
+  "version": "0.7.0",
+  "description": "Project-scoped Guardian operations with Adaptive Guardian Intelligence, Benchmark Replay, Coverage Intelligence, governed Benchmark Vault learning, fingerprinted evaluation, approvals, and verified runtime workflows.",
   "author": {
     "name": "Nexus Starship Guardians"
   },
   "keywords": [
     "guardians",
     "orchestration",
-    "intelligence-fabric",
+    "adaptive-intelligence",
+    "benchmark-replay",
+    "coverage-intelligence",
     "benchmark-vault",
     "evaluation",
-    "mission-intelligence",
     "developer-tools",
-    "verification",
-    "integrations"
+    "verification"
   ],
   "repository": "https://github.com/lois4801/NEXUS-Starship-Guardians",
   "skills": "./skills"
