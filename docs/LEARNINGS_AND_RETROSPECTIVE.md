@@ -2,6 +2,39 @@
 
 This file is part of the default repository update discipline. Meaningful changes should add a concise entry when they reveal reusable engineering lessons, regressions, CI failures, or architecture decisions.
 
+## 2026-10-01 — Mission Intelligence and cross-project routing evidence
+
+### What changed
+
+- added deterministic mission classification with explicit mission kinds, confidence, reasons, and bounded Guardian team sizes;
+- added a capability/tool map that converts mission language into inspectable routing requirements;
+- added an independent alternate-model judge adapter with strict JSON validation;
+- added correlated Guardian/mission/project telemetry context;
+- added persistent cross-project Guardian performance aggregation;
+- added unit coverage and an animated routing visual.
+
+### Reusable engineering lessons
+
+1. **Classification should produce inspectable requirements, not hidden intuition.** Routing decisions are easier to debug when mission type, capabilities, tools, team bounds, confidence, and rule matches are explicit data.
+2. **Capability detection is not authorization.** A mission may require a browser, database, or integration tool, but only Guardians already granted that tool may be selected.
+3. **Unknown missions should degrade conservatively.** The default capability is `general-engineering`; the classifier should not hallucinate a specialist domain just to appear confident.
+4. **Model judges need a strict interface.** An alternate model must return typed JSON; malformed or loosely typed outputs fail closed instead of becoming evaluation evidence.
+5. **Independent model judgment supplements tests rather than replacing them.** Deterministic and evidence judges remain mandatory in the multi-judge report.
+6. **Correlation IDs should cross nested Guardian work.** API, queue, Guardian, verification, and evidence events need one mission lineage before a telemetry backend can be genuinely useful.
+7. **Cross-project learning must preserve provenance.** Aggregate performance can improve routing across Lucio, Ember, Nexus Code, and future projects while still retaining project identity and respecting project permissions.
+
+### Current verification boundary
+
+This phase adds deterministic classification/routing primitives and local persistent cross-project metrics. It does not yet let an LLM silently rewrite mission requirements or grant permissions. Hosted alternate-model judges still require the provider's legitimate authentication when used outside deterministic tests.
+
+### Next targets after this phase is green
+
+- wire Mission Classifier output directly into the server/orchestration mission path;
+- add model-assisted classification as a proposal checked by deterministic policy;
+- add queue and verification span emission using the shared correlation ID;
+- benchmark classifier/router strategies in the Guardian Intelligence Lab;
+- add gated Railway/Supabase/MCP/Lucio/Ember/Nexus Code integration contracts.
+
 ## 2026-10-01 — Production verification, persistence, and observability
 
 ### What changed
