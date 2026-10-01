@@ -1,23 +1,24 @@
 ---
 name: nexus-project-setup
-description: Use to plan or register an isolated project in a user's existing NEXUS Agentic OS instance, including agent allowlists, tool permissions, provider selection and secret-safe onboarding.
+description: Use to plan or register an isolated project in an existing Nexus Starship Guardians instance, including Guardian allowlists, tool permissions, provider selection, and secret-safe onboarding.
 ---
 
-# NEXUS project setup
+# Nexus project setup
 
-Source behavior: NEXUS v0.1 `README.md`, `nexus_os/models.py`, `nexus_os/api.py` and `docs/INTEGRATION.md` in the repository declared by this Plugin. Treat newer inspected source as authoritative when it differs.
+Current source of truth: `README.md`, `nexus_os/models.py`, `nexus_os/api.py`, and current integration/production-verification docs in the Nexus Starship Guardians repository. When inspected source differs from this Skill, inspected source wins.
 
 ## Trigger and evidence
 
-Use this Skill when the user wants to onboard Lucio, Ember or another app to NEXUS. Start read-only: inspect their project context and repository instructions when accessible. Determine whether they want a **plan** or actual project registration. Registration requires an authorized, reachable NEXUS instance and an admin token provided to the host as a secret, never pasted into chat or source code.
+Use this Skill when the user wants to onboard Lucio AI Platform, Ember, Nexus Code, or another app to Nexus Starship Guardians. Start read-only. Determine whether the user wants a plan or actual project registration. Registration requires an authorized reachable Nexus instance and an admin token supplied to the host as a secret, never pasted into chat or source code.
 
-1. Define a distinct lower-case project ID (`^[a-z][a-z0-9-]{2,47}$`) for each app. Record display name, `provider`, enabled agent IDs and tool allowlist. v0.1 agents are `general`, `builder`, `research`; providers are `demo`, `openai_compatible`; tools are `calculator`, `utc_now`, `project_note`. `max_steps` must be 1-12.
-2. Begin with `demo`, `calculator` and `utc_now` unless a real configured model and additional permissions have been verified. The demo model only performs calculator and UTC smoke tasks. Do not claim live coding or web research is enabled.
-3. `project_note` is a write requiring explicit approval. Do not enable it without a functioning owning-app approval path. Never share an API key across Lucio, Ember or another app.
-4. If and only if actual registration was requested and a secure HTTP-capable host is available, call `POST /v1/projects` with a bearer admin token and the reviewed payload. This endpoint returns the generated API key **once**. Transfer it into the destination application's server-side secret store without echoing the value in conversation, logs, screenshots or artifacts. If no secure destination exists, provide the registration instructions without generating a key.
-5. Verify each project through the scoped `GET /v1/projects/{project_id}` endpoint using its own project token. Run a calculator smoke task through the run-operation workflow if the user requested it. Prove wrong-project tokens fail with 403 before treating isolation as verified.
-6. Output a small per-app matrix: ID, agents, tools, provider, max steps, whether secret storage and isolation verification actually happened. Label unexecuted steps as pending.
+1. Define a distinct lower-case project ID (`^[a-z][a-z0-9-]{2,47}$`) for each app. Record display name, provider, enabled Guardian IDs, tool allowlist, and bounded `max_steps`.
+2. REST v1 currently retains the compatibility JSON field `agents` even though product terminology is **Guardians**. Supported compatibility IDs are `general`, `builder`, and `research`; providers are `demo` and `openai_compatible`; tools are `calculator`, `utc_now`, and approval-gated `project_note`; `max_steps` is 1-12.
+3. Begin conservatively with the demo provider and read-only/deterministic tools unless a real configured provider and additional permissions are verified. Capability detection never grants tool access.
+4. `project_note` is a write requiring explicit approval. Do not enable or approve it without a functioning owning-app approval path and a second authorization check.
+5. For actual registration, call `POST /v1/projects` only from an authorized secure host using the admin bearer token and reviewed payload. The generated project API key is returned once; transfer it directly into the destination application's server-side secret store without echoing it in conversation, logs, screenshots, or artifacts.
+6. Verify each project through `GET /v1/projects/{project_id}` using its own token. Prove wrong-project tokens fail with 403 before treating isolation as verified.
+7. Output a concise matrix: project ID, Guardians, tools, provider, max steps, secret-storage status, and isolation-verification status. Mark unexecuted steps as pending.
 
 ## Boundaries
 
-The plugin grants no host tools or network access. If the current host has no authorized connection, return a runnable, secret-free plan. Do not attempt admin operations with a per-project key, expose secrets client-side, enable `NEXUS_DEV_MODE=true` on a public service, or change unrelated application repositories. Creation is not idempotent: stop on a 409 conflict and inspect before trying again.
+The plugin grants no host tools, network access, provider credentials, GitHub permissions, browser access, MCP connection, or deployment rights on its own. Do not attempt admin operations with a project key, expose secrets client-side, enable `NEXUS_DEV_MODE=true` on a public service, or reuse one project key across apps. Stop on a 409 project conflict and inspect before retrying.
