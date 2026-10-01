@@ -13,7 +13,7 @@ Each stable version creates a GitHub Release containing:
 - Python wheel (`.whl`);
 - Python source distribution (`.tar.gz`).
 
-Stable releases use semantic tags such as `v0.3.0`, `v0.4.0`, and eventually `v1.0.0`.
+Stable releases use semantic tags such as `v0.3.0`, `v0.4.0`, `v0.5.0`, and eventually `v1.0.0`.
 
 ### GitHub Packages / GHCR
 
@@ -31,36 +31,33 @@ The image is built from the repository `Dockerfile` and is subject to the same D
 
 ### v0.3.0 — first formal Starship Guardians release
 
-Published and verified through GitHub Actions. It established:
-
-- Guardian Intelligence Lab, multi-judge evaluation, regression corpus, and promotion gates;
-- adaptive Guardian routing and persistent performance evidence;
-- PostgreSQL distributed queue foundation;
-- Python 3.11/3.12/3.13, live Uvicorn, Docker, and PostgreSQL production-verification gates;
-- Mission Intelligence primitives;
-- reconciled ChatGPT/Codex plugin;
-- canonical Current State Graph;
-- automated GitHub Release + GHCR package publication.
+Published and verified through GitHub Actions. It established Guardian Intelligence Lab, multi-judge evaluation, regression protection, adaptive routing, distributed queue foundations, production-verification gates, the reconciled plugin, Current State Graph, and automated release/package publication.
 
 ### v0.4.0 — live Mission Runtime and controlled integration policy
 
+Published and verified through GitHub Actions. It added live Mission Intelligence, project-scoped mission planning, collective Guardian routing, controlled high-level Tool Gateway policy, integration-readiness contracts, and durable `mission_intelligence` evidence.
+
+### v0.5.0 — Intelligence Fabric
+
 Current release target. It adds:
 
-- live Mission Intelligence in the REST run path;
-- project-scoped mission planning endpoint;
-- collective multi-Guardian capability/tool coverage;
-- controlled high-level Tool Gateway policy;
-- separate project `gateway_tools` permissions;
-- Lucio AI Platform, Ember, Nexus Code, Railway, and Supabase readiness contracts;
-- integration-readiness API that never equates readiness with a real connection;
-- durable `mission_intelligence` events in run traces;
-- updated Current State Graph and v0.4 ChatGPT/Codex plugin metadata.
+- `IntelligenceFabric` composition layer;
+- explicit Strategy Engine with inspectable strategy rationale and evidence requirements;
+- Knowledge Graph foundation with dependency/impact traversal;
+- Model Performance Registry using verified task-specific quality/reliability/cost/latency evidence;
+- Memory Quality Registry with helpful/harmful/neutral reuse tracking and quarantine;
+- deterministic adversarial guardrail generation;
+- explicit uncertainty and assumptions;
+- project-scoped `/intelligence-plan` API;
+- durable `strategy_intelligence` run evidence;
+- updated animated Current State Graph and dedicated Intelligence Fabric visual;
+- runtime/plugin release alignment at `0.5.0`.
 
 ## Release process
 
 1. Implement on a feature/release branch.
 2. Update the Current State Graph if architecture changed.
-3. Update tests, docs, learnings, and changelog.
+3. Update tests, docs, visuals, learnings, and changelog.
 4. Bump `pyproject.toml` to a stable semantic version.
 5. Keep both plugin manifests aligned when the plugin changes.
 6. Open a pull request and require the normal CI matrix to pass.
@@ -72,11 +69,11 @@ Current release target. It adds:
 
 - `0.x.y`: active pre-1.0 development with compatibility preservation where practical.
 - patch (`x.y.Z`): bug fixes, compatibility, documentation, verification improvements.
-- minor (`x.Y.0`): new subsystems, major routing/evaluation/integration capabilities.
+- minor (`x.Y.0`): new subsystems, major routing/evaluation/integration/intelligence capabilities.
 - major (`X.0.0`): deliberately versioned breaking changes.
 
 Technical legacy identifiers such as the `nexus_os` Python namespace and REST v1 `agent` / `agents` fields are not removed merely because the product name changed. Their removal requires a documented migration and regression coverage.
 
 ## Current release target
 
-**v0.4.0** — Live Mission Runtime, collective Guardian routing, controlled tool-gateway policy, and explicit external-integration readiness contracts while preserving REST v1 compatibility.
+**v0.5.0** — Nexus Intelligence Fabric: strategy selection, Knowledge Graph foundations, memory-quality controls, task-specific model-performance evidence, adversarial guardrails, uncertainty, and durable strategy intelligence while preserving v0.4 compatibility.
