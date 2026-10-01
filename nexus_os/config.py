@@ -16,6 +16,7 @@ class Settings:
     learning_path: str = "./data/guardian_learning.jsonl"
     evaluation_path: str = "./data/guardian_evaluations.jsonl"
     adaptive_intelligence_path: str = "./data/adaptive_guardian_intelligence.json"
+    cognitive_evolution_path: str = "./data/guardian_cognitive_evolution.json"
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -48,5 +49,9 @@ class Settings:
             adaptive_intelligence_path=os.getenv(
                 "NEXUS_ADAPTIVE_INTELLIGENCE_PATH",
                 "./data/adaptive_guardian_intelligence.json",
+            ),
+            cognitive_evolution_path=os.getenv(
+                "NEXUS_COGNITIVE_EVOLUTION_PATH",
+                "./data/guardian_cognitive_evolution.json",
             ),
         )
