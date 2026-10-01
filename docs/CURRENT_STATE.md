@@ -16,15 +16,15 @@ flowchart TD
     B --> B4[Model Performance Registry]
     B --> B5[Adversarial Evaluation]
     B --> B6[Uncertainty + Assumptions]
-    B --> AGI[Adaptive Guardian Intelligence]
+    B --> AGI[Live Adaptive Guardian Intelligence]
     AGI --> ES[10 Elite Specialist Guardians]
     AGI --> TP[Per-Skill Training Priorities]
-    AGI --> AS[Adaptive Skill Evidence]
+    AGI --> AS[Persistent Adaptive Skill Evidence]
 
     B --> C[Mission Intelligence]
     C --> D[Live Mission Runtime]
     D --> E[Capability Map]
-    E --> F[Guardian Registry]
+    E --> F[Guardian Registry incl. Elite Specialists]
     F --> G[Adaptive Team Router]
     AS --> G
     G --> H[Models]
@@ -60,7 +60,9 @@ flowchart TD
     BS --> GIL[Guardian Intelligence Lab]
     GIL --> O
 
-    O --> AL[Verified Specialist Learning]
+    K --> SV[Server Verification Evidence]
+    SV --> AL[Automatic Verified Specialist Learning]
+    O --> AL
     AL --> AGI
     P --> Q[Learning Memory]
     Q --> B3
@@ -72,7 +74,7 @@ flowchart TD
     CI --> R
     R --> S[Release]
 
-    T[ChatGPT / Codex Plugin v0.7.0] --> U[Nexus REST v1 Adapter]
+    T[ChatGPT / Codex Plugin v0.7.1] --> U[Nexus REST v1 Adapter]
     U --> D
 
     S --> V[GitHub Release]
@@ -83,11 +85,13 @@ flowchart TD
 
 ## System state
 
-- **Adaptive Guardian Intelligence:** specialist intelligence layer that tracks per-skill verified evidence, success rate, quality, benchmark pass rate, recent trend, confidence, and critical-regression penalties. It produces bounded routing bonuses and targeted training priorities without changing permissions or model weights.
-- **10 Elite Specialist Guardians:** AI Architect, Software Platform Engineer, AI Developer, Coder Specialist, AI Engineer, Debugger Specialist, AI Scientist, AI Cloud Specialist, API Specialist, and AI Programmer Guardians.
-- **Verified Specialist Learning:** only verified outcomes may update adaptive skill evidence. Unverified claims are rejected from the adaptive-learning path.
+- **Live Adaptive Guardian Intelligence:** persistent specialist intelligence is instantiated by the API runtime and supplied to the live Mission Runtime and Adaptive Team Router. The state path defaults to `./data/adaptive_guardian_intelligence.json` and is configurable with `NEXUS_ADAPTIVE_INTELLIGENCE_PATH`.
+- **10 Elite Specialist Guardians:** AI Architect, Software Platform Engineer, AI Developer, Coder Specialist, AI Engineer, Debugger Specialist, AI Scientist, AI Cloud Specialist, API Specialist, and AI Programmer Guardians are now registered in the default live Guardian Registry rather than existing only as profile definitions.
+- **Automatic Verified Specialist Learning:** terminal specialist runs feed adaptive skill evidence automatically only when verification is objective. Successful runs require a `test`, `api`, `browser`, or `security` tool result; concrete provider/policy/tool/max-step failures can teach failure evidence. A self-reported final answer does not reinforce expertise.
+- **Adaptive skill evidence:** tracks per-skill success rate, quality, benchmark performance, recent trend, confidence, and critical-regression penalties. It produces bounded routing bonuses and targeted training priorities without changing permissions or model weights.
 - **Training Priorities:** weak, uncertain, declining, or regression-prone skills are surfaced automatically for replay and additional evaluation instead of being hidden in one aggregate score.
-- **Adaptive Team Router:** keeps explicit capability/tool requirements, while optionally adding a bounded evidence bonus for specialist strengths that have been repeatedly verified. Performance never grants tool access.
+- **Adaptive Team Router:** live routing receives the persistent adaptive intelligence engine and can use a bounded evidence bonus for repeatedly verified specialist strengths. Performance never grants tool access.
+- **Dynamic API versioning:** FastAPI metadata and `/health` now report the package `__version__` instead of a stale hard-coded version. Health also exposes `adaptive_guardian_intelligence=live` and the live specialist count.
 - **Benchmark Replay:** replays pending Benchmark Vault candidates against selected strategies before review and records replay passes/failures, score, strategy, and failure category back into the vault.
 - **Coverage Intelligence:** measures benchmark breadth across architecture, platform, coding, debugging, AI/ML, evaluation, cloud, API, security, database, UI, deployment, tool-use, and reliability. It identifies gaps and snapshot-to-snapshot growth.
 - **Guardian Benchmark Vault:** verified regressions become evidence-linked candidates. Replay can strengthen review evidence, but replay never auto-approves benchmark truth.
@@ -103,13 +107,13 @@ flowchart TD
 ```text
 mission
   ↓
-specialist Guardian selection
+live specialist Guardian selection
   ↓
 execution
   ↓
-verification + benchmark evidence
+objective verification OR concrete failure evidence
   ↓
-per-skill outcome update
+automatic per-skill outcome update
   ↓
 confidence / trend / regression analysis
   ↓
@@ -117,6 +121,8 @@ training priorities + bounded routing adaptation
   ↓
 next mission uses stronger evidence
 ```
+
+Successful runs without objective verification do **not** update adaptive specialist evidence.
 
 ## Benchmark replay + coverage loop
 

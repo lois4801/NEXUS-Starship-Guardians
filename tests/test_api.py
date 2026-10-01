@@ -10,7 +10,17 @@ from nexus_os.storage import Store
 
 @pytest.fixture
 def api(tmp_path):
-    settings = Settings("test-admin-secret", str(tmp_path / "nexus.db"), "http://localhost:11434/v1", "", "llama3.2", True)
+    settings = Settings(
+        admin_token="test-admin-secret",
+        db_path=str(tmp_path / "nexus.db"),
+        model_base_url="http://localhost:11434/v1",
+        model_api_key="",
+        model_name="llama3.2",
+        dev_mode=True,
+        learning_path=str(tmp_path / "learning.jsonl"),
+        evaluation_path=str(tmp_path / "evaluations.jsonl"),
+        adaptive_intelligence_path=str(tmp_path / "adaptive.json"),
+    )
     app = create_app(settings, Store(settings.db_path))
     return TestClient(app)
 
@@ -37,6 +47,8 @@ def test_requires_auth_and_admin(api):
     assert api.post("/v1/projects", headers=headers(key), json={"project_id": "ember", "display_name": "Ember"}).status_code == 403
     health = api.get("/health").json()
     assert health["status"] == "ok"
+    assert health["adaptive_guardian_intelligence"] == "live"
+    assert health["adaptive_specialists"] == 10
     assert health["mission_intelligence"] == "live"
     assert health["intelligence_fabric"] == "live"
     assert api.get("/v1/projects/lucio", headers=headers(key)).status_code == 200

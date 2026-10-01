@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 from fastapi.testclient import TestClient
 
+from nexus_os.adaptive_intelligence import SPECIALIST_INTELLIGENCE_PROFILES
 from nexus_os.adaptive_router import AdaptiveGuardianRouter, MissionRequirements
 from nexus_os.api import create_app
 from nexus_os.config import Settings
@@ -69,6 +70,14 @@ def test_mission_runtime_marks_project_disabled_tools_as_blocked():
     assert not plan.sufficient
 
 
+def test_default_live_registry_includes_all_adaptive_specialists():
+    runtime = MissionRuntime()
+    registered = {item.profile.guardian_id for item in runtime.registry.all()}
+    expected = {profile.guardian_id for profile in SPECIALIST_INTELLIGENCE_PROFILES}
+    assert expected <= registered
+    assert len(expected) == 10
+
+
 @pytest.fixture
 def api(tmp_path):
     settings = Settings(
@@ -80,6 +89,7 @@ def api(tmp_path):
         dev_mode=True,
         learning_path=str(tmp_path / "learning.jsonl"),
         evaluation_path=str(tmp_path / "evaluation.jsonl"),
+        adaptive_intelligence_path=str(tmp_path / "adaptive.json"),
     )
     return TestClient(create_app(settings, Store(settings.db_path)))
 

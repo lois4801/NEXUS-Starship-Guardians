@@ -1,3 +1,4 @@
+from nexus_os.adaptive_intelligence import AdaptiveGuardianIntelligence
 from nexus_os.learning_memory import GuardianLearningEngine, JsonlLearningStore
 from nexus_os.server_learning import ServerLearningRecorder
 
@@ -43,3 +44,83 @@ def test_server_learning_does_not_record_pending_runs(tmp_path):
         }
     )
     assert store.records() == []
+
+
+def test_verified_specialist_success_learns_automatically(tmp_path):
+    store = JsonlLearningStore(tmp_path / "learning.jsonl")
+    adaptive = AdaptiveGuardianIntelligence(tmp_path / "adaptive.json")
+    recorder = ServerLearningRecorder(GuardianLearningEngine(store), adaptive)
+    run = {
+        "run_id": "run-specialist-success",
+        "project_id": "project-a",
+        "agent": "coder-specialist",
+        "goal": "Build and test the backend feature",
+        "answer": "done",
+        "status": "completed",
+        "steps_used": 3,
+        "events": [
+            {
+                "type": "mission_intelligence",
+                "capabilities": ["backend", "testing"],
+            },
+            {"type": "tool_result", "tool": "test", "result": "passed"},
+            {"type": "final", "answer": "done"},
+        ],
+    }
+
+    recorder.record_if_terminal(run)
+    state = adaptive.state("coder-specialist")
+    assert state.verified_runs == 1
+    assert state.learning_cycles == 1
+    assert state.skills["backend"].attempts == 1
+    assert state.skills["backend"].successes == 1
+    assert state.skills["testing"].adaptive_score > 5.0
+
+
+def test_unverified_specialist_success_does_not_reinforce_itself(tmp_path):
+    store = JsonlLearningStore(tmp_path / "learning.jsonl")
+    adaptive = AdaptiveGuardianIntelligence(tmp_path / "adaptive.json")
+    recorder = ServerLearningRecorder(GuardianLearningEngine(store), adaptive)
+    recorder.record_if_terminal(
+        {
+            "run_id": "run-specialist-unverified",
+            "project_id": "project-a",
+            "agent": "coder-specialist",
+            "goal": "Build the backend feature",
+            "answer": "done",
+            "status": "completed",
+            "steps_used": 1,
+            "events": [
+                {"type": "mission_intelligence", "capabilities": ["backend"]},
+                {"type": "final", "answer": "done"},
+            ],
+        }
+    )
+    state = adaptive.state("coder-specialist")
+    assert state.verified_runs == 0
+    assert "backend" not in state.skills
+
+
+def test_verified_specialist_failure_learns_from_concrete_failure_event(tmp_path):
+    store = JsonlLearningStore(tmp_path / "learning.jsonl")
+    adaptive = AdaptiveGuardianIntelligence(tmp_path / "adaptive.json")
+    recorder = ServerLearningRecorder(GuardianLearningEngine(store), adaptive)
+    recorder.record_if_terminal(
+        {
+            "run_id": "run-specialist-failure",
+            "project_id": "project-a",
+            "agent": "api-specialist",
+            "goal": "Repair the API",
+            "answer": "",
+            "status": "failed",
+            "steps_used": 2,
+            "events": [
+                {"type": "mission_intelligence", "capabilities": ["backend"]},
+                {"type": "tool_error", "tool": "api", "error": "contract mismatch"},
+            ],
+        }
+    )
+    evidence = adaptive.state("api-specialist").skills["backend"]
+    assert evidence.attempts == 1
+    assert evidence.successes == 0
+    assert evidence.average_score == 2.0

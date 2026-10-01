@@ -1,13 +1,14 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "nexus-starship-guardians",
-  "version": "0.7.0",
-  "description": "Project-scoped Guardian operations with Adaptive Guardian Intelligence, Benchmark Replay, Coverage Intelligence, governed Benchmark Vault learning, fingerprinted evaluation, approvals, and verified runtime workflows.",
+  "version": "0.7.1",
+  "description": "Project-scoped Guardian operations with live Adaptive Guardian Intelligence, automatic verified specialist learning, Benchmark Replay, Coverage Intelligence, governed Benchmark Vault learning, fingerprinted evaluation, approvals, and verified runtime workflows.",
   "repository": "https://github.com/lois4801/NEXUS-Starship-Guardians",
   "keywords": [
     "guardians",
     "orchestration",
     "adaptive-intelligence",
+    "automatic-learning",
     "benchmark-replay",
     "coverage-intelligence",
     "benchmark-vault",
@@ -20,25 +21,25 @@
       "interface": {
         "displayName": "Nexus Starship Guardians",
         "shortDescription": "Operate adaptive verified Guardian intelligence workflows",
-        "longDescription": "Plan, operate, evaluate, learn, and review project-scoped Nexus Starship Guardians workflows. v0.7 adds Adaptive Guardian Intelligence for specialist AI architects, platform engineers, AI developers, coder/debugging specialists, AI engineers/scientists, cloud specialists, API specialists, and AI programmers. Verified outcomes update per-skill evidence, confidence, trend, benchmark performance, training priorities, and a bounded routing bonus. Benchmark Replay re-runs review candidates before approval, while Coverage Intelligence measures benchmark breadth across architecture, platform, coding, debugging, AI/ML, cloud, API, security, database, UI, deployment, tool-use, evaluation, and reliability. Automatic learning cannot grant permissions, mutate model weights live, or silently approve benchmark truth.",
+        "longDescription": "Plan, operate, evaluate, learn, and review project-scoped Nexus Starship Guardians workflows. v0.7.1 activates Adaptive Guardian Intelligence in the live runtime: AI architects, platform engineers, AI developers, coder/debugging specialists, AI engineers/scientists, cloud specialists, API specialists, and AI programmers are registered for live routing, and verified terminal outcomes automatically update persistent per-skill evidence, confidence, trend, and training priorities. Successful runs require objective test/API/browser/security evidence before reinforcing specialist expertise; concrete runtime failures can teach failure evidence automatically. Benchmark Replay and Coverage Intelligence remain governed evaluation layers. Automatic learning cannot grant permissions, mutate model weights live, or silently approve benchmark truth.",
         "developerName": "Nexus Starship Guardians",
         "category": "Developer Tools",
         "capabilities": [
-          "Adapt specialist Guardian skill evidence from verified outcomes",
+          "Automatically adapt specialist Guardian skill evidence from verified live outcomes",
           "Route missions using bounded evidence from proven specialist strengths",
+          "Keep ten elite specialist Guardians available in the live default registry",
           "Replay Benchmark Vault candidates before governed review",
           "Measure benchmark coverage and snapshot-to-snapshot category growth",
           "Generate targeted training priorities from weak, uncertain, or regressing skills",
           "Evaluate baseline and candidate strategies against fingerprinted fixed corpora",
-          "Grow future benchmark snapshots through evidence-linked regression candidates and explicit review",
           "Run and inspect authorized Guardian tasks without inferring permissions from performance"
         ],
         "defaultPrompt": [
           "Show the adaptive intelligence summary and training priorities for my specialist Guardians.",
+          "Explain which specialist Guardians have learned from verified runs and why.",
           "Replay pending Benchmark Vault candidates and summarize which failures reproduce.",
           "Analyze benchmark coverage gaps across architecture, coding, debugging, AI, cloud, API, security, database, UI, deployment, and tool-use.",
-          "Route this mission using verified specialist performance evidence without changing tool permissions.",
-          "Compare a baseline and candidate using the Guardian Intelligence Lab and show promotion evidence."
+          "Route this mission using verified specialist performance evidence without changing tool permissions."
         ],
         "brandColor": "#0B1730",
         "brandColorDark": "#8B5CF6",

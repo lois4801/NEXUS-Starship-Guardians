@@ -7,6 +7,7 @@ from importlib import metadata
 
 from fastapi.testclient import TestClient
 
+from nexus_os import __version__
 from nexus_os.api import create_app
 from nexus_os.config import Settings
 from nexus_os.storage import Store
@@ -43,14 +44,17 @@ def test_api_health_reports_current_product_version(tmp_path):
         model_api_key="",
         learning_path=str(tmp_path / "learning.jsonl"),
         evaluation_path=str(tmp_path / "evaluation.jsonl"),
+        adaptive_intelligence_path=str(tmp_path / "adaptive.json"),
     )
     app = create_app(settings=settings, store=Store(settings.db_path))
     response = TestClient(app).get("/health")
     assert response.status_code == 200
     payload = response.json()
     assert payload["status"] == "ok"
-    assert payload["version"] == "0.5.0"
+    assert payload["version"] == __version__
     assert payload["learning"] == "enabled"
+    assert payload["adaptive_guardian_intelligence"] == "live"
+    assert payload["adaptive_specialists"] == 10
     assert payload["mission_intelligence"] == "live"
     assert payload["intelligence_fabric"] == "live"
 

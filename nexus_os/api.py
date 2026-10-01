@@ -7,6 +7,8 @@ from typing import Any
 
 from fastapi import Depends, FastAPI, Header, HTTPException
 
+from . import __version__
+from .adaptive_intelligence import AdaptiveGuardianIntelligence
 from .config import Settings
 from .integration_contracts import IntegrationContractRegistry
 from .intelligence_fabric import IntelligenceFabric
@@ -34,8 +36,9 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
     settings = settings or Settings.from_env()
     store = store or Store(settings.db_path)
     learning = GuardianLearningEngine(JsonlLearningStore(Path(settings.learning_path)))
-    learning_recorder = ServerLearningRecorder(learning)
-    mission_runtime = MissionRuntime()
+    adaptive_intelligence = AdaptiveGuardianIntelligence(Path(settings.adaptive_intelligence_path))
+    learning_recorder = ServerLearningRecorder(learning, adaptive_intelligence)
+    mission_runtime = MissionRuntime(adaptive_intelligence=adaptive_intelligence)
     intelligence_fabric = IntelligenceFabric(classifier=mission_runtime.classifier)
     integrations = IntegrationContractRegistry()
     orchestrator = Orchestrator(
@@ -45,7 +48,7 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
         mission_runtime=mission_runtime,
         intelligence_fabric=intelligence_fabric,
     )
-    app = FastAPI(title="Nexus Starship Guardians", version="0.5.0", docs_url="/docs")
+    app = FastAPI(title="Nexus Starship Guardians", version=__version__, docs_url="/docs")
     install_http_tracing(app)
 
     def authenticate(authorization: str | None = Header(default=None)) -> str:
@@ -121,9 +124,11 @@ def create_app(settings: Settings | None = None, store: Store | None = None) -> 
     def health():
         return {
             "status": "ok",
-            "version": "0.5.0",
+            "version": __version__,
             "mode": "dev" if settings.dev_mode else "configured",
             "learning": "enabled",
+            "adaptive_guardian_intelligence": "live",
+            "adaptive_specialists": len(adaptive_intelligence.profiles()),
             "mission_intelligence": "live",
             "intelligence_fabric": "live",
         }

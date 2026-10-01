@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
-  <title id="title">Adaptive Guardian Intelligence v0.7.0</title>
-  <desc id="desc">Animated visualization of specialist Guardians learning from verified outcomes, benchmark replay, coverage gaps, and adaptive routing.</desc>
+  <title id="title">Adaptive Guardian Intelligence v0.7.1</title>
+  <desc id="desc">Animated visualization of live specialist Guardians automatically learning from objective verified outcomes, benchmark replay, coverage gaps, and adaptive routing.</desc>
   <defs>
     <radialGradient id="bg"><stop stop-color="#10213f"/><stop offset="1" stop-color="#020617"/></radialGradient>
     <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22d3ee"/><stop offset=".5" stop-color="#8b5cf6"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
@@ -11,11 +11,11 @@
   </defs>
   <rect width="1600" height="1100" rx="36" fill="url(#bg)"/>
   <text x="70" y="78" class="h">ADAPTIVE GUARDIAN INTELLIGENCE</text>
-  <text x="72" y="112" class="s">v0.7.0 · verified learning, specialist skill evidence, benchmark replay, coverage intelligence, adaptive routing</text>
+  <text x="72" y="112" class="s">v0.7.1 · live automatic verified learning · persistent skill evidence · benchmark replay · coverage intelligence</text>
 
   <circle cx="800" cy="555" r="230" fill="none" stroke="url(#ring)" stroke-width="6" stroke-dasharray="20 16" opacity=".65" filter="url(#glow)"><animateTransform attributeName="transform" type="rotate" from="0 800 555" to="360 800 555" dur="18s" repeatCount="indefinite"/></circle>
   <circle cx="800" cy="555" r="165" fill="#081426" stroke="#8b5cf6" stroke-width="3" filter="url(#glow)"/>
-  <text x="800" y="520" class="l" text-anchor="middle">Adaptive Guardian</text>
+  <text x="800" y="520" class="l" text-anchor="middle">Live Adaptive Guardian</text>
   <text x="800" y="548" class="l" text-anchor="middle">Intelligence Core</text>
   <text x="800" y="585" class="t" text-anchor="middle">quality • reliability • benchmark</text>
   <text x="800" y="610" class="t" text-anchor="middle">confidence • trend • regression risk</text>
@@ -44,7 +44,7 @@
   </g>
 
   <path d="M610 555 H455" stroke="#22d3ee" stroke-width="5" stroke-dasharray="12 10"><animate attributeName="stroke-dashoffset" values="0;-44" dur="1.4s" repeatCount="indefinite"/></path>
-  <g transform="translate(250 505)"><rect class="node cyan" width="205" height="100" rx="18"/><text x="102" y="39" class="l" text-anchor="middle">Verified Outcomes</text><text x="102" y="67" class="t" text-anchor="middle">tests • judges • evidence</text></g>
+  <g transform="translate(220 495)"><rect class="node cyan" width="235" height="120" rx="18"/><text x="117" y="36" class="l" text-anchor="middle">Automatic Verified</text><text x="117" y="61" class="l" text-anchor="middle">Learning</text><text x="117" y="88" class="t" text-anchor="middle">test • API • browser • security</text><text x="117" y="108" class="t" text-anchor="middle">or concrete failure evidence</text></g>
 
   <path d="M990 555 H1140" stroke="#f59e0b" stroke-width="5" stroke-dasharray="12 10"><animate attributeName="stroke-dashoffset" values="0;-44" dur="1.6s" repeatCount="indefinite"/></path>
   <g transform="translate(1140 505)"><rect class="node amber" width="210" height="100" rx="18"/><text x="105" y="39" class="l" text-anchor="middle">Adaptive Routing</text><text x="105" y="67" class="t" text-anchor="middle">bounded evidence bonus</text></g>
@@ -52,5 +52,5 @@
   <g transform="translate(610 925)"><rect class="node pink" width="380" height="105" rx="20"/><text x="190" y="38" class="l" text-anchor="middle">Benchmark Replay + Coverage</text><text x="190" y="67" class="t" text-anchor="middle">reproduce failures • find domain gaps</text><text x="190" y="91" class="t" text-anchor="middle">gaps become targeted training priorities</text></g>
   <path d="M800 720 V925" stroke="#d946ef" stroke-width="5" stroke-dasharray="12 10"><animate attributeName="stroke-dashoffset" values="0;-44" dur="1.8s" repeatCount="indefinite"/></path>
 
-  <text x="70" y="1060" class="s">Automatic adaptation changes evidence, priorities, and routing preference—not credentials, tool permissions, live model weights, or benchmark approval.</text>
+  <text x="70" y="1060" class="s">Automatic adaptation changes verified evidence, priorities, and routing preference—not credentials, tool permissions, live model weights, or benchmark approval.</text>
 </svg>

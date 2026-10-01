@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+from .adaptive_intelligence import SPECIALIST_INTELLIGENCE_PROFILES, AdaptiveGuardianIntelligence
 from .adaptive_router import AdaptiveGuardianRouter
 from .guardian_registry import GuardianProfile, GuardianRegistry
 from .guardian_teams import artificial_architecture_team
@@ -31,6 +32,21 @@ _DIVISION_TOOLS: dict[str, frozenset[str]] = {
     "operations": frozenset({"observability", "terminal"}),
 }
 
+_SPECIALIST_ROUTING_ALIASES: dict[str, frozenset[str]] = {
+    "ai-architect": frozenset({"architecture", "integration", "ai-engineering"}),
+    "software-platform-engineer": frozenset(
+        {"architecture", "devops", "observability", "backend", "database", "integration"}
+    ),
+    "ai-developer": frozenset({"ai-engineering", "integration", "backend", "testing"}),
+    "coder-specialist": frozenset({"backend", "frontend", "testing"}),
+    "ai-engineer": frozenset({"ai-engineering", "testing", "observability"}),
+    "debugger-specialist": frozenset({"testing", "backend", "frontend"}),
+    "ai-scientist": frozenset({"ai-engineering", "testing"}),
+    "ai-cloud-specialist": frozenset({"devops", "observability", "security", "database"}),
+    "api-specialist": frozenset({"backend", "security", "integration", "testing"}),
+    "ai-programmer": frozenset({"backend", "frontend", "testing", "integration"}),
+}
+
 
 @dataclass(frozen=True, slots=True)
 class LiveMissionPlan:
@@ -54,10 +70,12 @@ class MissionRuntime:
         classifier: MissionClassifier | None = None,
         registry: GuardianRegistry | None = None,
         gateway: ControlledToolGateway | None = None,
+        adaptive_intelligence: AdaptiveGuardianIntelligence | None = None,
     ) -> None:
         self.classifier = classifier or MissionClassifier()
         self.registry = registry or build_default_guardian_registry()
-        self.router = AdaptiveGuardianRouter(self.registry)
+        self.adaptive_intelligence = adaptive_intelligence
+        self.router = AdaptiveGuardianRouter(self.registry, adaptive_intelligence)
         self.gateway = gateway or ControlledToolGateway()
 
     def plan(self, goal: str, *, project_gateway_tools: frozenset[str]) -> LiveMissionPlan:
@@ -66,8 +84,7 @@ class MissionRuntime:
             classification.requirements.tools,
             project_tools=project_gateway_tools,
         )
-        routable_requirements = classification.requirements
-        decision = self.router.route(routable_requirements)
+        decision = self.router.route(classification.requirements)
         sufficient = decision.sufficient and not blocked_tools
         return LiveMissionPlan(
             kind=classification.kind.value,
@@ -85,6 +102,39 @@ class MissionRuntime:
 
 def _slug(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", value.casefold()).strip("-")
+
+
+def _specialist_tools(capabilities: frozenset[str]) -> frozenset[str]:
+    tools: set[str] = set()
+    if capabilities & {"testing", "debugging", "evaluation", "regression-analysis", "repair"}:
+        tools.add("test")
+    if capabilities & {"backend", "api-design", "contracts", "authentication"}:
+        tools.add("api")
+    if capabilities & {"frontend"}:
+        tools.add("browser")
+    if capabilities & {"security"}:
+        tools.add("security")
+    if capabilities & {"database"}:
+        tools.add("database")
+    if capabilities & {"integration", "integration-design", "model-integration"}:
+        tools.add("integration")
+    if capabilities & {
+        "ai-engineering",
+        "ai-development",
+        "rag",
+        "agents",
+        "prompt-engineering",
+        "inference",
+        "model-routing",
+        "production-ai",
+        "ai-research",
+    }:
+        tools.add("model")
+    if capabilities & {"devops", "cloud", "containers", "deployment", "infrastructure", "scaling"}:
+        tools.add("terminal")
+    if capabilities & {"observability"}:
+        tools.add("observability")
+    return frozenset(tools)
 
 
 def build_default_guardian_registry() -> GuardianRegistry:
@@ -128,6 +178,19 @@ def build_default_guardian_registry() -> GuardianRegistry:
                 role=role.name,
                 capabilities=frozenset(capabilities or {"general-engineering"}),
                 allowed_tools=frozenset(tools),
+            )
+        )
+
+    for specialist in SPECIALIST_INTELLIGENCE_PROFILES:
+        capabilities = specialist.capabilities | _SPECIALIST_ROUTING_ALIASES.get(
+            specialist.guardian_id, frozenset()
+        )
+        registry.register(
+            GuardianProfile(
+                guardian_id=specialist.guardian_id,
+                role=specialist.role,
+                capabilities=capabilities,
+                allowed_tools=_specialist_tools(capabilities),
             )
         )
     return registry
