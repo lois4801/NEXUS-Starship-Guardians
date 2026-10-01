@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from nexus_os.evaluation_lab import EvaluationCase
 from nexus_os.fixed_corpus import FixedEvaluationCorpus
 
-
 DEFAULT_COVERAGE_CATEGORIES: tuple[str, ...] = (
     "architecture",
     "platform",
