@@ -41,7 +41,12 @@ class MissionClassifier:
         complexity = self._complexity(normalized, len(match.capabilities))
         minimum, maximum = self._team_bounds(kind, complexity)
         reasons = (kind_reason, *tuple(f"capability:{item}" for item in match.matched_rules))
-        confidence = min(0.98, 0.55 + (0.08 * len(match.matched_rules)) + (0.08 if kind is not MissionKind.GENERAL else 0.0))
+        confidence = min(
+            0.98,
+            0.55
+            + (0.08 * len(match.matched_rules))
+            + (0.08 if kind is not MissionKind.GENERAL else 0.0),
+        )
         return MissionClassification(
             kind=kind,
             requirements=MissionRequirements(
@@ -56,13 +61,16 @@ class MissionClassifier:
 
     @staticmethod
     def _kind(normalized: str) -> tuple[MissionKind, str]:
+        # Delivery intent has precedence over supporting work mentioned in the same mission.
+        # Example: "Build an API with tests" is a feature mission with a testing capability,
+        # not a test-only mission. Bug/fix intent remains the strongest signal.
         rules = (
             (MissionKind.BUG_FIX, ("bug", "fix", "broken", "error", "debug")),
             (MissionKind.REFACTOR, ("refactor", "cleanup", "restructure", "modernize")),
-            (MissionKind.TEST, ("test", "verify", "qa", "regression")),
-            (MissionKind.DEPLOY, ("deploy", "release", "railway", "docker", "production")),
-            (MissionKind.RESEARCH, ("research", "compare", "investigate", "analyze")),
             (MissionKind.FEATURE, ("feature", "build", "create", "implement", "add")),
+            (MissionKind.DEPLOY, ("deploy", "release", "railway", "production")),
+            (MissionKind.RESEARCH, ("research", "compare", "investigate", "analyze")),
+            (MissionKind.TEST, ("test", "verify", "qa", "regression")),
         )
         for kind, keywords in rules:
             for keyword in keywords:
@@ -75,7 +83,15 @@ class MissionClassifier:
         score = capability_count
         score += sum(
             marker in normalized
-            for marker in ("production", "multi", "migration", "security", "database", "distributed", "end-to-end")
+            for marker in (
+                "production",
+                "multi",
+                "migration",
+                "security",
+                "database",
+                "distributed",
+                "end-to-end",
+            )
         )
         return score
 
