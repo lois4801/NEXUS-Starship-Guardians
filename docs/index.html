@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Starship Guardians · v0.9.0</title>
+<meta name="description" content="A reusable Guardian engineering runtime — 32 evolving specialist Guardians, a 650-Guardian company runtime, verified learning, and governed benchmark intelligence.">
+<style>
+  :root{
+    --bg0:#0A1128; --bg1:#0D1B3E; --bg2:#120A2E;
+    --ink:#F2F7FF; --mut:#9FB3D9; --dim:#5F739E;
+    --emerald:#2AF598; --cyan:#08AEEA; --violet:#A855F7; --magenta:#F857A6; --orange:#FF9A44; --amber:#F2994A; --lime:#A8FF78;
+    --card:rgba(255,255,255,.045); --line:rgba(255,255,255,.09);
+    --grad-flow:linear-gradient(90deg,#2AF598,#08AEEA 34%,#A855F7 67%,#FF9A44);
+    --grad-sunset:linear-gradient(90deg,#4B6CB7,#F857A6 55%,#FF9A44);
+    --grad-lime:linear-gradient(90deg,#A8FF78,#78FFD6);
+    --grad-amber:linear-gradient(90deg,#F2994A,#F7B733);
+    --grad-deep:linear-gradient(90deg,#1A2980,#26D0CE);
+    --r:22px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1200px 800px at 80% -10%,rgba(168,85,247,.14),transparent 60%),
+               radial-gradient(1000px 700px at -10% 30%,rgba(8,174,234,.12),transparent 60%),
+               linear-gradient(180deg,var(--bg0),var(--bg1) 45%,var(--bg2));
+    color:var(--ink);
+    font-family:"SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  ::selection{background:rgba(42,245,152,.28)}
+  a{color:inherit;text-decoration:none}
+  img,svg{max-width:100%;display:block}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    background:var(--grad-flow);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h1{font-size:clamp(44px,7vw,84px);font-weight:800;letter-spacing:-.03em;line-height:1.02}
+  h2{font-size:clamp(30px,4.4vw,52px);font-weight:800;letter-spacing:-.025em;line-height:1.06}
+  h3{font-size:21px;font-weight:700;letter-spacing:-.01em}
+  .grad-text{background:var(--grad-flow);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{color:var(--mut);font-size:clamp(16px,2vw,20px);line-height:1.6;max-width:760px}
+  section{padding:110px 0;position:relative}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* nav */
+  nav{position:fixed;inset:0 0 auto 0;z-index:50;backdrop-filter:blur(18px) saturate(1.4);
+    background:rgba(10,17,40,.55);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;gap:26px;height:62px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:.02em}
+  .brand .mark{width:26px;height:26px;border-radius:8px;background:var(--grad-flow);box-shadow:0 0 18px rgba(42,245,152,.5)}
+  .nav-links{display:flex;gap:22px;margin-left:auto;font-size:13.5px;color:var(--mut)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .pill{padding:8px 16px;border-radius:99px;font-size:13px;font-weight:700;color:#08111f;background:var(--grad-lime);transition:transform .2s,box-shadow .2s}
+  .pill:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(168,255,120,.35)}
+
+  /* hero */
+  .hero{padding:170px 0 60px;text-align:center}
+  .hero .lede{margin:22px auto 0}
+  .hero-art{margin:56px auto 0;max-width:1060px;border-radius:28px;overflow:hidden;
+    border:1px solid var(--line);box-shadow:0 40px 120px rgba(0,0,0,.55),0 0 0 1px rgba(42,245,152,.06)}
+  .cta-row{display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap}
+  .btn{padding:14px 28px;border-radius:99px;font-weight:700;font-size:15px;transition:transform .2s,box-shadow .2s;display:inline-block}
+  .btn-primary{background:var(--grad-flow);color:#08111f}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(8,174,234,.4)}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink);background:var(--card)}
+  .btn-ghost:hover{border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:70px}
+  .stat{padding:28px 18px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);text-align:center;transition:transform .3s,border-color .3s}
+  .stat:hover{transform:translateY(-4px);border-color:rgba(42,245,152,.35)}
+  .stat .num{font-size:clamp(30px,3.6vw,44px);font-weight:800;background:var(--grad-flow);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .lbl{font-size:13px;color:var(--mut);margin-top:6px}
+
+  /* section head */
+  .sec-head{margin-bottom:54px}
+  .sec-head .lede{margin-top:16px}
+
+  /* cards */
+  .grid{display:grid;gap:18px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .card{padding:30px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.2);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;opacity:.85}
+  .card.c-emerald::before{background:linear-gradient(90deg,#2AF598,#08AEEA)}
+  .card.c-sunset::before{background:linear-gradient(90deg,#4B6CB7,#F857A6,#FF9A44)}
+  .card.c-lime::before{background:linear-gradient(90deg,#A8FF78,#78FFD6)}
+  .card.c-amber::before{background:linear-gradient(90deg,#F2994A,#F7B733)}
+  .card.c-deep::before{background:linear-gradient(90deg,#1A2980,#26D0CE)}
+  .card p{color:var(--mut);font-size:14.5px;line-height:1.6;margin-top:10px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+
+  /* figure */
+  .fig{border-radius:26px;border:1px solid var(--line);background:rgba(255,255,255,.03);padding:18px;margin-top:44px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+  .fig figcaption{text-align:center;color:var(--dim);font-size:12.5px;padding:14px 0 4px;letter-spacing:.04em}
+
+  /* pipeline */
+  .wings{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+  .wing{padding:26px 20px;border-radius:20px;background:var(--card);border:1px solid var(--line);text-align:center;transition:transform .3s}
+  .wing:hover{transform:translateY(-4px)}
+  .wing .big{font-size:34px;font-weight:800}
+  .wing em{display:block;font-style:normal;font-size:12px;color:var(--dim);margin-top:8px;line-height:1.5}
+  .w1 .big{background:var(--grad-lime);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .w2 .big{background:var(--grad-deep);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .w3 .big{background:var(--grad-sunset);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .w4 .big{background:var(--grad-amber);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* roster tables */
+  .wing-block{margin-top:44px}
+  .roles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:22px}
+  .role{padding:16px 20px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-size:14px}
+  .role b{display:block;font-size:14.5px;margin-bottom:3px}
+  .role span{color:var(--mut);font-size:13px;line-height:1.5}
+  .role.e b{color:#7BF0C0}.role.o b{color:#F0A6C8}.role.a b{color:#F7CD8A}
+
+  /* code */
+  pre{border-radius:18px;background:#070D22;border:1px solid var(--line);padding:24px;overflow:auto;font-size:13.5px;line-height:1.7;color:#CFE3FF;margin-top:26px}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+  .inline-code{background:rgba(255,255,255,.07);padding:2px 8px;border-radius:6px;font-size:.92em}
+
+  /* marquee */
+  .marquee{margin-top:90px;overflow:hidden;border-block:1px solid var(--line);padding:22px 0;white-space:nowrap}
+  .marquee-in{display:inline-block;animation:scroll 34s linear infinite;font-size:15px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+  .marquee-in .dot{color:var(--emerald);margin:0 22px}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  footer{border-top:1px solid var(--line);padding:60px 0 80px;color:var(--dim);font-size:13.5px}
+  footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+
+  @media (max-width:960px){
+    .g3,.g2,.roles{grid-template-columns:1fr}
+    .stats,.wings{grid-template-columns:repeat(2,1fr)}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><span class="mark"></span>NEXUS GUARDIANS</a>
+    <div class="nav-links">
+      <a href="#capabilities">Capabilities</a>
+      <a href="#company">Company Runtime</a>
+      <a href="#roster">Roster</a>
+      <a href="#learning">Learning</a>
+      <a href="#agency">Agency Wing</a>
+      <a href="#contract">Contract</a>
+    </div>
+    <a class="pill" href="https://github.com/lois4801/NEXUS-Starship-Guardians">GitHub</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow reveal in">Nexus Starship Guardians · v0.9.0</div>
+    <h1 class="reveal in" style="margin-top:18px">One runtime.<br><span class="grad-text">Thirty-two minds.</span></h1>
+    <p class="lede reveal in">A reusable Guardian engineering runtime — Intelligence Fabric planning, adaptive specialist intelligence, Guardian Cognitive Evolution, permission-safe routing, verified execution, and a company of <strong>650 logical Guardians</strong> that brainstorms, builds, tests, revises, levels up, and learns from every outcome.</p>
+    <div class="cta-row reveal in">
+      <a class="btn btn-primary" href="https://github.com/lois4801/NEXUS-Starship-Guardians">Star the repository</a>
+      <a class="btn btn-ghost" href="#company">See the company runtime</a>
+    </div>
+    <div class="hero-art reveal in"><img src="./assets/hero-premium.jpg" alt="Nexus Starship Guardians — gradient capsule key art" width="2048" height="1152"></div>
+
+    <div class="stats reveal">
+      <div class="stat"><div class="num" data-count="32">0</div><div class="lbl">evolving specialist Guardians</div></div>
+      <div class="stat"><div class="num" data-count="650">0</div><div class="lbl">logical company Guardians</div></div>
+      <div class="stat"><div class="num" data-count="500">0</div><div class="lbl">starting level per Guardian</div></div>
+      <div class="stat"><div class="num" data-count="200">0</div><div class="lbl">max wing · swarm scale</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-in" id="mq"></div></div>
+
+<!-- CAPABILITIES -->
+<section id="capabilities">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Capabilities</div>
+      <h2>Engineered to plan, build,<br>verify, <span class="grad-text">and learn.</span></h2>
+      <p class="lede">Every capability below is live in the runtime, registered in the default mission registry, and guarded by the Controlled Tool Gateway — intelligence never inflates permissions.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card c-emerald reveal"><span class="tag">Core Runtime</span><h3>FastAPI REST + Intelligence Fabric</h3><p>Project-scoped authentication and approval gates; mission classification, strategy, uncertainty, assumptions, model evidence, and adversarial evaluation on every mission.</p></div>
+      <div class="card c-deep reveal"><span class="tag">Intelligence</span><h3>Adaptive Guardian Intelligence</h3><p>Verified per-skill quality, reliability, benchmark evidence, confidence, trend, regression pressure, and training priorities — updated only from objective outcomes.</p></div>
+      <div class="card c-sunset reveal"><span class="tag">Cognition</span><h3>Guardian Cognitive Evolution</h3><p>Verified cross-Guardian lessons, confidence calibration, recurring failure-signature clusters, counterfactual replay plans, and personalized self-training curricula.</p></div>
+      <div class="card c-lime reveal"><span class="tag">Routing</span><h3>Adaptive Team Router + Tool Gateway</h3><p>Routing combines registry utility, bounded direct skill evidence, and a smaller bounded cognitive signal. Authorization lives in the Controlled Tool Gateway — separate from intelligence.</p></div>
+      <div class="card c-amber reveal"><span class="tag">Verification</span><h3>Multi-Judge Evaluation + Repair</h3><p>Guardian Intelligence Lab, Promotion Gate, Regression Corpus, Benchmark Vault, replay, and coverage intelligence — plus browser/API/unit verification, bounded auto-repair, and SHA-256 evidence bundles.</p></div>
+      <div class="card c-emerald reveal"><span class="tag">Scale</span><h3>Swarms, Worktrees + OpenCode</h3><p>Isolated Git worktrees, parallel coding coordination, durable SQLite execution, PostgreSQL lease-queue foundations, and a free/local OpenCode CLI provider across 75+ model providers.</p></div>
+    </div>
+    <figure class="fig reveal">
+      <img src="./assets/guardians-nebula.jpg" alt="The intelligence core with 32 orbiting specialist Guardians" width="2048" height="1152">
+      <figcaption>THE INTELLIGENCE CORE — 32 SPECIALISTS ON THEIR VERIFIED-EVIDENCE ORBITS</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- COMPANY RUNTIME -->
+<section id="company">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Guardian Company Runtime</div>
+      <h2>A company, <span class="grad-text">not a queue.</span></h2>
+      <p class="lede"><code class="inline-code">nexus-guardians company</code> runs missions the way a company runs the whole business — four wings working together, multiple missions in flight at once, and a fast error path that routes failed execution straight to testers.</p>
+    </div>
+    <figure class="fig reveal">
+      <img src="./assets/company-pipeline.svg" alt="Guardian Company Runtime pipeline motion graph" width="1500" height="940">
+      <figcaption>MISSION → BRAINSTORM (50) → EXECUTE (≤200) → TEST &amp; QC (≤200) → REVISE (200) → SHIP</figcaption>
+    </figure>
+    <div class="wings reveal">
+      <div class="wing w1"><div class="big">50</div><h3>Brainstorm</h3><em>Diverge → lead synthesis → full-wing red-team critique → refined plan. Your goal is the floor, not the ceiling.</em></div>
+      <div class="wing w2"><div class="big">≤200</div><h3>Execute</h3><em>Sized by mission complexity; implements the approved plan in parallel.</em></div>
+      <div class="wing w3"><div class="big">≤200</div><h3>Test &amp; QC</h3><em>Sized by complexity; verifies the work product. Failed executions arrive immediately — no waiting for the phase.</em></div>
+      <div class="wing w4"><div class="big">200</div><h3>Revise</h3><em>Re-implements the revised plan when QC finds defects; re-tested up to 3 bounded cycles.</em></div>
+    </div>
+    <div class="card c-deep reveal" style="margin-top:22px">
+      <span class="tag">Company leveling</span>
+      <h3>Level 500 at founding. +1 on every success — and every failure.</h3>
+      <p>Guardians level up only from verified swarm outcomes: every success grants +1 level, every failure grants +1 level (failures teach), and whenever any Guardian levels up, the entire company receives shared experience (10 XP per level-up; 100 XP settles into one level). Leveling is progression bookkeeping — it grants no permissions, and adaptive skill evidence still requires objective test/api/browser/security verification. Fully scaled: <strong style="color:var(--ink)">650 logical Guardians</strong> (50 + 200 + 200 + 200); physical concurrency stays bounded by <code class="inline-code">--max-parallel</code>.</p>
+    </div>
+    <figure class="fig reveal">
+      <img src="./assets/company-constellation.jpg" alt="Four wing constellations exchanging streams of light" width="2048" height="1152">
+      <figcaption>ONE COMPANY — FOUR WING CONSTELLATIONS RUNNING MANY MISSIONS AT ONCE</figcaption>
+    </figure>
+    <pre class="reveal"><code>nexus-guardians company --provider opencode \
+  "Build the landing page" "Write the API docs" "Fix the checkout bug"</code></pre>
+  </div>
+</section>
+
+<!-- ROSTER -->
+<section id="roster">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Specialist Roster</div>
+      <h2>Thirty-two evolving<br><span class="grad-text">specialist Guardians.</span></h2>
+      <p class="lede">Three wings — the original ten elite specialists, the ten-role Autonomous Operations Wing, and the twelve-role Agency Services Wing — all registered in the live default mission registry and deployable through the OpenCode subagent surface.</p>
+    </div>
+    <figure class="fig reveal">
+      <img src="./assets/specialist-roster.svg" alt="The 32 specialist Guardians orbiting the adaptive intelligence core" width="1500" height="1020">
+      <figcaption>ALL 32 SPECIALISTS REPORT VERIFIED EVIDENCE BACK TO THE CORE</figcaption>
+    </figure>
+
+    <div class="wing-block reveal">
+      <div class="card c-emerald"><span class="tag">Wing 1 · v0.7.0 — Elite Specialists</span>
+        <div class="roles">
+          <div class="role e"><b>AI Architect Guardian</b><span>Architecture, systems design, AI architecture, tradeoffs, integration design.</span></div>
+          <div class="role e"><b>Software Platform Engineer Guardian</b><span>Platform engineering, distributed systems, reliability, deployment, observability.</span></div>
+          <div class="role e"><b>AI Developer Guardian</b><span>AI application development, RAG, model integration, prompt engineering, Guardian workflows.</span></div>
+          <div class="role e"><b>Coder Specialist Guardian</b><span>Implementation, refactoring, code review, testing.</span></div>
+          <div class="role e"><b>AI Engineer Guardian</b><span>Production AI, inference, evaluation, model routing, performance.</span></div>
+          <div class="role e"><b>Debugger Specialist Guardian</b><span>Debugging, root-cause analysis, regression analysis, repair.</span></div>
+          <div class="role e"><b>AI Scientist Guardian</b><span>Experiments, statistics, benchmark design, evaluation.</span></div>
+          <div class="role e"><b>AI Cloud Specialist Guardian</b><span>Cloud, containers, deployment, scaling, infrastructure, observability.</span></div>
+          <div class="role e"><b>API Specialist Guardian</b><span>API contracts, authentication, integration, retries, testing.</span></div>
+          <div class="role e"><b>AI Programmer Guardian</b><span>Programming, automation, algorithms, tool use, testing.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wing-block reveal">
+      <div class="card c-sunset"><span class="tag">Wing 2 · v0.9.0 — Autonomous Operations</span>
+        <div class="roles">
+          <div class="role o"><b>Planner Strategist Guardian</b><span>Goal decomposition, task routing, decision rules, prioritization, success criteria.</span></div>
+          <div class="role o"><b>Verification &amp; QA Specialist Guardian</b><span>Independent verification, quality audits, browser QA, verbatim evidence capture, bounded self-heal repair.</span></div>
+          <div class="role o"><b>Independent Reviewer Guardian</b><span>Change-set review against goal + verification evidence; holds gates, never implementation authority.</span></div>
+          <div class="role o"><b>Deployment &amp; Release Guardian</b><span>Preview environments, staged promotion, release gates, rollback plans.</span></div>
+          <div class="role o"><b>Evidence &amp; Research Guardian</b><span>Provenance-carrying research, evidence scoring, source verification, fact-checking before building.</span></div>
+          <div class="role o"><b>Content &amp; SEO Strategist Guardian</b><span>Structured content, keyword intent, conversion copy from verified facts only.</span></div>
+          <div class="role o"><b>Design Experience Guardian</b><span>Design systems, style universes, motion design, accessibility, design QA.</span></div>
+          <div class="role o"><b>Budget &amp; Cost Controller Guardian</b><span>Resource budgets, model routing, cost per verified mission, failure-taxonomy accounting.</span></div>
+          <div class="role o"><b>Data &amp; SQL Analyst Guardian</b><span>SQL and ETL analysis, data-quality checks, dashboard verification, BI reporting.</span></div>
+          <div class="role o"><b>Evaluation Judge Guardian</b><span>LLM-as-judge correctness grading, trajectory evaluation, benchmark evaluation.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wing-block reveal">
+      <div class="card c-amber"><span class="tag">Wing 3 · v0.9.0 — Agency Services</span>
+        <div class="roles">
+          <div class="role a"><b>GIS &amp; Spatial Analyst Guardian</b><span>Geospatial analysis, spatial data, cartography, geoprocessing, remote sensing, GeoAI.</span></div>
+          <div class="role a"><b>Sales Pipeline Strategist Guardian</b><span>Pipeline management, deal strategy, proposal writing, lead qualification, sales coaching.</span></div>
+          <div class="role a"><b>Game Design Guardian</b><span>Game design, level design, narrative design, economy design, game audio, technical art.</span></div>
+          <div class="role a"><b>XR &amp; Spatial Computing Guardian</b><span>XR development, spatial computing, immersive interfaces, visionOS, Metal, 3D interaction.</span></div>
+          <div class="role a"><b>Paid Media Strategist Guardian</b><span>Paid media, PPC, programmatic, paid social, ad tracking, media audits.</span></div>
+          <div class="role a"><b>Financial Analysis Guardian</b><span>Financial analysis, FP&amp;A, bookkeeping, investment research, tax strategy, financial modeling.</span></div>
+          <div class="role a"><b>Healthcare Evidence Guardian</b><span>Healthcare analysis, clinical evidence, health innovation, health systems, medical compliance.</span></div>
+          <div class="role a"><b>Blockchain Engineer Guardian</b><span>Blockchain, smart contracts, Solidity, ZK proofs, DeFi, chain security.</span></div>
+          <div class="role a"><b>Embedded &amp; IoT Guardian</b><span>Embedded systems, firmware, IoT, edge computing, hardware integration.</span></div>
+          <div class="role a"><b>Knowledge &amp; Search Guardian</b><span>Knowledge graphs, search relevance, RAG, information retrieval, embeddings.</span></div>
+          <div class="role a"><b>Legal &amp; Compliance Guardian</b><span>Legal analysis, contract review, compliance audits, privacy law, regulatory affairs.</span></div>
+          <div class="role a"><b>PMO Operations Guardian</b><span>Project management, meeting operations, status reporting, studio operations, workflow coordination.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNING -->
+<section id="learning">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Verified Learning</div>
+      <h2>Evidence before claims.<br><span class="grad-text">Always.</span></h2>
+      <p class="lede">A Guardian merely saying "done" is not verification. Successful runs require objective <code class="inline-code">test</code>, <code class="inline-code">api</code>, <code class="inline-code">browser</code>, or <code class="inline-code">security</code> evidence before they can reinforce expertise; concrete runtime failures teach failure evidence automatically.</p>
+    </div>
+    <figure class="fig reveal">
+      <img src="./assets/learning-loop.svg" alt="Verified learning loop motion graph" width="1300" height="940">
+      <figcaption>MISSION → EXECUTE → VERIFY → ADAPT → EVOLVE → ROUTE — AROUND THE VERIFIED LEARNING CORE</figcaption>
+    </figure>
+    <div class="grid g3 reveal" style="margin-top:44px">
+      <div class="card c-lime"><span class="tag">Peer learning</span><h3>Knowledge, not status</h3><p>A Guardian may learn a verified pattern discovered by another specialist — but it never inherits the other's success rate, benchmark score, confidence, permissions, or routing authority. It must prove the capability itself.</p></div>
+      <div class="card c-amber"><span class="tag">Governed learning only</span><h3>Never automatic</h3><p>Learning may adapt evidence, lessons, calibration, failure clusters, curricula, replay strategies, memory, and bounded routing preference. It may never mutate production model weights, grant permissions, approve benchmark truth, or bypass promotion gates.</p></div>
+      <div class="card c-deep"><span class="tag">Cognitive inspection</span><h3>Audit-ready, live</h3><p><code class="inline-code">GET /v1/projects/{project_id}/guardians/{guardian_id}/cognitive-summary</code> exposes verified episodes, authored lessons, confidence reliability, counterfactual cycles, and the current curriculum.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENCY WING -->
+<section id="agency">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Agency Services Wing</div>
+      <h2>Twelve new disciplines.<br><span class="grad-text">Original definitions.</span></h2>
+      <p class="lede">Selected by gap analysis against the open agency-agents catalog (msitarzewski/agency-agents, MIT License) — every catalog division with no existing Guardian coverage is represented. Only skill concepts were taken; all profiles, prompts, and learning objectives are original NEXUS definitions, documented in provenance comments.</p>
+    </div>
+    <figure class="fig reveal">
+      <img src="./assets/agency-services-wing.svg" alt="Agency Services Wing — twelve gradient capsules" width="1500" height="900">
+      <figcaption>THE AGENCY SERVICES WING — TWELVE GRADIENT CAPSULES, PROVENANCE DOCUMENTED</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- CONTRACT -->
+<section id="contract">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Compatibility Contract</div>
+      <h2>Stable surfaces,<br><span class="grad-text">guaranteed.</span></h2>
+      <p class="lede">The canonical product name is <strong>Nexus Starship Guardians</strong> and the canonical CLI is <code class="inline-code">nexus-guardians</code>. Compatibility surfaces remain supported and tested across releases.</p>
+    </div>
+    <div class="grid g2 reveal">
+      <div class="card c-emerald"><span class="tag">Python</span><h3>Namespace <code>nexus_os</code></h3><p>The import namespace is frozen. Version is exposed as <code class="inline-code">nexus_os.__version__</code>.</p></div>
+      <div class="card c-sunset"><span class="tag">CLI</span><h3><code>nexus-guardians</code> · alias <code>nexus-portable</code></h3><p>Both entrypoints ship and pass <code class="inline-code">doctor</code> in the quality gates.</p></div>
+      <div class="card c-amber"><span class="tag">REST v1</span><h3>Wire fields <code>agent</code> / <code>agents</code></h3><p>REST v1 wire field names remain stable for existing integrations.</p></div>
+      <div class="card c-deep"><span class="tag">Environment</span><h3>Prefix <code>NEXUS_*</code></h3><p>All environment variables keep the <code class="inline-code">NEXUS_</code> prefix — including <code class="inline-code">NEXUS_ADAPTIVE_INTELLIGENCE_PATH</code> and <code class="inline-code">NEXUS_COGNITIVE_EVOLUTION_PATH</code> for persistent state.</p></div>
+    </div>
+
+    <div class="sec-head reveal" style="margin-top:90px">
+      <div class="eyebrow">Quality Gates</div>
+      <h2>Every change,<br><span class="grad-text">every time.</span></h2>
+    </div>
+    <pre class="reveal"><code>pip install -e '.[dev]'
+ruff check nexus_os tests examples
+NEXUS_DEV_MODE=true pytest -q
+nexus-guardians doctor
+nexus-portable doctor</code></pre>
+    <p class="lede reveal" style="margin-top:22px;font-size:15px">GitHub Actions additionally validates Python 3.11/3.12/3.13, live HTTP, Docker health, PostgreSQL 16 integration, provider contracts, persistence, mission routing, adaptive/cognitive learning, benchmark replay, coverage intelligence, plugin/runtime alignment, and release artifacts.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><strong style="color:var(--ink)">Nexus Starship Guardians</strong> · v0.9.0 · Verified Guardian engineering runtime</div>
+    <div>Learning adapts verified evidence — never permissions, peer scores, live model weights, or benchmark truth.</div>
+    <div><a href="https://github.com/lois4801/NEXUS-Starship-Guardians" style="color:var(--emerald)">github.com/lois4801/NEXUS-Starship-Guardians</a></div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // animated counters
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      counterIO.unobserve(e.target);
+      const el = e.target, target = +el.dataset.count, t0 = performance.now(), dur = 1600;
+      const tick = (t) => {
+        const p = Math.min(1, (t - t0) / dur), ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * ease);
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+
+  // marquee content
+  const items = ['Intelligence Fabric','Adaptive Guardian Intelligence','Guardian Cognitive Evolution','Controlled Tool Gateway','Benchmark Replay','Coverage Intelligence','Company Runtime','Verified Learning','OpenCode Provider'];
+  document.getElementById('mq').innerHTML = (items.map(i => `<span>${i}</span><span class="dot">✦</span>`).join('')).repeat(2);
+</script>
+</body>
+</html>
