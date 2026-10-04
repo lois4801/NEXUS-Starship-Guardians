@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="940" viewBox="0 0 1300 940" role="img" aria-labelledby="title desc">
+  <title id="title">How automatic learning works — animated loop</title>
+  <desc id="desc">Animated learning cycle: mission, execute, verify with objective evidence, adapt per-skill scores, evolve cognition, and route the next mission with bounded evidence.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A1128"/><stop offset=".5" stop-color="#0D1B3E"/><stop offset="1" stop-color="#120A2E"/>
+    </linearGradient>
+    <linearGradient id="gEmerald" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2AF598"/><stop offset="1" stop-color="#08AEEA"/>
+    </linearGradient>
+    <linearGradient id="gSunset" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4B6CB7"/><stop offset=".5" stop-color="#F857A6"/><stop offset="1" stop-color="#FF9A44"/>
+    </linearGradient>
+    <linearGradient id="gLime" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A8FF78"/><stop offset="1" stop-color="#78FFD6"/>
+    </linearGradient>
+    <linearGradient id="gAmber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F2994A"/><stop offset="1" stop-color="#F7B733"/>
+    </linearGradient>
+    <linearGradient id="gDeep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A2980"/><stop offset="1" stop-color="#26D0CE"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2AF598"/><stop offset=".3" stop-color="#08AEEA"/><stop offset=".55" stop-color="#F857A6"/><stop offset=".8" stop-color="#F7B733"/><stop offset="1" stop-color="#A8FF78"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+  <style>    .title{font:800 40px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#F5F5F7;letter-spacing:.5px}
+    .sub{font:400 20px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#A7B1C7}
+    .label{font:700 21px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#F5F5F7}
+    .small{font:400 17px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#C7CEDD}
+    .tiny{font:500 14px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#8E99B5}
+    .num{font:800 44px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#FFFFFF}
+    .caps{stroke-linecap:round}
+    @keyframes pulse {0%,100%{opacity:.55}50%{opacity:1}}
+    @keyframes sheen {0%{transform:translateX(-220px)}100%{transform:translateX(1720px)}}
+    .pulse{animation:pulse 2.6s ease-in-out infinite}
+    .sheen{animation:sheen 5.5s linear infinite}</style>
+  <rect width="1300" height="940" rx="34" fill="url(#bg)"/>
+  <ellipse cx="1080" cy="130" rx="300" ry="130" fill="#F857A6" opacity=".09" filter="url(#soft)"/>
+  <text x="70" y="78" class="title">How Guardians Learn</text>
+  <text x="72" y="112" class="sub">Objective evidence in, compounding intelligence out — a Guardian saying “done” is not verification.</text>
+
+  <!-- rotating dashed ring -->
+  <circle cx="650" cy="470" r="260" fill="none" stroke="url(#flow)" stroke-width="3" stroke-dasharray="18 26" opacity=".65" filter="url(#glow)">
+    <animateTransform attributeName="transform" type="rotate" from="0 650 470" to="360 650 470" dur="30s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="650" cy="470" r="286" fill="none" stroke="#2AF598" stroke-width="1.2" stroke-dasharray="4 14" opacity=".4">
+    <animateTransform attributeName="transform" type="rotate" from="360 650 470" to="0 650 470" dur="44s" repeatCount="indefinite"/>
+  </circle>
+  <!-- orbiting satellite -->
+  <circle r="8" fill="#FFFFFF" filter="url(#glow)">
+    <animateMotion dur="9s" repeatCount="indefinite" path="M910 470 A 260 260 0 1 1 390 470 A 260 260 0 1 1 910 470"/>
+  </circle>
+
+  <!-- center -->
+  <g class="pulse">
+    <circle cx="650" cy="470" r="92" fill="#0D1B3E" stroke="url(#flow)" stroke-width="2.5" filter="url(#glow)"/>
+    <text x="650" y="458" text-anchor="middle" class="label">VERIFIED</text>
+    <text x="650" y="484" text-anchor="middle" class="label">LEARNING</text>
+    <text x="650" y="510" text-anchor="middle" class="tiny">governed · evidence-gated</text>
+  </g>
+
+  <g filter="url(#glow)">
+    <rect x="558.0" y="168.0" width="184" height="84" rx="22" fill="#101B3E" stroke="url(#gDeep)" stroke-width="2"/>
+    <text x="650.0" y="206.0" text-anchor="middle" class="label">MISSION</text>
+    <text x="650.0" y="232.0" text-anchor="middle" class="tiny">goal in</text>
+  </g>
+  <g filter="url(#glow)">
+    <rect x="783.1666049839541" y="298.0" width="184" height="84" rx="22" fill="#101B3E" stroke="url(#gEmerald)" stroke-width="2"/>
+    <text x="875.1666049839541" y="336.0" text-anchor="middle" class="label">EXECUTE</text>
+    <text x="875.1666049839541" y="362.0" text-anchor="middle" class="tiny">specialist acts</text>
+  </g>
+  <g filter="url(#glow)">
+    <rect x="783.1666049839541" y="558.0" width="184" height="84" rx="22" fill="#101B3E" stroke="url(#gLime)" stroke-width="2"/>
+    <text x="875.1666049839541" y="596.0" text-anchor="middle" class="label">VERIFY</text>
+    <text x="875.1666049839541" y="622.0" text-anchor="middle" class="tiny">test · api · browser · security</text>
+  </g>
+  <g filter="url(#glow)">
+    <rect x="558.0" y="688.0" width="184" height="84" rx="22" fill="#101B3E" stroke="url(#gSunset)" stroke-width="2"/>
+    <text x="650.0" y="726.0" text-anchor="middle" class="label">ADAPT</text>
+    <text x="650.0" y="752.0" text-anchor="middle" class="tiny">per-skill evidence</text>
+  </g>
+  <g filter="url(#glow)">
+    <rect x="332.8333950160459" y="558.0" width="184" height="84" rx="22" fill="#101B3E" stroke="url(#gAmber)" stroke-width="2"/>
+    <text x="424.8333950160459" y="596.0" text-anchor="middle" class="label">EVOLVE</text>
+    <text x="424.8333950160459" y="622.0" text-anchor="middle" class="tiny">lessons · calibration · replay</text>
+  </g>
+  <g filter="url(#glow)">
+    <rect x="332.833395016046" y="298.0" width="184" height="84" rx="22" fill="#101B3E" stroke="url(#gEmerald)" stroke-width="2"/>
+    <text x="424.833395016046" y="336.0" text-anchor="middle" class="label">ROUTE</text>
+    <text x="424.833395016046" y="362.0" text-anchor="middle" class="tiny">bounded evidence bonus</text>
+  </g>
+
+  <!-- evidence rule panel -->
+  <g>
+    <rect x="1040" y="380" rx="20" width="230" height="180" fill="#101B3E" stroke="#1F2C56"/>
+    <text x="1155" y="416" text-anchor="middle" class="label" font-size="17">EVIDENCE COUNTS</text>
+    <text x="1155" y="450" text-anchor="middle" class="small">test results</text>
+    <text x="1155" y="478" text-anchor="middle" class="small">api checks</text>
+    <text x="1155" y="506" text-anchor="middle" class="small">browser QA</text>
+    <text x="1155" y="534" text-anchor="middle" class="small">security scans</text>
+  </g>
+  <text x="70" y="898" class="tiny">Adaptive Guardian Intelligence scores per-skill quality, reliability, benchmarks, trend and regression pressure · Guardian Cognitive Evolution adds lessons, confidence calibration, failure clusters, counterfactual replay and self-curricula · routing uses only a bounded evidence bonus.</text>
+</svg>
