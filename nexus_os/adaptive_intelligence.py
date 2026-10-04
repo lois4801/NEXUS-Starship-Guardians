@@ -412,6 +412,239 @@ SPECIALIST_INTELLIGENCE_PROFILES: tuple[SpecialistIntelligenceProfile, ...] = (
             "Learn evaluator biases and failure modes from scored trajectories.",
         ),
     ),
+    # --- Agency Services Wing (v0.9.0) -------------------------------------------
+    # Twelve specialists acquired from the agency-agents open catalog
+    # (msitarzewski/agency-agents, MIT License), selected by gap analysis against
+    # the NEXUS roster: every agency division with no existing Guardian coverage
+    # is represented (GIS/geospatial, sales, game development, spatial computing,
+    # paid media, finance office, healthcare, blockchain, embedded/IoT,
+    # knowledge & search, legal & compliance, PMO operations). Only skill concepts
+    # were taken from the catalog; these profiles, prompts, and learning
+    # objectives are original NEXUS definitions.
+    SpecialistIntelligenceProfile(
+        guardian_id="gis-spatial-analyst",
+        role="GIS & Spatial Analyst Guardian",
+        capabilities=frozenset(
+            {
+                "gis",
+                "geospatial-analysis",
+                "spatial-data",
+                "cartography",
+                "geoprocessing",
+                "remote-sensing",
+                "geoai",
+            }
+        ),
+        benchmark_tags=frozenset({"gis", "spatial", "data", "analysis"}),
+        learning_objectives=(
+            "Improve spatial-query accuracy and projection handling on varied datasets.",
+            "Learn geoprocessing failure modes from QA evidence and map-render checks.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="sales-pipeline-strategist",
+        role="Sales Pipeline Strategist Guardian",
+        capabilities=frozenset(
+            {
+                "sales",
+                "pipeline-management",
+                "deal-strategy",
+                "proposal-writing",
+                "lead-qualification",
+                "sales-coaching",
+            }
+        ),
+        benchmark_tags=frozenset({"sales", "pipeline", "strategy"}),
+        learning_objectives=(
+            "Improve deal-qualification accuracy against historical close evidence.",
+            "Learn proposal win/loss patterns from reviewed outcomes.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="game-design-specialist",
+        role="Game Design Guardian",
+        capabilities=frozenset(
+            {
+                "game-design",
+                "level-design",
+                "narrative-design",
+                "economy-design",
+                "game-audio",
+                "technical-art",
+            }
+        ),
+        benchmark_tags=frozenset({"game-design", "balance", "narrative"}),
+        learning_objectives=(
+            "Improve economy-balance predictions from playtest telemetry.",
+            "Learn level-pacing defects from QA and playtest evidence.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="xr-spatial-engineer",
+        role="XR & Spatial Computing Guardian",
+        capabilities=frozenset(
+            {
+                "xr-development",
+                "spatial-computing",
+                "immersive-interfaces",
+                "visionos",
+                "metal",
+                "3d-interaction",
+            }
+        ),
+        benchmark_tags=frozenset({"xr", "spatial-computing", "performance"}),
+        learning_objectives=(
+            "Improve frame-time and comfort predictions from device profiles.",
+            "Learn spatial-anchor failure modes from integration evidence.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="paid-media-strategist",
+        role="Paid Media Strategist Guardian",
+        capabilities=frozenset(
+            {
+                "paid-media",
+                "ppc",
+                "programmatic",
+                "paid-social",
+                "ad-tracking",
+                "media-audits",
+            }
+        ),
+        benchmark_tags=frozenset({"paid-media", "tracking", "audit"}),
+        learning_objectives=(
+            "Improve wasted-spend detection from media-audit evidence.",
+            "Learn attribution breakage patterns from tracking audits.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="financial-analysis-specialist",
+        role="Financial Analysis Guardian",
+        capabilities=frozenset(
+            {
+                "financial-analysis",
+                "fpna",
+                "bookkeeping",
+                "investment-research",
+                "tax-strategy",
+                "financial-modeling",
+            }
+        ),
+        benchmark_tags=frozenset({"finance", "modeling", "audit"}),
+        learning_objectives=(
+            "Improve model-error detection from reconciliation evidence.",
+            "Learn assumption-risk patterns from forecast vs. actual reviews.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="healthcare-evidence-specialist",
+        role="Healthcare Evidence Guardian",
+        capabilities=frozenset(
+            {
+                "healthcare-analysis",
+                "clinical-evidence",
+                "health-innovation",
+                "health-systems",
+                "medical-compliance",
+            }
+        ),
+        benchmark_tags=frozenset({"healthcare", "evidence", "compliance"}),
+        learning_objectives=(
+            "Improve evidence-quality appraisal against source hierarchies.",
+            "Learn compliance-gap patterns from audit findings.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="blockchain-engineer",
+        role="Blockchain Engineer Guardian",
+        capabilities=frozenset(
+            {
+                "blockchain",
+                "smart-contracts",
+                "solidity",
+                "zk-proofs",
+                "defi",
+                "security",
+            }
+        ),
+        benchmark_tags=frozenset({"blockchain", "security", "defi"}),
+        learning_objectives=(
+            "Improve smart-contract defect detection from audit evidence.",
+            "Learn protocol-integration failure modes from testnet runs.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="embedded-iot-engineer",
+        role="Embedded & IoT Guardian",
+        capabilities=frozenset(
+            {
+                "embedded-systems",
+                "firmware",
+                "iot",
+                "edge-computing",
+                "hardware-integration",
+            }
+        ),
+        benchmark_tags=frozenset({"embedded", "iot", "integration"}),
+        learning_objectives=(
+            "Improve firmware-defect prediction from build and trace evidence.",
+            "Learn hardware-integration failure modes from device tests.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="knowledge-search-engineer",
+        role="Knowledge & Search Guardian",
+        capabilities=frozenset(
+            {
+                "knowledge-graphs",
+                "search-relevance",
+                "rag",
+                "information-retrieval",
+                "embeddings",
+            }
+        ),
+        benchmark_tags=frozenset({"search", "rag", "knowledge-graphs"}),
+        learning_objectives=(
+            "Improve retrieval-recall estimates from relevance judgments.",
+            "Learn graph-inconsistency patterns from schema audits.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="legal-compliance-specialist",
+        role="Legal & Compliance Guardian",
+        capabilities=frozenset(
+            {
+                "legal-analysis",
+                "contract-review",
+                "compliance-audits",
+                "privacy-law",
+                "regulatory-affairs",
+            }
+        ),
+        benchmark_tags=frozenset({"legal", "compliance", "privacy"}),
+        learning_objectives=(
+            "Improve clause-risk detection from reviewed contract evidence.",
+            "Learn control-gap patterns from compliance audit results.",
+        ),
+    ),
+    SpecialistIntelligenceProfile(
+        guardian_id="pmo-operations-specialist",
+        role="PMO Operations Guardian",
+        capabilities=frozenset(
+            {
+                "project-management",
+                "meeting-operations",
+                "status-reporting",
+                "studio-operations",
+                "workflow-coordination",
+            }
+        ),
+        benchmark_tags=frozenset({"pmo", "operations", "reporting"}),
+        learning_objectives=(
+            "Improve schedule-risk detection from plan-drift evidence.",
+            "Learn handoff-breakdown patterns from workflow audits.",
+        ),
+    ),
 )
 
 

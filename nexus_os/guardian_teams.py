@@ -165,3 +165,72 @@ def elite_specialist_team() -> tuple[GuardianRole, ...]:
 def autonomous_operations_team() -> tuple[GuardianRole, ...]:
     """Return the 10-role Autonomous Operations Wing acquired in v0.9.0."""
     return AUTONOMOUS_OPERATIONS_GUARDIANS
+
+
+AGENCY_SERVICES_GUARDIANS: tuple[GuardianRole, ...] = (
+    GuardianRole(
+        "GIS & Spatial Analyst Guardian",
+        "agency-services",
+        "Analyze geospatial data, spatial pipelines, and map rendering with projection-safe, evidence-carrying QA.",
+    ),
+    GuardianRole(
+        "Sales Pipeline Strategist Guardian",
+        "agency-services",
+        "Audit pipeline stages, deal qualification, and proposals against close and win/loss evidence.",
+    ),
+    GuardianRole(
+        "Game Design Guardian",
+        "agency-services",
+        "Evaluate game loops, level pacing, narrative, economy balance, and audio/art pipelines from playtest evidence.",
+    ),
+    GuardianRole(
+        "XR & Spatial Computing Guardian",
+        "agency-services",
+        "Review immersive-app architecture, spatial anchors, and 3D interaction patterns with device-profile evidence.",
+    ),
+    GuardianRole(
+        "Paid Media Strategist Guardian",
+        "agency-services",
+        "Audit paid media campaigns, bidding, tracking, and attribution with platform-report evidence.",
+    ),
+    GuardianRole(
+        "Financial Analysis Guardian",
+        "agency-services",
+        "Review financial models, forecasts, and reconciliations with recalculated-output evidence.",
+    ),
+    GuardianRole(
+        "Healthcare Evidence Guardian",
+        "agency-services",
+        "Appraise clinical evidence, health-system workflows, and medical compliance with documented citations.",
+    ),
+    GuardianRole(
+        "Blockchain Engineer Guardian",
+        "agency-services",
+        "Audit smart contracts, token mechanics, and protocol integrations with testnet and static-analysis evidence.",
+    ),
+    GuardianRole(
+        "Embedded & IoT Guardian",
+        "agency-services",
+        "Review firmware, device protocols, and edge pipelines with build-log and device-trace evidence.",
+    ),
+    GuardianRole(
+        "Knowledge & Search Guardian",
+        "agency-services",
+        "Evaluate retrieval pipelines, graph schemas, and ranking signals with relevance-judgment evidence.",
+    ),
+    GuardianRole(
+        "Legal & Compliance Guardian",
+        "agency-services",
+        "Review contracts, compliance controls, and privacy handling with clause-citation evidence.",
+    ),
+    GuardianRole(
+        "PMO Operations Guardian",
+        "agency-services",
+        "Audit project plans, meeting cadences, and status-report pipelines with plan-drift evidence.",
+    ),
+)
+
+
+def agency_services_team() -> tuple[GuardianRole, ...]:
+    """Return the 12-role Agency Services Wing acquired in v0.9.0."""
+    return AGENCY_SERVICES_GUARDIANS

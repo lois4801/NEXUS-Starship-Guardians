@@ -56,6 +56,18 @@ _SPECIALIST_ROUTING_ALIASES: dict[str, frozenset[str]] = {
     "budget-cost-controller": frozenset({"observability", "devops", "ai-engineering"}),
     "data-analyst-specialist": frozenset({"database", "backend", "observability"}),
     "evaluation-judge-specialist": frozenset({"testing", "ai-engineering"}),
+    "gis-spatial-analyst": frozenset({"database", "data", "observability"}),
+    "sales-pipeline-strategist": frozenset({"general-engineering", "frontend"}),
+    "game-design-specialist": frozenset({"frontend", "design"}),
+    "xr-spatial-engineer": frozenset({"frontend", "integration"}),
+    "paid-media-strategist": frozenset({"frontend", "observability"}),
+    "financial-analysis-specialist": frozenset({"database", "observability"}),
+    "healthcare-evidence-specialist": frozenset({"research", "compliance"}),
+    "blockchain-engineer": frozenset({"backend", "security"}),
+    "embedded-iot-engineer": frozenset({"backend", "integration", "devops"}),
+    "knowledge-search-engineer": frozenset({"database", "ai-engineering", "backend"}),
+    "legal-compliance-specialist": frozenset({"compliance", "security", "architecture"}),
+    "pmo-operations-specialist": frozenset({"integration", "observability"}),
 }
 
 
