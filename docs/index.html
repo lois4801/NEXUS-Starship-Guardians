@@ -3,400 +3,839 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus Starship Guardians · v0.9.0</title>
-<meta name="description" content="A reusable Guardian engineering runtime — 32 evolving specialist Guardians, a 650-Guardian company runtime, verified learning, and governed benchmark intelligence.">
+<title>Nexus Starship Guardians — A Luxury Guardian Engineering Runtime</title>
+<meta name="description" content="Thirty-two evolving specialist Guardians. One company of 650. Verified learning, governed intelligence, cinematic engineering.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg0:#0A1128; --bg1:#0D1B3E; --bg2:#120A2E;
-    --ink:#F2F7FF; --mut:#9FB3D9; --dim:#5F739E;
-    --emerald:#2AF598; --cyan:#08AEEA; --violet:#A855F7; --magenta:#F857A6; --orange:#FF9A44; --amber:#F2994A; --lime:#A8FF78;
-    --card:rgba(255,255,255,.045); --line:rgba(255,255,255,.09);
-    --grad-flow:linear-gradient(90deg,#2AF598,#08AEEA 34%,#A855F7 67%,#FF9A44);
-    --grad-sunset:linear-gradient(90deg,#4B6CB7,#F857A6 55%,#FF9A44);
-    --grad-lime:linear-gradient(90deg,#A8FF78,#78FFD6);
-    --grad-amber:linear-gradient(90deg,#F2994A,#F7B733);
-    --grad-deep:linear-gradient(90deg,#1A2980,#26D0CE);
-    --r:22px;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    background:radial-gradient(1200px 800px at 80% -10%,rgba(168,85,247,.14),transparent 60%),
-               radial-gradient(1000px 700px at -10% 30%,rgba(8,174,234,.12),transparent 60%),
-               linear-gradient(180deg,var(--bg0),var(--bg1) 45%,var(--bg2));
-    color:var(--ink);
-    font-family:"SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased; overflow-x:hidden;
-  }
-  ::selection{background:rgba(42,245,152,.28)}
-  a{color:inherit;text-decoration:none}
-  img,svg{max-width:100%;display:block}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
-  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-    background:var(--grad-flow);-webkit-background-clip:text;background-clip:text;color:transparent}
-  h1{font-size:clamp(44px,7vw,84px);font-weight:800;letter-spacing:-.03em;line-height:1.02}
-  h2{font-size:clamp(30px,4.4vw,52px);font-weight:800;letter-spacing:-.025em;line-height:1.06}
-  h3{font-size:21px;font-weight:700;letter-spacing:-.01em}
-  .grad-text{background:var(--grad-flow);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .lede{color:var(--mut);font-size:clamp(16px,2vw,20px);line-height:1.6;max-width:760px}
-  section{padding:110px 0;position:relative}
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
-  .reveal.in{opacity:1;transform:none}
+:root{
+  --bg0:#070D22; --bg1:#0A1128; --bg2:#0D0B26;
+  --ink:#F4F8FF; --mut:#9FB3D9; --dim:#5F739E;
+  --gold:#C9A86A; --gold-soft:#AF915F; --cream:#FCE9C8;
+  --emerald:#2AF598; --cyan:#08AEEA; --violet:#A855F7; --magenta:#F857A6; --orange:#FF9A44; --amber:#F2A24A; --lime:#A8FF78;
+  --grad-flow:linear-gradient(100deg,#2AF598 0%,#08AEEA 32%,#A855F7 62%,#F857A6 82%,#FF9A44 100%);
+  --line:rgba(201,168,106,.22); --line-soft:rgba(255,255,255,.08);
+  --font-d:'Space Grotesk',-apple-system,sans-serif;
+  --font-s:'Instrument Serif',Georgia,serif;
+  --font-b:'Inter',-apple-system,sans-serif;
+  --font-m:'JetBrains Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.19,1,.22,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scrollbar-width:thin;scrollbar-color:rgba(201,168,106,.4) transparent}
+body{
+  background:var(--bg0);color:var(--ink);
+  font-family:var(--font-b);font-weight:300;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background-color .9s var(--ease);
+}
+::selection{background:rgba(42,245,152,.25);color:#fff}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.mono{font-family:var(--font-m)}
+.serif-i{font-family:var(--font-s);font-style:italic;font-weight:400}
+.wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px)}
+h1,h2,h3{font-family:var(--font-d);font-weight:500;letter-spacing:-.035em}
+.grad{background:var(--grad-flow);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gold{color:var(--gold)}
 
-  /* nav */
-  nav{position:fixed;inset:0 0 auto 0;z-index:50;backdrop-filter:blur(18px) saturate(1.4);
-    background:rgba(10,17,40,.55);border-bottom:1px solid var(--line)}
-  .nav-in{display:flex;align-items:center;gap:26px;height:62px}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:.02em}
-  .brand .mark{width:26px;height:26px;border-radius:8px;background:var(--grad-flow);box-shadow:0 0 18px rgba(42,245,152,.5)}
-  .nav-links{display:flex;gap:22px;margin-left:auto;font-size:13.5px;color:var(--mut)}
-  .nav-links a{transition:color .2s}
-  .nav-links a:hover{color:var(--ink)}
-  .pill{padding:8px 16px;border-radius:99px;font-size:13px;font-weight:700;color:#08111f;background:var(--grad-lime);transition:transform .2s,box-shadow .2s}
-  .pill:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(168,255,120,.35)}
+/* ---------- cursor ---------- */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%)}
+.cursor-dot{width:6px;height:6px;background:var(--gold)}
+.cursor-ring{width:38px;height:38px;border:1px solid rgba(201,168,106,.55);display:flex;align-items:center;justify-content:center;transition:width .35s var(--ease),height .35s var(--ease),background-color .35s,border-color .35s}
+.cursor-ring span{font-family:var(--font-m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg0);opacity:0;transition:opacity .25s}
+.cursor-ring.big{width:84px;height:84px;background:var(--gold);border-color:var(--gold)}
+.cursor-ring.big span{opacity:1}
+@media (pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
 
-  /* hero */
-  .hero{padding:170px 0 60px;text-align:center}
-  .hero .lede{margin:22px auto 0}
-  .hero-art{margin:56px auto 0;max-width:1060px;border-radius:28px;overflow:hidden;
-    border:1px solid var(--line);box-shadow:0 40px 120px rgba(0,0,0,.55),0 0 0 1px rgba(42,245,152,.06)}
-  .cta-row{display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap}
-  .btn{padding:14px 28px;border-radius:99px;font-weight:700;font-size:15px;transition:transform .2s,box-shadow .2s;display:inline-block}
-  .btn-primary{background:var(--grad-flow);color:#08111f}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(8,174,234,.4)}
-  .btn-ghost{border:1px solid var(--line);color:var(--ink);background:var(--card)}
-  .btn-ghost:hover{border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
+/* ---------- preloader ---------- */
+#loader{position:fixed;inset:0;z-index:9000;background:var(--bg0);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:26px}
+#loader .l-word{font-family:var(--font-d);font-size:clamp(28px,4vw,44px);letter-spacing:.42em;text-indent:.42em;overflow:hidden}
+#loader .l-word span{display:inline-block;transform:translateY(110%)}
+#loader .l-pct{font-family:var(--font-m);font-size:13px;letter-spacing:.3em;color:var(--gold)}
+#loader .l-bar{width:min(320px,60vw);height:1px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
+#loader .l-bar i{position:absolute;inset:0;background:var(--grad-flow);transform-origin:left;transform:scaleX(0)}
+#loader .l-sub{font-family:var(--font-m);font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--dim)}
 
-  /* stats */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:70px}
-  .stat{padding:28px 18px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);text-align:center;transition:transform .3s,border-color .3s}
-  .stat:hover{transform:translateY(-4px);border-color:rgba(42,245,152,.35)}
-  .stat .num{font-size:clamp(30px,3.6vw,44px);font-weight:800;background:var(--grad-flow);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .stat .lbl{font-size:13px;color:var(--mut);margin-top:6px}
+/* ---------- header ---------- */
+header.site{position:fixed;inset:0 0 auto 0;z-index:800;backdrop-filter:blur(14px);background:rgba(7,13,34,.5);border-bottom:1px solid transparent;transition:border-color .5s}
+header.site.scrolled{border-bottom-color:var(--line-soft)}
+.h-in{display:flex;align-items:center;height:66px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-d);font-weight:700;font-size:14px;letter-spacing:.18em}
+.brand svg{shape-rendering:geometricPrecision}
+.h-nav{display:flex;gap:30px;margin-left:auto;font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.h-nav a{position:relative;padding:4px 0;transition:color .3s}
+.h-nav a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.h-nav a:hover{color:var(--ink)}
+.h-nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.h-clock{font-family:var(--font-m);font-size:11px;letter-spacing:.14em;color:var(--gold);margin-left:34px}
+.h-cta{margin-left:26px;font-family:var(--font-m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg0);background:var(--gold);padding:9px 18px;border-radius:99px;transition:transform .3s var(--ease),box-shadow .3s}
+.h-cta:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(201,168,106,.35)}
+@media(max-width:900px){.h-nav,.h-clock{display:none}}
 
-  /* section head */
-  .sec-head{margin-bottom:54px}
-  .sec-head .lede{margin-top:16px}
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media img{width:100%;height:118%;object-fit:cover;will-change:transform}
+.hero-veil{position:absolute;inset:0;z-index:1;background:
+  linear-gradient(180deg,rgba(7,13,34,.55) 0%,rgba(7,13,34,.15) 40%,rgba(7,13,34,.86) 88%),
+  radial-gradient(90% 60% at 50% 110%,rgba(7,13,34,.7),transparent 70%)}
+.hero-in{position:relative;z-index:2;padding-bottom:clamp(30px,4vh,56px);padding-top:120px}
+.hero-eyebrow{display:flex;align-items:center;gap:16px;font-family:var(--font-m);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
+.hero-eyebrow::before{content:"";width:56px;height:1px;background:var(--gold)}
+.hero h1{font-size:clamp(46px,8.4vw,118px);line-height:.96;text-transform:uppercase}
+.hero h1 .row{display:block;overflow:hidden}
+.hero h1 .row>span{display:inline-block;will-change:transform}
+.hero h1 .thin{font-weight:400;color:var(--mut)}
+.hero-lede{max-width:640px;color:var(--mut);font-size:clamp(15px,1.4vw,18px);line-height:1.75;margin-top:26px}
+.hero-lede strong{color:var(--ink);font-weight:500}
+.hero-ctas{display:flex;gap:16px;margin-top:30px;flex-wrap:wrap}
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;font-family:var(--font-m);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;padding:17px 32px;border-radius:99px;overflow:hidden;transition:color .4s,border-color .4s;will-change:transform}
+.btn svg{transition:transform .45s var(--ease)}
+.btn:hover svg{transform:translate(4px,-4px)}
+.btn-fill{background:var(--gold);color:var(--bg0)}
+.btn-fill:hover{box-shadow:0 14px 40px rgba(201,168,106,.35)}
+.btn-line{border:1px solid var(--line);color:var(--ink)}
+.btn-line::before{content:"";position:absolute;inset:0;background:var(--grad-flow);transform:translateY(101%);transition:transform .5s var(--ease);z-index:-1}
+.btn-line:hover{border-color:transparent;color:var(--bg0)}
+.btn-line:hover::before{transform:translateY(0)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border-top:1px solid var(--line-soft);margin-top:clamp(28px,4.5vh,52px)}
+.hstat{background:rgba(7,13,34,.55);backdrop-filter:blur(8px);padding:26px clamp(14px,2vw,30px)}
+.hstat .n{font-family:var(--font-d);font-weight:700;font-size:clamp(26px,3.2vw,44px);letter-spacing:-.02em}
+.hstat .n em{font-style:normal;color:var(--gold)}
+.hstat .l{font-family:var(--font-m);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-top:8px}
+.scroll-cue{position:absolute;right:clamp(20px,4vw,64px);bottom:190px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:12px;font-family:var(--font-m);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);writing-mode:vertical-rl}
+.scroll-cue i{width:1px;height:64px;background:linear-gradient(180deg,var(--gold),transparent);animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media(max-width:760px){.hero-stats{grid-template-columns:repeat(2,1fr)}.scroll-cue{display:none}}
+</style>
+</head>
+<style>
+/* ---------- marquee ---------- */
+.marquee{overflow:hidden;border-block:1px solid var(--line-soft);padding:20px 0;white-space:nowrap;background:rgba(255,255,255,.015)}
+.mq-in{display:inline-flex;animation:mq 46s linear infinite}
+.mq-in span{font-family:var(--font-d);font-weight:500;font-size:clamp(16px,1.6vw,22px);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);padding:0 26px;display:flex;align-items:center;gap:26px}
+.mq-in span::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+@keyframes mq{to{transform:translateX(-50%)}}
 
-  /* cards */
-  .grid{display:grid;gap:18px}
-  .g3{grid-template-columns:repeat(3,1fr)}
-  .g2{grid-template-columns:repeat(2,1fr)}
-  .card{padding:30px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;overflow:hidden}
-  .card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.2);box-shadow:0 24px 60px rgba(0,0,0,.4)}
-  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;opacity:.85}
-  .card.c-emerald::before{background:linear-gradient(90deg,#2AF598,#08AEEA)}
-  .card.c-sunset::before{background:linear-gradient(90deg,#4B6CB7,#F857A6,#FF9A44)}
-  .card.c-lime::before{background:linear-gradient(90deg,#A8FF78,#78FFD6)}
-  .card.c-amber::before{background:linear-gradient(90deg,#F2994A,#F7B733)}
-  .card.c-deep::before{background:linear-gradient(90deg,#1A2980,#26D0CE)}
-  .card p{color:var(--mut);font-size:14.5px;line-height:1.6;margin-top:10px}
-  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+/* ---------- section chrome ---------- */
+section{position:relative}
+.sec-head{display:flex;align-items:baseline;gap:26px;margin-bottom:clamp(40px,6vh,72px)}
+.sec-idx{font-family:var(--font-m);font-size:12px;letter-spacing:.3em;color:var(--gold)}
+.sec-title{font-size:clamp(34px,4.6vw,64px);text-transform:uppercase;line-height:1}
+.sec-rule{flex:1;height:1px;background:var(--line);align-self:center}
+.sec-kick{font-family:var(--font-m);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--dim)}
 
-  /* figure */
-  .fig{border-radius:26px;border:1px solid var(--line);background:rgba(255,255,255,.03);padding:18px;margin-top:44px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
-  .fig figcaption{text-align:center;color:var(--dim);font-size:12.5px;padding:14px 0 4px;letter-spacing:.04em}
+/* ---------- manifesto ---------- */
+.mani{padding:clamp(110px,16vh,190px) 0}
+.mani-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0 28px}
+.mani-copy{grid-column:1/9}
+.mani-copy p{font-family:var(--font-d);font-weight:400;font-size:clamp(26px,3.4vw,50px);line-height:1.28;letter-spacing:-.02em}
+.mani-copy .w{opacity:.14;display:inline-block}
+.mani-copy .acc{font-family:var(--font-s);font-style:italic;font-weight:400;letter-spacing:0}
+.mani-copy .c-em{color:var(--emerald)}.mani-copy .c-cy{color:var(--cyan)}.mani-copy .c-mg{color:var(--magenta)}.mani-copy .c-am{color:var(--amber)}
+.mani-meta{grid-column:10/13;align-self:end;padding-bottom:8px}
+.mani-meta p{color:var(--mut);font-size:14.5px;line-height:1.8}
+.mani-meta .sig{margin-top:26px;font-family:var(--font-m);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);border-top:1px solid var(--line);padding-top:18px}
+.mani-fig{grid-column:2/12;margin-top:clamp(60px,9vh,110px);border-radius:22px;overflow:hidden;position:relative;border:1px solid var(--line-soft)}
+.mani-fig img{width:100%;height:130%;object-fit:cover;will-change:transform}
+.mani-fig figcaption{position:absolute;left:26px;bottom:22px;font-family:var(--font-m);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(244,248,255,.85);background:rgba(7,13,34,.55);backdrop-filter:blur(8px);padding:9px 16px;border-radius:99px;border:1px solid var(--line-soft)}
+@media(max-width:900px){.mani-copy{grid-column:1/13}.mani-meta{grid-column:1/13;margin-top:34px}.mani-fig{grid-column:1/13}}
 
-  /* pipeline */
-  .wings{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
-  .wing{padding:26px 20px;border-radius:20px;background:var(--card);border:1px solid var(--line);text-align:center;transition:transform .3s}
-  .wing:hover{transform:translateY(-4px)}
-  .wing .big{font-size:34px;font-weight:800}
-  .wing em{display:block;font-style:normal;font-size:12px;color:var(--dim);margin-top:8px;line-height:1.5}
-  .w1 .big{background:var(--grad-lime);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .w2 .big{background:var(--grad-deep);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .w3 .big{background:var(--grad-sunset);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .w4 .big{background:var(--grad-amber);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* ---------- systems index rows ---------- */
+.sys{padding:clamp(90px,13vh,160px) 0}
+.sys-row{display:grid;grid-template-columns:80px 1fr 1.1fr 60px;gap:28px;align-items:center;padding:clamp(28px,4vh,44px) 0;border-top:1px solid var(--line-soft);position:relative;cursor:pointer}
+.sys-row:last-child{border-bottom:1px solid var(--line-soft)}
+.sys-row::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--grad-flow);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.sys-row:hover::after{transform:scaleX(1)}
+.sys-num{font-family:var(--font-m);font-size:12px;color:var(--gold);letter-spacing:.2em}
+.sys-name{font-family:var(--font-d);font-weight:500;font-size:clamp(22px,2.6vw,36px);letter-spacing:-.02em;line-height:1.1;transition:transform .5s var(--ease),color .4s}
+.sys-row:hover .sys-name{transform:translateX(14px)}
+.sys-desc{color:var(--mut);font-size:14.5px;line-height:1.75;max-width:520px}
+.sys-arr{font-family:var(--font-m);color:var(--dim);font-size:18px;text-align:right;transition:transform .5s var(--ease),color .4s}
+.sys-row:hover .sys-arr{transform:translate(6px,-6px);color:var(--gold)}
+.sys-tag{display:inline-block;font-family:var(--font-m);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line-soft);border-radius:99px;padding:5px 12px;margin-bottom:12px}
+@media(max-width:900px){.sys-row{grid-template-columns:50px 1fr;grid-template-rows:auto auto}.sys-desc{grid-column:2}.sys-arr{display:none}}
 
-  /* roster tables */
-  .wing-block{margin-top:44px}
-  .roles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:22px}
-  .role{padding:16px 20px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-size:14px}
-  .role b{display:block;font-size:14.5px;margin-bottom:3px}
-  .role span{color:var(--mut);font-size:13px;line-height:1.5}
-  .role.e b{color:#7BF0C0}.role.o b{color:#F0A6C8}.role.a b{color:#F7CD8A}
+/* ---------- company: horizontal ---------- */
+.company{overflow:hidden}
+.co-pin{height:100vh;display:flex;align-items:center;overflow:hidden}
+.co-track{display:flex;gap:clamp(30px,4vw,70px);padding:0 clamp(20px,4vw,64px);will-change:transform}
+.co-panel{flex:0 0 auto;width:min(72vw,860px);min-height:64vh;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--line-soft);border-radius:26px;padding:clamp(30px,4vw,56px);position:relative;overflow:hidden;background:rgba(255,255,255,.02)}
+.co-panel .glow{position:absolute;width:480px;height:480px;border-radius:50%;filter:blur(120px);opacity:.16;top:-160px;right:-120px}
+.co-tag{font-family:var(--font-m);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.co-big{font-family:var(--font-d);font-weight:700;font-size:clamp(96px,15vw,220px);line-height:.9;letter-spacing:-.045em;margin:26px 0 8px}
+.co-big small{font-size:.32em;letter-spacing:0;color:var(--mut);font-weight:500;vertical-align:super}
+.co-name{font-family:var(--font-d);font-size:clamp(22px,2.4vw,34px);letter-spacing:-.02em}
+.co-desc{color:var(--mut);font-size:15px;line-height:1.8;max-width:440px;margin-top:14px}
+.co-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:34px;border-top:1px solid var(--line-soft);padding-top:22px}
+.co-foot .mono{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+.co-progress{position:absolute;left:clamp(20px,4vw,64px);right:clamp(20px,4vw,64px);bottom:34px;height:1px;background:var(--line-soft)}
+.co-progress i{position:absolute;inset:0;background:var(--grad-flow);transform-origin:left;transform:scaleX(0)}
+.co-endcap{flex:0 0 auto;width:min(60vw,560px);display:flex;flex-direction:column;justify-content:center;gap:22px}
+.co-endcap h3{font-size:clamp(26px,3vw,42px);letter-spacing:-.02em}
+.co-endcap p{color:var(--mut);font-size:15px;line-height:1.8}
+.pip-xl{background:var(--grad-flow);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-  /* code */
-  pre{border-radius:18px;background:#070D22;border:1px solid var(--line);padding:24px;overflow:auto;font-size:13.5px;line-height:1.7;color:#CFE3FF;margin-top:26px}
-  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
-  .inline-code{background:rgba(255,255,255,.07);padding:2px 8px;border-radius:6px;font-size:.92em}
+/* ---------- leveling band ---------- */
+.level-band{padding:clamp(90px,13vh,160px) 0}
+.level-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:28px;align-items:center}
+.level-copy{grid-column:1/6}
+.level-copy h3{font-size:clamp(28px,3.4vw,48px);line-height:1.12;letter-spacing:-.025em}
+.level-copy p{color:var(--mut);font-size:15px;line-height:1.85;margin-top:20px}
+.level-fig{grid-column:7/13;border-radius:22px;overflow:hidden;position:relative;border:1px solid var(--line-soft)}
+.level-fig img{width:100%;height:126%;object-fit:cover;will-change:transform}
+.level-fig figcaption{position:absolute;left:24px;bottom:20px;font-family:var(--font-m);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,248,255,.85);background:rgba(7,13,34,.55);backdrop-filter:blur(8px);padding:9px 16px;border-radius:99px;border:1px solid var(--line-soft)}
+.level-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:34px}
+.lv{background:var(--bg1);padding:22px 20px}
+.lv .n{font-family:var(--font-d);font-weight:700;font-size:clamp(22px,2.4vw,32px)}
+.lv .l{font-family:var(--font-m);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+.cmd{margin-top:34px;border:1px solid var(--line-soft);border-radius:16px;background:#05091B;overflow:hidden}
+.cmd-bar{display:flex;gap:7px;align-items:center;padding:13px 18px;border-bottom:1px solid var(--line-soft)}
+.cmd-bar i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.14)}
+.cmd-bar i:first-child{background:var(--magenta)}.cmd-bar i:nth-child(2){background:var(--amber)}.cmd-bar i:nth-child(3){background:var(--emerald)}
+.cmd-bar span{margin-left:auto;font-family:var(--font-m);font-size:10px;letter-spacing:.2em;color:var(--dim)}
+.cmd pre{padding:22px 24px;font-family:var(--font-m);font-size:13px;line-height:1.9;color:#BFE3D2;overflow:auto}
+.cmd .p{color:var(--gold)}.cmd .c{color:var(--dim)}
+@media(max-width:900px){.level-copy{grid-column:1/13}.level-fig{grid-column:1/13;margin-top:10px}}
 
-  /* marquee */
-  .marquee{margin-top:90px;overflow:hidden;border-block:1px solid var(--line);padding:22px 0;white-space:nowrap}
-  .marquee-in{display:inline-block;animation:scroll 34s linear infinite;font-size:15px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
-  .marquee-in .dot{color:var(--emerald);margin:0 22px}
-  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ---------- roster horizontal ---------- */
+.roster{overflow:hidden}
+.ro-pin{height:100vh;display:flex;align-items:center;overflow:hidden}
+.ro-track{display:flex;gap:22px;padding:0 clamp(20px,4vw,64px);will-change:transform;align-items:stretch}
+.ro-card{flex:0 0 auto;width:min(66vw,420px);min-height:56vh;border:1px solid var(--line-soft);border-radius:22px;padding:30px;display:flex;flex-direction:column;background:rgba(255,255,255,.02);position:relative;overflow:hidden;transition:border-color .4s}
+.ro-card::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:var(--wc,#2AF598);opacity:.8}
+.ro-card:hover{border-color:rgba(255,255,255,.2)}
+.ro-wing{font-family:var(--font-m);font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--dim)}
+.ro-num{font-family:var(--font-m);font-size:12px;color:var(--gold);margin-top:16px}
+.ro-name{font-family:var(--font-d);font-weight:500;font-size:clamp(21px,2vw,27px);letter-spacing:-.02em;line-height:1.18;margin-top:10px}
+.ro-spec{color:var(--mut);font-size:13.5px;line-height:1.75;margin-top:14px}
+.ro-foot{margin-top:auto;padding-top:20px;font-family:var(--font-m);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.ro-group{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;width:min(60vw,380px)}
+.ro-group .g-idx{font-family:var(--font-m);font-size:12px;letter-spacing:.3em;color:var(--gold)}
+.ro-group h3{font-size:clamp(30px,3.4vw,46px);letter-spacing:-.025em;margin:14px 0}
+.ro-group p{color:var(--mut);font-size:14.5px;line-height:1.8;max-width:320px}
+.ro-progress{position:absolute;left:clamp(20px,4vw,64px);right:clamp(20px,4vw,64px);bottom:34px;height:1px;background:var(--line-soft)}
+.ro-progress i{position:absolute;inset:0;background:var(--grad-flow);transform-origin:left;transform:scaleX(0)}
 
-  footer{border-top:1px solid var(--line);padding:60px 0 80px;color:var(--dim);font-size:13.5px}
-  footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+/* ---------- core / learning ---------- */
+.core{padding:clamp(100px,14vh,180px) 0}
+.core-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:28px}
+.core-copy{grid-column:1/7}
+.core-copy h2{font-size:clamp(32px,4vw,58px);line-height:1.08;letter-spacing:-.025em}
+.core-copy .lede{color:var(--mut);font-size:clamp(15px,1.4vw,18px);line-height:1.8;margin-top:24px;max-width:560px}
+.core-img{grid-column:8/13;border-radius:22px;overflow:hidden;position:relative;border:1px solid var(--line-soft);align-self:start}
+.core-img img{width:100%;height:120%;object-fit:cover;will-change:transform}
+.core-fig{grid-column:1/13;margin-top:clamp(56px,8vh,96px);border:1px solid var(--line-soft);border-radius:22px;padding:clamp(16px,2.4vw,30px);background:rgba(255,255,255,.02)}
+.core-fig figcaption{text-align:center;font-family:var(--font-m);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);padding-top:18px}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:clamp(56px,8vh,96px)}
+.pr{background:var(--bg1);padding:clamp(26px,3vw,40px)}
+.pr .k{font-family:var(--font-m);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.pr h4{font-family:var(--font-d);font-weight:500;font-size:19px;letter-spacing:-.01em;margin:14px 0 10px}
+.pr p{color:var(--mut);font-size:13.5px;line-height:1.8}
+.pr code{font-family:var(--font-m);font-size:12px;color:var(--emerald);background:rgba(42,245,152,.08);padding:2px 7px;border-radius:6px}
+@media(max-width:900px){.core-copy{grid-column:1/13}.core-img{grid-column:1/13;margin-top:30px}.principles{grid-template-columns:1fr}}
 
-  @media (max-width:960px){
-    .g3,.g2,.roles{grid-template-columns:1fr}
-    .stats,.wings{grid-template-columns:repeat(2,1fr)}
-    .nav-links{display:none}
-  }
+/* ---------- agency ---------- */
+.agency{padding:clamp(90px,13vh,160px) 0}
+.ag-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:28px}
+.ag-list{grid-column:1/7}
+.ag-item{display:flex;gap:22px;align-items:baseline;padding:19px 0;border-top:1px solid var(--line-soft)}
+.ag-item:last-child{border-bottom:1px solid var(--line-soft)}
+.ag-item .n{font-family:var(--font-m);font-size:11px;color:var(--gold);flex:0 0 34px}
+.ag-item .t{font-family:var(--font-d);font-weight:500;font-size:clamp(17px,1.7vw,22px);letter-spacing:-.015em;transition:transform .45s var(--ease)}
+.ag-item:hover .t{transform:translateX(10px);color:var(--cream)}
+.ag-item .d{color:var(--dim);font-size:13px;margin-left:auto;text-align:right;max-width:260px}
+.ag-fig{grid-column:8/13;border:1px solid var(--line-soft);border-radius:22px;padding:clamp(14px,1.8vw,24px);background:rgba(255,255,255,.02);align-self:start}
+.ag-fig figcaption{font-family:var(--font-m);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);padding-top:14px;text-align:center}
+@media(max-width:900px){.ag-list{grid-column:1/13}.ag-fig{grid-column:1/13;margin-top:26px}.ag-item .d{display:none}}
+
+/* ---------- contract ---------- */
+.contract{padding:clamp(90px,13vh,160px) 0}
+.ct-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft)}
+.ct{background:var(--bg1);padding:clamp(30px,3.6vw,52px);transition:background .5s}
+.ct:hover{background:var(--bg2)}
+.ct .k{font-family:var(--font-m);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.ct h3{font-family:var(--font-m);font-weight:500;font-size:clamp(17px,1.9vw,26px);letter-spacing:-.01em;margin:18px 0 12px;color:var(--ink)}
+.ct p{color:var(--mut);font-size:13.5px;line-height:1.8;max-width:420px}
+@media(max-width:760px){.ct-grid{grid-template-columns:1fr}}
+
+/* ---------- gates ---------- */
+.gates{padding:clamp(90px,13vh,160px) 0 clamp(110px,15vh,190px)}
+.gates .cmd pre{min-height:190px;white-space:pre-wrap}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line-soft);padding:clamp(70px,10vh,120px) 0 46px;position:relative;overflow:hidden}
+.f-word{font-family:var(--font-d);font-weight:700;font-size:clamp(64px,13.5vw,224px);line-height:.92;letter-spacing:-.04em;text-transform:uppercase;color:transparent;-webkit-text-stroke:1px rgba(201,168,106,.35);white-space:nowrap;user-select:none}
+.f-word .fill{color:transparent;background:var(--grad-flow);-webkit-background-clip:text;background-clip:text;-webkit-text-stroke:0}
+.f-grid{display:flex;justify-content:space-between;gap:34px;flex-wrap:wrap;margin-top:clamp(46px,7vh,80px);align-items:flex-end}
+.f-nav{display:flex;gap:26px;flex-wrap:wrap;font-family:var(--font-m);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.f-nav a{transition:color .3s}.f-nav a:hover{color:var(--gold)}
+.f-note{color:var(--dim);font-size:12.5px;line-height:1.8;max-width:380px}
+.f-clock{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.f-base{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line-soft);margin-top:44px;padding-top:24px;font-family:var(--font-m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="wrap nav-in">
-    <a class="brand" href="#top"><span class="mark"></span>NEXUS GUARDIANS</a>
-    <div class="nav-links">
-      <a href="#capabilities">Capabilities</a>
-      <a href="#company">Company Runtime</a>
-      <a href="#roster">Roster</a>
-      <a href="#learning">Learning</a>
-      <a href="#agency">Agency Wing</a>
-      <a href="#contract">Contract</a>
-    </div>
-    <a class="pill" href="https://github.com/lois4801/NEXUS-Starship-Guardians">GitHub</a>
-  </div>
-</nav>
+<!-- cursor -->
+<div class="cursor-dot" id="cDot"></div>
+<div class="cursor-ring" id="cRing"><span id="cLabel">View</span></div>
 
-<!-- HERO -->
-<header class="hero" id="top">
-  <div class="wrap">
-    <div class="eyebrow reveal in">Nexus Starship Guardians · v0.9.0</div>
-    <h1 class="reveal in" style="margin-top:18px">One runtime.<br><span class="grad-text">Thirty-two minds.</span></h1>
-    <p class="lede reveal in">A reusable Guardian engineering runtime — Intelligence Fabric planning, adaptive specialist intelligence, Guardian Cognitive Evolution, permission-safe routing, verified execution, and a company of <strong>650 logical Guardians</strong> that brainstorms, builds, tests, revises, levels up, and learns from every outcome.</p>
-    <div class="cta-row reveal in">
-      <a class="btn btn-primary" href="https://github.com/lois4801/NEXUS-Starship-Guardians">Star the repository</a>
-      <a class="btn btn-ghost" href="#company">See the company runtime</a>
-    </div>
-    <div class="hero-art reveal in"><img src="./assets/hero-premium.jpg" alt="Nexus Starship Guardians — gradient capsule key art" width="2048" height="1152"></div>
+<!-- preloader -->
+<div id="loader">
+  <div class="l-word"><span id="lWord">NEXUS</span></div>
+  <div class="l-bar"><i id="lBar"></i></div>
+  <div class="l-pct"><span id="lPct">00</span> — 100</div>
+  <div class="l-sub">Starship Guardians · v0.9.0</div>
+</div>
 
-    <div class="stats reveal">
-      <div class="stat"><div class="num" data-count="32">0</div><div class="lbl">evolving specialist Guardians</div></div>
-      <div class="stat"><div class="num" data-count="650">0</div><div class="lbl">logical company Guardians</div></div>
-      <div class="stat"><div class="num" data-count="500">0</div><div class="lbl">starting level per Guardian</div></div>
-      <div class="stat"><div class="num" data-count="200">0</div><div class="lbl">max wing · swarm scale</div></div>
-    </div>
+<!-- header -->
+<header class="site" id="siteHeader">
+  <div class="wrap h-in">
+    <a class="brand" href="#top" data-scroll>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <defs><linearGradient id="lgBrand" x1="0" y1="0" x2="24" y2="24"><stop offset="0" stop-color="#2AF598"/><stop offset=".35" stop-color="#08AEEA"/><stop offset=".7" stop-color="#A855F7"/><stop offset="1" stop-color="#FF9A44"/></linearGradient></defs>
+        <path d="M12 1 L21 7.5 V16.5 L12 23 L3 16.5 V7.5 Z" stroke="url(#lgBrand)" stroke-width="1.4"/>
+        <path d="M12 5.6 L17.5 9.4 V14.6 L12 18.4 L6.5 14.6 V9.4 Z" fill="url(#lgBrand)" opacity=".9"/>
+      </svg>
+      NEXUS GUARDIANS
+    </a>
+    <nav class="h-nav">
+      <a href="#systems" data-scroll>Systems</a>
+      <a href="#company" data-scroll>Company</a>
+      <a href="#roster" data-scroll>Roster</a>
+      <a href="#core" data-scroll>The Core</a>
+      <a href="#agency" data-scroll>Agency</a>
+      <a href="#contract" data-scroll>Contract</a>
+    </nav>
+    <div class="h-clock" id="hClock">00:00:00</div>
+    <a class="h-cta" href="https://github.com/lois4801/NEXUS-Starship-Guardians" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
 </header>
 
-<div class="marquee" aria-hidden="true"><div class="marquee-in" id="mq"></div></div>
+<main id="top">
 
-<!-- CAPABILITIES -->
-<section id="capabilities">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Capabilities</div>
-      <h2>Engineered to plan, build,<br>verify, <span class="grad-text">and learn.</span></h2>
-      <p class="lede">Every capability below is live in the runtime, registered in the default mission registry, and guarded by the Controlled Tool Gateway — intelligence never inflates permissions.</p>
+<!-- HERO -->
+<section class="hero" data-bg="#070D22">
+  <div class="hero-media"><img id="heroImg" src="./assets/hero-lux.jpg" alt="Nexus starship command bridge overlooking a gradient nebula"></div>
+  <div class="hero-veil"></div>
+  <div class="scroll-cue">Scroll<i></i></div>
+  <div class="wrap hero-in">
+    <div class="hero-eyebrow reveal-hero">Nexus Starship Guardians — V0.9.0</div>
+    <h1>
+      <span class="row"><span data-chars>Thirty-two</span></span>
+      <span class="row"><span class="serif-i grad" data-slide>minds.</span></span>
+      <span class="row"><span class="thin" data-chars>One ship.</span></span>
+    </h1>
+    <p class="hero-lede reveal-hero">A reusable <strong>Guardian engineering runtime</strong> — Intelligence Fabric planning, adaptive specialist intelligence, governed cognitive evolution, and a company of <strong>650 logical Guardians</strong> that brainstorms, builds, verifies, revises, levels up, and learns from every outcome. Evidence before claims. Always.</p>
+    <div class="hero-ctas reveal-hero">
+      <a class="btn btn-fill magnetic" href="#roster" data-scroll>Meet the roster
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11 L11 1 M4 1 h7 v7" stroke="currentColor" stroke-width="1.5"/></svg></a>
+      <a class="btn btn-line magnetic" href="#company" data-scroll>Run the company
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11 L11 1 M4 1 h7 v7" stroke="currentColor" stroke-width="1.5"/></svg></a>
     </div>
-    <div class="grid g3">
-      <div class="card c-emerald reveal"><span class="tag">Core Runtime</span><h3>FastAPI REST + Intelligence Fabric</h3><p>Project-scoped authentication and approval gates; mission classification, strategy, uncertainty, assumptions, model evidence, and adversarial evaluation on every mission.</p></div>
-      <div class="card c-deep reveal"><span class="tag">Intelligence</span><h3>Adaptive Guardian Intelligence</h3><p>Verified per-skill quality, reliability, benchmark evidence, confidence, trend, regression pressure, and training priorities — updated only from objective outcomes.</p></div>
-      <div class="card c-sunset reveal"><span class="tag">Cognition</span><h3>Guardian Cognitive Evolution</h3><p>Verified cross-Guardian lessons, confidence calibration, recurring failure-signature clusters, counterfactual replay plans, and personalized self-training curricula.</p></div>
-      <div class="card c-lime reveal"><span class="tag">Routing</span><h3>Adaptive Team Router + Tool Gateway</h3><p>Routing combines registry utility, bounded direct skill evidence, and a smaller bounded cognitive signal. Authorization lives in the Controlled Tool Gateway — separate from intelligence.</p></div>
-      <div class="card c-amber reveal"><span class="tag">Verification</span><h3>Multi-Judge Evaluation + Repair</h3><p>Guardian Intelligence Lab, Promotion Gate, Regression Corpus, Benchmark Vault, replay, and coverage intelligence — plus browser/API/unit verification, bounded auto-repair, and SHA-256 evidence bundles.</p></div>
-      <div class="card c-emerald reveal"><span class="tag">Scale</span><h3>Swarms, Worktrees + OpenCode</h3><p>Isolated Git worktrees, parallel coding coordination, durable SQLite execution, PostgreSQL lease-queue foundations, and a free/local OpenCode CLI provider across 75+ model providers.</p></div>
+    <div class="hero-stats reveal-hero">
+      <div class="hstat"><div class="n"><span data-count="32">0</span></div><div class="l">Evolving Specialists</div></div>
+      <div class="hstat"><div class="n"><span data-count="650">0</span></div><div class="l">Logical Company</div></div>
+      <div class="hstat"><div class="n"><em>Lv</em> <span data-count="500">0</span></div><div class="l">Founding Level</div></div>
+      <div class="hstat"><div class="n"><span data-count="200">0</span><em>×3</em></div><div class="l">Execution · Test · Revise</div></div>
     </div>
-    <figure class="fig reveal">
-      <img src="./assets/guardians-nebula.jpg" alt="The intelligence core with 32 orbiting specialist Guardians" width="2048" height="1152">
-      <figcaption>THE INTELLIGENCE CORE — 32 SPECIALISTS ON THEIR VERIFIED-EVIDENCE ORBITS</figcaption>
-    </figure>
   </div>
 </section>
 
-<!-- COMPANY RUNTIME -->
-<section id="company">
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true"><div class="mq-in" id="mq"></div></div>
+
+<!-- MANIFESTO -->
+<section class="mani" data-bg="#0A1128">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Guardian Company Runtime</div>
-      <h2>A company, <span class="grad-text">not a queue.</span></h2>
-      <p class="lede"><code class="inline-code">nexus-guardians company</code> runs missions the way a company runs the whole business — four wings working together, multiple missions in flight at once, and a fast error path that routes failed execution straight to testers.</p>
+    <div class="sec-head">
+      <span class="sec-idx">00</span>
+      <h2 class="sec-title">Manifesto</h2>
+      <span class="sec-rule"></span>
+      <span class="sec-kick">Why NEXUS exists</span>
     </div>
-    <figure class="fig reveal">
-      <img src="./assets/company-pipeline.svg" alt="Guardian Company Runtime pipeline motion graph" width="1500" height="940">
-      <figcaption>MISSION → BRAINSTORM (50) → EXECUTE (≤200) → TEST &amp; QC (≤200) → REVISE (200) → SHIP</figcaption>
-    </figure>
-    <div class="wings reveal">
-      <div class="wing w1"><div class="big">50</div><h3>Brainstorm</h3><em>Diverge → lead synthesis → full-wing red-team critique → refined plan. Your goal is the floor, not the ceiling.</em></div>
-      <div class="wing w2"><div class="big">≤200</div><h3>Execute</h3><em>Sized by mission complexity; implements the approved plan in parallel.</em></div>
-      <div class="wing w3"><div class="big">≤200</div><h3>Test &amp; QC</h3><em>Sized by complexity; verifies the work product. Failed executions arrive immediately — no waiting for the phase.</em></div>
-      <div class="wing w4"><div class="big">200</div><h3>Revise</h3><em>Re-implements the revised plan when QC finds defects; re-tested up to 3 bounded cycles.</em></div>
+    <div class="mani-grid">
+      <div class="mani-copy">
+        <p data-scrub-words>We don't prompt and pray. Every mission is <span class="acc c-em">planned</span> by fifty minds, <span class="acc c-cy">built</span> by two hundred, <span class="acc c-mg">verified</span> by two hundred more, and <span class="acc c-am">revised</span> until the evidence says done — then the whole company grows wiser from the outcome.</p>
+      </div>
+      <div class="mani-meta">
+        <p>NEXUS is a Python runtime with a FastAPI control plane, a Controlled Tool Gateway, and persistent adaptive intelligence. Intelligence never inflates permissions. Learning never mutates model weights. Every claim carries evidence.</p>
+        <div class="sig">Verified Guardian Engineering · Est. Lv 500</div>
+      </div>
+      <figure class="mani-fig" data-parallax>
+        <img src="./assets/capsules.jpg" alt="Gradient glass capsules — the NEXUS material study">
+        <figcaption>Material Study — Gradient Capsule Alloy</figcaption>
+      </figure>
     </div>
-    <div class="card c-deep reveal" style="margin-top:22px">
-      <span class="tag">Company leveling</span>
-      <h3>Level 500 at founding. +1 on every success — and every failure.</h3>
-      <p>Guardians level up only from verified swarm outcomes: every success grants +1 level, every failure grants +1 level (failures teach), and whenever any Guardian levels up, the entire company receives shared experience (10 XP per level-up; 100 XP settles into one level). Leveling is progression bookkeeping — it grants no permissions, and adaptive skill evidence still requires objective test/api/browser/security verification. Fully scaled: <strong style="color:var(--ink)">650 logical Guardians</strong> (50 + 200 + 200 + 200); physical concurrency stays bounded by <code class="inline-code">--max-parallel</code>.</p>
+  </div>
+</section>
+
+<!-- SYSTEMS -->
+<section class="sys" id="systems" data-bg="#070D22">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-idx">01</span>
+      <h2 class="sec-title">Systems</h2>
+      <span class="sec-rule"></span>
+      <span class="sec-kick">Live in the runtime</span>
     </div>
-    <figure class="fig reveal">
-      <img src="./assets/company-constellation.jpg" alt="Four wing constellations exchanging streams of light" width="2048" height="1152">
-      <figcaption>ONE COMPANY — FOUR WING CONSTELLATIONS RUNNING MANY MISSIONS AT ONCE</figcaption>
-    </figure>
-    <pre class="reveal"><code>nexus-guardians company --provider opencode \
-  "Build the landing page" "Write the API docs" "Fix the checkout bug"</code></pre>
+    <div class="sys-rows">
+      <div class="sys-row" data-cursor="01">
+        <span class="sys-num">/01</span>
+        <div><span class="sys-tag">Core Runtime</span><h3 class="sys-name">FastAPI REST + Intelligence Fabric</h3></div>
+        <p class="sys-desc">Project-scoped authentication and approval gates. Mission classification, strategy, uncertainty, assumptions, model evidence, and adversarial evaluation on every single mission.</p>
+        <span class="sys-arr">↗</span>
+      </div>
+      <div class="sys-row" data-cursor="02">
+        <span class="sys-num">/02</span>
+        <div><span class="sys-tag">Intelligence</span><h3 class="sys-name">Adaptive Guardian Intelligence</h3></div>
+        <p class="sys-desc">Verified per-skill quality, reliability, benchmark evidence, confidence, trend, regression pressure, and training priorities — updated only from objective outcomes.</p>
+        <span class="sys-arr">↗</span>
+      </div>
+      <div class="sys-row" data-cursor="03">
+        <span class="sys-num">/03</span>
+        <div><span class="sys-tag">Cognition</span><h3 class="sys-name">Guardian Cognitive Evolution</h3></div>
+        <p class="sys-desc">Verified cross-Guardian lessons, confidence calibration, recurring failure-signature clusters, counterfactual replay plans, and personalized self-training curricula.</p>
+        <span class="sys-arr">↗</span>
+      </div>
+      <div class="sys-row" data-cursor="04">
+        <span class="sys-num">/04</span>
+        <div><span class="sys-tag">Routing</span><h3 class="sys-name">Team Router + Controlled Tool Gateway</h3></div>
+        <p class="sys-desc">Routing blends registry utility, bounded direct skill evidence, and a bounded cognitive signal. Authorization lives in the gateway — deliberately separate from intelligence.</p>
+        <span class="sys-arr">↗</span>
+      </div>
+      <div class="sys-row" data-cursor="05">
+        <span class="sys-num">/05</span>
+        <div><span class="sys-tag">Verification</span><h3 class="sys-name">Multi-Judge Evaluation + Repair</h3></div>
+        <p class="sys-desc">Intelligence Lab, Promotion Gate, Regression Corpus, Benchmark Vault, replay, and coverage intelligence — plus browser/API/unit verification and SHA-256 evidence bundles.</p>
+        <span class="sys-arr">↗</span>
+      </div>
+      <div class="sys-row" data-cursor="06">
+        <span class="sys-num">/06</span>
+        <div><span class="sys-tag">Scale</span><h3 class="sys-name">Swarms, Worktrees + OpenCode</h3></div>
+        <p class="sys-desc">Isolated Git worktrees, parallel coding coordination, durable SQLite execution, PostgreSQL lease-queue foundations, and a free/local OpenCode CLI provider across 75+ model providers.</p>
+        <span class="sys-arr">↗</span>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- COMPANY -->
+<section class="company" id="company" data-bg="#0B0F24">
+  <div class="wrap" style="padding-top:clamp(90px,13vh,160px)">
+    <div class="sec-head">
+      <span class="sec-idx">02</span>
+      <h2 class="sec-title">The Company</h2>
+      <span class="sec-rule"></span>
+      <span class="sec-kick">650 logical Guardians · drag sideways</span>
+    </div>
+  </div>
+  <div class="co-pin" id="coPin">
+    <div class="co-track" id="coTrack">
+      <div class="co-panel">
+        <div><span class="co-tag">Wing I — Divergence</span>
+          <div class="co-big">50</div>
+          <div class="co-name">Brainstorm</div>
+          <p class="co-desc">Fifty Guardians diverge, a lead synthesizes, and the full wing red-teams the plan. Your goal is the floor — never the ceiling.</p></div>
+        <div class="co-foot"><span class="mono">Concurrency — bounded</span><span class="mono" style="color:var(--emerald)">▲ gEmerald</span></div>
+        <div class="glow" style="background:#2AF598"></div>
+      </div>
+      <div class="co-panel">
+        <div><span class="co-tag">Wing II — Construction</span>
+          <div class="co-big">≤200</div>
+          <div class="co-name">Execute</div>
+          <p class="co-desc">Sized by mission complexity. The approved plan is implemented in parallel inside isolated Git worktrees — many missions in flight at once.</p></div>
+        <div class="co-foot"><span class="mono">Sized by complexity</span><span class="mono" style="color:var(--cyan)">▲ gDeep</span></div>
+        <div class="glow" style="background:#08AEEA"></div>
+      </div>
+      <div class="co-panel">
+        <div><span class="co-tag">Wing III — Adversarial Truth</span>
+          <div class="co-big">≤200</div>
+          <div class="co-name">Test &amp; QC</div>
+          <p class="co-desc">Sized by complexity. Verifies the work product with objective evidence — and failed executions arrive immediately on the fast error path, no waiting for the phase.</p></div>
+        <div class="co-foot"><span class="mono">Fast error path — live</span><span class="mono" style="color:var(--magenta)">▲ gSunset</span></div>
+        <div class="glow" style="background:#F857A6"></div>
+      </div>
+      <div class="co-panel">
+        <div><span class="co-tag">Wing IV — Resilience</span>
+          <div class="co-big">200</div>
+          <div class="co-name">Revise</div>
+          <p class="co-desc">Re-implements the revised plan whenever QC finds defects — re-tested in up to three bounded cycles until the evidence bundle passes.</p></div>
+        <div class="co-foot"><span class="mono">≤3 bounded cycles</span><span class="mono" style="color:var(--amber)">▲ gAmber</span></div>
+        <div class="glow" style="background:#F2994A"></div>
+      </div>
+      <div class="co-endcap">
+        <span class="co-tag">Output</span>
+        <h3>Then the ship <span class="serif-i gold">levels up.</span></h3>
+        <p>Every success grants +1 level. Every failure grants +1 level — failures teach. Whenever any Guardian levels up, the entire company receives shared experience: 10 XP per level-up, 100 XP settling into one level. Fully scaled: <strong style="color:var(--ink)">650 logical Guardians</strong>. Leveling is bookkeeping, never permission.</p>
+        <p class="mono" style="font-size:11px;letter-spacing:.2em;color:var(--dim)">START Lv 500 — CONCURRENCY BOUNDED BY --max-parallel</p>
+      </div>
+    </div>
+    <div class="co-progress"><i id="coProg"></i></div>
+  </div>
+
+  <div class="level-band wrap">
+    <div class="level-grid">
+      <div class="level-copy">
+        <span class="sec-idx">02.1</span>
+        <h3 style="margin-top:18px">A company, <span class="serif-i gold">not a queue.</span></h3>
+        <p><code class="mono" style="color:var(--emerald);font-size:13px">nexus-guardians company</code> runs missions the way a business runs the whole business — four wings exchanging work in real time, many missions concurrently, and a fast error path that routes broken execution straight to testers the moment it breaks.</p>
+        <div class="level-stats">
+          <div class="lv"><div class="n grad">+1</div><div class="l">On success — and on failure</div></div>
+          <div class="lv"><div class="n grad">10 XP</div><div class="l">Shared company-wide per level-up</div></div>
+          <div class="lv"><div class="n grad">650</div><div class="l">Logical Guardians at full scale</div></div>
+        </div>
+        <div class="cmd">
+          <div class="cmd-bar"><i></i><i></i><i></i><span>guardian@nexus — zsh</span></div>
+          <pre><span class="p">$</span> nexus-guardians company --provider opencode \
+    <span class="c">"Build the landing page"</span> \
+    <span class="c">"Write the API docs"</span> \
+    <span class="c">"Fix the checkout bug"</span></pre>
+        </div>
+      </div>
+      <figure class="level-fig" data-parallax>
+        <img src="./assets/constellation.jpg" alt="Four wing constellations exchanging streams of light">
+        <figcaption>Four Wings — Many Missions In Flight</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
 <!-- ROSTER -->
-<section id="roster">
+<section class="roster" id="roster" data-bg="#0A0E20">
+  <div class="wrap" style="padding-top:clamp(90px,13vh,160px)">
+    <div class="sec-head">
+      <span class="sec-idx">03</span>
+      <h2 class="sec-title">The Roster</h2>
+      <span class="sec-rule"></span>
+      <span class="sec-kick">32 specialists · drag sideways</span>
+    </div>
+  </div>
+  <div class="ro-pin" id="roPin">
+    <div class="ro-track" id="roTrack"></div>
+    <div class="ro-progress"><i id="roProg"></i></div>
+  </div>
+</section>
+<!-- CORE -->
+<section class="core" id="core" data-bg="#070D22">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Specialist Roster</div>
-      <h2>Thirty-two evolving<br><span class="grad-text">specialist Guardians.</span></h2>
-      <p class="lede">Three wings — the original ten elite specialists, the ten-role Autonomous Operations Wing, and the twelve-role Agency Services Wing — all registered in the live default mission registry and deployable through the OpenCode subagent surface.</p>
+    <div class="sec-head">
+      <span class="sec-idx">04</span>
+      <h2 class="sec-title">The Core</h2>
+      <span class="sec-rule"></span>
+      <span class="sec-kick">Verified learning</span>
     </div>
-    <figure class="fig reveal">
-      <img src="./assets/specialist-roster.svg" alt="The 32 specialist Guardians orbiting the adaptive intelligence core" width="1500" height="1020">
-      <figcaption>ALL 32 SPECIALISTS REPORT VERIFIED EVIDENCE BACK TO THE CORE</figcaption>
-    </figure>
-
-    <div class="wing-block reveal">
-      <div class="card c-emerald"><span class="tag">Wing 1 · v0.7.0 — Elite Specialists</span>
-        <div class="roles">
-          <div class="role e"><b>AI Architect Guardian</b><span>Architecture, systems design, AI architecture, tradeoffs, integration design.</span></div>
-          <div class="role e"><b>Software Platform Engineer Guardian</b><span>Platform engineering, distributed systems, reliability, deployment, observability.</span></div>
-          <div class="role e"><b>AI Developer Guardian</b><span>AI application development, RAG, model integration, prompt engineering, Guardian workflows.</span></div>
-          <div class="role e"><b>Coder Specialist Guardian</b><span>Implementation, refactoring, code review, testing.</span></div>
-          <div class="role e"><b>AI Engineer Guardian</b><span>Production AI, inference, evaluation, model routing, performance.</span></div>
-          <div class="role e"><b>Debugger Specialist Guardian</b><span>Debugging, root-cause analysis, regression analysis, repair.</span></div>
-          <div class="role e"><b>AI Scientist Guardian</b><span>Experiments, statistics, benchmark design, evaluation.</span></div>
-          <div class="role e"><b>AI Cloud Specialist Guardian</b><span>Cloud, containers, deployment, scaling, infrastructure, observability.</span></div>
-          <div class="role e"><b>API Specialist Guardian</b><span>API contracts, authentication, integration, retries, testing.</span></div>
-          <div class="role e"><b>AI Programmer Guardian</b><span>Programming, automation, algorithms, tool use, testing.</span></div>
-        </div>
+    <div class="core-grid">
+      <div class="core-copy">
+        <h2>Evidence before claims.<br><span class="serif-i grad">Always.</span></h2>
+        <p class="lede">A Guardian merely saying "done" is not verification. Successful runs require objective <code class="mono" style="color:var(--emerald)">test</code>, <code class="mono" style="color:var(--cyan)">api</code>, <code class="mono" style="color:var(--magenta)">browser</code>, or <code class="mono" style="color:var(--amber)">security</code> evidence before they can reinforce expertise. Concrete runtime failures teach failure evidence automatically. The core remembers — but only what the evidence proves.</p>
       </div>
+      <figure class="core-img" data-parallax>
+        <img src="./assets/core-nebula.jpg" alt="The intelligence core with 32 orbiting specialist Guardians">
+      </figure>
+      <figure class="core-fig reveal">
+        <img src="./assets/learning-loop.svg" alt="Verified learning loop — mission, execute, verify, adapt, evolve, route">
+        <figcaption>Mission → Execute → Verify → Adapt → Evolve → Route — around the verified learning core</figcaption>
+      </figure>
     </div>
-
-    <div class="wing-block reveal">
-      <div class="card c-sunset"><span class="tag">Wing 2 · v0.9.0 — Autonomous Operations</span>
-        <div class="roles">
-          <div class="role o"><b>Planner Strategist Guardian</b><span>Goal decomposition, task routing, decision rules, prioritization, success criteria.</span></div>
-          <div class="role o"><b>Verification &amp; QA Specialist Guardian</b><span>Independent verification, quality audits, browser QA, verbatim evidence capture, bounded self-heal repair.</span></div>
-          <div class="role o"><b>Independent Reviewer Guardian</b><span>Change-set review against goal + verification evidence; holds gates, never implementation authority.</span></div>
-          <div class="role o"><b>Deployment &amp; Release Guardian</b><span>Preview environments, staged promotion, release gates, rollback plans.</span></div>
-          <div class="role o"><b>Evidence &amp; Research Guardian</b><span>Provenance-carrying research, evidence scoring, source verification, fact-checking before building.</span></div>
-          <div class="role o"><b>Content &amp; SEO Strategist Guardian</b><span>Structured content, keyword intent, conversion copy from verified facts only.</span></div>
-          <div class="role o"><b>Design Experience Guardian</b><span>Design systems, style universes, motion design, accessibility, design QA.</span></div>
-          <div class="role o"><b>Budget &amp; Cost Controller Guardian</b><span>Resource budgets, model routing, cost per verified mission, failure-taxonomy accounting.</span></div>
-          <div class="role o"><b>Data &amp; SQL Analyst Guardian</b><span>SQL and ETL analysis, data-quality checks, dashboard verification, BI reporting.</span></div>
-          <div class="role o"><b>Evaluation Judge Guardian</b><span>LLM-as-judge correctness grading, trajectory evaluation, benchmark evaluation.</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="wing-block reveal">
-      <div class="card c-amber"><span class="tag">Wing 3 · v0.9.0 — Agency Services</span>
-        <div class="roles">
-          <div class="role a"><b>GIS &amp; Spatial Analyst Guardian</b><span>Geospatial analysis, spatial data, cartography, geoprocessing, remote sensing, GeoAI.</span></div>
-          <div class="role a"><b>Sales Pipeline Strategist Guardian</b><span>Pipeline management, deal strategy, proposal writing, lead qualification, sales coaching.</span></div>
-          <div class="role a"><b>Game Design Guardian</b><span>Game design, level design, narrative design, economy design, game audio, technical art.</span></div>
-          <div class="role a"><b>XR &amp; Spatial Computing Guardian</b><span>XR development, spatial computing, immersive interfaces, visionOS, Metal, 3D interaction.</span></div>
-          <div class="role a"><b>Paid Media Strategist Guardian</b><span>Paid media, PPC, programmatic, paid social, ad tracking, media audits.</span></div>
-          <div class="role a"><b>Financial Analysis Guardian</b><span>Financial analysis, FP&amp;A, bookkeeping, investment research, tax strategy, financial modeling.</span></div>
-          <div class="role a"><b>Healthcare Evidence Guardian</b><span>Healthcare analysis, clinical evidence, health innovation, health systems, medical compliance.</span></div>
-          <div class="role a"><b>Blockchain Engineer Guardian</b><span>Blockchain, smart contracts, Solidity, ZK proofs, DeFi, chain security.</span></div>
-          <div class="role a"><b>Embedded &amp; IoT Guardian</b><span>Embedded systems, firmware, IoT, edge computing, hardware integration.</span></div>
-          <div class="role a"><b>Knowledge &amp; Search Guardian</b><span>Knowledge graphs, search relevance, RAG, information retrieval, embeddings.</span></div>
-          <div class="role a"><b>Legal &amp; Compliance Guardian</b><span>Legal analysis, contract review, compliance audits, privacy law, regulatory affairs.</span></div>
-          <div class="role a"><b>PMO Operations Guardian</b><span>Project management, meeting operations, status reporting, studio operations, workflow coordination.</span></div>
-        </div>
-      </div>
+    <div class="principles">
+      <div class="pr reveal"><span class="k">Peer Learning</span><h4>Knowledge, not status</h4><p>A Guardian may learn a verified pattern discovered by another specialist — but it never inherits the other's success rate, benchmark score, confidence, permissions, or routing authority. It must prove the capability itself.</p></div>
+      <div class="pr reveal"><span class="k">Governed Learning Only</span><h4>Never automatic</h4><p>Learning may adapt evidence, lessons, calibration, failure clusters, curricula, replay strategies, memory, and bounded routing preference. It may never mutate production model weights, grant permissions, approve benchmark truth, or bypass promotion gates.</p></div>
+      <div class="pr reveal"><span class="k">Cognitive Inspection</span><h4>Audit-ready, live</h4><p><code>GET /v1/projects/{id}/guardians/{gid}/cognitive-summary</code> exposes verified episodes, authored lessons, confidence reliability, counterfactual cycles, and the current curriculum — on demand.</p></div>
     </div>
   </div>
 </section>
 
-<!-- LEARNING -->
-<section id="learning">
+<!-- AGENCY -->
+<section class="agency" id="agency" data-bg="#0D0B26">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Verified Learning</div>
-      <h2>Evidence before claims.<br><span class="grad-text">Always.</span></h2>
-      <p class="lede">A Guardian merely saying "done" is not verification. Successful runs require objective <code class="inline-code">test</code>, <code class="inline-code">api</code>, <code class="inline-code">browser</code>, or <code class="inline-code">security</code> evidence before they can reinforce expertise; concrete runtime failures teach failure evidence automatically.</p>
+    <div class="sec-head">
+      <span class="sec-idx">05</span>
+      <h2 class="sec-title">Agency Wing</h2>
+      <span class="sec-rule"></span>
+      <span class="sec-kick">12 new disciplines · original definitions</span>
     </div>
-    <figure class="fig reveal">
-      <img src="./assets/learning-loop.svg" alt="Verified learning loop motion graph" width="1300" height="940">
-      <figcaption>MISSION → EXECUTE → VERIFY → ADAPT → EVOLVE → ROUTE — AROUND THE VERIFIED LEARNING CORE</figcaption>
-    </figure>
-    <div class="grid g3 reveal" style="margin-top:44px">
-      <div class="card c-lime"><span class="tag">Peer learning</span><h3>Knowledge, not status</h3><p>A Guardian may learn a verified pattern discovered by another specialist — but it never inherits the other's success rate, benchmark score, confidence, permissions, or routing authority. It must prove the capability itself.</p></div>
-      <div class="card c-amber"><span class="tag">Governed learning only</span><h3>Never automatic</h3><p>Learning may adapt evidence, lessons, calibration, failure clusters, curricula, replay strategies, memory, and bounded routing preference. It may never mutate production model weights, grant permissions, approve benchmark truth, or bypass promotion gates.</p></div>
-      <div class="card c-deep"><span class="tag">Cognitive inspection</span><h3>Audit-ready, live</h3><p><code class="inline-code">GET /v1/projects/{project_id}/guardians/{guardian_id}/cognitive-summary</code> exposes verified episodes, authored lessons, confidence reliability, counterfactual cycles, and the current curriculum.</p></div>
+    <div class="ag-grid">
+      <div class="ag-list" id="agList"></div>
+      <figure class="ag-fig reveal">
+        <img src="./assets/agency-services-wing.svg" alt="The Agency Services Wing — twelve gradient capsules">
+        <figcaption>The Agency Services Wing — provenance documented</figcaption>
+      </figure>
     </div>
-  </div>
-</section>
-
-<!-- AGENCY WING -->
-<section id="agency">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Agency Services Wing</div>
-      <h2>Twelve new disciplines.<br><span class="grad-text">Original definitions.</span></h2>
-      <p class="lede">Selected by gap analysis against the open agency-agents catalog (msitarzewski/agency-agents, MIT License) — every catalog division with no existing Guardian coverage is represented. Only skill concepts were taken; all profiles, prompts, and learning objectives are original NEXUS definitions, documented in provenance comments.</p>
-    </div>
-    <figure class="fig reveal">
-      <img src="./assets/agency-services-wing.svg" alt="Agency Services Wing — twelve gradient capsules" width="1500" height="900">
-      <figcaption>THE AGENCY SERVICES WING — TWELVE GRADIENT CAPSULES, PROVENANCE DOCUMENTED</figcaption>
-    </figure>
+    <p style="color:var(--dim);font-size:13px;line-height:1.8;max-width:640px;margin-top:34px">Selected by gap analysis against the open agency-agents catalog (msitarzewski/agency-agents, MIT License) — every catalog division with no existing Guardian coverage is represented. Only skill concepts were taken; every profile, prompt, and learning objective is an original NEXUS definition.</p>
   </div>
 </section>
 
 <!-- CONTRACT -->
-<section id="contract">
+<section class="contract" id="contract" data-bg="#070D22">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Compatibility Contract</div>
-      <h2>Stable surfaces,<br><span class="grad-text">guaranteed.</span></h2>
-      <p class="lede">The canonical product name is <strong>Nexus Starship Guardians</strong> and the canonical CLI is <code class="inline-code">nexus-guardians</code>. Compatibility surfaces remain supported and tested across releases.</p>
+    <div class="sec-head">
+      <span class="sec-idx">06</span>
+      <h2 class="sec-title">The Contract</h2>
+      <span class="sec-rule"></span>
+      <span class="sec-kick">Stable surfaces, guaranteed</span>
     </div>
-    <div class="grid g2 reveal">
-      <div class="card c-emerald"><span class="tag">Python</span><h3>Namespace <code>nexus_os</code></h3><p>The import namespace is frozen. Version is exposed as <code class="inline-code">nexus_os.__version__</code>.</p></div>
-      <div class="card c-sunset"><span class="tag">CLI</span><h3><code>nexus-guardians</code> · alias <code>nexus-portable</code></h3><p>Both entrypoints ship and pass <code class="inline-code">doctor</code> in the quality gates.</p></div>
-      <div class="card c-amber"><span class="tag">REST v1</span><h3>Wire fields <code>agent</code> / <code>agents</code></h3><p>REST v1 wire field names remain stable for existing integrations.</p></div>
-      <div class="card c-deep"><span class="tag">Environment</span><h3>Prefix <code>NEXUS_*</code></h3><p>All environment variables keep the <code class="inline-code">NEXUS_</code> prefix — including <code class="inline-code">NEXUS_ADAPTIVE_INTELLIGENCE_PATH</code> and <code class="inline-code">NEXUS_COGNITIVE_EVOLUTION_PATH</code> for persistent state.</p></div>
+    <div class="ct-grid">
+      <div class="ct reveal"><span class="k">Python</span><h3>namespace nexus_os</h3><p>The import namespace is frozen. The version is exposed as <span class="mono" style="color:var(--emerald)">nexus_os.__version__</span> — currently 0.9.0.</p></div>
+      <div class="ct reveal"><span class="k">CLI</span><h3>nexus-guardians · alias nexus-portable</h3><p>Both entrypoints ship and pass <span class="mono" style="color:var(--emerald)">doctor</span> in the quality gates. The canonical product name is Nexus Starship Guardians.</p></div>
+      <div class="ct reveal"><span class="k">REST v1</span><h3>wire fields agent / agents</h3><p>REST v1 wire field names remain stable for existing integrations — compatibility is tested on every release.</p></div>
+      <div class="ct reveal"><span class="k">Environment</span><h3>prefix NEXUS_*</h3><p>All environment variables keep the NEXUS_ prefix — including <span class="mono" style="color:var(--emerald)">NEXUS_ADAPTIVE_INTELLIGENCE_PATH</span> and <span class="mono" style="color:var(--emerald)">NEXUS_COGNITIVE_EVOLUTION_PATH</span> for persistent state.</p></div>
     </div>
-
-    <div class="sec-head reveal" style="margin-top:90px">
-      <div class="eyebrow">Quality Gates</div>
-      <h2>Every change,<br><span class="grad-text">every time.</span></h2>
-    </div>
-    <pre class="reveal"><code>pip install -e '.[dev]'
-ruff check nexus_os tests examples
-NEXUS_DEV_MODE=true pytest -q
-nexus-guardians doctor
-nexus-portable doctor</code></pre>
-    <p class="lede reveal" style="margin-top:22px;font-size:15px">GitHub Actions additionally validates Python 3.11/3.12/3.13, live HTTP, Docker health, PostgreSQL 16 integration, provider contracts, persistence, mission routing, adaptive/cognitive learning, benchmark replay, coverage intelligence, plugin/runtime alignment, and release artifacts.</p>
   </div>
 </section>
 
-<footer>
+<!-- GATES -->
+<section class="gates" data-bg="#0A1128">
   <div class="wrap">
-    <div><strong style="color:var(--ink)">Nexus Starship Guardians</strong> · v0.9.0 · Verified Guardian engineering runtime</div>
-    <div>Learning adapts verified evidence — never permissions, peer scores, live model weights, or benchmark truth.</div>
-    <div><a href="https://github.com/lois4801/NEXUS-Starship-Guardians" style="color:var(--emerald)">github.com/lois4801/NEXUS-Starship-Guardians</a></div>
+    <div class="sec-head">
+      <span class="sec-idx">07</span>
+      <h2 class="sec-title">Quality Gates</h2>
+      <span class="sec-rule"></span>
+      <span class="sec-kick">Every change · every time</span>
+    </div>
+    <div class="cmd reveal">
+      <div class="cmd-bar"><i></i><i></i><i></i><span>gates.sh — CI</span></div>
+      <pre id="typePre"></pre>
+    </div>
+    <p style="color:var(--dim);font-size:13.5px;line-height:1.8;max-width:720px;margin-top:26px">GitHub Actions additionally validates Python 3.11/3.12/3.13, live HTTP, Docker health, PostgreSQL 16 integration, provider contracts, persistence, mission routing, adaptive and cognitive learning, benchmark replay, coverage intelligence, plugin/runtime alignment, and release artifacts.</p>
+  </div>
+</section>
+
+</main>
+
+<footer data-bg="#05081A">
+  <div class="wrap">
+    <div class="f-word" id="fWord"><span class="fill">NEXUS</span> GUARDIANS</div>
+    <div class="f-grid">
+      <nav class="f-nav">
+        <a href="#systems" data-scroll>Systems</a>
+        <a href="#company" data-scroll>Company</a>
+        <a href="#roster" data-scroll>Roster</a>
+        <a href="#core" data-scroll>Core</a>
+        <a href="#agency" data-scroll>Agency</a>
+        <a href="https://github.com/lois4801/NEXUS-Starship-Guardians" target="_blank" rel="noopener">Repository ↗</a>
+      </nav>
+      <p class="f-note">Learning adapts verified evidence — never permissions, peer scores, live model weights, or benchmark truth. NEXUS never stores provider credentials.</p>
+      <div class="f-clock" id="fClock">00:00:00 LOCAL</div>
+    </div>
+    <div class="f-base">
+      <span>Nexus Starship Guardians · v0.9.0</span>
+      <span>Verified Guardian Engineering Runtime</span>
+      <span>© 2026 · All evidence reserved</span>
+    </div>
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
-  // scroll reveal
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+/* ============ data ============ */
+const WINGS=[
+ {key:"elite",name:"Elite Specialists",ver:"v0.7.0",color:"#2AF598",tag:"WING I — 10 ROLES",desc:"The original ten. Architecture, platforms, AI engineering, debugging, APIs — the deep engineering bench every mission is built on.",members:[
+  ["AI Architect Guardian","Architecture, systems design, AI architecture, tradeoffs, integration design."],
+  ["Software Platform Engineer Guardian","Platform engineering, distributed systems, reliability, deployment, observability."],
+  ["AI Developer Guardian","AI application development, RAG, model integration, prompt engineering, Guardian workflows."],
+  ["Coder Specialist Guardian","Implementation, refactoring, code review, testing."],
+  ["AI Engineer Guardian","Production AI, inference, evaluation, model routing, performance."],
+  ["Debugger Specialist Guardian","Debugging, root-cause analysis, regression analysis, repair."],
+  ["AI Scientist Guardian","Experiments, statistics, benchmark design, evaluation."],
+  ["AI Cloud Specialist Guardian","Cloud, containers, deployment, scaling, infrastructure, observability."],
+  ["API Specialist Guardian","API contracts, authentication, integration, retries, testing."],
+  ["AI Programmer Guardian","Programming, automation, algorithms, tool use, testing."]]},
+ {key:"ops",name:"Autonomous Operations",ver:"v0.9.0",color:"#F857A6",tag:"WING II — 10 ROLES",desc:"Plan, verify, review, release, research — the operating layer that keeps missions honest from brief to ship.",members:[
+  ["Planner Strategist Guardian","Goal decomposition, task routing, decision rules, prioritization, success criteria."],
+  ["Verification & QA Specialist Guardian","Independent verification, quality audits, browser QA, verbatim evidence capture, bounded self-heal repair."],
+  ["Independent Reviewer Guardian","Change-set review against goal + verification evidence; holds gates, never implementation authority."],
+  ["Deployment & Release Guardian","Preview environments, staged promotion, release gates, rollback plans."],
+  ["Evidence & Research Guardian","Provenance-carrying research, evidence scoring, source verification, fact-checking before building."],
+  ["Content & SEO Strategist Guardian","Structured content, keyword intent, conversion copy from verified facts only."],
+  ["Design Experience Guardian","Design systems, style universes, motion design, accessibility, design QA."],
+  ["Budget & Cost Controller Guardian","Resource budgets, model routing, cost per verified mission, failure-taxonomy accounting."],
+  ["Data & SQL Analyst Guardian","SQL and ETL analysis, data-quality checks, dashboard verification, BI reporting."],
+  ["Evaluation Judge Guardian","LLM-as-judge correctness grading, trajectory evaluation, benchmark evaluation."]]},
+ {key:"agency",name:"Agency Services",ver:"v0.9.0",color:"#F2A24A",tag:"WING III — 12 ROLES",desc:"Twelve disciplines selected by gap analysis — GIS to legal, blockchain to healthcare — every profile an original NEXUS definition.",members:[
+  ["GIS & Spatial Analyst Guardian","Geospatial analysis, spatial data, cartography, geoprocessing, remote sensing, GeoAI."],
+  ["Sales Pipeline Strategist Guardian","Pipeline management, deal strategy, proposal writing, lead qualification, sales coaching."],
+  ["Game Design Guardian","Game design, level design, narrative design, economy design, game audio, technical art."],
+  ["XR & Spatial Computing Guardian","XR development, spatial computing, immersive interfaces, visionOS, Metal, 3D interaction."],
+  ["Paid Media Strategist Guardian","Paid media, PPC, programmatic, paid social, ad tracking, media audits."],
+  ["Financial Analysis Guardian","Financial analysis, FP&A, bookkeeping, investment research, tax strategy, financial modeling."],
+  ["Healthcare Evidence Guardian","Healthcare analysis, clinical evidence, health innovation, health systems, medical compliance."],
+  ["Blockchain Engineer Guardian","Blockchain, smart contracts, Solidity, ZK proofs, DeFi, chain security."],
+  ["Embedded & IoT Guardian","Embedded systems, firmware, IoT, edge computing, hardware integration."],
+  ["Knowledge & Search Guardian","Knowledge graphs, search relevance, RAG, information retrieval, embeddings."],
+  ["Legal & Compliance Guardian","Legal analysis, contract review, compliance audits, privacy law, regulatory affairs."],
+  ["PMO Operations Guardian","Project management, meeting operations, status reporting, studio operations, workflow coordination."]]}
+];
+const AGENCY=WINGS[2].members;
+const GATES=['$ pip install -e \'./[dev]\'','$ ruff check nexus_os tests examples','$ NEXUS_DEV_MODE=true pytest -q','# 175 passed, 2 skipped','$ nexus-guardians doctor','$ nexus-portable doctor','# both entrypoints report healthy'];
+</script>
+<script>
+/* ============ engine ============ */
+gsap.registerPlugin(ScrollTrigger);
+const isTouch=matchMedia('(pointer:coarse)').matches;
 
-  // animated counters
-  const counterIO = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      counterIO.unobserve(e.target);
-      const el = e.target, target = +el.dataset.count, t0 = performance.now(), dur = 1600;
-      const tick = (t) => {
-        const p = Math.min(1, (t - t0) / dur), ease = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(target * ease);
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    });
-  }, { threshold: 0.4 });
-  document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+/* ---- smooth scroll (Lenis) ---- */
+const lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true});
+lenis.on('scroll',ScrollTrigger.update);
+gsap.ticker.add(t=>lenis.raf(t*1000));
+gsap.ticker.lagSmoothing(0);
+lenis.stop();
 
-  // marquee content
-  const items = ['Intelligence Fabric','Adaptive Guardian Intelligence','Guardian Cognitive Evolution','Controlled Tool Gateway','Benchmark Replay','Coverage Intelligence','Company Runtime','Verified Learning','OpenCode Provider'];
-  document.getElementById('mq').innerHTML = (items.map(i => `<span>${i}</span><span class="dot">✦</span>`).join('')).repeat(2);
+/* anchor scrolling */
+document.querySelectorAll('[data-scroll]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href');
+    if(id&&id.startsWith('#')){e.preventDefault();lenis.scrollTo(id,{offset:-66,duration:1.6});}
+  });
+});
+
+/* ---- clock ---- */
+const fmt=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+const tick=()=>{const t=fmt.format(new Date());const h=document.getElementById('hClock'),f=document.getElementById('fClock');if(h)h.textContent=t;if(f)f.textContent=t+' LOCAL';};
+tick();setInterval(tick,1000);
+
+/* ---- marquee ---- */
+(()=>{const items=['Intelligence Fabric','Adaptive Guardian Intelligence','Cognitive Evolution','Controlled Tool Gateway','Benchmark Replay','Coverage Intelligence','Company Runtime','Verified Learning','OpenCode Provider','Multi-Judge Evaluation'];
+const half=items.map(i=>`<span>${i}</span>`).join('');
+document.getElementById('mq').innerHTML=half+half;})();
+
+/* ---- roster track ---- */
+(()=>{const track=document.getElementById('roTrack');let html='';let n=0;
+WINGS.forEach(w=>{
+  html+=`<div class="ro-group"><span class="g-idx">${w.tag} · ${w.ver}</span><h3>${w.name}</h3><p>${w.desc}</p></div>`;
+  w.members.forEach(m=>{n++;html+=`<div class="ro-card" style="--wc:${w.color}"><span class="ro-wing">${w.name} · ${w.ver}</span><span class="ro-num">№ ${String(n).padStart(2,'0')}</span><div class="ro-name">${m[0]}</div><p class="ro-spec">${m[1]}</p><div class="ro-foot">Verified Evidence Only</div></div>`;});
+});
+track.innerHTML=html;})();
+
+/* ---- agency list ---- */
+(()=>{document.getElementById('agList').innerHTML=AGENCY.map((m,i)=>`<div class="ag-item" data-cursor="↗"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${m[0]}</span><span class="d">${m[1]}</span></div>`).join('');})();
+
+/* ---- custom cursor ---- */
+if(!isTouch){
+  const dot=document.getElementById('cDot'),ring=document.getElementById('cRing'),label=document.getElementById('cLabel');
+  let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;});
+  gsap.ticker.add(()=>{rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;});
+  document.addEventListener('mouseover',e=>{
+    const t=e.target.closest('[data-cursor],a,button,.sys-row,.ag-item');
+    if(t){ring.classList.add('big');label.textContent=t.dataset&&t.dataset.cursor?t.dataset.cursor:'↗';}
+    else ring.classList.remove('big');
+  });
+}
+
+/* ---- magnetic buttons ---
+- */
+if(!isTouch){document.querySelectorAll('.magnetic').forEach(b=>{
+  b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();gsap.to(b,{x:(e.clientX-r.left-r.width/2)*.28,y:(e.clientY-r.top-r.height/2)*.34,duration:.5,ease:'power3.out'});});
+  b.addEventListener('mouseleave',()=>gsap.to(b,{x:0,y:0,duration:.7,ease:'elastic.out(1,.4)'}));
+});}
+
+/* ---- split utils ---- */
+function splitChars(el){const t=el.textContent;el.textContent='';return [...t].map(c=>{const s=document.createElement('span');s.style.display='inline-block';s.style.transform='translateY(115%)';s.textContent=c===' '?'\u00A0':c;el.appendChild(s);return s;});}
+function splitWords(el){const walk=node=>{[...node.childNodes].forEach(ch=>{if(ch.nodeType===3){const frag=document.createDocumentFragment();ch.textContent.split(/(\s+)/).forEach(part=>{if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(' '));}else if(part){const s=document.createElement('span');s.className='w';s.textContent=part;frag.appendChild(s);}});node.replaceChild(frag,ch);}else if(ch.nodeType===1&&!ch.classList.contains('w')){walk(ch);}});};walk(el);return el.querySelectorAll('.w');}
+
+/* ---- hero intro ---- */
+const heroChars=[];
+document.querySelectorAll('[data-chars]').forEach(el=>heroChars.push(...splitChars(el)));
+const heroSlides=[...document.querySelectorAll('[data-slide]')];
+heroSlides.forEach(el=>el.style.transform='translateY(115%)');
+
+const introTl=gsap.timeline({paused:true});
+introTl
+ .to(heroSlides,{y:0,duration:1.3,ease:'expo.out',stagger:.12,overwrite:true},0)
+ .to(heroChars,{y:0,duration:1.3,ease:'expo.out',stagger:.028,overwrite:true},.08)
+ .fromTo('.reveal-hero',{y:34,opacity:0},{y:0,opacity:1,duration:1.1,ease:'expo.out',stagger:.1},'-.9')
+ .add(()=>startCounters(),'-.5');
+
+/* ---- preloader ---- */
+(()=>{const pct=document.getElementById('lPct'),bar=document.getElementById('lBar'),word=document.getElementById('lWord'),loader=document.getElementById('loader');
+gsap.to(word,{y:0,duration:1,ease:'expo.out',delay:.15});
+const o={v:0};
+gsap.to(o,{v:100,duration:1.9,ease:'power2.inOut',delay:.3,
+ onUpdate:()=>{pct.textContent=String(Math.round(o.v)).padStart(2,'0');bar.style.transform=`scaleX(${o.v/100})`;},
+ onComplete:()=>{
+   gsap.to(loader,{yPercent:-100,duration:1.05,ease:'expo.inOut',onComplete:()=>{loader.style.display='none';}});
+   lenis.start();introTl.play();
+ }});
+})();
+
+/* ---- counters ---- */
+function startCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target=+el.dataset.count,o={v:0};
+    gsap.to(o,{v:target,duration:2,ease:'expo.out',onUpdate:()=>el.textContent=Math.round(o.v)});
+  });
+}
+document.querySelectorAll('[data-count]').forEach(el=>el.textContent='0');
+
+/* ---- header hide/show ---- */
+(()=>{const h=document.getElementById('siteHeader');let last=0;
+ScrollTrigger.create({start:0,end:'max',onUpdate:s=>{
+  const y=s.scroll();
+  h.classList.toggle('scrolled',y>60);
+  if(y>last&&y>180)gsap.to(h,{yPercent:-110,duration:.55,ease:'circ.out',overwrite:true});
+  else gsap.to(h,{yPercent:0,duration:.55,ease:'circ.out',overwrite:true});
+  last=y;
+}});})();
+
+/* ---- section background transitions ---- */
+document.querySelectorAll('[data-bg]').forEach(sec=>{
+  ScrollTrigger.create({trigger:sec,start:'top 55%',end:'bottom 55%',
+    onEnter:()=>gsap.to('body',{backgroundColor:sec.dataset.bg,duration:.9,ease:'power2.out'}),
+    onEnterBack:()=>gsap.to('body',{backgroundColor:sec.dataset.bg,duration:.9,ease:'power2.out'})});
+});
+
+/* ---- hero parallax ---- */
+gsap.to('#heroImg',{yPercent:14,scale:1.06,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+/* ---- generic reveals ---- */
+gsap.utils.toArray('.reveal').forEach(el=>{
+  gsap.fromTo(el,{y:44,opacity:0},{y:0,opacity:1,duration:1.4,ease:'expo.out',
+    scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+});
+
+/* ---- parallax figures ---- */
+gsap.utils.toArray('[data-parallax] img').forEach(img=>{
+  gsap.fromTo(img,{yPercent:-12},{yPercent:6,ease:'none',
+    scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:true}});
+});
+
+/* ---- manifesto scrub ---- */
+(()=>{const p=document.querySelector('[data-scrub-words]');const words=splitWords(p);
+gsap.to(words,{opacity:1,ease:'none',stagger:.6,duration:2,
+  scrollTrigger:{trigger:p,start:'top 78%',end:'bottom 45%',scrub:.6}});})();
+
+/* ---- company horizontal ---- */
+(()=>{const track=document.getElementById('coTrack');
+const dist=()=>track.scrollWidth-innerWidth+parseFloat(getComputedStyle(track).paddingLeft)*0;
+gsap.to(track,{x:()=>-(dist()),ease:'none',
+  scrollTrigger:{trigger:'#coPin',start:'top top',end:()=>'+='+(dist()),pin:true,scrub:1,invalidateOnRefresh:true,
+    onUpdate:s=>{document.getElementById('coProg').style.transform=`scaleX(${s.progress})`;}}});})();
+
+/* ---- roster horizontal ---- */
+(()=>{const track=document.getElementById('roTrack');
+const dist=()=>track.scrollWidth-innerWidth;
+gsap.to(track,{x:()=>-(dist()),ease:'none',
+  scrollTrigger:{trigger:'#roPin',start:'top top',end:()=>'+='+(dist()),pin:true,scrub:1,invalidateOnRefresh:true,
+    onUpdate:s=>{document.getElementById('roProg').style.transform=`scaleX(${s.progress})`;}}});})();
+
+/* ---- terminal typing ---- */
+(()=>{const pre=document.getElementById('typePre');let started=false;
+ScrollTrigger.create({trigger:pre,start:'top 82%',once:true,onEnter:()=>{
+  if(started)return;started=true;const full=GATES.join('\n');let i=0;
+  const iv=setInterval(()=>{i+=2;pre.textContent=full.slice(0,i);
+    if(i>=full.length){clearInterval(iv);}},26);
+}});})();
+
+/* ---- footer word slide ---- */
+gsap.fromTo('#fWord',{y:120,opacity:0},{y:0,opacity:1,duration:1.6,ease:'expo.out',
+  scrollTrigger:{trigger:'#fWord',start:'top 92%',once:true}});
+
+addEventListener('load',()=>ScrollTrigger.refresh());
 </script>
 </body>
 </html>
