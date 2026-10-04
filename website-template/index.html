@@ -91,7 +91,7 @@ header.site.scrolled{border-bottom-color:var(--line-soft)}
 .hero-lede{max-width:640px;color:var(--mut);font-size:clamp(15px,1.4vw,18px);line-height:1.75;margin-top:26px}
 .hero-lede strong{color:var(--ink);font-weight:500}
 .hero-ctas{display:flex;gap:16px;margin-top:30px;flex-wrap:wrap}
-.btn{position:relative;display:inline-flex;align-items:center;gap:12px;font-family:var(--font-m);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;padding:17px 32px;border-radius:99px;overflow:hidden;transition:color .4s,border-color .4s;will-change:transform}
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;font-family:var(--font-m);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;padding:17px 32px;border-radius:99px;overflow:hidden;transition:color .4s,border-color:.4s;will-change:transform}
 .btn svg{transition:transform .45s var(--ease)}
 .btn:hover svg{transform:translate(4px,-4px)}
 .btn-fill{background:var(--gold);color:var(--bg0)}
@@ -153,7 +153,7 @@ section{position:relative}
 .sys-name{font-family:var(--font-d);font-weight:500;font-size:clamp(22px,2.6vw,36px);letter-spacing:-.02em;line-height:1.1;transition:transform .5s var(--ease),color .4s}
 .sys-row:hover .sys-name{transform:translateX(14px)}
 .sys-desc{color:var(--mut);font-size:14.5px;line-height:1.75;max-width:520px}
-.sys-arr{font-family:var(--font-m);color:var(--dim);font-size:18px;text-align:right;transition:transform .5s var(--ease),color .4s}
+.sys-arr{font-family:var(--font-m);color:var(--dim);font-size:18px;text-align:right;transition:transform .5s var(--ease),color:.4s}
 .sys-row:hover .sys-arr{transform:translate(6px,-6px);color:var(--gold)}
 .sys-tag{display:inline-block;font-family:var(--font-m);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line-soft);border-radius:99px;padding:5px 12px;margin-bottom:12px}
 @media(max-width:900px){.sys-row{grid-template-columns:50px 1fr;grid-template-rows:auto auto}.sys-desc{grid-column:2}.sys-arr{display:none}}
@@ -204,7 +204,7 @@ section{position:relative}
 .roster{overflow:hidden}
 .ro-pin{height:100vh;display:flex;align-items:center;overflow:hidden}
 .ro-track{display:flex;gap:22px;padding:0 clamp(20px,4vw,64px);will-change:transform;align-items:stretch}
-.ro-card{flex:0 0 auto;width:min(66vw,420px);min-height:56vh;border:1px solid var(--line-soft);border-radius:22px;padding:30px;display:flex;flex-direction:column;background:rgba(255,255,255,.02);position:relative;overflow:hidden;transition:border-color .4s}
+.ro-card{flex:0 0 auto;width:min(66vw,420px);min-height:56vh;border:1px solid var(--line-soft);border-radius:22px;padding:30px;display:flex;flex-direction:column;background:rgba(255,255,255,.02);position:relative;overflow:hidden;transition:border-color:.4s}
 .ro-card::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:var(--wc,#2AF598);opacity:.8}
 .ro-card:hover{border-color:rgba(255,255,255,.2)}
 .ro-wing{font-family:var(--font-m);font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--dim)}
@@ -496,7 +496,7 @@ footer{border-top:1px solid var(--line-soft);padding:clamp(70px,10vh,120px) 0 46
         </div>
       </div>
       <figure class="level-fig" data-parallax>
-        <img src="./assets/constellation.jpg" alt="Four wing constellations exchanging streams of light">
+        <img src="./assets/company-constellation.jpg" alt="Four wing constellations exchanging streams of light">
         <figcaption>Four Wings — Many Missions In Flight</figcaption>
       </figure>
     </div>
@@ -644,7 +644,7 @@ const WINGS=[
   ["AI Scientist Guardian","Experiments, statistics, benchmark design, evaluation."],
   ["AI Cloud Specialist Guardian","Cloud, containers, deployment, scaling, infrastructure, observability."],
   ["API Specialist Guardian","API contracts, authentication, integration, retries, testing."],
-  ["AI Programmer Guardian","Programming, automation, algorithms, tool use, testing."]]},
+  ["AI Programmer Guardian","Programming, automation, algorithms, tool use, testing."]},
  {key:"ops",name:"Autonomous Operations",ver:"v0.9.0",color:"#F857A6",tag:"WING II — 10 ROLES",desc:"Plan, verify, review, release, research — the operating layer that keeps missions honest from brief to ship.",members:[
   ["Planner Strategist Guardian","Goal decomposition, task routing, decision rules, prioritization, success criteria."],
   ["Verification & QA Specialist Guardian","Independent verification, quality audits, browser QA, verbatim evidence capture, bounded self-heal repair."],
@@ -655,7 +655,7 @@ const WINGS=[
   ["Design Experience Guardian","Design systems, style universes, motion design, accessibility, design QA."],
   ["Budget & Cost Controller Guardian","Resource budgets, model routing, cost per verified mission, failure-taxonomy accounting."],
   ["Data & SQL Analyst Guardian","SQL and ETL analysis, data-quality checks, dashboard verification, BI reporting."],
-  ["Evaluation Judge Guardian","LLM-as-judge correctness grading, trajectory evaluation, benchmark evaluation."]]},
+  ["Evaluation Judge Guardian","LLM-as-judge correctness grading, trajectory evaluation, benchmark evaluation."]},
  {key:"agency",name:"Agency Services",ver:"v0.9.0",color:"#F2A24A",tag:"WING III — 12 ROLES",desc:"Twelve disciplines selected by gap analysis — GIS to legal, blockchain to healthcare — every profile an original NEXUS definition.",members:[
   ["GIS & Spatial Analyst Guardian","Geospatial analysis, spatial data, cartography, geoprocessing, remote sensing, GeoAI."],
   ["Sales Pipeline Strategist Guardian","Pipeline management, deal strategy, proposal writing, lead qualification, sales coaching."],
