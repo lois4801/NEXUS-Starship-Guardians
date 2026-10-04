@@ -26,6 +26,7 @@ def _doctor() -> int:
         "claude": shutil.which("claude"),
         "codex": shutil.which("codex"),
         "gemini": shutil.which("gemini"),
+        "opencode": shutil.which("opencode"),
     }
     print(json.dumps(checks, indent=2))
     return 0

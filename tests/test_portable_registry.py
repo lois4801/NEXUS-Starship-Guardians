@@ -4,7 +4,7 @@ from nexus_os.portable.registry import build_provider, list_providers
 
 
 def test_provider_list_is_stable():
-    assert list_providers() == ["ollama", "cli"]
+    assert list_providers() == ["ollama", "opencode", "cli"]
 
 
 def test_ollama_requires_model():
