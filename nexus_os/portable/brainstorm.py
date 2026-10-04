@@ -1,6 +1,6 @@
 """Divergent-convergent Guardian brainstorming pipeline.
 
-Runs up to 200 logical Guardians through four phases:
+Runs the company brainstorm wing of 50 logical Guardians through four phases:
 
 1. **Diverge** — every Guardian independently generates ideas for the mission
    with an explicit mandate to exceed the requestor's stated expectations.
@@ -10,7 +10,7 @@ Runs up to 200 logical Guardians through four phases:
 4. **Refine** — the lead Guardian revises the plan against the critique.
 
 Physical concurrency stays bounded through :class:`~nexus_os.swarm.SwarmCoordinator`,
-so 200 logical Guardians never means 200 simultaneous processes. The external
+so 50 logical Guardians never means 50 simultaneous processes. The external
 provider CLI (for example OpenCode) remains responsible for its own login,
 subscription, licensing, and provider terms; NEXUS never stores credentials.
 """
@@ -22,12 +22,12 @@ from dataclasses import dataclass, field
 
 from nexus_os.swarm import (
     DEFAULT_PARALLELISM,
-    MAX_SWARM_GUARDIANS,
     GuardianResult,
     SwarmCoordinator,
     compact_evidence,
 )
 
+BRAINSTORM_GUARDIAN_COUNT = 50
 MAX_PLAN_CHARS = 12000
 
 
@@ -51,8 +51,8 @@ class BrainstormReport:
 
 def _divergent_prompt(spec, mission: str) -> str:
     return (
-        "You are one Guardian in a Nexus Starship Guardians brainstorming swarm of up to 200 "
-        "logical Guardians.\n"
+        "You are one Guardian in a Nexus Starship Guardians brainstorming swarm of "
+        f"{BRAINSTORM_GUARDIAN_COUNT} logical Guardians.\n"
         f"Guardian ID: {spec.guardian_id}\nRole: {spec.role}\n"
         f"Mission: {mission}\n"
         "Assignment: from your role's perspective, generate the strongest concrete ideas and "
@@ -121,7 +121,7 @@ def _refinement_prompt(mission: str, candidate: str, critique: str) -> str:
 async def run_brainstorm(
     provider,
     goal: str,
-    requested_guardians: int = MAX_SWARM_GUARDIANS,
+    requested_guardians: int = BRAINSTORM_GUARDIAN_COUNT,
     *,
     max_parallel: int = DEFAULT_PARALLELISM,
 ) -> BrainstormReport:

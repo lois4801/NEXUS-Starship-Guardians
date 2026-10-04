@@ -16,7 +16,13 @@ from nexus_os.swarm import (
     compact_evidence,
 )
 
-from .brainstorm import run_brainstorm
+from .brainstorm import BRAINSTORM_GUARDIAN_COUNT, run_brainstorm
+from .company import (
+    COMPANY_BRAINSTORM_GUARDIANS,
+    COMPANY_MAX_REVISION_CYCLES,
+    COMPANY_REVISE_GUARDIANS,
+    GuardianCompany,
+)
 from .registry import build_provider, list_providers
 
 
@@ -194,6 +200,64 @@ async def _run_brainstorm(
     return 0 if report.total_failures < total_calls else 1
 
 
+async def _run_company(
+    provider_name: str,
+    model: str | None,
+    goals: list[str],
+    max_parallel: int,
+    *,
+    execute_size: int | None,
+    test_size: int | None,
+) -> int:
+    provider = build_provider(provider_name, model)
+    company = GuardianCompany(max_parallel=max_parallel)
+    call = lambda prompt: asyncio.to_thread(provider.generate, prompt)
+    report = await company.run_company(
+        list(goals),
+        lambda prompt: _result_text(call, prompt),
+        execute_size=execute_size,
+        test_size=test_size,
+    )
+    leveling = company.leveling_summary()
+    missions = []
+    for mission in report.missions:
+        missions.append(
+            {
+                "goal": mission.goal,
+                "complexity_score": mission.complexity_score,
+                "execute_guardians": mission.execute_guardians,
+                "test_guardians": mission.test_guardians,
+                "revise_guardians": mission.revise_guardians,
+                "revision_cycles": mission.revision_cycles,
+                "confirmed_defects": mission.confirmed_defects,
+                "fast_path_findings": len(mission.fast_path_findings),
+                "has_final_output": mission.final_output is not None,
+            }
+        )
+    print(
+        json.dumps(
+            {
+                "mode": "company",
+                "provider": provider_name,
+                "model": model or "",
+                "concurrent_missions": report.missions_run,
+                "brainstorm_guardians_per_mission": COMPANY_BRAINSTORM_GUARDIANS,
+                "revise_guardians_per_cycle": COMPANY_REVISE_GUARDIANS,
+                "max_revision_cycles": COMPANY_MAX_REVISION_CYCLES,
+                "missions": missions,
+                "leveling": leveling,
+            },
+            indent=2,
+        )
+    )
+    return 0
+
+
+async def _result_text(call, prompt: str) -> str:
+    result = await call(prompt)
+    return result.text
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         prog="nexus-guardians",
@@ -231,12 +295,39 @@ def main() -> int:
     brain.add_argument(
         "--guardians",
         type=int,
-        default=MAX_SWARM_GUARDIANS,
+        default=BRAINSTORM_GUARDIAN_COUNT,
         choices=range(1, MAX_SWARM_GUARDIANS + 1),
-        help="Number of logical Guardians per phase (two phases run)",
+        help="Number of logical Guardians per phase (two phases run; company default 50)",
     )
     brain.add_argument("--max-parallel", type=int, default=DEFAULT_PARALLELISM)
     brain.add_argument("goal", nargs="+")
+
+    company = sub.add_parser(
+        "company",
+        help=(
+            "Run the Guardian Company Runtime: 50 brainstorm, up to 200 execute, "
+            "up to 200 test/QC, 200 revise; each positional argument is a separate "
+            "task run concurrently"
+        ),
+    )
+    company.add_argument("--provider", required=True, choices=list_providers())
+    company.add_argument("--model")
+    company.add_argument(
+        "--execute-size",
+        type=int,
+        default=None,
+        choices=range(1, MAX_SWARM_GUARDIANS + 1),
+        help="Override the complexity-sized execution wing (default: auto by complexity)",
+    )
+    company.add_argument(
+        "--test-size",
+        type=int,
+        default=None,
+        choices=range(1, MAX_SWARM_GUARDIANS + 1),
+        help="Override the complexity-sized test/QC wing (default: auto by complexity)",
+    )
+    company.add_argument("--max-parallel", type=int, default=DEFAULT_PARALLELISM)
+    company.add_argument("goals", nargs="+", help="One or more mission tasks to run concurrently")
 
     args = parser.parse_args()
     if args.command == "providers":
@@ -267,6 +358,17 @@ def main() -> int:
                 " ".join(args.goal),
                 args.guardians,
                 args.max_parallel,
+            )
+        )
+    if args.command == "company":
+        return asyncio.run(
+            _run_company(
+                args.provider,
+                args.model,
+                args.goals,
+                args.max_parallel,
+                execute_size=args.execute_size,
+                test_size=args.test_size,
             )
         )
     return 2
