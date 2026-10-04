@@ -1,3 +1,3 @@
-"""Nexus Starship Guardians: reusable, project-scoped Guardian intelligence runtime."""
+"""Nexus OS - Guardian engineering runtime."""
 
-__version__ = "0.8.0"
+__version__ = "0.9.0"
