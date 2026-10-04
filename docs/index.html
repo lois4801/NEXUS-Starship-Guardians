@@ -719,7 +719,7 @@ if(!isTouch){
   const dot=document.getElementById('cDot'),ring=document.getElementById('cRing'),label=document.getElementById('cLabel');
   let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
   addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;});
-  gsap.ticker.add(()=>{rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;}});
+  gsap.ticker.add(()=>{rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;});
   document.addEventListener('mouseover',e=>{
     const t=e.target.closest('[data-cursor],a,button,.sys-row,.ag-item');
     if(t){ring.classList.add('big');label.textContent=t.dataset&&t.dataset.cursor?t.dataset.cursor:'↗';}
@@ -747,7 +747,7 @@ const introTl=gsap.timeline({paused:true});
 introTl
  .to(heroSlides,{y:0,duration:1.3,ease:'expo.out',stagger:.12,overwrite:true},0)
  .to(heroChars,{y:0,duration:1.3,ease:'expo.out',stagger:.028,overwrite:true},.08)
- .fromTo('.reveal-hero',{y:34,opacity:0},{y:0,opacity:1,duration:1.1,ease:'expo.out',stagger:.1},'-=.9')
+ .fromTo('.reveal-hero',{y:34,opacity:0},{y:0,opacity:1,duration:1.1,ease:'expo.out',stagger:.1},'-.9')
  .add(()=>startCounters(),'-.5');
 
 /* ---- preloader ---- */
