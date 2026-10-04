@@ -42,18 +42,24 @@ fails closed without `NEXUS_ADMIN_TOKEN`.
 - `sdk/typescript` — TypeScript client SDK
 - `tests/` — pytest suite mirroring module names
 - `docs/` — architecture and governance documentation
-- `.opencode/agent/` — the twenty specialist Guardians as OpenCode subagents
+- `.opencode/agent/` — the thirty-two specialist Guardians as OpenCode subagents
 
-## Twenty specialist Guardians
+## Thirty-two specialist Guardians
 
 The `.opencode/agent/*.md` files define the specialist wings: the original ten
-(v0.7.0) plus the Autonomous Operations Wing (v0.9.0) — Planner Strategist,
+(v0.7.0), the Autonomous Operations Wing (v0.9.0) — Planner Strategist,
 Verification & QA, Independent Reviewer, Deployment & Release, Evidence &
 Research, Content & SEO Strategist, Design Experience, Budget & Cost
 Controller, Data & SQL Analyst, and Evaluation Judge — acquired from the
-fleet owner's other repositories. Invoke them as subagents for work in their
-specialty; they carry Nexus governance in their system prompts. The canonical
-30-Guardian Artificial Architecture team remains available through
+fleet owner's other repositories, and the Agency Services Wing (v0.9.0) —
+GIS & Spatial Analyst, Sales Pipeline Strategist, Game Design, XR & Spatial
+Computing, Paid Media Strategist, Financial Analysis, Healthcare Evidence,
+Blockchain Engineer, Embedded & IoT, Knowledge & Search, Legal & Compliance,
+and PMO Operations — selected by gap analysis against the MIT-licensed
+agency-agents open catalog (skill concepts only; original NEXUS definitions).
+Invoke them as subagents for work in their specialty; they carry Nexus
+governance in their system prompts. The canonical 30-Guardian Artificial
+Architecture team remains available through
 `nexus-guardians swarm`.
 
 Nexus governance rules (always apply):

@@ -28,7 +28,7 @@ Peer learning transfers **knowledge, not status**. A Guardian may learn a verifi
 
 See [`docs/GUARDIAN_COGNITIVE_EVOLUTION.md`](docs/GUARDIAN_COGNITIVE_EVOLUTION.md).
 
-## Twenty evolving specialist Guardians
+## Thirty-two evolving specialist Guardians
 
 Original specialist wing (v0.7.0):
 
@@ -61,6 +61,23 @@ Ten more specialist Guardians, acquired from the fleet owner's other repositorie
 - **Evaluation Judge Guardian** — LLM-as-judge correctness grading, trajectory evaluation, benchmark evaluation. *(Multi-Agent AI System evaluation patterns)*
 
 The Anonato-Code repository was surveyed and deliberately excluded as an acquisition source: it archives leaked proprietary source code, so no code, text, or agent definitions were taken from it.
+
+## Agency Services Wing (v0.9.0)
+
+Twelve more specialist Guardians, selected by gap analysis against the open agency-agents catalog (msitarzewski/agency-agents, MIT License): every catalog division with no existing Guardian coverage is represented. Only skill concepts were taken from the catalog — all profiles, prompts, and learning objectives are original NEXUS definitions. They deploy through the same adaptive-intelligence, mission-routing, and OpenCode subagent surfaces as the other wings:
+
+- **GIS & Spatial Analyst Guardian** — geospatial analysis, spatial data, cartography, geoprocessing, remote sensing, GeoAI.
+- **Sales Pipeline Strategist Guardian** — pipeline management, deal strategy, proposal writing, lead qualification, sales coaching.
+- **Game Design Guardian** — game design, level design, narrative design, economy design, game audio, technical art.
+- **XR & Spatial Computing Guardian** — XR development, spatial computing, immersive interfaces, visionOS, Metal, 3D interaction.
+- **Paid Media Strategist Guardian** — paid media, PPC, programmatic, paid social, ad tracking, media audits.
+- **Financial Analysis Guardian** — financial analysis, FP&A, bookkeeping, investment research, tax strategy, financial modeling.
+- **Healthcare Evidence Guardian** — healthcare analysis, clinical evidence, health innovation, health systems, medical compliance.
+- **Blockchain Engineer Guardian** — blockchain, smart contracts, Solidity, ZK proofs, DeFi, chain security.
+- **Embedded & IoT Guardian** — embedded systems, firmware, IoT, edge computing, hardware integration.
+- **Knowledge & Search Guardian** — knowledge graphs, search relevance, RAG, information retrieval, embeddings.
+- **Legal & Compliance Guardian** — legal analysis, contract review, compliance audits, privacy law, regulatory affairs.
+- **PMO Operations Guardian** — project management, meeting operations, status reporting, studio operations, workflow coordination.
 
 ## Guardian Company Runtime
 
@@ -140,7 +157,7 @@ See [`docs/GUARDIAN_BENCHMARK_VAULT.md`](docs/GUARDIAN_BENCHMARK_VAULT.md) and [
 - **Nexus Intelligence Fabric** for mission classification, strategy, uncertainty, assumptions, model evidence, and adversarial evaluation.
 - **Adaptive Guardian Intelligence** for verified per-skill quality, reliability, benchmark evidence, trend, regression pressure, and training priorities.
 - **Guardian Cognitive Evolution** for verified lessons, peer knowledge transfer, confidence calibration, failure intelligence, counterfactual replay, and self-curricula.
-- **20-role specialist wing** — the 10 elite specialists (v0.7.0) plus the 10-role Autonomous Operations Wing (v0.9.0) — registered in the live default mission registry, alongside the canonical 30-Guardian Artificial Architecture team.
+- **32-role specialist wing** — the 10 elite specialists (v0.7.0), the 10-role Autonomous Operations Wing (v0.9.0), and the 12-role Agency Services Wing (v0.9.0) — registered in the live default mission registry, alongside the canonical 30-Guardian Artificial Architecture team.
 - **Adaptive Team Router** combining registry utility, bounded direct skill evidence, and a smaller bounded cognitive signal.
 - **Controlled Tool Gateway** keeping authorization separate from intelligence and performance.
 - **Guardian Intelligence Lab**, Multi-Judge Evaluation, Promotion Gate, Regression Corpus, Guardian Benchmark Vault, Benchmark Replay, and Coverage Intelligence.
@@ -164,7 +181,7 @@ flowchart TD
     R --> G[Guardian Registry]
 
     B --> AGI[Adaptive Guardian Intelligence]
-    AGI --> S[20 Specialist Guardians]
+    AGI --> S[32 Specialist Guardians]
     AGI --> SK[Verified Skill Evidence]
     AGI --> TP[Training Priorities]
 
