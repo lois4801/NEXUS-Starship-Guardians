@@ -56,7 +56,7 @@ def test_api_health_reports_current_product_version(tmp_path):
     assert payload["learning"] == "enabled"
     assert payload["adaptive_guardian_intelligence"] == "live"
     assert payload["cognitive_evolution"] == "live"
-    assert payload["adaptive_specialists"] == 10
+    assert payload["adaptive_specialists"] == 20
     assert payload["mission_intelligence"] == "live"
     assert payload["intelligence_fabric"] == "live"
 
