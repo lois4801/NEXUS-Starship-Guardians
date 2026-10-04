@@ -36,6 +36,23 @@ nexus-guardians swarm --provider opencode --model google/gemini-3-flash `
 nexus-guardians swarm --provider opencode --guardians 12 "Audit the provider adapters"
 ```
 
+## 200-Guardian brainstorm
+
+```powershell
+# 200 logical Guardians: divergent ideas -> candidate plan -> red-team critique -> refined plan
+nexus-guardians brainstorm --provider opencode --model google/gemini-3-flash `
+    "Design the v1 architecture for a multi-tenant AI app"
+```
+
+`brainstorm` runs two swarm passes (diverge and critique), so a 200-Guardian
+mission makes roughly 400 provider requests plus synthesis, refinement, and the
+learned-lesson reflection. At the Gemini free tier (60 requests/min) expect on
+the order of 10 minutes end-to-end — well inside the 15-minute per-worker
+timeout. Scale `--guardians` and `--max-parallel` to your quota.
+
+The output prints the candidate plan (pre-review), the final refined plan, and
+one learned lesson persisted to the Guardian learning memory.
+
 Check detection with:
 
 ```powershell
