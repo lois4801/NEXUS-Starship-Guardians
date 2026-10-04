@@ -1,6 +1,6 @@
 # Nexus Starship Guardians · v0.9.0
 
-[![NEXUS Starship Guardians — live luxury website](docs/assets/website-preview.jpg)](https://lois4801.github.io/NEXUS-Starship-Guardians/)
+[![NEXUS Starship Guardians — live luxury website](docs/assets/hero-lux.jpg)](https://lois4801.github.io/NEXUS-Starship-Guardians/)
 
 **[🌐 Open the live website →](https://lois4801.github.io/NEXUS-Starship-Guardians/)** — one cinematic page: smooth scrolling, animated type, the 650-Guardian company, the 32-specialist roster.
 
