@@ -16,6 +16,7 @@ from nexus_os.swarm import (
     compact_evidence,
 )
 
+from .brainstorm import run_brainstorm
 from .registry import build_provider, list_providers
 
 
@@ -76,13 +77,7 @@ async def _run_swarm(
 
     reflection = ""
     if report.synthesis:
-        reflection_prompt = (
-            "You are the Reflection Guardian for Nexus Starship Guardians. Distill exactly one "
-            "reusable lesson from this mission for future similar work. Focus on process, architecture, "
-            "verification, or failure prevention. Do not claim the model changed its own weights.\n\n"
-            f"MISSION:\n{goal}\n\nFINAL SYNTHESIS:\n{report.synthesis}\n\n"
-            f"GUARDIAN RELIABILITY SCORE: {reliability_score:.2f}/10\n"
-        )
+        reflection_prompt = _reflection_prompt(goal, report.synthesis, reliability_score)
         reflected = await asyncio.to_thread(provider.generate, reflection_prompt)
         reflection = reflected.text.strip()
         learning.learn_from_run(
@@ -126,6 +121,79 @@ async def _run_swarm(
     return 0 if failures < report.active_guardians else 1
 
 
+def _reflection_prompt(goal: str, deliverable: str, score: float) -> str:
+    return (
+        "You are the Reflection Guardian for Nexus Starship Guardians. Distill exactly one "
+        "reusable lesson from this mission for future similar work. Focus on process, architecture, "
+        "verification, or failure prevention. Do not claim the model changed its own weights.\n\n"
+        f"MISSION:\n{goal}\n\nFINAL SYNTHESIS:\n{deliverable}\n\n"
+        f"GUARDIAN RELIABILITY SCORE: {score:.2f}/10\n"
+    )
+
+
+async def _run_brainstorm(
+    provider_name: str,
+    model: str | None,
+    goal: str,
+    guardians: int,
+    max_parallel: int,
+) -> int:
+    provider = build_provider(provider_name, model)
+    memory_path = Path(os.environ.get("NEXUS_LEARNING_PATH", ".nexus/guardian_learning.jsonl"))
+    learning = GuardianLearningEngine(JsonlLearningStore(memory_path))
+
+    report = await run_brainstorm(provider, goal, guardians, max_parallel=max_parallel)
+
+    total_calls = report.active_guardians * 2
+    reliability_score = 10.0 * (total_calls - report.total_failures) / total_calls
+
+    print(
+        json.dumps(
+            {
+                "mode": "brainstorm",
+                "requested_guardians": report.requested_guardians,
+                "active_guardians": report.active_guardians,
+                "max_parallel": report.max_parallel,
+                "divergent_failures": report.divergent_failures,
+                "critique_failures": report.critique_failures,
+                "learning_memory": str(memory_path),
+                "reliability_score": round(reliability_score, 2),
+            },
+            indent=2,
+        )
+    )
+    if report.candidate_plan:
+        print("\n=== CANDIDATE PLAN (PRE-REVIEW) ===\n")
+        print(report.candidate_plan)
+    if report.final_plan:
+        print("\n=== NEXUS STARSHIP GUARDIANS BRAINSTORM RESULT ===\n")
+        print(report.final_plan)
+        reflection_prompt = _reflection_prompt(goal, report.final_plan, reliability_score)
+        reflected = await asyncio.to_thread(provider.generate, reflection_prompt)
+        reflection = reflected.text.strip()
+        learning.learn_from_run(
+            task=goal,
+            deliverable=report.final_plan,
+            score=reliability_score,
+            critique=(
+                f"{report.total_failures} Guardian calls failed across two passes."
+                if report.total_failures
+                else "All Guardian calls completed successfully across two passes."
+            ),
+            rounds=2,
+            distilled_lesson=reflection,
+            metadata={
+                "provider": provider_name,
+                "model": model or "",
+                "mode": "brainstorm",
+                "requested_guardians": str(report.requested_guardians),
+            },
+        )
+        print("\n=== LEARNED LESSON ===\n")
+        print(reflection)
+    return 0 if report.total_failures < total_calls else 1
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         prog="nexus-guardians",
@@ -154,6 +222,22 @@ def main() -> int:
     swarm.add_argument("--max-parallel", type=int, default=DEFAULT_PARALLELISM)
     swarm.add_argument("goal", nargs="+")
 
+    brain = sub.add_parser(
+        "brainstorm",
+        help="Divergent-convergent brainstorm: ideas, synthesis, red-team critique, refined plan",
+    )
+    brain.add_argument("--provider", required=True, choices=list_providers())
+    brain.add_argument("--model")
+    brain.add_argument(
+        "--guardians",
+        type=int,
+        default=MAX_SWARM_GUARDIANS,
+        choices=range(1, MAX_SWARM_GUARDIANS + 1),
+        help="Number of logical Guardians per phase (two phases run)",
+    )
+    brain.add_argument("--max-parallel", type=int, default=DEFAULT_PARALLELISM)
+    brain.add_argument("goal", nargs="+")
+
     args = parser.parse_args()
     if args.command == "providers":
         print("\n".join(list_providers()))
@@ -168,6 +252,16 @@ def main() -> int:
     if args.command == "swarm":
         return asyncio.run(
             _run_swarm(
+                args.provider,
+                args.model,
+                " ".join(args.goal),
+                args.guardians,
+                args.max_parallel,
+            )
+        )
+    if args.command == "brainstorm":
+        return asyncio.run(
+            _run_brainstorm(
                 args.provider,
                 args.model,
                 " ".join(args.goal),
