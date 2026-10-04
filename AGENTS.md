@@ -39,14 +39,19 @@ fails closed without `NEXUS_ADMIN_TOKEN`.
 - `sdk/typescript` — TypeScript client SDK
 - `tests/` — pytest suite mirroring module names
 - `docs/` — architecture and governance documentation
-- `.opencode/agent/` — the ten specialist Guardians as OpenCode subagents
+- `.opencode/agent/` — the twenty specialist Guardians as OpenCode subagents
 
-## Ten specialist Guardians
+## Twenty specialist Guardians
 
-The `.opencode/agent/*.md` files define the specialist wing. Invoke them as
-subagents for work in their specialty; they carry Nexus governance in their
-system prompts. The canonical 30-Guardian Artificial Architecture team remains
-available through `nexus-guardians swarm`.
+The `.opencode/agent/*.md` files define the specialist wings: the original ten
+(v0.7.0) plus the Autonomous Operations Wing (v0.9.0) — Planner Strategist,
+Verification & QA, Independent Reviewer, Deployment & Release, Evidence &
+Research, Content & SEO Strategist, Design Experience, Budget & Cost
+Controller, Data & SQL Analyst, and Evaluation Judge — acquired from the
+fleet owner's other repositories. Invoke them as subagents for work in their
+specialty; they carry Nexus governance in their system prompts. The canonical
+30-Guardian Artificial Architecture team remains available through
+`nexus-guardians swarm`.
 
 Nexus governance rules (always apply):
 - Never claim code was written, tested, or verified unless tool results prove it.
