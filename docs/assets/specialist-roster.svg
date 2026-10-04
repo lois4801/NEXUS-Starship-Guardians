@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1020" viewBox="0 0 1500 1020" role="img" aria-labelledby="title desc">
+  <title id="title">Thirty-two specialist Guardians in three wings</title>
+  <desc id="desc">Animated roster: the original ten elite specialists, the ten-role Autonomous Operations Wing, and the twelve-role Agency Services Wing, all registered in the live mission registry.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A1128"/><stop offset=".5" stop-color="#0D1B3E"/><stop offset="1" stop-color="#120A2E"/>
+    </linearGradient>
+    <linearGradient id="gEmerald" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2AF598"/><stop offset="1" stop-color="#08AEEA"/>
+    </linearGradient>
+    <linearGradient id="gSunset" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4B6CB7"/><stop offset=".5" stop-color="#F857A6"/><stop offset="1" stop-color="#FF9A44"/>
+    </linearGradient>
+    <linearGradient id="gLime" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A8FF78"/><stop offset="1" stop-color="#78FFD6"/>
+    </linearGradient>
+    <linearGradient id="gAmber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F2994A"/><stop offset="1" stop-color="#F7B733"/>
+    </linearGradient>
+    <linearGradient id="gDeep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A2980"/><stop offset="1" stop-color="#26D0CE"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2AF598"/><stop offset=".3" stop-color="#08AEEA"/><stop offset=".55" stop-color="#F857A6"/><stop offset=".8" stop-color="#F7B733"/><stop offset="1" stop-color="#A8FF78"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+  <style>    .title{font:800 40px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#F5F5F7;letter-spacing:.5px}
+    .sub{font:400 20px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#A7B1C7}
+    .label{font:700 21px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#F5F5F7}
+    .small{font:400 17px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#C7CEDD}
+    .tiny{font:500 14px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#8E99B5}
+    .num{font:800 44px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#FFFFFF}
+    .caps{stroke-linecap:round}
+    @keyframes pulse {0%,100%{opacity:.55}50%{opacity:1}}
+    @keyframes sheen {0%{transform:translateX(-220px)}100%{transform:translateX(1720px)}}
+    .pulse{animation:pulse 2.6s ease-in-out infinite}
+    .sheen{animation:sheen 5.5s linear infinite}</style>
+  <rect width="1500" height="1020" rx="34" fill="url(#bg)"/>
+  <ellipse cx="250" cy="120" rx="330" ry="140" fill="#08AEEA" opacity=".10" filter="url(#soft)"/>
+  <ellipse cx="1300" cy="900" rx="360" ry="150" fill="#A8FF78" opacity=".08" filter="url(#soft)"/>
+
+  <text x="70" y="78" class="title">32 Evolving Specialist Guardians</text>
+  <text x="72" y="112" class="sub">Three wings · one adaptive intelligence layer · registered in the live default mission registry</text>
+
+  <!-- central core -->
+  <g class="pulse">
+    <circle cx="750" cy="512" r="86" fill="#0D1B3E" stroke="url(#flow)" stroke-width="3" filter="url(#glow)"/>
+    <circle cx="750" cy="512" r="86" fill="none" stroke="url(#flow)" stroke-width="1.4" opacity=".8" stroke-dasharray="10 14">
+      <animateTransform attributeName="transform" type="rotate" from="0 750 512" to="360 750 512" dur="24s" repeatCount="indefinite"/>
+    </circle>
+    <text x="750" y="500" text-anchor="middle" class="label">ADAPTIVE</text>
+    <text x="750" y="526" text-anchor="middle" class="label">GUARDIAN</text>
+    <text x="750" y="550" text-anchor="middle" class="tiny">INTELLIGENCE</text>
+  </g>
+
+  <g>
+    <rect x="90" y="170" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="93" y="173" width="294" height="38" rx="19.0" fill="url(#gEmerald)" opacity=".16"/>
+    <text x="240.0" y="196.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">ai-architect</text>
+  </g>
+  <g>
+    <rect x="90" y="234" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="93" y="237" width="294" height="38" rx="19.0" fill="url(#gEmerald)" opacity=".16"/>
+    <text x="240.0" y="260.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">software-platform-engineer</text>
+  </g>
+  <g>
+    <rect x="90" y="298" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="93" y="301" width="294" height="38" rx="19.0" fill="url(#gEmerald)" opacity=".16"/>
+    <text x="240.0" y="324.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">ai-developer</text>
+  </g>
+  <g>
+    <rect x="90" y="362" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="93" y="365" width="294" height="38" rx="19.0" fill="url(#gEmerald)" opacity=".16"/>
+    <text x="240.0" y="388.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">coder-specialist</text>
+  </g>
+  <g>
+    <rect x="90" y="426" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="93" y="429" width="294" height="38" rx="19.0" fill="url(#gEmerald)" opacity=".16"/>
+    <text x="240.0" y="452.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">ai-engineer</text>
+  </g>
+  <g>
+    <rect x="90" y="490" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="93" y="493" width="294" height="38" rx="19.0" fill="url(#gEmerald)" opacity=".16"/>
+    <text x="240.0" y="516.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">debugger-specialist</text>
+  </g>
+  <g>
+    <rect x="90" y="554" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="93" y="557" width="294" height="38" rx="19.0" fill="url(#gEmerald)" opacity=".16"/>
+    <text x="240.0" y="580.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">ai-scientist</text>
+  </g>
+  <g>
+    <rect x="90" y="618" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="93" y="621" width="294" height="38" rx="19.0" fill="url(#gEmerald)" opacity=".16"/>
+    <text x="240.0" y="644.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">ai-cloud-specialist</text>
+  </g>
+  <g>
+    <rect x="90" y="682" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="93" y="685" width="294" height="38" rx="19.0" fill="url(#gEmerald)" opacity=".16"/>
+    <text x="240.0" y="708.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">api-specialist</text>
+  </g>
+  <g>
+    <rect x="90" y="746" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="93" y="749" width="294" height="38" rx="19.0" fill="url(#gEmerald)" opacity=".16"/>
+    <text x="240.0" y="772.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">ai-programmer</text>
+  </g>
+  <g>
+    <rect x="1110" y="170" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gSunset)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1113" y="173" width="294" height="38" rx="19.0" fill="url(#gSunset)" opacity=".16"/>
+    <text x="1260.0" y="196.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">planner-strategist</text>
+  </g>
+  <g>
+    <rect x="1110" y="234" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gSunset)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1113" y="237" width="294" height="38" rx="19.0" fill="url(#gSunset)" opacity=".16"/>
+    <text x="1260.0" y="260.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">verification-qa-specialist</text>
+  </g>
+  <g>
+    <rect x="1110" y="298" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gSunset)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1113" y="301" width="294" height="38" rx="19.0" fill="url(#gSunset)" opacity=".16"/>
+    <text x="1260.0" y="324.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">reviewer-specialist</text>
+  </g>
+  <g>
+    <rect x="1110" y="362" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gSunset)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1113" y="365" width="294" height="38" rx="19.0" fill="url(#gSunset)" opacity=".16"/>
+    <text x="1260.0" y="388.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">deployment-release-specialist</text>
+  </g>
+  <g>
+    <rect x="1110" y="426" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gSunset)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1113" y="429" width="294" height="38" rx="19.0" fill="url(#gSunset)" opacity=".16"/>
+    <text x="1260.0" y="452.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">evidence-research-specialist</text>
+  </g>
+  <g>
+    <rect x="1110" y="490" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gSunset)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1113" y="493" width="294" height="38" rx="19.0" fill="url(#gSunset)" opacity=".16"/>
+    <text x="1260.0" y="516.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">content-seo-strategist</text>
+  </g>
+  <g>
+    <rect x="1110" y="554" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gSunset)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1113" y="557" width="294" height="38" rx="19.0" fill="url(#gSunset)" opacity=".16"/>
+    <text x="1260.0" y="580.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">design-experience-specialist</text>
+  </g>
+  <g>
+    <rect x="1110" y="618" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gSunset)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1113" y="621" width="294" height="38" rx="19.0" fill="url(#gSunset)" opacity=".16"/>
+    <text x="1260.0" y="644.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">budget-cost-controller</text>
+  </g>
+  <g>
+    <rect x="1110" y="682" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gSunset)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1113" y="685" width="294" height="38" rx="19.0" fill="url(#gSunset)" opacity=".16"/>
+    <text x="1260.0" y="708.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">data-analyst-specialist</text>
+  </g>
+  <g>
+    <rect x="1110" y="746" width="300" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gSunset)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1113" y="749" width="294" height="38" rx="19.0" fill="url(#gSunset)" opacity=".16"/>
+    <text x="1260.0" y="772.68" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="13" fill="#F5F5F7">evaluation-judge-specialist</text>
+  </g>
+  <g>
+    <rect x="120" y="830" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="123" y="833" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="222.0" y="856.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">gis-spatial-analyst</text>
+  </g>
+  <g>
+    <rect x="338" y="830" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="341" y="833" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="440.0" y="856.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">sales-pipeline-strategist</text>
+  </g>
+  <g>
+    <rect x="556" y="830" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="559" y="833" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="658.0" y="856.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">game-design-specialist</text>
+  </g>
+  <g>
+    <rect x="774" y="830" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="777" y="833" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="876.0" y="856.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">xr-spatial-engineer</text>
+  </g>
+  <g>
+    <rect x="992" y="830" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="995" y="833" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="1094.0" y="856.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">paid-media-strategist</text>
+  </g>
+  <g>
+    <rect x="1210" y="830" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1213" y="833" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="1312.0" y="856.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">financial-analysis-specialist</text>
+  </g>
+  <g>
+    <rect x="120" y="902" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="123" y="905" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="222.0" y="928.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">healthcare-evidence-specialist</text>
+  </g>
+  <g>
+    <rect x="338" y="902" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="341" y="905" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="440.0" y="928.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">blockchain-engineer</text>
+  </g>
+  <g>
+    <rect x="556" y="902" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="559" y="905" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="658.0" y="928.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">embedded-iot-engineer</text>
+  </g>
+  <g>
+    <rect x="774" y="902" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="777" y="905" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="876.0" y="928.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">knowledge-search-engineer</text>
+  </g>
+  <g>
+    <rect x="992" y="902" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="995" y="905" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="1094.0" y="928.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">legal-compliance-specialist</text>
+  </g>
+  <g>
+    <rect x="1210" y="902" width="204" height="44" rx="22.0" fill="#0D1B3E" stroke="url(#gAmber)" stroke-width="2" filter="url(#glow)"/>
+    <rect x="1213" y="905" width="198" height="38" rx="19.0" fill="url(#gAmber)" opacity=".16"/>
+    <text x="1312.0" y="928.32" text-anchor="middle" font-family="'SF Pro Text',-apple-system,Arial" font-weight="600" font-size="12" fill="#F5F5F7">pmo-operations-specialist</text>
+  </g>
+  <path d="M390 192 C560 192 600 512 664 512" stroke="#2AF598" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M1110 192 C940 192 900 512 836 512" stroke="#F857A6" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M390 256 C560 256 600 512 664 512" stroke="#2AF598" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M1110 256 C940 256 900 512 836 512" stroke="#F857A6" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M390 320 C560 320 600 512 664 512" stroke="#2AF598" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M1110 320 C940 320 900 512 836 512" stroke="#F857A6" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M390 384 C560 384 600 512 664 512" stroke="#2AF598" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M1110 384 C940 384 900 512 836 512" stroke="#F857A6" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M390 448 C560 448 600 512 664 512" stroke="#2AF598" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M1110 448 C940 448 900 512 836 512" stroke="#F857A6" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M390 512 C560 512 600 512 664 512" stroke="#2AF598" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M1110 512 C940 512 900 512 836 512" stroke="#F857A6" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M390 576 C560 576 600 512 664 512" stroke="#2AF598" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M1110 576 C940 576 900 512 836 512" stroke="#F857A6" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M390 640 C560 640 600 512 664 512" stroke="#2AF598" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M1110 640 C940 640 900 512 836 512" stroke="#F857A6" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M390 704 C560 704 600 512 664 512" stroke="#2AF598" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M1110 704 C940 704 900 512 836 512" stroke="#F857A6" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M390 768 C560 768 600 512 664 512" stroke="#2AF598" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M1110 768 C940 768 900 512 836 512" stroke="#F857A6" stroke-width="1.2" opacity=".35" fill="none"/>
+  <path d="M222 830 C222 710 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M440 830 C440 710 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M658 830 C658 710 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M876 830 C876 710 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M1094 830 C1094 710 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M1312 830 C1312 710 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M222 902 C222 782 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M440 902 C440 782 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M658 902 C658 782 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M876 902 C876 782 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M1094 902 C1094 782 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+  <path d="M1312 902 C1312 782 750 640 750 600" stroke="#F7B733" stroke-width="1.2" opacity=".3" fill="none"/>
+
+  <!-- wing labels -->
+  <text x="90" y="150" class="label" fill="#2AF598">ELITE WING · v0.7.0 · 10</text>
+  <text x="1410" y="150" text-anchor="end" class="label" fill="#F857A6">AUTONOMOUS OPERATIONS · v0.9.0 · 10</text>
+  <text x="750" y="812" text-anchor="middle" class="label" fill="#F7B733">AGENCY SERVICES · v0.9.0 · 12</text>
+  <text x="750" y="988" text-anchor="middle" class="tiny">every Guardian learns from verified outcomes only — evidence before claims, knowledge transfer without status transfer</text>
+</svg>
