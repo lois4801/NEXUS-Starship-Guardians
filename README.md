@@ -1,8 +1,8 @@
 # Nexus Starship Guardians · v0.9.0
 
-[![NEXUS Starship Guardians — live luxury website](docs/assets/website-preview.jpg)](https://nexusstarshipguardians.kimi.page)
+[![NEXUS Starship Guardians — live luxury website](docs/assets/website-preview.jpg)](https://lois4801.github.io/NEXUS-Starship-Guardians/)
 
-**[🌐 Open the live website →](https://nexusstarshipguardians.kimi.page)** — one cinematic page: smooth scrolling, animated type, the 650-Guardian company, the 32-specialist roster.
+**[🌐 Open the live website →](https://lois4801.github.io/NEXUS-Starship-Guardians/)** — one cinematic page: smooth scrolling, animated type, the 650-Guardian company, the 32-specialist roster.
 
 **A reusable Guardian engineering runtime for Lucio AI Platform, Ember, Nexus Code, and future applications.** Nexus coordinates bounded Guardian teams, Intelligence Fabric planning, live adaptive specialist intelligence, Guardian Cognitive Evolution, permission-safe routing, verified execution, benchmark replay, governed learning, evaluation, regression protection, and distributed work.
 
