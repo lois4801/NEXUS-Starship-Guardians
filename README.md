@@ -1,8 +1,14 @@
-# Nexus Starship Guardians · v0.8.0
+# Nexus Starship Guardians · v0.9.0
 
-![Nexus Starship Guardians](docs/assets/nexus-starship-guardians-hero.svg)
+![Nexus Starship Guardians](docs/assets/hero-premium.jpg)
 
 **A reusable Guardian engineering runtime for Lucio AI Platform, Ember, Nexus Code, and future applications.** Nexus coordinates bounded Guardian teams, Intelligence Fabric planning, live adaptive specialist intelligence, Guardian Cognitive Evolution, permission-safe routing, verified execution, benchmark replay, governed learning, evaluation, regression protection, and distributed work.
+
+| | | | |
+|---|---|---|---|
+| **32** specialist Guardians | **650** logical company Guardians | **4** coordinated wings | **1–200** adaptive swarm |
+
+![Nexus Starship Guardians](docs/assets/nexus-starship-guardians-hero.svg)
 
 ## Current State Graph
 
@@ -14,7 +20,9 @@ The Current State Graph is maintained as architecture documentation and changes 
 
 ![Guardian Cognitive Evolution](docs/assets/guardian-cognitive-evolution.svg)
 
-**v0.8.0 makes the ten specialist Guardians compound intelligence from verified experience.** It adds a persistent meta-learning layer above direct per-skill adaptive evidence:
+**v0.8.0 made the ten specialist Guardians compound intelligence from verified experience** — and all 32 specialists (v0.9.0) inherit the same cognitive layer. It adds a persistent meta-learning layer above direct per-skill adaptive evidence:
+
+![Guardians nebula — the intelligence core and its 32 orbiting specialists](docs/assets/guardians-nebula.jpg)
 
 - verified cross-Guardian lesson transfer;
 - confidence calibration against real outcomes;
@@ -29,6 +37,8 @@ Peer learning transfers **knowledge, not status**. A Guardian may learn a verifi
 See [`docs/GUARDIAN_COGNITIVE_EVOLUTION.md`](docs/GUARDIAN_COGNITIVE_EVOLUTION.md).
 
 ## Thirty-two evolving specialist Guardians
+
+![Specialist roster — 32 Guardians in three wings](docs/assets/specialist-roster.svg)
 
 Original specialist wing (v0.7.0):
 
@@ -66,6 +76,8 @@ The Anonato-Code repository was surveyed and deliberately excluded as an acquisi
 
 Twelve more specialist Guardians, selected by gap analysis against the open agency-agents catalog (msitarzewski/agency-agents, MIT License): every catalog division with no existing Guardian coverage is represented. Only skill concepts were taken from the catalog — all profiles, prompts, and learning objectives are original NEXUS definitions. They deploy through the same adaptive-intelligence, mission-routing, and OpenCode subagent surfaces as the other wings:
 
+![Agency Services Wing](docs/assets/agency-services-wing.svg)
+
 - **GIS & Spatial Analyst Guardian** — geospatial analysis, spatial data, cartography, geoprocessing, remote sensing, GeoAI.
 - **Sales Pipeline Strategist Guardian** — pipeline management, deal strategy, proposal writing, lead qualification, sales coaching.
 - **Game Design Guardian** — game design, level design, narrative design, economy design, game audio, technical art.
@@ -83,6 +95,8 @@ Twelve more specialist Guardians, selected by gap analysis against the open agen
 
 `nexus-guardians company` runs missions the way a company runs the whole business — four wings working together, with multiple missions in flight at once:
 
+![Guardian Company Runtime pipeline](docs/assets/company-pipeline.svg)
+
 - **Brainstorm wing (50 Guardians)** — diverge → lead synthesis → full-wing red-team critique → refined plan. The requestor's goal is the floor, not the ceiling.
 - **Execution wing (up to 200 Guardians)** — sized by mission complexity; implements the approved plan in parallel.
 - **Test & QC wing (up to 200 Guardians)** — sized by mission complexity; verifies the work product. **Fast error path:** the moment an execution Guardian fails, it is routed to testers immediately — no waiting for the phase to finish.
@@ -97,7 +111,11 @@ nexus-guardians company --provider opencode \
 
 **Company leveling.** Every company Guardian starts at **level 500** — the accumulated fleet-experience baseline imported at founding. After that, Guardians level up only from verified swarm outcomes: every success grants +1 level, every failure grants +1 level (failures teach), and **whenever any Guardian levels up, the entire company receives shared experience** (10 XP per level-up; 100 XP settles into one level). Leveling is progression bookkeeping over verified outcomes — it grants no permissions (authorization stays in the Controlled Tool Gateway) and never fabricates adaptive skill evidence, which still requires objective test/api/browser/security verification. Fully scaled, the company fields **650 logical Guardians** (50 + 200 + 200 + 200); physical concurrency stays bounded by `--max-parallel`.
 
+![Guardian company constellation — four wings, one company](docs/assets/company-constellation.jpg)
+
 ## How automatic learning works
+
+![Verified learning loop](docs/assets/learning-loop.svg)
 
 ```text
 mission
@@ -169,7 +187,7 @@ See [`docs/GUARDIAN_BENCHMARK_VAULT.md`](docs/GUARDIAN_BENCHMARK_VAULT.md) and [
 - **Guardian brainstorm mode** — `nexus-guardians brainstorm` runs the 50-Guardian company brainstorm wing through a divergent-convergent pipeline: independent idea generation with an exceed-expectations mandate, lead synthesis into a candidate plan, a full-wing red-team critique pass, and a refined final plan with verification gates.
 - **Company leveling** — every company Guardian starts at level 500, levels up on every verified success and failure, and grants shared experience to the whole company on each level-up; levels grant progression, never permissions.
 - **OpenCode CLI provider** for free/local desktop execution — run Guardian swarms through the open-source [OpenCode](https://opencode.ai) agent with any of its 75+ model providers, including free tiers, via `nexus-guardians swarm --provider opencode`. See [`docs/OPENCODE_PROVIDER.md`](docs/OPENCODE_PROVIDER.md).
-- ChatGPT/Codex plugin v0.8.0 aligned with runtime terminology and governance.
+- ChatGPT/Codex plugin v0.9.0 aligned with runtime terminology and governance.
 
 ## Architecture
 
@@ -235,8 +253,8 @@ Optional fine-tuning remains a separate curated offline pipeline with its own da
 Nexus publishes GitHub Releases with source, wheel, and sdist plus GHCR images such as:
 
 ```text
-ghcr.io/lois4801/nexus-starship-guardians:0.8.0
-ghcr.io/lois4801/nexus-starship-guardians:0.8
+ghcr.io/lois4801/nexus-starship-guardians:0.9.0
+ghcr.io/lois4801/nexus-starship-guardians:0.9
 ghcr.io/lois4801/nexus-starship-guardians:latest
 ```
 
@@ -290,6 +308,15 @@ nexus-portable doctor
 
 GitHub Actions additionally validates Python 3.11/3.12/3.13, live HTTP, Docker health, PostgreSQL 16 integration, provider contracts, persistence, mission routing, adaptive/cognitive learning, benchmark replay, coverage intelligence, plugin/runtime alignment, and release artifacts.
 
+## Website
+
+A premium single-page site lives at [`docs/index.html`](docs/index.html) — hero key art, animated capability counters, the company pipeline, the full 32-Guardian roster, the verified learning loop, and the compatibility contract, all matching this README. Serve it with GitHub Pages (Repository **Settings → Pages → Build and deployment → GitHub Actions / docs folder**) or open it locally:
+
+```bash
+python -m http.server -d docs 8000
+# → http://localhost:8000
+```
+
 ## Key documentation
 
 - [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
@@ -299,9 +326,9 @@ GitHub Actions additionally validates Python 3.11/3.12/3.13, live HTTP, Docker h
 - [`docs/GUARDIAN_INTELLIGENCE_LAB.md`](docs/GUARDIAN_INTELLIGENCE_LAB.md)
 - [`docs/INTELLIGENCE_FABRIC.md`](docs/INTELLIGENCE_FABRIC.md)
 - [`docs/LIVE_MISSION_RUNTIME.md`](docs/LIVE_MISSION_RUNTIME.md)
-- [`docs/VISUAL_GALLERY.md`](docs/VISUAL_GALLERY.md)
 - [`docs/PRODUCTION_VERIFICATION.md`](docs/PRODUCTION_VERIFICATION.md)
 - [`docs/RELEASES_AND_PACKAGES.md`](docs/RELEASES_AND_PACKAGES.md)
+- [`docs/VISUAL_GALLERY.md`](docs/VISUAL_GALLERY.md) — every graph and key-art image, including the animated v0.9.0 motion graphics
 
 ## Roadmap
 
