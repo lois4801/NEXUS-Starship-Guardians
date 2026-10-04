@@ -1,4 +1,4 @@
-# Nexus Starship Guardians — Current State · v0.8.0
+# Nexus Starship Guardians — Current State · v0.9.0
 
 > **Repository standard:** this graph must be updated in the same pull request whenever a meaningful architecture, intelligence, execution, evaluation, learning, integration, release, or packaging change modifies the system flow.
 
@@ -50,7 +50,7 @@ flowchart TD
     REL --> GHR[GitHub Release]
     REL --> GHCR[GHCR Package]
 
-    PL[ChatGPT / Codex Plugin v0.8.0] --> MR
+    PL[ChatGPT / Codex Plugin v0.9.0] --> MR
 ```
 
 ## System state

@@ -1,6 +1,6 @@
 # NEXUS Repository Conventions for Coding Agents
 
-This repository is **Nexus Starship Guardians v0.8.0** — a Guardian engineering
+This repository is **Nexus Starship Guardians v0.9.0** — a Guardian engineering
 runtime (Python namespace `nexus_os`). Any coding agent (OpenCode, Claude Code,
 Codex, Gemini CLI, …) working in this repo MUST follow these conventions.
 
