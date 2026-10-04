@@ -727,8 +727,7 @@ if(!isTouch){
   });
 }
 
-/* ---- magnetic buttons ---
-- */
+/* ---- magnetic buttons ---- */
 if(!isTouch){document.querySelectorAll('.magnetic').forEach(b=>{
   b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();gsap.to(b,{x:(e.clientX-r.left-r.width/2)*.28,y:(e.clientY-r.top-r.height/2)*.34,duration:.5,ease:'power3.out'});});
   b.addEventListener('mouseleave',()=>gsap.to(b,{x:0,y:0,duration:.7,ease:'elastic.out(1,.4)'}));
