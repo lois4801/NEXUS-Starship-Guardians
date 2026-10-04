@@ -46,6 +46,16 @@ _SPECIALIST_ROUTING_ALIASES: dict[str, frozenset[str]] = {
     "ai-cloud-specialist": frozenset({"devops", "observability", "security", "database"}),
     "api-specialist": frozenset({"backend", "security", "integration", "testing"}),
     "ai-programmer": frozenset({"backend", "frontend", "testing", "integration"}),
+    "planner-strategist": frozenset({"architecture", "general-engineering"}),
+    "verification-qa-specialist": frozenset({"testing", "backend", "frontend"}),
+    "reviewer-specialist": frozenset({"testing", "security", "architecture"}),
+    "deployment-release-specialist": frozenset({"devops", "integration", "observability"}),
+    "evidence-research-specialist": frozenset({"architecture", "general-engineering"}),
+    "content-seo-strategist": frozenset({"frontend", "general-engineering"}),
+    "design-experience-specialist": frozenset({"frontend"}),
+    "budget-cost-controller": frozenset({"observability", "devops", "ai-engineering"}),
+    "data-analyst-specialist": frozenset({"database", "backend", "observability"}),
+    "evaluation-judge-specialist": frozenset({"testing", "ai-engineering"}),
 }
 
 
@@ -123,6 +133,10 @@ def _specialist_tools(capabilities: frozenset[str]) -> frozenset[str]:
         tools.add("security")
     if capabilities & {"database"}:
         tools.add("database")
+    if capabilities & {"sql", "database-queries", "etl", "data-quality", "dashboard-verification"}:
+        tools.add("database")
+    if capabilities & {"browser-qa"}:
+        tools.add("browser")
     if capabilities & {"integration", "integration-design", "model-integration"}:
         tools.add("integration")
     if capabilities & {
