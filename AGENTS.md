@@ -33,8 +33,11 @@ fails closed without `NEXUS_ADMIN_TOKEN`.
 ## Structure map
 
 - `nexus_os/` — runtime package (providers, swarm, guardians, learning, benchmarks)
-- `nexus_os/portable/` — desktop CLI providers (`ollama`, `opencode`, `cli`) and the
-  `nexus-guardians` CLI entrypoint
+- `nexus_os/portable/` — desktop CLI providers (`ollama`, `opencode`, `cli`), the
+  `nexus-guardians` CLI entrypoint, the 50-Guardian brainstorm pipeline
+  (`brainstorm.py`), and the Guardian Company Runtime (`company.py`: 50 brainstorm /
+  up to 200 execute / up to 200 test with fast error path / 200 revise, shared
+  company-wide leveling from verified outcomes)
 - `plugin/` — ChatGPT/Codex plugin manifest and skills
 - `sdk/typescript` — TypeScript client SDK
 - `tests/` — pytest suite mirroring module names

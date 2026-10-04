@@ -62,6 +62,24 @@ Ten more specialist Guardians, acquired from the fleet owner's other repositorie
 
 The Anonato-Code repository was surveyed and deliberately excluded as an acquisition source: it archives leaked proprietary source code, so no code, text, or agent definitions were taken from it.
 
+## Guardian Company Runtime
+
+`nexus-guardians company` runs missions the way a company runs the whole business — four wings working together, with multiple missions in flight at once:
+
+- **Brainstorm wing (50 Guardians)** — diverge → lead synthesis → full-wing red-team critique → refined plan. The requestor's goal is the floor, not the ceiling.
+- **Execution wing (up to 200 Guardians)** — sized by mission complexity; implements the approved plan in parallel.
+- **Test & QC wing (up to 200 Guardians)** — sized by mission complexity; verifies the work product. **Fast error path:** the moment an execution Guardian fails, it is routed to testers immediately — no waiting for the phase to finish.
+- **Revision wing (200 Guardians)** — when QC confirms defects, the wing re-implements the revised plan and the result is re-tested, up to 3 bounded cycles.
+
+Every positional argument to `company` is a separate task; tasks run concurrently against one shared company:
+
+```bash
+nexus-guardians company --provider opencode \
+  "Build the landing page" "Write the API docs" "Fix the checkout bug"
+```
+
+**Company leveling.** Every company Guardian starts at **level 500** — the accumulated fleet-experience baseline imported at founding. After that, Guardians level up only from verified swarm outcomes: every success grants +1 level, every failure grants +1 level (failures teach), and **whenever any Guardian levels up, the entire company receives shared experience** (10 XP per level-up; 100 XP settles into one level). Leveling is progression bookkeeping over verified outcomes — it grants no permissions (authorization stays in the Controlled Tool Gateway) and never fabricates adaptive skill evidence, which still requires objective test/api/browser/security verification. Fully scaled, the company fields **650 logical Guardians** (50 + 200 + 200 + 200); physical concurrency stays bounded by `--max-parallel`.
+
 ## How automatic learning works
 
 ```text
@@ -130,7 +148,9 @@ See [`docs/GUARDIAN_BENCHMARK_VAULT.md`](docs/GUARDIAN_BENCHMARK_VAULT.md) and [
 - Durable SQLite execution plus PostgreSQL distributed lease-queue foundations.
 - OpenTelemetry HTTP instrumentation foundation.
 - Adaptive swarm coordination for **1–200 logical Guardians** with bounded physical concurrency.
-- **Guardian brainstorm mode** — `nexus-guardians brainstorm` runs up to 200 logical Guardians through a divergent-convergent pipeline: independent idea generation with an exceed-expectations mandate, lead synthesis into a candidate plan, a full-swarm red-team critique pass, and a refined final plan with verification gates.
+- **Guardian Company Runtime** — `nexus-guardians company` runs one or more missions concurrently through four wings: 50-Guardian brainstorm, up to 200 complexity-sized execution, up to 200 complexity-sized test/QC with an immediate fast path for execution failures, and a 200-Guardian revision wing in a bounded revise/re-test loop (max 3 cycles).
+- **Guardian brainstorm mode** — `nexus-guardians brainstorm` runs the 50-Guardian company brainstorm wing through a divergent-convergent pipeline: independent idea generation with an exceed-expectations mandate, lead synthesis into a candidate plan, a full-wing red-team critique pass, and a refined final plan with verification gates.
+- **Company leveling** — every company Guardian starts at level 500, levels up on every verified success and failure, and grants shared experience to the whole company on each level-up; levels grant progression, never permissions.
 - **OpenCode CLI provider** for free/local desktop execution — run Guardian swarms through the open-source [OpenCode](https://opencode.ai) agent with any of its 75+ model providers, including free tiers, via `nexus-guardians swarm --provider opencode`. See [`docs/OPENCODE_PROVIDER.md`](docs/OPENCODE_PROVIDER.md).
 - ChatGPT/Codex plugin v0.8.0 aligned with runtime terminology and governance.
 
