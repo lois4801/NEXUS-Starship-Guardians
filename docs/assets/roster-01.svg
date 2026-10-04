@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 240">
+<defs><radialGradient id="b" cx="50%" cy="42%" r="75%"><stop offset="0" stop-color="#0C1330"/><stop offset=".55" stop-color="#0A1128"/><stop offset="1" stop-color="#070D22"/></radialGradient><radialGradient id="l"><stop offset="0" stop-color="#179961" stop-opacity=".5"/><stop offset=".6" stop-color="#179961" stop-opacity=".12"/><stop offset="1" stop-color="#179961" stop-opacity="0"/></radialGradient><linearGradient id="w" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0CF590"/><stop offset="1" stop-color="#17CDE6"/></linearGradient></defs>
+<rect width="420" height="240" fill="url(#b)"/>
+<circle cx="253" cy="113" r="150" fill="url(#l)"/>
+<ellipse cx="173" cy="124" rx="153" ry="41" transform="rotate(-22 173 124)" fill="none" stroke="url(#w)" opacity="0.2"/>
+<ellipse cx="257" cy="120" rx="146" ry="49" transform="rotate(10 257 120)" fill="none" stroke="url(#w)" opacity="0.2"/>
+<circle cx="278" cy="85" r="46" fill="none" stroke="#C9A86A" opacity=".5"/><circle cx="278" cy="85" r="53" fill="none" stroke="#C9A86A" stroke-width=".6" opacity=".25"/>
+<path d="M297 191L77 93L294 37L221 163L38 155" fill="none" stroke="#F4F8FF" stroke-width=".7" opacity=".3"/>
+<circle cx="297" cy="191" r="2.8" fill="#FCE9C8"/><circle cx="77" cy="93" r="2.2" fill="#0CF590"/><circle cx="294" cy="37" r="1.6" fill="#0CF590"/><circle cx="221" cy="163" r="2.8" fill="#FCE9C8"/><circle cx="38" cy="155" r="2.8" fill="#0CF590"/>
+<path d="M267 129l8 8-8 8" fill="none" stroke="url(#w)" stroke-width="1.4" opacity=".8"/><path d="M279 129l8 8-8 8" fill="none" stroke="url(#w)" stroke-width="1.4" opacity=".8"/><path d="M291 129l8 8-8 8" fill="none" stroke="url(#w)" stroke-width="1.4" opacity=".8"/>
+<circle cx="266" cy="143" r="0.9" fill="#F4F8FF" opacity="0.45"/><circle cx="260" cy="222" r="0.6" fill="#F4F8FF" opacity="0.25"/><circle cx="332" cy="129" r="0.9" fill="#F4F8FF" opacity="0.25"/><circle cx="364" cy="37" r="0.9" fill="#F4F8FF" opacity="0.45"/><circle cx="331" cy="55" r="0.9" fill="#F4F8FF" opacity="0.25"/><circle cx="336" cy="83" r="0.9" fill="#F4F8FF" opacity="0.45"/><circle cx="93" cy="67" r="0.6" fill="#F4F8FF" opacity="0.45"/><circle cx="78" cy="140" r="0.9" fill="#F4F8FF" opacity="0.25"/><circle cx="321" cy="69" r="0.6" fill="#F4F8FF" opacity="0.45"/>
+<text x="394" y="220" text-anchor="end" font-family="Arial" font-size="84" font-weight="700" fill="#F4F8FF" opacity=".06">01</text>
+<path d="M24 214H88" stroke="url(#w)" stroke-width="2"/><path d="M94 214H118" stroke="#C9A86A" stroke-width="2" opacity=".7"/>
+</svg>

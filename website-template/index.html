@@ -207,6 +207,8 @@ section{position:relative}
 .ro-card{flex:0 0 auto;width:min(66vw,420px);min-height:56vh;border:1px solid var(--line-soft);border-radius:22px;padding:30px;display:flex;flex-direction:column;background:rgba(255,255,255,.02);position:relative;overflow:hidden;transition:border-color .4s}
 .ro-card::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:var(--wc,#2AF598);opacity:.8}
 .ro-card:hover{border-color:rgba(255,255,255,.2)}
+.ro-art{height:180px;border-radius:14px;overflow:hidden;border:1px solid var(--line-soft);margin-bottom:22px;position:relative;background:#070D22}
+.ro-art img{width:100%;height:100%;object-fit:cover;display:block}
 .ro-wing{font-family:var(--font-m);font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--dim)}
 .ro-num{font-family:var(--font-m);font-size:12px;color:var(--gold);margin-top:16px}
 .ro-name{font-family:var(--font-d);font-weight:500;font-size:clamp(21px,2vw,27px);letter-spacing:-.02em;line-height:1.18;margin-top:10px}
@@ -707,7 +709,7 @@ document.getElementById('mq').innerHTML=half+half;})();
 (()=>{const track=document.getElementById('roTrack');let html='';let n=0;
 WINGS.forEach(w=>{
   html+=`<div class="ro-group"><span class="g-idx">${w.tag} · ${w.ver}</span><h3>${w.name}</h3><p>${w.desc}</p></div>`;
-  w.members.forEach(m=>{n++;html+=`<div class="ro-card" style="--wc:${w.color}"><span class="ro-wing">${w.name} · ${w.ver}</span><span class="ro-num">№ ${String(n).padStart(2,'0')}</span><div class="ro-name">${m[0]}</div><p class="ro-spec">${m[1]}</p><div class="ro-foot">Verified Evidence Only</div></div>`;});
+  w.members.forEach(m=>{n++;html+=`<div class="ro-card" style="--wc:${w.color}"><div class="ro-art"><img src="./assets/roster-${String(n).padStart(2,'0')}.svg" alt="" loading="lazy"></div><span class="ro-wing">${w.name} · ${w.ver}</span><span class="ro-num">№ ${String(n).padStart(2,'0')}</span><div class="ro-name">${m[0]}</div><p class="ro-spec">${m[1]}</p><div class="ro-foot">Verified Evidence Only</div></div>`;});
 });
 track.innerHTML=html;})();
 
