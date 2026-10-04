@@ -43,7 +43,7 @@ h1,h2,h3{font-family:var(--font-d);font-weight:500;letter-spacing:-.035em}
 /* ---------- cursor ---------- */
 .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%)}
 .cursor-dot{width:6px;height:6px;background:var(--gold)}
-.cursor-ring{width:38px;height:38px;border:1px solid rgba(201,168,106,.55);display:flex;align-items:center;justify-content:center;transition:width .35s var(--ease),height .35s var(--ease),background-color .35s,bord-color .35s}
+.cursor-ring{width:38px;height:38px;border:1px solid rgba(201,168,106,.55);display:flex;align-items:center;justify-content:center;transition:width .35s var(--ease),height .35s var(--ease),background-color .35s,border-color .35s}
 .cursor-ring span{font-family:var(--font-m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg0);opacity:0;transition:opacity .25s}
 .cursor-ring.big{width:84px;height:84px;background:var(--gold);border-color:var(--gold)}
 .cursor-ring.big span{opacity:1}
@@ -747,7 +747,7 @@ const introTl=gsap.timeline({paused:true});
 introTl
  .to(heroSlides,{y:0,duration:1.3,ease:'expo.out',stagger:.12,overwrite:true},0)
  .to(heroChars,{y:0,duration:1.3,ease:'expo.out',stagger:.028,overwrite:true},.08)
- .fromTo('.reveal-hero',{y:34,opacity:0},{y:0,opacity:1,duration:1.1,ease:'expo.out',stagger:.1},'-=.9')
+ .fromTo('.reveal-hero',{y:34,opacity:0},{y:0,opacity:1,duration:1.1,ease:'expo.out',stagger:.1},'-.9')
  .add(()=>startCounters(),'-.5');
 
 /* ---- preloader ---- */
