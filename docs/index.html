@@ -734,7 +734,7 @@ if(!isTouch){document.querySelectorAll('.magnetic').forEach(b=>{
 });}
 
 /* ---- split utils ---- */
-function splitChars(el){const t=el.textContent;el.textContent='';return [...t].map(c=>{const s=document.createElement('span');s.style.display='inline-block';s.style.transform='translateY(115%)';s.textContent=c===' '?'\u00A0':c;el.appendChild(s);return s;});}
+function splitChars(el){const t=el.textContent;el.textContent='';return [...t].map(c=>{const s=document.createElement('span');s.style.display='inline-block';s.style.transform='translateY(115%)';s.textContent=c===' '?'':c;el.appendChild(s);return s;});}
 function splitWords(el){const walk=node=>{[...node.childNodes].forEach(ch=>{if(ch.nodeType===3){const frag=document.createDocumentFragment();ch.textContent.split(/(\s+)/).forEach(part=>{if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(' '));}else if(part){const s=document.createElement('span');s.className='w';s.textContent=part;frag.appendChild(s);}});node.replaceChild(frag,ch);}else if(ch.nodeType===1&&!ch.classList.contains('w')){walk(ch);}});};walk(el);return el.querySelectorAll('.w');}
 
 /* ---- hero intro ---- */
@@ -747,8 +747,8 @@ const introTl=gsap.timeline({paused:true});
 introTl
  .to(heroSlides,{y:0,duration:1.3,ease:'expo.out',stagger:.12,overwrite:true},0)
  .to(heroChars,{y:0,duration:1.3,ease:'expo.out',stagger:.028,overwrite:true},.08)
- .fromTo('.reveal-hero',{y:34,opacity:0},{y:0,opacity:1,duration:1.1,ease:'expo.out',stagger:.1},'-.9')
- .add(()=>startCounters(),'-.5');
+ .fromTo('.reveal-hero',{y:34,opacity:0},{y:0,opacity:1,duration:1.1,ease:'expo.out',stagger:.1},.73)
+ .add(()=>startCounters(),1.13);
 
 /* ---- preloader ---- */
 (()=>{const pct=document.getElementById('lPct'),bar=document.getElementById('lBar'),word=document.getElementById('lWord'),loader=document.getElementById('loader');
