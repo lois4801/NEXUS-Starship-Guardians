@@ -1,8 +1,7 @@
 import asyncio
 
 from nexus_os.portable.base import ProviderResult
-from nexus_os.portable.brainstorm import run_brainstorm
-from nexus_os.swarm import MAX_SWARM_GUARDIANS
+from nexus_os.portable.brainstorm import BRAINSTORM_GUARDIAN_COUNT, run_brainstorm
 
 
 class FakeProvider:
@@ -47,15 +46,16 @@ def test_brainstorm_runs_four_phases():
     asyncio.run(scenario())
 
 
-def test_brainstorm_default_is_200_guardians():
+def test_brainstorm_default_is_company_wing_of_50_guardians():
     async def scenario():
         provider = FakeProvider()
         report = await run_brainstorm(provider, "big mission", max_parallel=4)
 
-        assert report.requested_guardians == MAX_SWARM_GUARDIANS
-        assert report.active_guardians == MAX_SWARM_GUARDIANS
-        assert len(report.divergent_results) == MAX_SWARM_GUARDIANS
-        assert len(report.critique_results) == MAX_SWARM_GUARDIANS
+        assert BRAINSTORM_GUARDIAN_COUNT == 50
+        assert report.requested_guardians == 50
+        assert report.active_guardians == 50
+        assert len(report.divergent_results) == 50
+        assert len(report.critique_results) == 50
 
     asyncio.run(scenario())
 
