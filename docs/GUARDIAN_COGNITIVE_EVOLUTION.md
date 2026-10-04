@@ -1,4 +1,4 @@
-# Guardian Cognitive Evolution — v0.8.0
+# Guardian Cognitive Evolution — v0.8.0 (released) · v0.9.0 current
 
 Guardian Cognitive Evolution is the meta-learning layer above Adaptive Guardian Intelligence. It is designed to make specialist Guardians improve from verified work without pretending that hosted model weights rewrite themselves after every request.
 

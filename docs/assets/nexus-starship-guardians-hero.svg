@@ -8,12 +8,13 @@
       <stop offset="1" stop-color="#12072d"/>
     </linearGradient>
     <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#22d3ee"/>
-      <stop offset="0.52" stop-color="#8b5cf6"/>
-      <stop offset="1" stop-color="#f59e0b"/>
+      <stop offset="0" stop-color="#2AF598"/>
+      <stop offset="0.34" stop-color="#08AEEA"/>
+      <stop offset="0.67" stop-color="#A855F7"/>
+      <stop offset="1" stop-color="#FF9A44"/>
     </linearGradient>
     <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <radialGradient id="planet"><stop offset="0" stop-color="#38bdf8" stop-opacity=".55"/><stop offset="1" stop-color="#312e81" stop-opacity="0"/></radialGradient>
+    <radialGradient id="planet"><stop offset="0" stop-color="#67E8F9" stop-opacity=".55"/><stop offset="1" stop-color="#312E81" stop-opacity="0"/></radialGradient>
   </defs>
   <rect width="1440" height="480" rx="28" fill="url(#bg)"/>
   <circle cx="1280" cy="85" r="210" fill="url(#planet)"/>
@@ -23,33 +24,33 @@
     <circle cx="1100" cy="160" r="2"><animate attributeName="opacity" values=".1;1;.1" dur="2.1s" repeatCount="indefinite"/></circle>
     <circle cx="1360" cy="290" r="1.5"><animate attributeName="opacity" values="1;.2;1" dur="3.1s" repeatCount="indefinite"/></circle>
   </g>
-  <path d="M120 340 C360 260 610 420 860 320 S1220 220 1390 300" fill="none" stroke="#22d3ee" stroke-width="3" stroke-dasharray="12 18" opacity=".55">
+  <path d="M120 340 C360 260 610 420 860 320 S1220 220 1390 300" fill="none" stroke="#08AEEA" stroke-width="3" stroke-dasharray="12 18" opacity=".55">
     <animate attributeName="stroke-dashoffset" values="0;-60" dur="2.8s" repeatCount="indefinite"/>
   </path>
-  <path d="M80 375 C380 300 600 450 940 355 S1220 285 1380 350" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="8 16" opacity=".45">
+  <path d="M80 375 C380 300 600 450 940 355 S1220 285 1380 350" fill="none" stroke="#A855F7" stroke-width="2" stroke-dasharray="8 16" opacity=".45">
     <animate attributeName="stroke-dashoffset" values="0;48" dur="3.4s" repeatCount="indefinite"/>
   </path>
   <g transform="translate(94 84)" filter="url(#glow)">
     <path d="M0 42 L42 0 L84 42 L42 84 Z" fill="none" stroke="url(#brand)" stroke-width="8"/>
     <path d="M42 10 L55 42 L42 74 L29 42 Z" fill="url(#brand)"/>
   </g>
-  <text x="210" y="120" fill="#e5f6ff" font-size="62" font-weight="800" font-family="Arial, Helvetica, sans-serif">NEXUS STARSHIP GUARDIANS</text>
-  <text x="212" y="163" fill="#a5c7e8" font-size="24" font-family="Arial, Helvetica, sans-serif">Verified Guardian engineering runtime • Plan • Build • Verify • Learn • Ship</text>
-  <g font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">
-    <rect x="215" y="220" width="230" height="74" rx="18" fill="#0b1f33" stroke="#f59e0b" stroke-width="2"/>
-    <text x="245" y="264" fill="#fde68a">200-Guardian Swarm</text>
-    <rect x="465" y="220" width="230" height="74" rx="18" fill="#071f2c" stroke="#22d3ee" stroke-width="2"/>
-    <text x="500" y="264" fill="#67e8f9">Adaptive Routing</text>
-    <rect x="715" y="220" width="230" height="74" rx="18" fill="#17102f" stroke="#8b5cf6" stroke-width="2"/>
-    <text x="747" y="264" fill="#c4b5fd">Verified Execution</text>
-    <rect x="965" y="220" width="230" height="74" rx="18" fill="#180b2a" stroke="#d946ef" stroke-width="2"/>
-    <text x="1007" y="264" fill="#f0abfc">Learning Memory</text>
+  <text x="210" y="120" fill="#e5f6ff" font-size="62" font-weight="800" font-family="'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,Helvetica,sans-serif">NEXUS STARSHIP GUARDIANS</text>
+  <text x="212" y="163" fill="#a5c7e8" font-size="24" font-family="'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,Helvetica,sans-serif">Verified Guardian engineering runtime • Plan • Build • Verify • Learn • Ship</text>
+  <g font-family="'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,Helvetica,sans-serif" font-size="22" font-weight="700">
+    <rect x="215" y="220" width="230" height="74" rx="18" fill="#0b1f33" stroke="#FF9A44" stroke-width="2"/>
+    <text x="245" y="264" fill="#FBD38D">200-Guardian Swarm</text>
+    <rect x="465" y="220" width="230" height="74" rx="18" fill="#071f2c" stroke="#08AEEA" stroke-width="2"/>
+    <text x="500" y="264" fill="#7FDBF0">Adaptive Routing</text>
+    <rect x="715" y="220" width="230" height="74" rx="18" fill="#17102f" stroke="#A855F7" stroke-width="2"/>
+    <text x="747" y="264" fill="#D8B4FE">Verified Execution</text>
+    <rect x="965" y="220" width="230" height="74" rx="18" fill="#180b2a" stroke="#F857A6" stroke-width="2"/>
+    <text x="1007" y="264" fill="#F5A3E8">Learning Memory</text>
   </g>
   <g transform="translate(1210 355)">
-    <path d="M0 22 L70 0 L48 70 L30 40 Z" fill="#22d3ee" filter="url(#glow)">
+    <path d="M0 22 L70 0 L48 70 L30 40 Z" fill="#08AEEA" filter="url(#glow)">
       <animateTransform attributeName="transform" type="translate" values="0 0;18 -8;0 0" dur="2.6s" repeatCount="indefinite"/>
     </path>
-    <path d="M15 45 L-25 74" stroke="#f59e0b" stroke-width="6" stroke-linecap="round" opacity=".9">
+    <path d="M15 45 L-25 74" stroke="#FF9A44" stroke-width="6" stroke-linecap="round" opacity=".9">
       <animate attributeName="opacity" values=".25;1;.25" dur="1.1s" repeatCount="indefinite"/>
     </path>
   </g>

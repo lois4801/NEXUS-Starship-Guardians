@@ -46,6 +46,28 @@ _SPECIALIST_ROUTING_ALIASES: dict[str, frozenset[str]] = {
     "ai-cloud-specialist": frozenset({"devops", "observability", "security", "database"}),
     "api-specialist": frozenset({"backend", "security", "integration", "testing"}),
     "ai-programmer": frozenset({"backend", "frontend", "testing", "integration"}),
+    "planner-strategist": frozenset({"architecture", "general-engineering"}),
+    "verification-qa-specialist": frozenset({"testing", "backend", "frontend"}),
+    "reviewer-specialist": frozenset({"testing", "security", "architecture"}),
+    "deployment-release-specialist": frozenset({"devops", "integration", "observability"}),
+    "evidence-research-specialist": frozenset({"architecture", "general-engineering"}),
+    "content-seo-strategist": frozenset({"frontend", "general-engineering"}),
+    "design-experience-specialist": frozenset({"frontend"}),
+    "budget-cost-controller": frozenset({"observability", "devops", "ai-engineering"}),
+    "data-analyst-specialist": frozenset({"database", "backend", "observability"}),
+    "evaluation-judge-specialist": frozenset({"testing", "ai-engineering"}),
+    "gis-spatial-analyst": frozenset({"database", "data", "observability"}),
+    "sales-pipeline-strategist": frozenset({"general-engineering", "frontend"}),
+    "game-design-specialist": frozenset({"frontend", "design"}),
+    "xr-spatial-engineer": frozenset({"frontend", "integration"}),
+    "paid-media-strategist": frozenset({"frontend", "observability"}),
+    "financial-analysis-specialist": frozenset({"database", "observability"}),
+    "healthcare-evidence-specialist": frozenset({"research", "compliance"}),
+    "blockchain-engineer": frozenset({"backend", "security"}),
+    "embedded-iot-engineer": frozenset({"backend", "integration", "devops"}),
+    "knowledge-search-engineer": frozenset({"database", "ai-engineering", "backend"}),
+    "legal-compliance-specialist": frozenset({"compliance", "security", "architecture"}),
+    "pmo-operations-specialist": frozenset({"integration", "observability"}),
 }
 
 
@@ -123,6 +145,10 @@ def _specialist_tools(capabilities: frozenset[str]) -> frozenset[str]:
         tools.add("security")
     if capabilities & {"database"}:
         tools.add("database")
+    if capabilities & {"sql", "database-queries", "etl", "data-quality", "dashboard-verification"}:
+        tools.add("database")
+    if capabilities & {"browser-qa"}:
+        tools.add("browser")
     if capabilities & {"integration", "integration-design", "model-integration"}:
         tools.add("integration")
     if capabilities & {

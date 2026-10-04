@@ -27,7 +27,7 @@
     "composerIcon": "./assets/icon.svg"
   },
   "name": "nexus-starship-guardians",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Project-scoped Guardian operations with Cognitive Evolution, verified meta-learning, cross-Guardian knowledge transfer, confidence calibration, counterfactual replay, self-curricula, Adaptive Guardian Intelligence, Benchmark Replay, and Coverage Intelligence.",
   "author": {"name": "Nexus Starship Guardians"},
   "keywords": ["guardians", "orchestration", "cognitive-evolution", "adaptive-intelligence", "meta-learning", "counterfactual-replay", "benchmark-replay", "coverage-intelligence", "verification"],

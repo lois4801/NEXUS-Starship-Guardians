@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="900" viewBox="0 0 1500 900" role="img" aria-labelledby="title desc">
+  <title id="title">Agency Services Wing — twelve specialists from the agency-agents gap analysis</title>
+  <desc id="desc">Animated motion graphic of the twelve Agency Services Guardians: GIS, sales pipeline, game design, XR, paid media, financial analysis, healthcare evidence, blockchain, embedded IoT, knowledge search, legal compliance, PMO operations. Skill concepts from the MIT-licensed agency-agents catalog; original NEXUS definitions.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A1128"/><stop offset=".5" stop-color="#0D1B3E"/><stop offset="1" stop-color="#120A2E"/>
+    </linearGradient>
+    <linearGradient id="gEmerald" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2AF598"/><stop offset="1" stop-color="#08AEEA"/>
+    </linearGradient>
+    <linearGradient id="gSunset" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4B6CB7"/><stop offset=".5" stop-color="#F857A6"/><stop offset="1" stop-color="#FF9A44"/>
+    </linearGradient>
+    <linearGradient id="gLime" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A8FF78"/><stop offset="1" stop-color="#78FFD6"/>
+    </linearGradient>
+    <linearGradient id="gAmber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F2994A"/><stop offset="1" stop-color="#F7B733"/>
+    </linearGradient>
+    <linearGradient id="gDeep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A2980"/><stop offset="1" stop-color="#26D0CE"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2AF598"/><stop offset=".3" stop-color="#08AEEA"/><stop offset=".55" stop-color="#F857A6"/><stop offset=".8" stop-color="#F7B733"/><stop offset="1" stop-color="#A8FF78"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+  <style>    .title{font:800 40px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#F5F5F7;letter-spacing:.5px}
+    .sub{font:400 20px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#A7B1C7}
+    .label{font:700 21px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#F5F5F7}
+    .small{font:400 17px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#C7CEDD}
+    .tiny{font:500 14px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#8E99B5}
+    .num{font:800 44px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#FFFFFF}
+    .caps{stroke-linecap:round}
+    @keyframes pulse {0%,100%{opacity:.55}50%{opacity:1}}
+    @keyframes sheen {0%{transform:translateX(-220px)}100%{transform:translateX(1720px)}}
+    .pulse{animation:pulse 2.6s ease-in-out infinite}
+    .sheen{animation:sheen 5.5s linear infinite}</style>
+  <rect width="1500" height="900" rx="34" fill="url(#bg)"/>
+  <ellipse cx="330" cy="120" rx="330" ry="140" fill="#2AF598" opacity=".10" filter="url(#soft)"/>
+  <ellipse cx="1220" cy="800" rx="350" ry="150" fill="#F857A6" opacity=".10" filter="url(#soft)"/>
+  <text x="70" y="80" class="title">Agency Services Wing</text>
+  <text x="72" y="114" class="sub">Twelve Guardians selected by gap analysis against the agency-agents catalog (MIT) — every uncovered division, now covered.</text>
+  <rect x="1200" y="-60" width="160" height="1200" fill="#FFFFFF" opacity=".05" class="sheen" transform="skewX(-18)"/>
+  <g>
+    <rect x="88" y="240" width="132" height="240" rx="66" fill="url(#gEmerald)" filter="url(#glow)"/>
+    <rect x="98" y="250" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="104" y="256" width="100" height="208" rx="50" fill="url(#gEmerald)" opacity=".9"/>
+    <text x="154" y="510" text-anchor="middle" class="label" font-size="16">GIS &amp; Spatial</text>
+    <text x="154" y="534" text-anchor="middle" class="tiny">gis-spatial-analyst</text>
+  </g>
+  <g>
+    <rect x="316" y="240" width="132" height="240" rx="66" fill="url(#gDeep)" filter="url(#glow)"/>
+    <rect x="326" y="250" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="332" y="256" width="100" height="208" rx="50" fill="url(#gDeep)" opacity=".9"/>
+    <text x="382" y="510" text-anchor="middle" class="label" font-size="16">Sales Pipeline</text>
+    <text x="382" y="534" text-anchor="middle" class="tiny">sales-pipeline-strategist</text>
+  </g>
+  <g>
+    <rect x="544" y="240" width="132" height="240" rx="66" fill="url(#gSunset)" filter="url(#glow)"/>
+    <rect x="554" y="250" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="560" y="256" width="100" height="208" rx="50" fill="url(#gSunset)" opacity=".9"/>
+    <text x="610" y="510" text-anchor="middle" class="label" font-size="16">Game Design</text>
+    <text x="610" y="534" text-anchor="middle" class="tiny">game-design-specialist</text>
+  </g>
+  <g>
+    <rect x="772" y="240" width="132" height="240" rx="66" fill="url(#gLime)" filter="url(#glow)"/>
+    <rect x="782" y="250" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="788" y="256" width="100" height="208" rx="50" fill="url(#gLime)" opacity=".9"/>
+    <text x="838" y="510" text-anchor="middle" class="label" font-size="16">XR &amp; Spatial</text>
+    <text x="838" y="534" text-anchor="middle" class="tiny">xr-spatial-engineer</text>
+  </g>
+  <g>
+    <rect x="1000" y="240" width="132" height="240" rx="66" fill="url(#gAmber)" filter="url(#glow)"/>
+    <rect x="1010" y="250" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="1016" y="256" width="100" height="208" rx="50" fill="url(#gAmber)" opacity=".9"/>
+    <text x="1066" y="510" text-anchor="middle" class="label" font-size="16">Paid Media</text>
+    <text x="1066" y="534" text-anchor="middle" class="tiny">paid-media-strategist</text>
+  </g>
+  <g>
+    <rect x="1228" y="240" width="132" height="240" rx="66" fill="url(#gSunset)" filter="url(#glow)"/>
+    <rect x="1238" y="250" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="1244" y="256" width="100" height="208" rx="50" fill="url(#gSunset)" opacity=".9"/>
+    <text x="1294" y="510" text-anchor="middle" class="label" font-size="16">Financial Analysis</text>
+    <text x="1294" y="534" text-anchor="middle" class="tiny">financial-analysis-specialist</text>
+  </g>
+  <g>
+    <rect x="88" y="540" width="132" height="240" rx="66" fill="url(#gEmerald)" filter="url(#glow)"/>
+    <rect x="98" y="550" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="104" y="556" width="100" height="208" rx="50" fill="url(#gEmerald)" opacity=".9"/>
+    <text x="154" y="810" text-anchor="middle" class="label" font-size="16">Healthcare Evidence</text>
+    <text x="154" y="834" text-anchor="middle" class="tiny">healthcare-evidence-specialist</text>
+  </g>
+  <g>
+    <rect x="316" y="540" width="132" height="240" rx="66" fill="url(#gDeep)" filter="url(#glow)"/>
+    <rect x="326" y="550" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="332" y="556" width="100" height="208" rx="50" fill="url(#gDeep)" opacity=".9"/>
+    <text x="382" y="810" text-anchor="middle" class="label" font-size="16">Blockchain</text>
+    <text x="382" y="834" text-anchor="middle" class="tiny">blockchain-engineer</text>
+  </g>
+  <g>
+    <rect x="544" y="540" width="132" height="240" rx="66" fill="url(#gAmber)" filter="url(#glow)"/>
+    <rect x="554" y="550" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="560" y="556" width="100" height="208" rx="50" fill="url(#gAmber)" opacity=".9"/>
+    <text x="610" y="810" text-anchor="middle" class="label" font-size="16">Embedded &amp; IoT</text>
+    <text x="610" y="834" text-anchor="middle" class="tiny">embedded-iot-engineer</text>
+  </g>
+  <g>
+    <rect x="772" y="540" width="132" height="240" rx="66" fill="url(#gLime)" filter="url(#glow)"/>
+    <rect x="782" y="550" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="788" y="556" width="100" height="208" rx="50" fill="url(#gLime)" opacity=".9"/>
+    <text x="838" y="810" text-anchor="middle" class="label" font-size="16">Knowledge &amp; Search</text>
+    <text x="838" y="834" text-anchor="middle" class="tiny">knowledge-search-engineer</text>
+  </g>
+  <g>
+    <rect x="1000" y="540" width="132" height="240" rx="66" fill="url(#gSunset)" filter="url(#glow)"/>
+    <rect x="1010" y="550" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="1016" y="556" width="100" height="208" rx="50" fill="url(#gSunset)" opacity=".9"/>
+    <text x="1066" y="810" text-anchor="middle" class="label" font-size="16">Legal &amp; Compliance</text>
+    <text x="1066" y="834" text-anchor="middle" class="tiny">legal-compliance-specialist</text>
+  </g>
+  <g>
+    <rect x="1228" y="540" width="132" height="240" rx="66" fill="url(#gEmerald)" filter="url(#glow)"/>
+    <rect x="1238" y="550" width="112" height="220" rx="56" fill="#0A1128" opacity=".28"/>
+    <rect x="1244" y="556" width="100" height="208" rx="50" fill="url(#gEmerald)" opacity=".9"/>
+    <text x="1294" y="810" text-anchor="middle" class="label" font-size="16">PMO Operations</text>
+    <text x="1294" y="834" text-anchor="middle" class="tiny">pmo-operations-specialist</text>
+  </g>
+  <text x="750" y="852" text-anchor="middle" class="small">Only skill concepts were taken from the catalog — every profile, prompt, and learning objective is an original NEXUS definition.</text>
+</svg>

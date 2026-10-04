@@ -48,7 +48,7 @@ def test_requires_auth_and_admin(api):
     health = api.get("/health").json()
     assert health["status"] == "ok"
     assert health["adaptive_guardian_intelligence"] == "live"
-    assert health["adaptive_specialists"] == 10
+    assert health["adaptive_specialists"] == 32
     assert health["mission_intelligence"] == "live"
     assert health["intelligence_fabric"] == "live"
     assert api.get("/v1/projects/lucio", headers=headers(key)).status_code == 200

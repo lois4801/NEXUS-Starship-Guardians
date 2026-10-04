@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="940" viewBox="0 0 1500 940" role="img" aria-labelledby="title desc">
+  <title id="title">Guardian Company Runtime — four-wing animated pipeline</title>
+  <desc id="desc">Animated motion graphic: brainstorm (50), execute (up to 200), test and QC (up to 200) with an immediate fast error path, and revise (200) wings, with shared company leveling.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A1128"/><stop offset=".5" stop-color="#0D1B3E"/><stop offset="1" stop-color="#120A2E"/>
+    </linearGradient>
+    <linearGradient id="gEmerald" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2AF598"/><stop offset="1" stop-color="#08AEEA"/>
+    </linearGradient>
+    <linearGradient id="gSunset" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4B6CB7"/><stop offset=".5" stop-color="#F857A6"/><stop offset="1" stop-color="#FF9A44"/>
+    </linearGradient>
+    <linearGradient id="gLime" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A8FF78"/><stop offset="1" stop-color="#78FFD6"/>
+    </linearGradient>
+    <linearGradient id="gAmber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F2994A"/><stop offset="1" stop-color="#F7B733"/>
+    </linearGradient>
+    <linearGradient id="gDeep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A2980"/><stop offset="1" stop-color="#26D0CE"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2AF598"/><stop offset=".3" stop-color="#08AEEA"/><stop offset=".55" stop-color="#F857A6"/><stop offset=".8" stop-color="#F7B733"/><stop offset="1" stop-color="#A8FF78"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+  <style>    .title{font:800 40px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#F5F5F7;letter-spacing:.5px}
+    .sub{font:400 20px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#A7B1C7}
+    .label{font:700 21px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#F5F5F7}
+    .small{font:400 17px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#C7CEDD}
+    .tiny{font:500 14px 'SF Pro Text',-apple-system,Arial,sans-serif;fill:#8E99B5}
+    .num{font:800 44px 'SF Pro Display',-apple-system,Arial,sans-serif;fill:#FFFFFF}
+    .caps{stroke-linecap:round}
+    @keyframes pulse {0%,100%{opacity:.55}50%{opacity:1}}
+    @keyframes sheen {0%{transform:translateX(-220px)}100%{transform:translateX(1720px)}}
+    .pulse{animation:pulse 2.6s ease-in-out infinite}
+    .sheen{animation:sheen 5.5s linear infinite}
+    .wing{fill:#101B3E;stroke-width:2}
+  </style>
+  <rect width="1500" height="940" rx="34" fill="url(#bg)"/>
+  <ellipse cx="330" cy="80" rx="360" ry="150" fill="#2AF598" opacity=".10" filter="url(#soft)"/>
+  <ellipse cx="1250" cy="860" rx="380" ry="160" fill="#F857A6" opacity=".10" filter="url(#soft)"/>
+
+  <text x="70" y="80" class="title">Guardian Company Runtime</text>
+  <text x="72" y="114" class="sub">Four wings, one company — up to 650 logical Guardians, multiple missions in flight, leveling from verified outcomes.</text>
+
+  <!-- main flow spine -->
+  <path id="spine" d="M150 300 H1350" fill="none" stroke="url(#flow)" stroke-width="6" class="caps" opacity=".9" filter="url(#glow)" stroke-dasharray="26 20">
+    <animate attributeName="stroke-dashoffset" values="0;-92" dur="2.2s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- moving particles along spine -->
+  <circle r="7" fill="#FFFFFF" filter="url(#glow)"><animateMotion dur="6s" repeatCount="indefinite" path="M150 300 H1350"/></circle>
+  <circle r="5" fill="#2AF598" filter="url(#glow)"><animateMotion dur="6s" begin="1.5s" repeatCount="indefinite" path="M150 300 H1350"/></circle>
+  <circle r="5" fill="#F857A6" filter="url(#glow)"><animateMotion dur="6s" begin="3s" repeatCount="indefinite" path="M150 300 H1350"/></circle>
+  <circle r="5" fill="#F7B733" filter="url(#glow)"><animateMotion dur="6s" begin="4.5s" repeatCount="indefinite" path="M150 300 H1350"/></circle>
+
+  <!-- MISSION node -->
+  <g>
+    <circle cx="150" cy="300" r="46" fill="#0D1B3E" stroke="url(#gDeep)" stroke-width="3" filter="url(#glow)"/>
+    <text x="150" y="307" text-anchor="middle" class="label" font-size="15">MISSION</text>
+  </g>
+
+  <!-- WING 1: BRAINSTORM -->
+  <g>
+    <rect x="250" y="210" width="220" height="180" rx="26" class="wing" stroke="url(#gEmerald)" filter="url(#glow)"/>
+    <rect x="250" y="210" width="220" height="180" rx="26" fill="url(#gEmerald)" opacity=".07"/>
+    <text x="360" y="252" text-anchor="middle" class="label">BRAINSTORM</text>
+    <text x="360" y="330" text-anchor="middle" class="num">50</text>
+    <text x="360" y="360" text-anchor="middle" class="tiny">diverge → synthesize → red-team</text>
+  </g>
+
+  <!-- WING 2: EXECUTE -->
+  <g>
+    <rect x="530" y="210" width="220" height="180" rx="26" class="wing" stroke="url(#gSunset)" filter="url(#glow)"/>
+    <rect x="530" y="210" width="220" height="180" rx="26" fill="url(#gSunset)" opacity=".07"/>
+    <text x="640" y="252" text-anchor="middle" class="label">EXECUTE</text>
+    <text x="640" y="330" text-anchor="middle" class="num">≤200</text>
+    <text x="640" y="360" text-anchor="middle" class="tiny">sized by mission complexity</text>
+  </g>
+
+  <!-- WING 3: TEST & QC -->
+  <g>
+    <rect x="810" y="210" width="220" height="180" rx="26" class="wing" stroke="url(#gLime)" filter="url(#glow)"/>
+    <rect x="810" y="210" width="220" height="180" rx="26" fill="url(#gLime)" opacity=".07"/>
+    <text x="920" y="252" text-anchor="middle" class="label">TEST &amp; QC</text>
+    <text x="920" y="330" text-anchor="middle" class="num">≤200</text>
+    <text x="920" y="360" text-anchor="middle" class="tiny">verify with tool evidence</text>
+  </g>
+
+  <!-- WING 4: REVISE -->
+  <g>
+    <rect x="1090" y="210" width="220" height="180" rx="26" class="wing" stroke="url(#gAmber)" filter="url(#glow)"/>
+    <rect x="1090" y="210" width="220" height="180" rx="26" fill="url(#gAmber)" opacity=".07"/>
+    <text x="1200" y="252" text-anchor="middle" class="label">REVISE</text>
+    <text x="1200" y="330" text-anchor="middle" class="num">200</text>
+    <text x="1200" y="360" text-anchor="middle" class="tiny">bounded loop · max 3 cycles</text>
+  </g>
+
+  <!-- SHIP node -->
+  <g>
+    <circle cx="1428" cy="300" r="40" fill="#0D1B3E" stroke="url(#gEmerald)" stroke-width="3" filter="url(#glow)"/>
+    <text x="1428" y="307" text-anchor="middle" class="label" font-size="15">SHIP</text>
+  </g>
+
+  <!-- FAST ERROR PATH: execute -> test -->
+  <path id="fastpath" d="M640 392 C640 500 920 500 920 392" fill="none" stroke="#FF9A44" stroke-width="4" class="caps" stroke-dasharray="14 12" opacity=".95" filter="url(#glow)">
+    <animate attributeName="stroke-dashoffset" values="0;-52" dur="1.1s" repeatCount="indefinite"/>
+  </path>
+  <polygon points="920,384 908,404 932,404" fill="#FF9A44"/>
+  <circle r="5" fill="#FFB27A" filter="url(#glow)"><animateMotion dur="1.6s" repeatCount="indefinite" path="M640 392 C640 500 920 500 920 392"/></circle>
+  <text x="780" y="512" text-anchor="middle" class="small" fill="#FFB27A">FAST ERROR PATH — failed execution routes to testers immediately</text>
+
+  <!-- leveling band -->
+  <path d="M360 470 H1200" stroke="#8E99B5" stroke-width="1.6" stroke-dasharray="3 8" opacity=".55"/>
+  <g class="pulse">
+    <rect x="420" y="560" width="660" height="150" rx="26" fill="#101B3E" stroke="url(#gDeep)" stroke-width="2" filter="url(#glow)"/>
+    <text x="750" y="606" text-anchor="middle" class="label">COMPANY LEVELING</text>
+    <text x="750" y="640" text-anchor="middle" class="small">start at level 500 · +1 level on every success and every failure · level-up grants 10 shared XP to the whole company</text>
+    <text x="750" y="672" text-anchor="middle" class="tiny">levels are progression bookkeeping — they grant no permissions and never fabricate skill evidence</text>
+  </g>
+  <path d="M750 560 V470" stroke="#26D0CE" stroke-width="2" stroke-dasharray="4 6" opacity=".7">
+    <animate attributeName="stroke-dashoffset" values="0;-20" dur="1.4s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- stat chips -->
+  <g class="tiny">
+    <rect x="250" y="770" rx="16" width="300" height="58" fill="#0D1B3E" stroke="#1F2C56"/>
+    <text x="400" y="805" text-anchor="middle" class="small">🧠 50-Guardian brainstorm wing</text>
+    <rect x="600" y="770" rx="16" width="300" height="58" fill="#0D1B3E" stroke="#1F2C56"/>
+    <text x="750" y="805" text-anchor="middle" class="small">⚡ fast path mid-flight, no waiting</text>
+    <rect x="950" y="770" rx="16" width="300" height="58" fill="#0D1B3E" stroke="#1F2C56"/>
+    <text x="1100" y="805" text-anchor="middle" class="small">🔁 revise re-test loop (max 3)</text>
+  </g>
+</svg>

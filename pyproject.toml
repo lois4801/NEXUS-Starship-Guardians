@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nexus-starship-guardians"
-version = "0.8.0"
+version = "0.9.0"
 description = "Nexus Starship Guardians: Guardian Cognitive Evolution with verified meta-learning, cross-Guardian lesson transfer, confidence calibration, counterfactual replay, self-curricula, adaptive specialist intelligence, Benchmark Replay, Coverage Intelligence, governed learning, and permission-safe routing"
 requires-python = ">=3.11"
 dependencies = [

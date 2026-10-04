@@ -39,7 +39,7 @@ def test_default_live_registry_includes_all_adaptive_specialists():
     registered = {item.profile.guardian_id for item in MissionRuntime().registry.all()}
     expected = {profile.guardian_id for profile in SPECIALIST_INTELLIGENCE_PROFILES}
     assert expected <= registered
-    assert len(expected) == 10
+    assert len(expected) == 32
 
 
 @pytest.fixture

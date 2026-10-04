@@ -98,6 +98,60 @@ ELITE_SPECIALIST_GUARDIANS: tuple[GuardianRole, ...] = (
 )
 
 
+AUTONOMOUS_OPERATIONS_GUARDIANS: tuple[GuardianRole, ...] = (
+    GuardianRole(
+        "Planner Strategist Guardian",
+        "autonomous-operations",
+        "Decompose goals into dependency-aware plans with explicit decision rules, success criteria, and trade-offs.",
+    ),
+    GuardianRole(
+        "Verification & QA Specialist Guardian",
+        "autonomous-operations",
+        "Run independent verification and quality audits, capturing tool-produced evidence and bounded self-heal repairs.",
+    ),
+    GuardianRole(
+        "Independent Reviewer Guardian",
+        "autonomous-operations",
+        "Review change sets against the goal and verification evidence, holding approval gates without implementation authority.",
+    ),
+    GuardianRole(
+        "Deployment & Release Guardian",
+        "autonomous-operations",
+        "Prepare preview environments, guard staged promotion and release gates, and plan rollbacks from release evidence.",
+    ),
+    GuardianRole(
+        "Evidence & Research Guardian",
+        "autonomous-operations",
+        "Ground claims in provenance-carrying research with evidence scores and source verification before building.",
+    ),
+    GuardianRole(
+        "Content & SEO Strategist Guardian",
+        "autonomous-operations",
+        "Architect structured content, keyword intent, and conversion copy without unverifiable invented claims.",
+    ),
+    GuardianRole(
+        "Design Experience Guardian",
+        "autonomous-operations",
+        "Own design systems, style universes, motion design, accessibility, and design QA audits.",
+    ),
+    GuardianRole(
+        "Budget & Cost Controller Guardian",
+        "autonomous-operations",
+        "Enforce resource budgets, model routing, and failure-taxonomy accounting to lower cost per verified mission.",
+    ),
+    GuardianRole(
+        "Data & SQL Analyst Guardian",
+        "autonomous-operations",
+        "Run SQL and ETL analysis with data-quality checks, dashboard verification, and BI reporting evidence.",
+    ),
+    GuardianRole(
+        "Evaluation Judge Guardian",
+        "autonomous-operations",
+        "Grade outputs and trajectories against ground truth with calibrated LLM-as-judge evaluation.",
+    ),
+)
+
+
 def artificial_architecture_team() -> tuple[GuardianRole, ...]:
     """Return the canonical 30-Guardian Artificial Architecture team."""
     return ARTIFICIAL_ARCHITECTURE_GUARDIANS
@@ -106,3 +160,77 @@ def artificial_architecture_team() -> tuple[GuardianRole, ...]:
 def elite_specialist_team() -> tuple[GuardianRole, ...]:
     """Return the 10-role adaptive specialist intelligence wing introduced in v0.7.0."""
     return ELITE_SPECIALIST_GUARDIANS
+
+
+def autonomous_operations_team() -> tuple[GuardianRole, ...]:
+    """Return the 10-role Autonomous Operations Wing acquired in v0.9.0."""
+    return AUTONOMOUS_OPERATIONS_GUARDIANS
+
+
+AGENCY_SERVICES_GUARDIANS: tuple[GuardianRole, ...] = (
+    GuardianRole(
+        "GIS & Spatial Analyst Guardian",
+        "agency-services",
+        "Analyze geospatial data, spatial pipelines, and map rendering with projection-safe, evidence-carrying QA.",
+    ),
+    GuardianRole(
+        "Sales Pipeline Strategist Guardian",
+        "agency-services",
+        "Audit pipeline stages, deal qualification, and proposals against close and win/loss evidence.",
+    ),
+    GuardianRole(
+        "Game Design Guardian",
+        "agency-services",
+        "Evaluate game loops, level pacing, narrative, economy balance, and audio/art pipelines from playtest evidence.",
+    ),
+    GuardianRole(
+        "XR & Spatial Computing Guardian",
+        "agency-services",
+        "Review immersive-app architecture, spatial anchors, and 3D interaction patterns with device-profile evidence.",
+    ),
+    GuardianRole(
+        "Paid Media Strategist Guardian",
+        "agency-services",
+        "Audit paid media campaigns, bidding, tracking, and attribution with platform-report evidence.",
+    ),
+    GuardianRole(
+        "Financial Analysis Guardian",
+        "agency-services",
+        "Review financial models, forecasts, and reconciliations with recalculated-output evidence.",
+    ),
+    GuardianRole(
+        "Healthcare Evidence Guardian",
+        "agency-services",
+        "Appraise clinical evidence, health-system workflows, and medical compliance with documented citations.",
+    ),
+    GuardianRole(
+        "Blockchain Engineer Guardian",
+        "agency-services",
+        "Audit smart contracts, token mechanics, and protocol integrations with testnet and static-analysis evidence.",
+    ),
+    GuardianRole(
+        "Embedded & IoT Guardian",
+        "agency-services",
+        "Review firmware, device protocols, and edge pipelines with build-log and device-trace evidence.",
+    ),
+    GuardianRole(
+        "Knowledge & Search Guardian",
+        "agency-services",
+        "Evaluate retrieval pipelines, graph schemas, and ranking signals with relevance-judgment evidence.",
+    ),
+    GuardianRole(
+        "Legal & Compliance Guardian",
+        "agency-services",
+        "Review contracts, compliance controls, and privacy handling with clause-citation evidence.",
+    ),
+    GuardianRole(
+        "PMO Operations Guardian",
+        "agency-services",
+        "Audit project plans, meeting cadences, and status-report pipelines with plan-drift evidence.",
+    ),
+)
+
+
+def agency_services_team() -> tuple[GuardianRole, ...]:
+    """Return the 12-role Agency Services Wing acquired in v0.9.0."""
+    return AGENCY_SERVICES_GUARDIANS
