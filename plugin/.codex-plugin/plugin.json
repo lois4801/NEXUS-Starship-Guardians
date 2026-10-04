@@ -1,34 +1,36 @@
 {
-  "schema_version": "v1",
-  "name": "nexus-starship-guardians",
-  "version": "0.9.0",
-  "description": "Nexus Starship Guardians — reusable Guardian engineering runtime (Codex plugin surface).",
-  "author": {
-    "name": "lois4801"
-  },
-  "repository": "https://github.com/lois4801/NEXUS-Starship-Guardians",
-  "license": "MIT",
-  "keywords": [
-    "guardians",
-    "agents",
-    "swarm",
-    "adaptive-intelligence",
-    "cognitive-evolution",
-    "company-runtime",
-    "opencode"
-  ],
   "interface": {
     "displayName": "Nexus Starship Guardians",
-    "shortDescription": "Guardian engineering runtime with adaptive specialist intelligence.",
-    "longDescription": "Coordinates bounded Guardian teams with Intelligence Fabric planning, adaptive specialist intelligence, Guardian Cognitive Evolution, permission-safe routing, verified execution, benchmark replay, governed learning, evaluation, regression protection, and distributed work — including the Guardian Company Runtime and the OpenCode CLI provider.",
-    "category": "DEVELOPER",
-    "iconUrl": "https://raw.githubusercontent.com/lois4801/NEXUS-Starship-Guardians/feature/opencode-provider/docs/assets/nexus-starship-guardians-hero.svg"
+    "shortDescription": "Operate self-improving verified Guardian workflows",
+    "longDescription": "v0.8 Guardian Cognitive Evolution makes the ten specialist Guardians compound intelligence from verified work. They retain personal skill evidence, calibrate confidence, learn recurring failure signatures, generate counterfactual replay strategies and self-curricula, and consume verified peer lessons without inheriting peer performance scores. Routing evidence remains bounded and cannot grant permissions, mutate hosted model weights live, or silently approve benchmark truth.",
+    "developerName": "Nexus Starship Guardians",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Learn automatically from verified specialist outcomes",
+      "Transfer verified lessons between specialist Guardians without copying scores",
+      "Calibrate confidence against observed success and failure",
+      "Cluster recurring failures and generate counterfactual replay strategies",
+      "Generate personalized self-training curricula from weaknesses and evidence",
+      "Route missions using bounded adaptive and cognitive evidence without changing permissions",
+      "Replay Benchmark Vault candidates and measure benchmark coverage intelligence"
+    ],
+    "defaultPrompt": [
+      "Show the cognitive and adaptive intelligence summary for my specialist Guardians.",
+      "What has this Guardian learned, and what should it practice next?",
+      "Show transferable lessons relevant to this mission without copying another Guardian's score.",
+      "Generate counterfactual strategies for this verified failure.",
+      "Route this mission using verified cognitive evidence without changing tool permissions."
+    ],
+    "brandColor": "#0B1730",
+    "brandColorDark": "#8B5CF6",
+    "logo": "./assets/logo-light.svg",
+    "composerIcon": "./assets/icon.svg"
   },
-  "runtime": {
-    "namespace": "nexus_os",
-    "cli": "nexus-guardians",
-    "cliAlias": "nexus-portable",
-    "wireFields": ["agent", "agents"],
-    "envPrefix": "NEXUS_"
-  }
+  "name": "nexus-starship-guardians",
+  "version": "0.9.0",
+  "description": "Project-scoped Guardian operations with Cognitive Evolution, verified meta-learning, cross-Guardian knowledge transfer, confidence calibration, counterfactual replay, self-curricula, Adaptive Guardian Intelligence, Benchmark Replay, and Coverage Intelligence.",
+  "author": {"name": "Nexus Starship Guardians"},
+  "keywords": ["guardians", "orchestration", "cognitive-evolution", "adaptive-intelligence", "meta-learning", "counterfactual-replay", "benchmark-replay", "coverage-intelligence", "verification"],
+  "repository": "https://github.com/lois4801/NEXUS-Starship-Guardians",
+  "skills": "./skills"
 }
