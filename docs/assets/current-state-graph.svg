@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1500" height="2300" viewBox="0 0 1500 2300" role="img" aria-labelledby="title desc">
-  <title id="title">Nexus Starship Guardians v0.8.0 current state graph</title>
+  <title id="title">Nexus Starship Guardians v0.9.0 current state graph</title>
   <desc id="desc">Animated architecture showing Adaptive Guardian Intelligence, Guardian Cognitive Evolution, verified learning, counterfactual replay, Benchmark Replay, Coverage Intelligence, routing, verification, and releases.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#020617"/><stop offset=".5" stop-color="#07152e"/><stop offset="1" stop-color="#1a0b2e"/></linearGradient>
-    <linearGradient id="flow" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#22d3ee"/><stop offset=".35" stop-color="#8b5cf6"/><stop offset=".7" stop-color="#f59e0b"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#08AEEA"/><stop offset=".35" stop-color="#A855F7"/><stop offset=".7" stop-color="#F857A6"/><stop offset="1" stop-color="#FF9A44"/></linearGradient>
     <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <style>.title{font:800 42px Arial,sans-serif;fill:#ecfeff}.sub{font:19px Arial,sans-serif;fill:#94a3b8}.label{font:700 20px Arial,sans-serif;fill:#e2e8f0}.small{font:15px Arial,sans-serif;fill:#cbd5e1}.tiny{font:14px Arial,sans-serif;fill:#94a3b8}.box{fill:#071426;stroke-width:2}.cyan{stroke:#22d3ee}.blue{stroke:#60a5fa}.violet{stroke:#8b5cf6}.pink{stroke:#d946ef}.amber{stroke:#f59e0b}.green{stroke:#34d399}</style>
+    <style>.title{font:800 42px 'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#ecfeff}.sub{font:19px 'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#94a3b8}.label{font:700 20px 'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#e2e8f0}.small{font:15px 'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#cbd5e1}.tiny{font:14px 'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#94a3b8}.box{fill:#071426;stroke-width:2}.cyan{stroke:#08AEEA}.blue{stroke:#60a5fa}.violet{stroke:#A855F7}.pink{stroke:#F857A6}.amber{stroke:#F2994A}.green{stroke:#2AF598}</style>
   </defs>
   <rect width="1500" height="2300" rx="34" fill="url(#bg)"/>
-  <text x="70" y="76" class="title">NEXUS STARSHIP GUARDIANS v0.8.0 — CURRENT STATE</text>
+  <text x="70" y="76" class="title">NEXUS STARSHIP GUARDIANS v0.9.0 — CURRENT STATE</text>
   <text x="72" y="112" class="sub">Reason → specialize → execute → verify → learn → reflect → replay → adapt → promote → release</text>
   <path d="M750 155 V2100" stroke="url(#flow)" stroke-width="8" stroke-dasharray="20 18" opacity=".48" filter="url(#glow)"><animate attributeName="stroke-dashoffset" values="0;-76" dur="2.4s" repeatCount="indefinite"/></path>
 
@@ -19,13 +19,13 @@
   </g>
 
   <g text-anchor="middle">
-    <g transform="translate(70 545)"><rect class="box blue" width="250" height="96" rx="20"/><text x="125" y="38" class="label">10 Specialists</text><text x="125" y="67" class="small">live evolving profiles</text></g>
+    <g transform="translate(70 545)"><rect class="box blue" width="250" height="96" rx="20"/><text x="125" y="38" class="label">32 Specialists</text><text x="125" y="67" class="small">live evolving profiles</text></g>
     <g transform="translate(350 545)"><rect class="box cyan" width="250" height="96" rx="20"/><text x="125" y="38" class="label">Peer Lessons</text><text x="125" y="67" class="small">knowledge, not scores</text></g>
     <g transform="translate(625 545)"><rect class="box amber" width="250" height="96" rx="20"/><text x="125" y="38" class="label">Calibration</text><text x="125" y="67" class="small">confidence vs outcome</text></g>
     <g transform="translate(900 545)"><rect class="box pink" width="250" height="96" rx="20"/><text x="125" y="38" class="label">Counterfactuals</text><text x="125" y="67" class="small">alternate strategies</text></g>
     <g transform="translate(1175 545)"><rect class="box green" width="250" height="96" rx="20"/><text x="125" y="38" class="label">Curriculum</text><text x="125" y="67" class="small">practice weakest skills</text></g>
   </g>
-  <path d="M750 498 L195 545 M750 498 L475 545 M750 498 L750 545 M750 498 L1025 545 M750 498 L1300 545" fill="none" stroke="#d946ef" stroke-width="3" stroke-dasharray="10 8" opacity=".7"><animate attributeName="stroke-dashoffset" values="0;-40" dur="2s" repeatCount="indefinite"/></path>
+  <path d="M750 498 L195 545 M750 498 L475 545 M750 498 L750 545 M750 498 L1025 545 M750 498 L1300 545" fill="none" stroke="#F857A6" stroke-width="3" stroke-dasharray="10 8" opacity=".7"><animate attributeName="stroke-dashoffset" values="0;-40" dur="2s" repeatCount="indefinite"/></path>
 
   <g text-anchor="middle">
     <g transform="translate(510 710)"><rect class="box cyan" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Mission Intelligence</text></g>
@@ -37,8 +37,8 @@
     <g transform="translate(510 1322)"><rect class="box pink" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Automatic Verified Learning</text></g>
   </g>
 
-  <path d="M510 1361 C330 1361 310 460 500 444" fill="none" stroke="#d946ef" stroke-width="4" stroke-dasharray="11 9" opacity=".7"><animate attributeName="stroke-dashoffset" values="0;-42" dur="2.1s" repeatCount="indefinite"/></path>
-  <path d="M990 1361 C1170 1361 1185 315 1000 306" fill="none" stroke="#8b5cf6" stroke-width="4" stroke-dasharray="11 9" opacity=".65"><animate attributeName="stroke-dashoffset" values="0;-42" dur="2.4s" repeatCount="indefinite"/></path>
+  <path d="M510 1361 C330 1361 310 460 500 444" fill="none" stroke="#F857A6" stroke-width="4" stroke-dasharray="11 9" opacity=".7"><animate attributeName="stroke-dashoffset" values="0;-42" dur="2.1s" repeatCount="indefinite"/></path>
+  <path d="M990 1361 C1170 1361 1185 315 1000 306" fill="none" stroke="#A855F7" stroke-width="4" stroke-dasharray="11 9" opacity=".65"><animate attributeName="stroke-dashoffset" values="0;-42" dur="2.4s" repeatCount="indefinite"/></path>
 
   <g text-anchor="middle">
     <g transform="translate(510 1485)"><rect class="box amber" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Regression Corpus</text></g>
@@ -49,11 +49,11 @@
     <g transform="translate(510 1995)"><rect class="box green" width="480" height="78" rx="20"/><text x="240" y="49" class="label">Release</text></g>
   </g>
 
-  <g transform="translate(65 1645)"><rect width="355" height="220" rx="22" fill="#081d25" stroke="#22d3ee" stroke-width="2"/><text x="24" y="40" class="label">Coverage Intelligence</text><text x="24" y="77" class="small">coding • security • database • UI</text><text x="24" y="106" class="small">deployment • tool-use • API • cloud</text><text x="24" y="135" class="small">architecture • debugging • reliability</text><text x="24" y="174" class="tiny">gaps feed training priorities</text></g>
-  <g transform="translate(1080 1370)"><rect width="355" height="250" rx="22" fill="#160d24" stroke="#d946ef" stroke-width="2"/><text x="24" y="40" class="label">Cognitive Failure Intelligence</text><text x="24" y="78" class="small">cluster recurring signatures</text><text x="24" y="108" class="small">generate alternate strategies</text><text x="24" y="138" class="small">calibrate overconfidence</text><text x="24" y="168" class="small">share verified lessons</text><text x="24" y="207" class="tiny">never copies peer scores or permissions</text></g>
+  <g transform="translate(65 1645)"><rect width="355" height="220" rx="22" fill="#081d25" stroke="#08AEEA" stroke-width="2"/><text x="24" y="40" class="label">Coverage Intelligence</text><text x="24" y="77" class="small">coding • security • database • UI</text><text x="24" y="106" class="small">deployment • tool-use • API • cloud</text><text x="24" y="135" class="small">architecture • debugging • reliability</text><text x="24" y="174" class="tiny">gaps feed training priorities</text></g>
+  <g transform="translate(1080 1370)"><rect width="355" height="250" rx="22" fill="#160d24" stroke="#F857A6" stroke-width="2"/><text x="24" y="40" class="label">Cognitive Failure Intelligence</text><text x="24" y="78" class="small">cluster recurring signatures</text><text x="24" y="108" class="small">generate alternate strategies</text><text x="24" y="138" class="small">calibrate overconfidence</text><text x="24" y="168" class="small">share verified lessons</text><text x="24" y="207" class="tiny">never copies peer scores or permissions</text></g>
 
-  <g transform="translate(70 2095)"><rect width="350" height="140" rx="22" fill="#09251e" stroke="#34d399" stroke-width="2"/><text x="28" y="45" class="label">GitHub Release</text><text x="28" y="82" class="small">v0.8.0 • wheel • sdist • source</text></g>
-  <g transform="translate(1080 2095)"><rect width="350" height="140" rx="22" fill="#09251e" stroke="#34d399" stroke-width="2"/><text x="28" y="45" class="label">GHCR Package</text><text x="28" y="82" class="small">0.8.0 • 0.8 • latest</text></g>
+  <g transform="translate(70 2095)"><rect width="350" height="140" rx="22" fill="#09251e" stroke="#2AF598" stroke-width="2"/><text x="28" y="45" class="label">GitHub Release</text><text x="28" y="82" class="small">v0.9.0 • wheel • sdist • source</text></g>
+  <g transform="translate(1080 2095)"><rect width="350" height="140" rx="22" fill="#09251e" stroke="#2AF598" stroke-width="2"/><text x="28" y="45" class="label">GHCR Package</text><text x="28" y="82" class="small">0.9.0 • 0.9 • latest</text></g>
 
   <text x="70" y="2260" class="tiny">Learning may adapt verified evidence, lessons, calibration, curricula, replay strategies, and bounded routing — never permissions, peer scores, live model weights, or benchmark truth.</text>
 </svg>
