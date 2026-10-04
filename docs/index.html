@@ -719,8 +719,7 @@ if(!isTouch){
   const dot=document.getElementById('cDot'),ring=document.getElementById('cRing'),label=document.getElementById('cLabel');
   let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
   addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;});
-  gsap.ticker.add(()=>{rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;});
-  document.addEventListener('mouseover',e=>{
+  gsap.ticker.add(()=>{rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;});  document.addEventListener('mouseover',e=>{
     const t=e.target.closest('[data-cursor],a,button,.sys-row,.ag-item');
     if(t){ring.classList.add('big');label.textContent=t.dataset&&t.dataset.cursor?t.dataset.cursor:'↗';}
     else ring.classList.remove('big');
@@ -734,7 +733,7 @@ if(!isTouch){document.querySelectorAll('.magnetic').forEach(b=>{
 });}
 
 /* ---- split utils ---- */
-function splitChars(el){const t=el.textContent;el.textContent='';return [...t].map(c=>{const s=document.createElement('span');s.style.display='inline-block';s.style.transform='translateY(115%)';s.textContent=c===' '?'':c;el.appendChild(s);return s;});}
+function splitChars(el){const t=el.textContent;el.textContent='';return [...t].map(c=>{const s=document.createElement('span');s.style.display='inline-block';s.style.transform='translateY(115%)';s.textContent=c===' '?String.fromCharCode(160):c;el.appendChild(s);return s;});}
 function splitWords(el){const walk=node=>{[...node.childNodes].forEach(ch=>{if(ch.nodeType===3){const frag=document.createDocumentFragment();ch.textContent.split(/(\s+)/).forEach(part=>{if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(' '));}else if(part){const s=document.createElement('span');s.className='w';s.textContent=part;frag.appendChild(s);}});node.replaceChild(frag,ch);}else if(ch.nodeType===1&&!ch.classList.contains('w')){walk(ch);}});};walk(el);return el.querySelectorAll('.w');}
 
 /* ---- hero intro ---- */
