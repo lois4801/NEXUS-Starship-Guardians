@@ -40,6 +40,52 @@ This focused animated flow shows the path from mission text through classificati
 
 ![Production verification pipeline](assets/production-verification-pipeline.svg)
 
+## Premium visuals (v0.9.0)
+
+A new flagship set of motion graphics and generated key art joined the gallery in v0.9.0. All of them animate directly on GitHub (SMIL + embedded CSS) and share one Apple-style design language: deep navy space backgrounds, glass panels, and the signature capsule gradients (emerald→cyan, blue→magenta→orange, lime, amber, indigo→teal) used across the roster and website.
+
+### Hero key art
+
+![Nexus Starship Guardians premium hero](assets/hero-premium.jpg)
+
+Generated key art: a flight row of glowing gradient capsules on deep navy with floor reflections — the visual signature of the 32-role specialist roster.
+
+### Specialist roster
+
+![Specialist roster constellation](assets/specialist-roster.svg)
+
+All **32 specialist Guardians** — the 10 elite specialists (v0.7.0), the 10-role Autonomous Operations Wing (v0.9.0), and the 12-role Agency Services Wing (v0.9.0) — orbiting the Adaptive Guardian Intelligence core. Connectors show how every wing reports verified evidence back to the core.
+
+### Guardian Company Runtime pipeline
+
+![Guardian Company Runtime pipeline](assets/company-pipeline.svg)
+
+The company motion graph: **MISSION → BRAINSTORM (50) → EXECUTE (≤200) → TEST & QC (≤200) → REVISE (200) → SHIP**, with the orange **fast error path** that routes a failed execution Guardian to testers immediately, and the company leveling band (start at level 500, +1 on success *and* failure, shared XP to the whole company on every level-up).
+
+### Company constellation key art
+
+![Guardian company constellation](assets/company-constellation.jpg)
+
+Generated key art: four wing constellations — brainstorm, execution, test & QC, revision — exchanging streams of light, one company running many missions at once.
+
+### How automatic learning works
+
+![Verified learning loop](assets/learning-loop.svg)
+
+The six-stage verified learning loop (MISSION → EXECUTE → VERIFY → ADAPT → EVOLVE → ROUTE) around the **VERIFIED LEARNING** core. Nothing reinforces expertise without objective `test`, `api`, `browser`, or `security` evidence — the evidence panel is the contract.
+
+### Agency Services Wing
+
+![Agency Services Wing](assets/agency-services-wing.svg)
+
+The twelve Agency Services Guardians rendered as the signature gradient capsules, in provenance order: GIS & Spatial Analyst, Sales Pipeline Strategist, Game Design, XR & Spatial Computing, Paid Media Strategist, Financial Analysis, Healthcare Evidence, Blockchain Engineer, Embedded & IoT, Knowledge & Search, Legal & Compliance, PMO Operations.
+
+### Guardians nebula key art
+
+![Guardians nebula](assets/guardians-nebula.jpg)
+
+Generated key art: the radiant intelligence core with 32 orbiting gradient orbs — one orb per specialist Guardian on its verified-evidence orbit.
+
 ## Core architecture
 
 The source-of-truth system flow is maintained in [`CURRENT_STATE.md`](CURRENT_STATE.md), [`ADAPTIVE_GUARDIAN_INTELLIGENCE.md`](ADAPTIVE_GUARDIAN_INTELLIGENCE.md), [`INTELLIGENCE_FABRIC.md`](INTELLIGENCE_FABRIC.md), [`GUARDIAN_BENCHMARK_VAULT.md`](GUARDIAN_BENCHMARK_VAULT.md), and [`ARCHITECTURE_VISUALS.md`](ARCHITECTURE_VISUALS.md). Mermaid diagrams stay editable while the animated SVGs provide an engaging GitHub-facing view.
@@ -52,13 +98,14 @@ Feature delivery, verification, repair, specialist learning, benchmark replay, c
 
 Nexus Starship Guardians visuals intentionally use a consistent command-center language:
 
-- deep navy/space backgrounds;
+- deep navy/space backgrounds (`#0A1128` → `#120A2E`);
+- gradient capsules in emerald→cyan (`#2AF598`→`#08AEEA`), blue→magenta→orange (`#4B6CB7`→`#F857A6`→`#FF9A44`), lime (`#A8FF78`→`#78FFD6`), amber (`#F2994A`→`#F7B733`), and indigo→teal (`#1A2980`→`#26D0CE`);
 - cyan for routing and verified execution;
-- violet for reasoning, specialist intelligence, benchmark governance, and evaluation;
+- violet/magenta for reasoning, specialist intelligence, benchmark governance, and evaluation;
 - amber for planning, caution and recovery;
-- green for successful promotion/release;
+- green/emerald for successful promotion/release;
 - red/pink for verified failure or rejected paths;
-- animated signal paths for system flow;
-- compact engineering labels rather than decorative-only diagrams.
+- animated signal paths (dash drift, particles, pulsing cores) for system flow;
+- SF Pro-style type stack with compact engineering labels rather than decorative-only diagrams.
 
 Visuals are documentation. When behavior changes, the corresponding graph should change in the same pull request.
