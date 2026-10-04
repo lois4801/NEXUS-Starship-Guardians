@@ -111,6 +111,7 @@ See [`docs/GUARDIAN_BENCHMARK_VAULT.md`](docs/GUARDIAN_BENCHMARK_VAULT.md) and [
 - Durable SQLite execution plus PostgreSQL distributed lease-queue foundations.
 - OpenTelemetry HTTP instrumentation foundation.
 - Adaptive swarm coordination for **1–200 logical Guardians** with bounded physical concurrency.
+- **OpenCode CLI provider** for free/local desktop execution — run Guardian swarms through the open-source [OpenCode](https://opencode.ai) agent with any of its 75+ model providers, including free tiers, via `nexus-guardians swarm --provider opencode`. See [`docs/OPENCODE_PROVIDER.md`](docs/OPENCODE_PROVIDER.md).
 - ChatGPT/Codex plugin v0.8.0 aligned with runtime terminology and governance.
 
 ## Architecture
