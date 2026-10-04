@@ -28,7 +28,9 @@ Peer learning transfers **knowledge, not status**. A Guardian may learn a verifi
 
 See [`docs/GUARDIAN_COGNITIVE_EVOLUTION.md`](docs/GUARDIAN_COGNITIVE_EVOLUTION.md).
 
-## Ten evolving specialist Guardians
+## Twenty evolving specialist Guardians
+
+Original specialist wing (v0.7.0):
 
 - **AI Architect Guardian** — architecture, systems design, AI architecture, tradeoffs, integration design.
 - **Software Platform Engineer Guardian** — platform engineering, distributed systems, reliability, deployment, observability.
@@ -41,7 +43,24 @@ See [`docs/GUARDIAN_COGNITIVE_EVOLUTION.md`](docs/GUARDIAN_COGNITIVE_EVOLUTION.m
 - **API Specialist Guardian** — API contracts, authentication, integration, retries, testing.
 - **AI Programmer Guardian** — programming, automation, algorithms, tool use, testing.
 
-The canonical 30-Guardian Artificial Architecture team remains available; the ten-role specialist wing is an additional adaptive layer.
+The canonical 30-Guardian Artificial Architecture team remains available; the specialist wings are additional adaptive layers.
+
+## Autonomous Operations Wing (v0.9.0)
+
+Ten more specialist Guardians, acquired from the fleet owner's other repositories and deployable autonomously through the same adaptive-intelligence, mission-routing, and OpenCode subagent surfaces:
+
+- **Planner Strategist Guardian** — goal decomposition, task routing, decision rules, prioritization, success criteria, trade-offs. *(LucioDigital-Platform Dev Agent planner + Lucio strategy squad)*
+- **Verification & QA Specialist Guardian** — independent verification, quality audits, browser QA, verbatim evidence capture, bounded self-heal repair. *(LucioDigital QA / Browser QA / self-heal phases)*
+- **Independent Reviewer Guardian** — change-set review against goal + verification evidence, evidence-gated approval, scope control; holds gates, never implementation authority. *(LucioDigital Reviewer role, upgraded from the coder wing's generic code-review)*
+- **Deployment & Release Guardian** — preview environments, staged promotion, release gates, rollback plans. *(LucioDigital deployment control phases)*
+- **Evidence & Research Guardian** — provenance-carrying research, evidence scoring, source verification, fact-checking before building. *(Lucio-AI-Platform research/evidence squad + evidence-first verification)*
+- **Content & SEO Strategist Guardian** — structured content, keyword intent, conversion copy from verified facts only. *(Lucio content/SEO squad)*
+- **Design Experience Guardian** — design systems, style universes, motion design, accessibility, design QA. *(Lucio design/style/motion/cinematic squad)*
+- **Budget & Cost Controller Guardian** — resource budgets, model routing, cost per verified mission, failure-taxonomy accounting. *(Lucio budget squad + bounded agent-run budgets)*
+- **Data & SQL Analyst Guardian** — SQL and ETL analysis, data-quality checks, dashboard verification, BI reporting. *(Multi-Agent AI System SQL tool agents + the fleet owner's SQL/BI work-case repos)*
+- **Evaluation Judge Guardian** — LLM-as-judge correctness grading, trajectory evaluation, benchmark evaluation. *(Multi-Agent AI System evaluation patterns)*
+
+The Anonato-Code repository was surveyed and deliberately excluded as an acquisition source: it archives leaked proprietary source code, so no code, text, or agent definitions were taken from it.
 
 ## How automatic learning works
 
@@ -103,7 +122,7 @@ See [`docs/GUARDIAN_BENCHMARK_VAULT.md`](docs/GUARDIAN_BENCHMARK_VAULT.md) and [
 - **Nexus Intelligence Fabric** for mission classification, strategy, uncertainty, assumptions, model evidence, and adversarial evaluation.
 - **Adaptive Guardian Intelligence** for verified per-skill quality, reliability, benchmark evidence, trend, regression pressure, and training priorities.
 - **Guardian Cognitive Evolution** for verified lessons, peer knowledge transfer, confidence calibration, failure intelligence, counterfactual replay, and self-curricula.
-- **10-role elite specialist wing** registered in the live default mission registry plus the canonical 30-Guardian Artificial Architecture team.
+- **20-role specialist wing** — the 10 elite specialists (v0.7.0) plus the 10-role Autonomous Operations Wing (v0.9.0) — registered in the live default mission registry, alongside the canonical 30-Guardian Artificial Architecture team.
 - **Adaptive Team Router** combining registry utility, bounded direct skill evidence, and a smaller bounded cognitive signal.
 - **Controlled Tool Gateway** keeping authorization separate from intelligence and performance.
 - **Guardian Intelligence Lab**, Multi-Judge Evaluation, Promotion Gate, Regression Corpus, Guardian Benchmark Vault, Benchmark Replay, and Coverage Intelligence.
@@ -125,7 +144,7 @@ flowchart TD
     R --> G[Guardian Registry]
 
     B --> AGI[Adaptive Guardian Intelligence]
-    AGI --> S[10 Specialist Guardians]
+    AGI --> S[20 Specialist Guardians]
     AGI --> SK[Verified Skill Evidence]
     AGI --> TP[Training Priorities]
 
